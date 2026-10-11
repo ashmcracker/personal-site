@@ -80,17 +80,23 @@ button:active{transform:translateY(1px)}
 .pt{color:var(--tx);font-weight:600}
 .pd{display:block;color:var(--tx3);font-size:11.8px;line-height:1.55;margin-top:2px}
 
-.sub{margin:14px 0 8px;font-size:12px;color:var(--tx3);letter-spacing:1px;text-transform:uppercase}
+.sub{margin:18px 0 10px;font-size:12px;color:var(--tx3);letter-spacing:1px;text-transform:uppercase}
 ul.lessons{list-style:none;margin:0;padding:0}
-ul.lessons li{display:flex;align-items:flex-start;gap:9px;padding:7px 9px;border-radius:6px;
-  border-left:2px solid transparent;transition:background .16s,border-color .16s}
+ul.lessons li{display:flex;align-items:flex-start;gap:11px;padding:10px 12px;border-radius:7px;
+  margin-bottom:3px;border-left:2px solid transparent;
+  transition:background .16s,border-color .16s}
 ul.lessons li:hover{background:var(--card);border-left-color:var(--ac)}
-.li{font-size:13px}
-.lnote{font-size:11.8px;color:var(--tx2);margin-top:2px;line-height:1.6}
+.dot{flex:0 0 auto;width:6px;height:6px;border-radius:50%;background:var(--tx3);
+  margin-top:7px;transition:background .2s,transform .2s,box-shadow .2s}
+li:hover .dot{background:var(--ac);transform:scale(1.35)}
+li.ex .dot{background:var(--pp);box-shadow:0 0 0 3px rgba(188,140,255,.13)}
+.li{font-size:13px;line-height:1.6}
+.lnote{font-size:12px;color:var(--tx2);margin-top:5px;line-height:1.78}
 li.ex .li::before{content:'练习';font-size:9.5px;color:var(--pp);border:1px solid #4c2d6b;
   border-radius:4px;padding:0 4px;margin-right:7px;vertical-align:1px}
 .lid{color:var(--tx3);font-size:11.5px;font-variant-numeric:tabular-nums;min-width:30px;
-  padding-top:1px}
+  padding-top:2px;transition:color .2s}
+li:hover .lid{color:var(--ac)}
 
 /* scroll reveal */
 .reveal{opacity:0;transform:translateY(16px);
@@ -192,6 +198,7 @@ function build(){
           <div class="sub">课时列表</div>
           <ul class="lessons">
             ${c.lessons.map(l=>`<li class="${l.ex?'ex':''}">
+              <span class="dot"></span>
               <span class="lid">${l.i}</span>
               <span style="flex:1"><span class="li">${esc(l.t)}</span>${l.n?`<div class="lnote">${esc(l.n)}</div>`:''}</span>
             </li>`).join('')}

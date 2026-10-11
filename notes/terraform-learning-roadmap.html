@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Terraform 课程知识地图 · 学习进度</title>
+<style>
+:root{
+  --bg:#0d1117; --bg2:#161b22; --card:#1c2129; --line:#30363d;
+  --tx:#e6edf3; --tx2:#9aa7b4; --tx3:#6e7b8a;
+  --ac:#58a6ff; --gr:#3fb950; --or:#d29922; --pp:#bc8cff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);
+  font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif;font-size:14px;line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 80px}
+
+header h1{font-size:24px;margin:0 0 6px;letter-spacing:.5px}
+header p{color:var(--tx2);margin:0 0 20px;font-size:13px}
+
+.bar{position:sticky;top:0;z-index:20;background:rgba(13,17,23,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:14px 0 12px;margin-bottom:22px}
+.bar-top{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:9px}
+.pct{font-size:26px;font-weight:700;color:var(--gr);letter-spacing:.5px}
+.pct small{font-size:13px;color:var(--tx2);font-weight:400;margin-left:6px}
+.meta{color:var(--tx2);font-size:12px}
+.tools{margin-left:auto;display:flex;gap:8px}
+button{background:var(--card);color:var(--tx2);border:1px solid var(--line);
+  border-radius:6px;padding:5px 11px;cursor:pointer;font-size:12px;font-family:inherit}
+button:hover{color:var(--tx);border-color:var(--ac)}
+.track{height:9px;background:var(--bg2);border-radius:99px;overflow:hidden;display:flex}
+.fill{background:linear-gradient(90deg,#2ea043,#3fb950);width:0;transition:width .35s ease}
+.fill.blue{background:linear-gradient(90deg,#1f6feb,#58a6ff)}
+.exbar{height:5px;background:var(--bg2);border-radius:99px;overflow:hidden;margin-top:6px}
+.exbar div{background:linear-gradient(90deg,#8957e5,#bc8cff);height:100%;width:0;transition:width .35s}
+
+/* stage */
+.stage{margin:30px 0 8px;display:flex;align-items:center;gap:12px}
+.stage h2{font-size:15px;margin:0;color:var(--or);letter-spacing:1px;white-space:nowrap}
+.stage .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+
+.node{position:relative;margin:16px 0 16px 26px;padding-left:26px;border-left:2px solid var(--line)}
+.node::before{content:'';position:absolute;left:-8px;top:22px;width:14px;height:14px;
+  border-radius:50%;background:var(--bg);border:2px solid var(--tx3)}
+.node.done::before{background:var(--gr);border-color:var(--gr)}
+.node.part::before{background:var(--or);border-color:var(--or)}
+
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.chead{display:flex;align-items:center;gap:12px;padding:13px 15px;cursor:pointer;user-select:none}
+.chead:hover{background:#1b212b}
+.num{font-weight:700;color:var(--ac);font-size:13px;min-width:34px;font-variant-numeric:tabular-nums}
+.ctitle{flex:1}
+.cname{font-weight:600;font-size:14.5px}
+.cname span{color:var(--tx3);font-weight:400;font-size:12.5px;margin-left:8px}
+.goal{color:var(--tx2);font-size:12px;margin-top:2px}
+.badge{font-size:11px;color:var(--tx2);background:var(--card);border:1px solid var(--line);
+  border-radius:99px;padding:2px 9px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.badge.ok{color:var(--gr);border-color:#1d572a}
+.badge.half{color:var(--or);border-color:#5c4813}
+.cbody{display:none;padding:0 15px 15px;border-top:1px solid var(--line)}
+.node.open .cbody{display:block}
+.arrow{color:var(--tx3);transition:transform .2s;font-size:11px}
+.node.open .arrow{transform:rotate(90deg)}
+
+.points{margin:12px 0 14px;padding:12px 14px;background:var(--card);border-radius:8px;
+  border-left:3px solid var(--ac)}
+.points ul{margin:0;padding-left:18px;columns:2;column-gap:26px}
+.points li{font-size:12.8px;color:var(--tx2);margin-bottom:5px;break-inside:avoid}
+.points li::marker{color:var(--ac)}
+
+.sub{margin:14px 0 6px;font-size:12px;color:var(--tx3);letter-spacing:1px;text-transform:uppercase}
+ul.lessons{list-style:none;margin:0;padding:0}
+ul.lessons li{display:flex;align-items:flex-start;gap:9px;padding:6px 8px;border-radius:6px;cursor:pointer}
+ul.lessons li:hover{background:var(--card)}
+ul.lessons li.on{color:var(--tx3);text-decoration:line-through}
+.cb{width:15px;height:15px;border:1.5px solid var(--tx3);border-radius:4px;flex:0 0 auto;margin-top:4px;
+  display:flex;align-items:center;justify-content:center;font-size:10px;color:#0d1117}
+li.on .cb{background:var(--gr);border-color:var(--gr)}
+li.on .cb::after{content:'✓';font-weight:700}
+.li{font-size:13px}
+.lnote{font-size:11.8px;color:var(--tx2);margin-top:1px}
+li.ex .li::before{content:'练习';font-size:9.5px;color:var(--pp);border:1px solid #4c2d6b;
+  border-radius:4px;padding:0 4px;margin-right:7px;vertical-align:1px}
+.lid{color:var(--tx3);font-size:11.5px;font-variant-numeric:tabular-nums;min-width:30px}
+.lids{display:flex;flex-wrap:wrap;gap:3px;margin-top:9px}
+.lids b{font-weight:400;font-size:10px;font-family:Consolas,monospace;color:var(--tx3);
+  background:var(--card);border:1px solid var(--line);border-radius:3px;padding:1px 3px;cursor:pointer}
+.lids b:hover{color:var(--ac);border-color:var(--ac)}
+.lids b.on{background:#1d572a;color:#7ee787;border-color:#1d572a}
+.todo{margin-top:12px;font-size:11.5px;color:var(--tx3);display:flex;align-items:center;gap:8px}
+.hint{font-size:12px;color:var(--tx3);margin:6px 0 16px}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--tx3);font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Terraform 完整课程 · 知识地图与学习进度</h1>
+  <p>按「先地基 → 再语言 → 再规模化 → 最后团队协作」的顺序纵向串联 20 个章节、229 个知识点。勾选即可记录进度（存在本地浏览器）。</p>
+</header>
+
+<div class="bar">
+  <div class="bar-top">
+    <span class="pct" id="pct">0%<small id="cnt">0 / 229</small></span>
+    <span class="meta" id="stg"></span>
+    <span class="tools">
+      <button onclick="expandAll(1)">展开全部</button>
+      <button onclick="expandAll(0)">收起全部</button>
+      <button onclick="resetAll()">重置进度</button>
+    </span>
+  </div>
+  <div class="track"><div class="fill" id="fill"></div></div>
+  <div class="exbar" title="练习完成率"><div id="exfill"></div></div>
+</div>
+
+<div id="tree"></div>
+<p class="hint">💡 学习节奏建议：按阶段顺序推进，每章的「任务预览」先看一遍再动手写代码；练习全部自己敲一遍，比看十遍讲解更有效。</p>
+<footer>Terraform - The Complete Guide from Beginner to Expert · 共 229 节 · 进度保存在本机 localStorage</footer>
+</div>
+
+<script>
+const DATA = [{"n": 1, "dir": "1 - Introduction", "stage": "阶段 0 · 起步", "zh": "课程介绍与导航", "points": ["课程整体地图与三段式结构", "练习代码与课件资源位置"], "goal": "知道这门课怎么走，配合课件 PDF 使用", "lessons": [{"i": 1, "t": "Course Introduction", "ex": false, "n": "课程范围与前置要求，三段式结构：基础→进阶→云协作"}, {"i": 2, "t": "How to Navigate the Course", "ex": false, "n": "配套课件 mastering-terraform-slides.pdf 与练习代码的使用方式"}]}, {"n": 2, "dir": "2 - Tools and Setup", "stage": "阶段 0 · 起步", "zh": "工具与环境搭建", "points": ["AWS 账号/根用户+MFA/管理员用户", "Terraform CLI 安装", "AWS CLI 安装与认证", "VS Code 扩展（HCL、Terraform 语法高亮）"], "goal": "本机具备可复现的实验环境", "lessons": [{"i": 4, "t": "AWS Account Setup - Creating the Account", "ex": false, "n": "注册 AWS 账号（需信用卡，全程用免费额度）"}, {"i": 5, "t": "AWS Account Setup - Adding MFA to the Root User", "ex": false, "n": "给 Root 用户加 MFA——Root 日常不要用"}, {"i": 6, "t": "AWS Account Setup - Creating a New Admin User", "ex": false, "n": "创建 IAM 管理员用户，后续实验全用它"}, {"i": 7, "t": "Windows only users - Installing Windows Subsystem for Linux", "ex": false, "n": "Windows 安装 WSL2（Terraform 生态以 Linux 为主）"}, {"i": 8, "t": "Windows only users - Windows Subsystem for Linux Features", "ex": false, "n": "WSL 实用功能：文件系统互通、与 Windows 协同"}, {"i": 9, "t": "Terraform Setup - Installing Terraform", "ex": false, "n": "安装 Terraform CLI 并验证 terraform version"}, {"i": 10, "t": "Terraform Setup - Installing the AWS CLI", "ex": false, "n": "安装 AWS CLI v2"}, {"i": 12, "t": "Terraform Setup - Authenticating into AWS", "ex": false, "n": "配置 AWS 凭证（aws configure / access key），让 CLI 能调 API"}, {"i": 13, "t": "IDE Setup - VS Code Useful Extensions", "ex": false, "n": "VS Code 必装扩展：HashiCorp Terraform / HCL 语法高亮"}]}, {"n": 3, "dir": "3 - Introduction to Infrastructure as Code (IaC) and Terraform", "stage": "阶段 1 · 地基", "zh": "IaC 与 Terraform 导论", "points": ["IaC 是什么、解决什么痛点", "手工建资源 vs 代码建资源", "为什么选 Terraform（生态/多云/幂等）", "Terraform 架构：CLI + Provider + Helper", "Provision 五个阶段：init/validate/plan/apply/destroy"], "goal": "理解 Terraform 工作原理与生命周期", "lessons": [{"i": 14, "t": "What Is Infrastructure as Code (IaC)", "ex": false, "n": "IaC 定义：用代码声明基础设施，声明式 vs 命令式"}, {"i": 15, "t": "Benefits of Infrastructure as Code", "ex": false, "n": "IaC 四大收益：版本化、可复用、一致性、自文档化"}, {"i": 16, "t": "Creating Infrastructure Manually in AWS（任务预览）", "ex": true, "n": "对照实验预览：先在控制台手工建一遍资源"}, {"i": 17, "t": "Creating Infrastructure Manually in AWS", "ex": true, "n": "控制台手工建 VPC/EC2——体会重复劳动与不可追溯"}, {"i": 18, "t": "Creating Infrastructure with Terraform（任务预览）", "ex": true, "n": "对照实验预览：同样资源改用 Terraform 建"}, {"i": 19, "t": "Creating Infrastructure with Terraform", "ex": true, "n": "第一份 Terraform 配置跑通 apply——体会声明式的差异"}, {"i": 20, "t": "Why Use Terraform", "ex": false, "n": "为什么选 Terraform：多云、Provider 生态、状态管理、社区"}, {"i": 21, "t": "Terraform's Architecture", "ex": false, "n": "Terraform 架构：Core（state/图计算）+ Provider（RPC 插件调云 API）"}, {"i": 22, "t": "Stages of Provisioning Infrastructure", "ex": false, "n": "生命周期五阶段：Write → Init → Validate/Plan → Apply → Destroy"}, {"i": 23, "t": "Exploring Terraform Stages（任务预览）", "ex": true, "n": "实验预览：逐阶段观察命令输出"}, {"i": 24, "t": "Exploring Terraform Stages", "ex": true, "n": "实操 init/plan/apply/destroy，观察 .terraform 目录与 tfstate 变化"}]}, {"n": 4, "dir": "4 - Terraform's Building Blocks", "stage": "阶段 1 · 地基", "zh": "Terraform 积木块", "points": ["HCL 语法：block/attribute/expression", "terraform 块与 required_providers", "核心 CLI 命令实操", "Terraform State 的作用与本地/远端", "Backend：S3 远端状态与 partial backend 配置", "Provider 的安装、版本与 alias"], "goal": "掌握写一份可 apply 的配置 + 状态托管", "lessons": [{"i": 25, "t": "The HashiCorp Configuration Language (HCL)（任务预览）", "ex": true, "n": "HCL 练习任务预览"}, {"i": 26, "t": "Introduction to HashiCorp Configuration Language (HCL)", "ex": false, "n": "HCL 语法：block、attribute、expression、数据类型、注释"}, {"i": 27, "t": "Terraform Configuration", "ex": false, "n": "terraform {} 配置块：required_version 与 required_providers"}, {"i": 28, "t": "Our First Terraform Project（任务预览）", "ex": true, "n": "第一个项目任务预览"}, {"i": 29, "t": "Our First Terraform Project - Creating Resources", "ex": true, "n": "写出并创建第一个真实资源"}, {"i": 30, "t": "Terraform CLI（任务预览）", "ex": true, "n": "CLI 命令任务预览"}, {"i": 31, "t": "Terraform CLI - Exploring the Most Common Commands", "ex": true, "n": "核心命令：init / plan / apply / destroy / fmt / validate"}, {"i": 32, "t": "Terraform State", "ex": false, "n": "State 的本质：配置与真实资源的映射，记录 metadata 与依赖"}, {"i": 33, "t": "Inspecting the State of Our Project", "ex": false, "n": "terraform show / state list 查看状态内容"}, {"i": 34, "t": "Backends in Terraform", "ex": false, "n": "Backend 概念：本地 vs 远程、协作锁、状态分离"}, {"i": 35, "t": "Setting Up a Remote S3 Backend（任务预览）", "ex": true, "n": "S3 远程后端任务预览"}, {"i": 36, "t": "Setting Up a Remote S3 Backend", "ex": true, "n": "把 state 迁到 S3 backend（加 DynamoDB 锁），本地 state 迁移确认"}, {"i": 38, "t": "- Partial Backend Configuration（任务预览）", "ex": true, "n": "部分后端配置任务预览"}, {"i": 39, "t": "- Partial Backend Configuration", "ex": true, "n": "partial backend：-backend-config 分环境注入 bucket/key 参数"}, {"i": 40, "t": "Terraform Providers", "ex": false, "n": "Provider：registry 来源、版本约束写法、多 provider 场景"}, {"i": 41, "t": "- Working with Providers（任务预览）", "ex": true, "n": "Provider 实操任务预览"}, {"i": 42, "t": "- Working with Providers", "ex": true, "n": "多 region provider + alias 配置实操"}]}, {"n": 5, "dir": "5 - Resources", "stage": "阶段 2 · 核心", "zh": "资源与依赖", "points": ["resource 块", "资源依赖（引用即依赖）", "meta-arguments：count/for_each/depends_on/provider/lifecycle", "VPC+Subnet+IGW+SG+EC2 全流程实战", "公共标签抽取（local）", "销毁与清理"], "goal": "能从零搭出 VPC + EC2 并讲清依赖顺序", "lessons": [{"i": 43, "t": "Introduction to Resources", "ex": false, "n": "resource 块语法：type、local name、属性参数"}, {"i": 44, "t": "Resource Dependencies", "ex": false, "n": "依赖关系：属性引用=隐式依赖，depends_on=显式依赖，依赖图决定创建顺序"}, {"i": 45, "t": "Meta-Arguments", "ex": false, "n": "五个 meta-arguments：count / for_each / provider / depends_on / lifecycle"}, {"i": 46, "t": "VPC and EC2 Project - Project Overview", "ex": false, "n": "VPC+EC2 综合项目：架构与步骤拆解"}, {"i": 47, "t": "VPC and EC2 Project - Launching the VPC and Subnet", "ex": false, "n": "aws_vpc + aws_subnet：CIDR 与 AZ 规划"}, {"i": 48, "t": "VPC and EC2 Project - Provisioning the Internet Gateway", "ex": false, "n": "aws_internet_gateway + 路由表打通公网"}, {"i": 49, "t": "VPC and EC2 Project - Extracting Common Tags", "ex": false, "n": "用 locals 抽取公共 tags，避免到处重复"}, {"i": 50, "t": "VPC and EC2 Project - Launching the EC2 Instance", "ex": false, "n": "aws_instance 起 EC2：AMI、instance_type、关联子网"}, {"i": 51, "t": "VPC and EC2 Project - Understanding Security Groups", "ex": false, "n": "安全组模型：stateful、默认拒绝、ingress/egress 规则"}, {"i": 52, "t": "VPC and EC2 Project - Creating a Custom Security Group", "ex": false, "n": "自定义 aws_security_group：放行 22/80 等端口"}, {"i": 53, "t": "VPC and EC2 Project - Deploying an NGINX EC2 Instance", "ex": false, "n": "user_data 装 nginx，验证公网访问"}, {"i": 54, "t": "VPC and EC2 Project - Wrap-Up and Destroying Resources", "ex": false, "n": "项目复盘 + terraform destroy 清理"}]}, {"n": 6, "dir": "6 - Project - S3 Static Website", "stage": "阶段 2 · 核心", "zh": "项目：S3 静态网站", "points": ["S3 bucket 资源", "公共访问阻止的开关", "静态网站托管配置", "用 Terraform 上传文件到 S3"], "goal": "交付一个完整可访问的静态站点", "lessons": [{"i": 55, "t": "Project Overview", "ex": false, "n": "项目概览：用 Terraform 托管一个静态站点"}, {"i": 56, "t": "Deploying an S3 Bucket", "ex": false, "n": "aws_s3_bucket 创建存储桶"}, {"i": 57, "t": "Disabling Public Access Block", "ex": false, "n": "aws_s3_bucket_public_access_block：关闭公共访问阻止"}, {"i": 58, "t": "Configuring the S3 Static Website", "ex": false, "n": "aws_s3_bucket_website_configuration：index/error 页面"}, {"i": 59, "t": "Uploading Files to S3 via Terraform", "ex": false, "n": "aws_s3_object 批量上传站点文件（content_type、etag）"}]}, {"n": 7, "dir": "7 - Data Sources", "stage": "阶段 3 · 进阶", "zh": "数据源 Data Sources", "points": ["data 块：读而非建", "拉 AMI 列表", "拉账户 ID 与区域", "拉 VPC / Subnet 信息", "data.aws_availability_zones", "用 data 查 AWS 托管策略"], "goal": "能把已有资源作为输入接进配置", "lessons": [{"i": 60, "t": "Introduction to Data Sources", "ex": false, "n": "data 块：只读查询已有资源，不产生 state 管理责任"}, {"i": 61, "t": "Fetching AMI Data（任务预览）", "ex": true, "n": "拉取 AMI 任务预览"}, {"i": 62, "t": "Fetching AMI Data", "ex": true, "n": "data aws_ami：most_recent + owners + filter 组合筛选镜像"}, {"i": 63, "t": "Fetching AWS Account Information and Region（任务预览）", "ex": true, "n": "账户与区域信息任务预览"}, {"i": 64, "t": "Fetching AWS Account Information and Region", "ex": true, "n": "data aws_caller_identity / aws_region：拿 account_id 与当前 region"}, {"i": 65, "t": "Fetching VPC Data（任务预览）", "ex": true, "n": "查询 VPC 任务预览"}, {"i": 66, "t": "Fetching VPC Data", "ex": true, "n": "data aws_vpc / aws_subnet：按 id 或 tag 找已有网络"}, {"i": 67, "t": "Fetching AWS Availability Zones", "ex": false, "n": "data aws_availability_zones：动态拿可用区列表"}, {"i": 68, "t": "Creating AWS IAM Policies（任务预览）", "ex": true, "n": "IAM 策略任务预览"}, {"i": 69, "t": "Creating AWS IAM Policies", "ex": true, "n": "data aws_iam_policy_document：用 HCL 拼策略 JSON，比手写 JSON 安全"}]}, {"n": 8, "dir": "8 - Input Variables, Locals and Outputs", "stage": "阶段 3 · 进阶", "zh": "输入变量、Locals 与输出", "points": ["variable 声明、类型约束与 validation", "Map / Object 变量", ".tfvars 与 .auto.tfvars 与变量优先级", "local 表达式", "output 与敏感值 sensitive", "代码整理与拆分"], "goal": "写出可复用、可参数化的模块化配置", "lessons": [{"i": 70, "t": "Input Variables", "ex": false, "n": "variable 块三要素：type / default / description"}, {"i": 71, "t": "Declaring and Using Input Variables（任务预览）", "ex": true, "n": "声明与使用变量任务预览"}, {"i": 72, "t": "Declaring and Using Input Variables", "ex": true, "n": "var.xxx 引用；-var 与 -var-file 命令行传参"}, {"i": 73, "t": "Typing and Validating Input Variables（任务预览）", "ex": true, "n": "类型与校验任务预览"}, {"i": 74, "t": "Typing and Validating Input Variables", "ex": true, "n": "string/number/bool/list/set 类型约束 + validation 条件块"}, {"i": 75, "t": "Map and Object Variables（任务预览）", "ex": true, "n": "map/object 变量任务预览"}, {"i": 76, "t": "Map and Object Variables", "ex": true, "n": "object({...}) 结构化变量与属性访问 var.cfg.xxx"}, {"i": 77, "t": "Working with .tfvars Files（任务预览）", "ex": true, "n": ".tfvars 任务预览"}, {"i": 78, "t": "Working with .tfvars Files", "ex": true, "n": "terraform.tfvars 自动加载机制"}, {"i": 79, "t": "Working with .auto.tfvars Files（任务预览）", "ex": true, "n": ".auto.tfvars 任务预览"}, {"i": 80, "t": "Working with .auto.tfvars Files", "ex": true, "n": "*.auto.tfvars 加载顺序与覆盖规则"}, {"i": 81, "t": "Variable Precedence Order", "ex": false, "n": "变量优先级完整排序：环境变量 < tfvars < *.auto.tfvars < -var（高）"}, {"i": 82, "t": "Code Cleanup", "ex": false, "n": "代码整理：变量/资源/输出分文件"}, {"i": 83, "t": "Working with Locals（任务预览）", "ex": true, "n": "locals 任务预览"}, {"i": 84, "t": "Working with Locals", "ex": true, "n": "local 表达式：配置内计算值的复用，不参与传参"}, {"i": 85, "t": "Working with Outputs（任务预览）", "ex": true, "n": "outputs 任务预览"}, {"i": 86, "t": "Working with Outputs", "ex": true, "n": "output 块暴露结果值，terraform output 查询"}, {"i": 87, "t": "Working with Sensitive Values（任务预览）", "ex": true, "n": "敏感值任务预览"}, {"i": 88, "t": "Working with Sensitive Values", "ex": true, "n": "sensitive=true 隐藏 CLI 输出；注意 state 里仍是明文"}]}, {"n": 9, "dir": "9 - Expressions and Functions", "stage": "阶段 3 · 进阶", "zh": "表达式与函数", "points": ["运算符与条件表达式", "for 表达式（list / map）", "list↔map 转换、zipmap/merge", "splat 表达式", "Terraform 内置函数族", "综合练习"], "goal": "写出地道 HCL 表达式，掌握常用函数", "lessons": [{"i": 89, "t": "Operators in Terraform（任务预览）", "ex": true, "n": "运算符任务预览"}, {"i": 90, "t": "Operators in Terraform", "ex": true, "n": "算术/比较/逻辑运算符与条件表达式 condition ? a : b"}, {"i": 91, "t": "Using for Expressions with Lists（任务预览）", "ex": true, "n": "for 表达式(list)任务预览"}, {"i": 92, "t": "Using for Expressions with Lists", "ex": true, "n": "[for v in list : expr] 列表推导与过滤 if 子句"}, {"i": 93, "t": "Using for Expressions with Maps（任务预览）", "ex": true, "n": "for 表达式(map)任务预览"}, {"i": 94, "t": "Using for Expressions with Maps", "ex": true, "n": "{for k, v in map : k => expr} 映射推导"}, {"i": 95, "t": "Transforming Lists into Maps and Vice Versa（任务预览）", "ex": true, "n": "类型转换任务预览"}, {"i": 96, "t": "Transforming Lists into Maps and Vice Versa", "ex": true, "n": "list↔map 互转：zipmap / tomap / tolist / keys / values"}, {"i": 97, "t": "Using Splat Expressions", "ex": false, "n": "splat 表达式 [*]：一行取出列表中所有资源的某属性"}, {"i": 98, "t": "Introduction to Functions", "ex": false, "n": "内置函数分类总览：数值/字符串/集合/编码/文件/时间"}, {"i": 99, "t": "Working with Functions（任务预览）", "ex": true, "n": "函数实战任务预览"}, {"i": 100, "t": "Working with Functions", "ex": true, "n": "高频函数实操：lookup / merge / concat / format / file / coalesce"}]}, {"n": 10, "dir": "10 - Creating Multiple Resources", "stage": "阶段 4 · 规模化", "zh": "批量创建资源", "points": ["count 元参数", "for_each 元参数", "count 引用资源（[*]/索引访问）", "基于 List 变量批量建 EC2", "基于 Map 变量批量建 EC2", "变量 validation 进阶", "接收 Subnet 信息"], "goal": "用两种元参数应对「列表 vs 有键映射」两类场景", "lessons": [{"i": 101, "t": "Working with count and for_each", "ex": false, "n": "count vs for_each 选型：按数量 vs 按键控，索引漂移问题"}, {"i": 102, "t": "Creating Multiple Subnets with the Count Meta-Argument（任务预览）", "ex": true, "n": "count 建多子网任务预览"}, {"i": 103, "t": "Creating Multiple Subnets with the Count Meta-Argument", "ex": true, "n": "count = length(var.x) + count.index 批量建子网"}, {"i": 104, "t": "Referencing Resources with the Count Meta-Argument（任务预览）", "ex": true, "n": "count 资源引用任务预览"}, {"i": 105, "t": "Referencing Resources with the Count Meta-Argument", "ex": true, "n": "引用 count 资源：aws_x[*] 与按索引访问"}, {"i": 106, "t": "Creating EC2 Instances based on a List Variable（任务预览）", "ex": true, "n": "list 变量建 EC2 任务预览"}, {"i": 107, "t": "Creating EC2 Instances based on a List Variable", "ex": true, "n": "for_each = toset(var.list) 按值批量建实例"}, {"i": 108, "t": "Allowing Multiple AMIs in the EC2 Configuration Variable（任务预览）", "ex": true, "n": "多 AMI 支持任务预览"}, {"i": 109, "t": "Allowing Multiple AMIs in the EC2 Configuration Variable", "ex": true, "n": "把 AMI 信息并入配置变量（object 结构）"}, {"i": 110, "t": "Adding Validation to the List Variable（任务预览）", "ex": true, "n": "list 变量校验任务预览"}, {"i": 111, "t": "Adding Validation to the List Variable", "ex": true, "n": "validation 限制 list 元素的合法取值"}, {"i": 112, "t": "Creating EC2 Instances based on a Map Variable（任务预览）", "ex": true, "n": "map 变量建 EC2 任务预览"}, {"i": 113, "t": "Creating EC2 Instances based on a Map Variable", "ex": true, "n": "for_each = var.map，用 each.key / each.value 区分实例"}, {"i": 114, "t": "Adding Validation to the Map Variable（任务预览）", "ex": true, "n": "map 变量校验任务预览"}, {"i": 115, "t": "Adding Validation to the Map Variable", "ex": true, "n": "对 map 的 key/value 做 validation"}, {"i": 116, "t": "Extending the Configuration to Receive Subnet Information（任务预览）", "ex": true, "n": "子网信息传入任务预览"}, {"i": 117, "t": "Extending the Configuration to Receive Subnet Information", "ex": true, "n": "配置接收子网映射，把实例放进指定子网"}]}, {"n": 11, "dir": "11 - Project - IAM User Management", "stage": "阶段 5 · 项目", "zh": "项目：IAM 用户管理", "points": ["用 YAML 存用户/角色数据", "for_each + yamldecode 建 IAM 用户", "用户密码输出与安全提醒", "AWS 托管策略 vs 自定义策略", "创建 IAM Role 与 AssumeRolePolicy", "限制哪些 Principal 可扮演角色", "测试与清理"], "goal": "完整做一遍「配置数据驱动 + IAM 权限模型」", "lessons": [{"i": 118, "t": "Project Overview", "ex": false, "n": "项目概览：YAML 驱动的 IAM 用户+角色管理"}, {"i": 119, "t": "Storing User and Role Information in YAML", "ex": false, "n": "yamldecode 读取 YAML 文件为用户/角色数据源"}, {"i": 120, "t": "Creating Users in AWS", "ex": false, "n": "for_each + yamldecode 批量创建 aws_iam_user"}, {"i": 122, "t": "Creating User Passwords", "ex": false, "n": "aws_iam_user_login_profile 生成控制台密码；密码输出为敏感值的处理与课程勘误"}, {"i": 123, "t": "Understanding AWS Managed Policies", "ex": false, "n": "AWS 托管策略 vs 客户托管策略的取舍"}, {"i": 124, "t": "Creating Roles", "ex": false, "n": "创建 aws_iam_role"}, {"i": 125, "t": "Defining Assume Role Policies for Each Role", "ex": false, "n": "assume_role_policy：定义谁可以扮演角色（Service/User Principal）"}, {"i": 126, "t": "Restricting Which Principals Can Assume Each Role", "ex": false, "n": "用 Condition 收窄可扮演角色的主体范围"}, {"i": 127, "t": "Testing, Wrap-Up and Project Conclusion", "ex": false, "n": "端到端测试登录与扮演，项目清理"}]}, {"n": 12, "dir": "12 - Modules", "stage": "阶段 6 · 工程化", "zh": "模块 Modules", "points": ["模块是什么、为什么用", "标准模块目录结构", "Terraform Registry 找公开模块", "读懂 AWS VPC/EC2 模块源码", "调用公开模块", "模块设计最佳实践", "自建 VPC 模块：object 变量、AZ 校验、公私子网、outputs", "测试模块（EC2）", "写 LICENSE/README", "发布模块到 Registry"], "goal": "产出并发布一个自己的可复用模块", "lessons": [{"i": 128, "t": "What Are Modules", "ex": false, "n": "模块概念：root module 与 child module，封装=复用"}, {"i": 129, "t": "The Standard Module Structure", "ex": false, "n": "标准模块结构：main.tf / variables.tf / outputs.tf / README.md / LICENSE"}, {"i": 130, "t": "Browsing Public Modules in the Terraform Registry", "ex": false, "n": "Terraform Registry 找模块：看下载量、版本、输入输出"}, {"i": 131, "t": "Exploring the AWS VPC Module GitHub Repository", "ex": false, "n": "读 AWS VPC 官方模块的 GitHub 源码结构"}, {"i": 132, "t": "Using the Public AWS VPC Module（任务预览）", "ex": true, "n": "调用 VPC 模块任务预览"}, {"i": 133, "t": "Using the Public AWS VPC Module", "ex": true, "n": "module 块：source / version / 输入参数传值"}, {"i": 134, "t": "Using the Public AWS EC2 Module（任务预览）", "ex": true, "n": "调用 EC2 模块任务预览"}, {"i": 135, "t": "Using the Public AWS EC2 Module", "ex": true, "n": "组合调用 EC2 模块，接入自建网络"}, {"i": 136, "t": "Module Design Best Practices", "ex": false, "n": "模块设计最佳实践：单一职责、合理默认值、别过度抽象、文档齐全"}, {"i": 137, "t": "Building Our Own VPC Module（任务预览）", "ex": true, "n": "自建 VPC 模块任务预览"}, {"i": 138, "t": "Building Our Own VPC Module", "ex": true, "n": "搭模块骨架：目录、variables、resources 初版"}, {"i": 139, "t": "Migrating to Object Variables（任务预览）", "ex": true, "n": "object 变量迁移任务预览"}, {"i": 140, "t": "Migrating to Object Variables", "ex": true, "n": "把散装变量收敛为一个 object({...}) 配置变量"}, {"i": 141, "t": "Receiving Subnet Configuration via Variables（任务预览）", "ex": true, "n": "子网配置变量任务预览"}, {"i": 142, "t": "Receiving Subnet Configuration via Variables", "ex": true, "n": "用 list(object) 描述多个子网的 CIDR/AZ/公网标记"}, {"i": 143, "t": "Validating the Received Availability Zones（任务预览）", "ex": true, "n": "AZ 校验任务预览"}, {"i": 144, "t": "Validating the Received Availability Zones", "ex": true, "n": "validation + data.aws_availability_zones 校验传入 AZ 合法"}, {"i": 145, "t": "Supporting Public and Private Subnets（任务预览）", "ex": true, "n": "公私子网支持任务预览"}, {"i": 146, "t": "Supporting Public and Private Subnets", "ex": true, "n": "按标记区分 public/private 子网（map_public_ip_on_launch、路由差异）"}, {"i": 147, "t": "Defining the Module's Outputs（任务预览）", "ex": true, "n": "模块输出任务预览"}, {"i": 148, "t": "Defining the Module's Outputs", "ex": true, "n": "定义 outputs：vpc_id、public/private subnet ids 供调用方引用"}, {"i": 149, "t": "Populating the License and README Files", "ex": false, "n": "补 LICENSE 与 README（输入/输出/示例用法）"}, {"i": 150, "t": "Testing the Module with EC2 Instances（任务预览）", "ex": true, "n": "模块联测任务预览"}, {"i": 151, "t": "Testing the Module with EC2 Instances", "ex": true, "n": "用自建模块起 EC2 实例做集成验证"}, {"i": 152, "t": "Publishing Modules in the Terraform Registry", "ex": false, "n": "发布模块到公开 Registry 的要求：GitHub 仓库、语义化版本 tag"}, {"i": 153, "t": "Publishing Our Networking Module", "ex": false, "n": "演示把 networking 模块发布到 Registry"}]}, {"n": 13, "dir": "13 - Object Validation", "stage": "阶段 6 · 工程化", "zh": "对象校验", "points": ["precondition / postcondition", "check 块", "校验触发的时机与顺序"], "goal": "在计划阶段就把非法配置挡住", "lessons": [{"i": 154, "t": "Preconditions and Postconditions", "ex": false, "n": "precondition / postcondition：写在 lifecycle 块里的前置/后置断言"}, {"i": 155, "t": "Working with Preconditions（任务预览）", "ex": true, "n": "precondition 任务预览"}, {"i": 156, "t": "Working with Preconditions", "ex": true, "n": "precondition 实操：资源创建前校验输入（如 AMI 架构、CIDR 合法性）"}, {"i": 157, "t": "Working with Postconditions（任务预览）", "ex": true, "n": "postcondition 任务预览"}, {"i": 158, "t": "Working with Postconditions", "ex": true, "n": "postcondition 实操：资源创建后校验实际属性（如实例是否拿到公网 IP）"}, {"i": 159, "t": "When Are Preconditions and Postconditions Run", "ex": false, "n": "执行时机：precondition 在 plan 阶段评估，postcondition 在 apply 后评估"}, {"i": 160, "t": "Working with Check Blocks（任务预览）", "ex": true, "n": "check 块任务预览"}, {"i": 161, "t": "Working with Check Blocks", "ex": true, "n": "check + assert 实操：独立的非阻塞健康检查，失败只警告不中断"}]}, {"n": 14, "dir": "14 - State Manipulation", "stage": "阶段 6 · 工程化", "zh": "状态操作 State Manipulation", "points": ["state 的存放与含义", "重构资源（拆文件）", "import 已有资源", "从 Terraform 移除资源（remove block）", "taint 强制替换重建"], "goal": "安全地重构而不误删生产资源", "lessons": [{"i": 162, "t": "Introduction to State Manipulation", "ex": false, "n": "state 操作总览：terraform state 子命令家族"}, {"i": 163, "t": "Refactoring Terraform Resources（任务预览）", "ex": true, "n": "资源重构任务预览"}, {"i": 164, "t": "Refactoring Terraform Resources", "ex": true, "n": "terraform state mv 改资源地址 / 拆分文件重构不重建资源"}, {"i": 165, "t": "Importing Existing Infrastructure into Terraform（任务预览）", "ex": true, "n": "导入已有资源任务预览"}, {"i": 166, "t": "Importing Existing Infrastructure into Terraform", "ex": true, "n": "terraform import（及 import 块）把存量云资源纳入 state 管理"}, {"i": 167, "t": "Removing Infrastructure from Terraform（任务预览）", "ex": true, "n": "移除资源任务预览"}, {"i": 168, "t": "Removing Infrastructure from Terraform", "ex": true, "n": "state rm / removed 块：让 Terraform 放弃管理但不删真实资源"}, {"i": 169, "t": "Replacing Resources with the Taint Command（任务预览）", "ex": true, "n": "taint 任务预览"}, {"i": 170, "t": "Replacing Resources with the Taint Command", "ex": true, "n": "terraform taint 标记资源，下一次 apply 强制销毁重建"}]}, {"n": 15, "dir": "15 - Project - Importing Lambda Resources", "stage": "阶段 7 · 项目", "zh": "项目：导入 Lambda 资源", "points": ["手工创建 Lambda 摸清组成", "导入函数本体", "导入函数代码", "导入执行角色与角色策略", "策略重构", "导入 CloudWatch Log Group", "收尾与新增资源"], "goal": "完整走通一次「已有服务纳管」", "lessons": [{"i": 171, "t": "Project Overview", "ex": false, "n": "项目概览：把一个手工建的 Lambda 全套资源导入 Terraform"}, {"i": 172, "t": "Creating a Lambda Function Manually", "ex": false, "n": "控制台手工创建 Lambda 函数，摸清它的资源组成"}, {"i": 173, "t": "Importing the Lambda Function", "ex": false, "n": "import Lambda 函数本体（aws_lambda_function）"}, {"i": 174, "t": "Importing the Function Code", "ex": false, "n": "导入函数代码（zip/s3 源）到配置"}, {"i": 175, "t": "Importing the Function Role", "ex": false, "n": "import 执行角色 aws_iam_role"}, {"i": 176, "t": "Importing the Role Policy", "ex": false, "n": "import 角色策略附件"}, {"i": 177, "t": "Refactoring the Imported Policy", "ex": false, "n": "把导入的内联策略重构为 aws_iam_policy_document"}, {"i": 178, "t": "Importing the CloudWatch Log Group", "ex": false, "n": "import CloudWatch Log Group"}, {"i": 179, "t": "Creating Additional Resources and Project Wrap-Up", "ex": false, "n": "补齐关联资源，项目收尾"}]}, {"n": 16, "dir": "16 - Project - RDS Module", "stage": "阶段 7 · 项目", "zh": "项目：RDS 模块", "points": ["拆解需求与校验点", "AWS RDS 资源属性", "模块变量设计（subnet_ids / sg_ids）", "默认 VPC 校验、私有标签校验", "安全组规则校验与相关 data 源", "部署 RDS 实例", "清理"], "goal": "独立完成一个有真实校验逻辑的生产级模块", "lessons": [{"i": 180, "t": "Project Overview", "ex": false, "n": "项目概览：写一个带完整校验的 RDS 模块"}, {"i": 181, "t": "Defining the Necessary Steps and Validations", "ex": false, "n": "拆解需求：先列出所有校验点再动手"}, {"i": 182, "t": "Exploring the AWS RDS Resource in Terraform", "ex": false, "n": "aws_db_instance 资源属性详解（engine、instance_class、存储、快照）"}, {"i": 183, "t": "Defining Necessary Module Variables", "ex": false, "n": "模块变量设计：名称/规格/引擎等输入"}, {"i": 184, "t": "Testing Variable Validation", "ex": false, "n": "测试变量 validation 的生效方式"}, {"i": 185, "t": "Creating Module Variables for Subnet and Security Group IDs", "ex": false, "n": "subnet_ids 与 security_group_ids 变量设计"}, {"i": 186, "t": "Implementing Default VPC Validation", "ex": false, "n": "实现「禁止默认 VPC」校验"}, {"i": 187, "t": "Testing Default VPC Validation", "ex": false, "n": "测试默认 VPC 校验"}, {"i": 188, "t": "Implementing and Testing Private Tag Validation", "ex": false, "n": "实现私有子网标签校验（必须带指定 private 标签）"}, {"i": 189, "t": "Implementing Security Group Rule Validation", "ex": false, "n": "实现安全组规则校验（端口范围/来源合法性）"}, {"i": 190, "t": "Testing Security Group Rule Validation", "ex": false, "n": "测试安全组规则校验"}, {"i": 191, "t": "Understanding the Different Data Sources for Security Group Rules", "ex": false, "n": "查 SG 规则的几种 data 源对比（aws_security_group vs aws_vpc_security_group_rules）"}, {"i": 192, "t": "Deploying the RDS Instance", "ex": false, "n": "部署 RDS 实例并验证"}, {"i": 193, "t": "Project Wrap-Up and Clean Up", "ex": false, "n": "项目复盘与资源清理"}]}, {"n": 17, "dir": "17 - Terraform Workspaces", "stage": "阶段 8 · 团队", "zh": "工作区 Workspaces", "points": ["CLI workspace 的作用", "创建与切换 workspace", "多 workspace 并行管理", ".tfvars 存环境差异配置", "资源与 workspace 清理"], "goal": "用环境隔离（dev/staging/prod）管理同一份配置", "lessons": [{"i": 194, "t": "Introduction to CLI Workspaces", "ex": false, "n": "CLI workspace：同一份配置维护多份独立 state（默认 default workspace）"}, {"i": 195, "t": "Creating Workspaces in the CLI（任务预览）", "ex": true, "n": "创建 workspace 任务预览"}, {"i": 196, "t": "Creating Workspaces in the CLI", "ex": true, "n": "workspace new / list / select / show 命令实操"}, {"i": 197, "t": "Working with Multiple Workspaces（任务预览）", "ex": true, "n": "多 workspace 任务预览"}, {"i": 198, "t": "Working with Multiple Workspaces", "ex": true, "n": "terraform.workspace 变量引用：按环境区分配置差异"}, {"i": 199, "t": "Using .tfvars to Store Workspace-Specific Configuration（任务预览）", "ex": true, "n": "tfvars 分环境任务预览"}, {"i": 200, "t": "Using .tfvars to Store Workspace-Specific Configuration", "ex": true, "n": "每个 workspace 对应一个 .tfvars，组合 -var-file 使用"}, {"i": 201, "t": "Resource and Workspace Cleanup", "ex": false, "n": "按 workspace 逐个 destroy 清理"}]}, {"n": 18, "dir": "18 - Terraform Cloud", "stage": "阶段 8 · 团队", "zh": "Terraform Cloud", "points": ["TFC 是什么、Remote 模式", "TFC workspace 与 run 触发", "CLI 登录 TFC", "TFC 内做 AWS 认证并建 S3", "Workspace 变量（Variable Sets）", "State 与 workspace 信息面板", "集成 GitHub 仓库走 VCS 流程", "PR 触发 speculative plan", "私有 Registry 发布模块", "资源清理"], "goal": "把 Terraform 放进团队协作与审批流", "lessons": [{"i": 202, "t": "What is Terraform Cloud", "ex": false, "n": "Terraform Cloud 是什么：远程运行、状态托管、团队协作、治理"}, {"i": 203, "t": "Terraform Cloud Workspaces", "ex": false, "n": "TFC workspace 模型：配置+变量+状态+运行记录的集合"}, {"i": 204, "t": "Triggering Runs in Terraform Cloud", "ex": false, "n": "触发 run 的四种方式：UI / VCS 推送 / API / CLI"}, {"i": 205, "t": "- Creating a Workspace in Terraform Cloud（任务预览）", "ex": true, "n": "创建 TFC workspace 任务预览"}, {"i": 206, "t": "- Creating a Workspace in Terraform Cloud", "ex": true, "n": "实操在 TFC 创建 workspace 并配置执行模式"}, {"i": 207, "t": "- Logging into Terraform Cloud in the Terminal", "ex": false, "n": "terraform login 获取 API token，打通本地 CLI 与 TFC"}, {"i": 208, "t": "- Creating Our First Resource with Terraform Cloud（任务预览）", "ex": true, "n": "TFC 首个资源任务预览"}, {"i": 209, "t": "- Creating Our First Resource with Terraform Cloud", "ex": true, "n": "cloud/remote backend 让 plan/apply 跑在 TFC 上"}, {"i": 210, "t": "- Authenticating into AWS and Creating an S3 Bucket（任务预览）", "ex": true, "n": "TFC 认证 AWS 任务预览"}, {"i": 211, "t": "- Authenticating into AWS and Creating an S3 Bucket", "ex": true, "n": "在 TFC 配 AWS 环境变量（access key）并创建 S3"}, {"i": 212, "t": "- Working with Workspace Variables（任务预览）", "ex": true, "n": "workspace 变量任务预览"}, {"i": 213, "t": "- Working with Workspace Variables", "ex": true, "n": "Terraform 变量 vs 环境变量；Variable Sets 跨 workspace 共享"}, {"i": 214, "t": "- Exploring State and Other Workspace Information in Terraform Cloud", "ex": false, "n": "看 TFC 的 state 版本历史与 workspace 信息面板"}, {"i": 215, "t": "- Integrating a GitHub Repository with Terraform Cloud", "ex": false, "n": "演示 GitHub 仓库与 TFC workspace 绑定"}, {"i": 216, "t": "- Creating a VPC and Subnet via VCS Integration（任务预览）", "ex": true, "n": "VCS 集成建 VPC 任务预览"}, {"i": 217, "t": "- Creating a VPC and Subnet via VCS Integration", "ex": true, "n": "push 代码触发 run，用 VCS 流程建 VPC+子网"}, {"i": 218, "t": "- Triggering Speculative Plans from Pull Requests（任务预览）", "ex": true, "n": "PR 触发 plan 任务预览"}, {"i": 219, "t": "- Triggering Speculative Plans from Pull Requests", "ex": true, "n": "speculative plan：PR 上自动跑 plan 做变更评审，不影响真实环境"}, {"i": 220, "t": "- Publishing Modules in Private Registries（任务预览）", "ex": true, "n": "私有 Registry 任务预览"}, {"i": 221, "t": "- Publishing Modules in Private Registries", "ex": true, "n": "把模块发布到 TFC 私有 Registry 并在团队内引用"}, {"i": 222, "t": "- Terraform Cloud Resource Cleanup（任务预览）", "ex": true, "n": "资源清理任务预览"}, {"i": 223, "t": "- Terraform Cloud Resource Cleanup", "ex": true, "n": "队列 destroy + 删除 workspace，收尾"}]}, {"n": 19, "dir": "19 - Project - Terraform Cloud OIDC", "stage": "阶段 8 · 团队", "zh": "项目：Terraform Cloud OIDC", "points": ["AWS 侧建 IdP 与 TFC 角色", "角色权限与信任策略", "CLI 驱动项目初始化", "Variable Set 存角色信息", "把 OIDC Provider / Role / PolicyAttachment 导入 Terraform", "扩展更多 workspace", "项目收尾"], "goal": "实现 TFC 无静态密钥访问 AWS（企业级方案）", "lessons": [{"i": 224, "t": "Project Overview", "ex": false, "n": "项目概览：用 OIDC 替代静态 AWS 密钥，TFC 动态换取临时凭证"}, {"i": 225, "t": "Creating the Identity Provider in AWS", "ex": false, "n": "AWS 侧创建 aws_iam_openid_connect_provider（trust app.terraform.io）"}, {"i": 226, "t": "Implementing the Terraform Cloud Role", "ex": false, "n": "创建 TFC 专用 IAM Role，信任策略按 aud/sub 限定 workspace"}, {"i": 227, "t": "Attaching the Necessary Role Policies", "ex": false, "n": "给角色附加所需权限策略"}, {"i": 228, "t": "Initializing the Terraform Cloud CLI-Driven Project", "ex": false, "n": "初始化 CLI-driven 的 TFC 项目"}, {"i": 229, "t": "Creating Variable Sets for Role Information", "ex": false, "n": "用 Variable Sets 存角色 ARN 等配置，供多 workspace 复用"}, {"i": 230, "t": "Importing the OIDC Provider into Terraform", "ex": false, "n": "把 OIDC Provider 资源 import 进 Terraform 管理"}, {"i": 231, "t": "Importing the Role into Terraform", "ex": false, "n": "把 IAM Role import 进 Terraform"}, {"i": 232, "t": "Importing the Policy Attachment into Terraform", "ex": false, "n": "把策略附件 import 进 Terraform"}, {"i": 233, "t": "Extending the OIDC Provider to Allow Other Workspaces + Project Wrap-Up", "ex": false, "n": "扩展 OIDC 信任策略支持更多 workspace，项目收尾"}]}, {"n": 20, "dir": "20 - Conclusion", "stage": "阶段 9 · 收尾", "zh": "课程总结", "points": ["全流程回顾", "后续学习路径建议"], "goal": "形成自己的 IaC 工作方法论", "lessons": []}];
+const KEY='tf-course-progress-v1';
+let done = JSON.parse(localStorage.getItem(KEY)||'{}');
+const key=(c,l)=>c+'.'+l;
+function isDone(c,l){return !!done[key(c,l)];}
+function save(){localStorage.setItem(KEY,JSON.stringify(done));}
+
+function build(){
+  const tree=document.getElementById('tree');
+  let html='',lastStage=null;
+  DATA.forEach(c=>{
+    if(c.stage!==lastStage){
+      lastStage=c.stage;
+      html+=`<div class="stage"><h2>${c.stage}</h2><div class="rule"></div></div>`;
+    }
+    html+=`<div class="node" id="n${c.n}" data-n="${c.n}">
+      <div class="card">
+        <div class="chead" onclick="toggle(${c.n})">
+          <span class="arrow">▶</span>
+          <span class="num">${String(c.n).padStart(2,'0')}</span>
+          <span class="ctitle">
+            <div class="cname">${c.zh}<span>${c.dir.replace(/^\d+ - /,'')}</span></div>
+            <div class="goal">🎯 ${c.goal}</div>
+          </span>
+          <span class="badge" id="b${c.n}">0/${c.lessons.length}</span>
+        </div>
+        <div class="cbody">
+          <div class="points"><ul>${c.points.map(p=>`<li>${p}</li>`).join('')}</ul></div>
+          <div class="sub">知识点顺序（点左侧序号可跳转，勾选记录进度）</div>
+          <ul class="lessons" id="l${c.n}">
+            ${c.lessons.map(l=>`<li data-n="${c.n}" data-l="${l.i}" class="${l.ex?'ex':''}" onclick="tog(${c.n},${l.i},this)">
+              <span class="cb"></span><span class="lid">${l.i}</span><span style="flex:1"><span class="li">${l.t}</span>${l.n?`<div class="lnote">${l.n}</div>`:''}</span></li>`).join('')}
+          </ul>
+          <div class="lids" id="g${c.n}">${c.lessons.map(l=>`<b data-n="${c.n}" data-l="${l.i}" onclick="tog(${c.n},${l.i})">${l.i}</b>`).join('')}</div>
+          <div class="todo"><label style="cursor:pointer" onclick="markChapter(this)"><input type="checkbox" id="cx${c.n}"> 本章全部标记完成</label><span>· 第 ${c.n} 章</span></div>
+        </div>
+      </div>
+    </div>`;
+  });
+  tree.innerHTML=html;
+}
+
+function toggle(n){document.getElementById('n'+n).classList.toggle('open');}
+
+function tog(c,l,el){
+  const k=key(c,l);
+  if(done[k]) delete done[k]; else done[k]=1;
+  save(); paint();
+}
+function markChapter(src){
+  // 仅在章节内的 checkbox 上调用：整章全选 / 全不选
+  const n=src.id.replace('cx',''), ch=DATA.find(c=>String(c.n)===n);
+  if(!ch) return;
+  ch.lessons.forEach(l=>{ src.checked?done[key(n,l.i)]=1:delete done[key(n,l.i)]; });
+  save(); paint();
+}
+function expandAll(v){DATA.forEach(c=>document.getElementById('n'+c.n).classList.toggle('open',!!v));}
+function resetAll(){if(confirm('确定清空全部学习进度？')){done={};save();paint();}}
+
+function paint(){
+  let t=0,d=0,e=0,ep=0;
+  DATA.forEach(c=>{
+    let cd=0,ce=0;
+    c.lessons.forEach(l=>{
+      t++;
+      const on=isDone(c.n,l.i);
+      if(on){d++;cd++;}
+      if(l.ex){e++;if(on)ce++;}
+    });
+    const li=document.querySelector(`#l${c.n} li[data-l]`);
+    document.querySelectorAll(`#l${c.n} li`).forEach(el=>el.classList.toggle('on',isDone(c.n,+el.dataset.l)));
+    document.querySelectorAll(`#g${c.n} b`).forEach(el=>el.classList.toggle('on',isDone(c.n,+el.dataset.l)));
+    const b=document.getElementById('b'+c.n);
+    b.textContent=cd+'/'+c.lessons.length;
+    b.className='badge'+(cd===c.lessons.length?' ok':cd>0?' half':'');
+    const cx=document.getElementById('cx'+c.n); if(cx) cx.checked=(cd===c.lessons.length);
+    const nd=document.getElementById('n'+c.n);
+    nd.classList.toggle('done',cd===c.lessons.length);
+    nd.classList.toggle('part',cd>0&&cd<c.lessons.length);
+  });
+  const p=t?Math.round(d/t*100):0;
+  document.getElementById('pct').innerHTML=p+'%<small>'+d+' / '+t+'</small>';
+  document.getElementById('fill').style.width=p+'%';
+  const pe=e?Math.round(ep/e*100):0;
+  document.getElementById('exfill').style.width=pe+'%';
+  const cur=DATA.find(c=>c.lessons.some(l=>!isDone(c.n,l.i)));
+  document.getElementById('stg').textContent = cur? `下一站：${cur.n}. ${cur.zh}` : '🎉 全部章节已完成！';
+}
+
+build(); paint();
+</script>
+</body>
+</html>

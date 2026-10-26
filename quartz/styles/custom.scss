@@ -1,3 +1,139 @@
 @use "./variables.scss" as *;
 
-// put your custom CSS here!
+/* ===== 中文排版优化 ===== */
+
+// 全局字体栈：中文优先
+body {
+  font-family:
+    "Inter",
+    "PingFang SC",
+    "Hiragino Sans GB",
+    "Noto Sans SC",
+    "Microsoft YaHei",
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+// 正文区域
+article {
+  // 中文段落：适当增加行高和段间距，避免密集感
+  p {
+    line-height: 1.9;
+    margin-bottom: 1.2em;
+    letter-spacing: 0.01em;
+  }
+
+  // 列表项也增加呼吸感
+  li {
+    line-height: 1.85;
+    margin-bottom: 0.5em;
+    letter-spacing: 0.01em;
+  }
+
+  // 嵌套列表缩进
+  ul, ol {
+    padding-left: 1.5em;
+  }
+
+  // 标题：增加上边距，让章节分隔更清晰
+  h2 {
+    margin-top: 2.5em;
+    padding-top: 0.8em;
+    border-top: 1px solid var(--lightgray);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  h3 {
+    margin-top: 2em;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  h4 {
+    margin-top: 1.5em;
+    font-weight: 600;
+  }
+
+  // 表格：中文需要更多内边距
+  table {
+    font-size: 0.92em;
+
+    th, td {
+      padding: 10px 14px;
+      line-height: 1.7;
+    }
+  }
+
+  // 代码块：保持等宽，但增加内边距
+  pre {
+    padding: 18px 22px;
+    border-radius: 8px;
+    font-size: 0.85em;
+    line-height: 1.7;
+  }
+
+  // 行内代码
+  code {
+    padding: 0.15em 0.5em;
+    border-radius: 4px;
+    font-size: 0.88em;
+  }
+
+  // 引用块
+  blockquote {
+    padding: 1em 1.5em;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5em 0;
+  }
+
+  // 分隔线
+  hr {
+    margin: 2.5em 0;
+    border: none;
+    border-top: 1px solid var(--lightgray);
+  }
+
+  // 图片：圆角 + 阴影
+  img {
+    border-radius: 8px;
+  }
+
+  // 强调文本
+  strong {
+    font-weight: 600;
+  }
+}
+
+// 目录（TOC）中文适配
+.toc {
+  font-size: 0.85rem;
+
+  a {
+    line-height: 1.6;
+  }
+}
+
+// 左侧导航
+.explorer {
+  .explorer-content {
+    line-height: 1.7;
+  }
+}
+
+// 搜索结果
+.search {
+  .search-results {
+    line-height: 1.7;
+  }
+}
+
+// 暗色模式微调
+[data-theme="dark"] & {
+  article {
+    h2 {
+      border-top-color: var(--darkgray);
+    }
+  }
+}

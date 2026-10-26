@@ -1,6 +1,6 @@
 @use "./variables.scss" as *;
 
-/* ===== 中文排版优化（cheat sheet 紧凑风格） ===== */
+/* ===== 中文排版（对照 digitalcloud.training 原网页观感） ===== */
 
 body {
   font-family:
@@ -15,63 +15,69 @@ body {
 }
 
 article {
-  // 正文：舒适但不松散
+  /* 正文段落：原网页是紧凑段落流，行高 1.75、段间距 0.75em */
   p {
-    line-height: 1.8;
-    margin-bottom: 0.8em;
+    line-height: 1.75;
+    margin: 0 0 0.75em 0;
   }
 
-  // 列表：cheat sheet 的主体，紧凑易扫读
+  /* 列表：仅用于真正的要点列表 */
   ul, ol {
     padding-left: 1.4em;
-    margin-bottom: 1em;
+    margin: 0 0 0.9em 0;
   }
 
   li {
-    line-height: 1.75;
-    margin-bottom: 0.35em;
+    line-height: 1.7;
+    margin-bottom: 0.25em;
   }
 
-  // 嵌套列表
   li > ul, li > ol {
-    margin-top: 0.3em;
-    margin-bottom: 0.3em;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
   }
 
-  // 标题层级
+  /* 章节标题：原网页 h2 有分隔感 */
   h2 {
-    margin-top: 2.2em;
-    padding-top: 0.7em;
+    margin-top: 2em;
+    margin-bottom: 0.8em;
+    padding-top: 0.6em;
     border-top: 1px solid var(--lightgray);
     font-weight: 600;
+    line-height: 1.4;
   }
 
   h3 {
-    margin-top: 1.8em;
+    margin-top: 1.6em;
+    margin-bottom: 0.6em;
     font-weight: 600;
+    line-height: 1.45;
   }
 
   h4 {
-    margin-top: 1.4em;
+    margin-top: 1.3em;
+    margin-bottom: 0.5em;
     font-weight: 600;
   }
 
-  // 表格：紧凑但可读
+  /* 表格 */
   table {
     font-size: 0.9em;
-
-    th, td {
-      padding: 8px 12px;
-      line-height: 1.65;
-    }
+    margin: 0.5em 0 1.2em;
   }
 
-  // 代码块
+  th, td {
+    padding: 8px 12px;
+    line-height: 1.6;
+  }
+
+  /* 代码 */
   pre {
     padding: 16px 20px;
     border-radius: 8px;
     font-size: 0.85em;
-    line-height: 1.65;
+    line-height: 1.6;
+    margin: 0.8em 0 1.2em;
   }
 
   code {
@@ -80,24 +86,21 @@ article {
     font-size: 0.88em;
   }
 
-  // 引用块
   blockquote {
     padding: 0.8em 1.2em;
     border-radius: 0 6px 6px 0;
-    margin: 1.2em 0;
+    margin: 1em 0;
   }
 
-  // 分隔线
   hr {
-    margin: 2em 0;
+    margin: 1.8em 0;
     border: none;
     border-top: 1px solid var(--lightgray);
   }
 
-  // 图片
   img {
     border-radius: 8px;
-    margin: 0.5em 0;
+    margin: 0.4em 0;
   }
 
   strong {
@@ -105,7 +108,7 @@ article {
   }
 }
 
-// TOC 中文适配
+/* 右侧目录 */
 .toc {
   font-size: 0.85rem;
 
@@ -114,18 +117,14 @@ article {
   }
 }
 
-// 左侧导航
-.explorer {
-  .explorer-content {
-    line-height: 1.65;
-  }
+/* 左侧导航 */
+.explorer .explorer-content {
+  line-height: 1.65;
 }
 
-// 暗色模式
+/* 暗色模式 */
 [data-theme="dark"] & {
-  article {
-    h2 {
-      border-top-color: var(--darkgray);
-    }
+  article h2 {
+    border-top-color: var(--darkgray);
   }
 }

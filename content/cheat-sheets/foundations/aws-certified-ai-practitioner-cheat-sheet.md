@@ -4,8 +4,9 @@ title: "AWS Certified AI Practitioner Cheat Sheet"
 
 ![AWS AI Practitioner Cheat Sheet](/cheat-sheets/images/2025-01-AWS-AI-Practitioner-1.png)
 
-- 在 AWS Certified AI Practitioner 考试中，Amazon SageMaker 和 Amazon Bedrock 是两个最常考的服务。它们是 AWS 上机器学习和生成式 AI 解决方案的核心。
-- 理解这些服务、它们的特性以及如何应用于真实场景，是通过考试的关键。下面我们整理了关于 **SageMaker** 和 **Bedrock** 必须掌握的**关键知识点**，涵盖核心能力、工具和使用场景，帮助你高效备考。
+在 AWS Certified AI Practitioner 考试中，Amazon SageMaker 和 Amazon Bedrock 是两个最常考的服务。它们是 AWS 上机器学习和生成式 AI 解决方案的核心。
+
+理解这些服务、它们的特性以及如何应用于真实场景，是通过考试的关键。下面我们整理了关于 **SageMaker** 和 **Bedrock** 必须掌握的**关键知识点**，涵盖核心能力、工具和使用场景，帮助你高效备考。
 
 ## Amazon SageMaker
 
@@ -247,13 +248,22 @@ title: "AWS Certified AI Practitioner Cheat Sheet"
 
 ### 常见问题
 
-- **什么是 AWS Certified AI Practitioner 认证？适合哪些人？**
-- AWS Certified AI Practitioner 认证面向希望掌握 AWS 生态中人工智能（AI）和机器学习（ML）基础知识的人群。它非常适合与数据科学家或工程师协作的非技术岗位人士，帮助他们理解 AI/ML 解决方案在 AWS 上是如何实现的。
-- **AWS SageMaker 与 AI Practitioner 认证有什么关系？**
-- AWS SageMaker 是 AI Practitioner 认证涵盖的关键服务，提供构建、训练和部署机器学习模型的工具。虽然该认证侧重概念性知识，但了解 SageMaker 的能力可以让你对 AWS 的 ML 服务有更实际的认识。
-- **AWS Certified AI Practitioner 考试涵盖哪些内容？**
-- 考试考查你对 AI/ML 概念、AWS AI 服务（如 SageMaker、Rekognition、Polly）的理解，以及如何为不同场景选择合适的 AI/ML 解决方案。
-- **如何备考 AWS Certified AI Practitioner 考试？**
-- 备考可以利用 cheat sheet、视频教程、模拟考试和动手实验等资源。Digital Cloud Training 提供一整套备考工具，助你顺利通过。
-- **获得 AWS Certified AI Practitioner 认证有什么好处？**
-- 获得该认证可以证明你具备 AI/ML 基础知识，并展示你为 AI 解决方案选择合适 AWS 服务的能力。在需要与技术团队协作或参与云端 AI/ML 项目的岗位上，它能提升你的可信度。
+**什么是 AWS Certified AI Practitioner 认证？适合哪些人？**
+
+AWS Certified AI Practitioner 认证面向希望掌握 AWS 生态中人工智能（AI）和机器学习（ML）基础知识的人群。它非常适合与数据科学家或工程师协作的非技术岗位人士，帮助他们理解 AI/ML 解决方案在 AWS 上是如何实现的。
+
+**AWS SageMaker 与 AI Practitioner 认证有什么关系？**
+
+AWS SageMaker 是 AI Practitioner 认证涵盖的关键服务，提供构建、训练和部署机器学习模型的工具。虽然该认证侧重概念性知识，但了解 SageMaker 的能力可以让你对 AWS 的 ML 服务有更实际的认识。
+
+**AWS Certified AI Practitioner 考试涵盖哪些内容？**
+
+考试考查你对 AI/ML 概念、AWS AI 服务（如 SageMaker、Rekognition、Polly）的理解，以及如何为不同场景选择合适的 AI/ML 解决方案。
+
+**如何备考 AWS Certified AI Practitioner 考试？**
+
+备考可以利用 cheat sheet、视频教程、模拟考试和动手实验等资源。Digital Cloud Training 提供一整套备考工具，助你顺利通过。
+
+**获得 AWS Certified AI Practitioner 认证有什么好处？**
+
+获得该认证可以证明你具备 AI/ML 基础知识，并展示你为 AI 解决方案选择合适 AWS 服务的能力。在需要与技术团队协作或参与云端 AI/ML 项目的岗位上，它能提升你的可信度。

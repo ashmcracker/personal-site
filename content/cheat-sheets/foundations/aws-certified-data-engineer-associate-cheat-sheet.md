@@ -4,14 +4,17 @@ title: "AWS Certified Data Engineer Associate Cheat Sheet"
 
 ![AWS Data Engineer Cheat Sheet](/cheat-sheets/images/2025-01-AWS-Data-Engineer-Associate-1.png)
 
-- 备考 AWS Certified Data Engineer Associate（DEA-C01）需要深入理解 AWS 服务和数据工程原理。考试对 AWS 服务的考查既广，某些部分也有一定深度。要通过这门有挑战性的考试，你需要扎实的数据工程实践经验。
-- 这份针对 AWS Certified Data Engineer Associate 考试的 AWS cheat sheet，汇总了每项 AWS 服务在考试中需要掌握的核心知识点。配合我们的模拟题使用，这些知识能让你在考试当天占据优势。
+备考 AWS Certified Data Engineer Associate（DEA-C01）需要深入理解 AWS 服务和数据工程原理。考试对 AWS 服务的考查既广，某些部分也有一定深度。要通过这门有挑战性的考试，你需要扎实的数据工程实践经验。
+
+这份针对 AWS Certified Data Engineer Associate 考试的 AWS cheat sheet，汇总了每项 AWS 服务在考试中需要掌握的核心知识点。配合我们的模拟题使用，这些知识能让你在考试当天占据优势。
 
 ## Compute（计算）
 
-- 在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Compute 部分，我们深入介绍考试中必不可少的关键 AWS 计算服务。
-- 本部分提供 Amazon EC2、Amazon ECS/EKS 等服务的关键要点和知识，它们是 AWS 上数据工程的基础。
-- 理解这些计算服务对攻克 DEA-C01 考试至关重要，因为它们构成了 AWS 生态中许多数据处理和分析方案的骨干。
+在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Compute 部分，我们深入介绍考试中必不可少的关键 AWS 计算服务。
+
+本部分提供 Amazon EC2、Amazon ECS/EKS 等服务的关键要点和知识，它们是 AWS 上数据工程的基础。
+
+理解这些计算服务对攻克 DEA-C01 考试至关重要，因为它们构成了 AWS 生态中许多数据处理和分析方案的骨干。
 
 ### Amazon EC2（Elastic Compute Cloud）：
 
@@ -67,9 +70,11 @@ title: "AWS Certified Data Engineer Associate Cheat Sheet"
 
 ## Storage（存储）
 
-- 在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Storage 部分，我们聚焦 Amazon S3、S3 Select、Glacier 和 EBS——这些都是数据工程必备的关键 AWS 存储服务。
-- 本部分详细介绍用于对象存储的 Amazon S3、用于高效数据查询的 S3 Select、用于长期归档的 Glacier，以及用于块级存储的 EBS。
-- 理解这些服务的功能、使用场景和最佳实践，对 DEA-C01 考试至关重要，因为它们是在 AWS 上设计和实现高效、可扩展且经济存储方案的基础。
+在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Storage 部分，我们聚焦 Amazon S3、S3 Select、Glacier 和 EBS——这些都是数据工程必备的关键 AWS 存储服务。
+
+本部分详细介绍用于对象存储的 Amazon S3、用于高效数据查询的 S3 Select、用于长期归档的 Glacier，以及用于块级存储的 EBS。
+
+理解这些服务的功能、使用场景和最佳实践，对 DEA-C01 考试至关重要，因为它们是在 AWS 上设计和实现高效、可扩展且经济存储方案的基础。
 
 ### Amazon S3（Simple Storage Service）：
 
@@ -109,9 +114,11 @@ title: "AWS Certified Data Engineer Associate Cheat Sheet"
 
 ## Networking（网络）
 
-- 在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Networking 部分，我们深入探讨 Amazon Virtual Private Cloud（VPC）、AWS Direct Connect 和 AWS Transit Gateway 的细节。
-- 本部分旨在加深你对 AWS 网络服务的理解，这些服务对构建安全、可扩展、高效的网络架构至关重要。掌握用于隔离云资源的 VPC、用于专用网络连接的 Direct Connect，以及用于网络扩展和互联的 Transit Gateway，是 DEA-C01 考试的必备内容。
-- 这些服务构成了 AWS 网络管理和优化的骨干，对任何数据工程方案都至关重要。
+在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Networking 部分，我们深入探讨 Amazon Virtual Private Cloud（VPC）、AWS Direct Connect 和 AWS Transit Gateway 的细节。
+
+本部分旨在加深你对 AWS 网络服务的理解，这些服务对构建安全、可扩展、高效的网络架构至关重要。掌握用于隔离云资源的 VPC、用于专用网络连接的 Direct Connect，以及用于网络扩展和互联的 Transit Gateway，是 DEA-C01 考试的必备内容。
+
+这些服务构成了 AWS 网络管理和优化的骨干，对任何数据工程方案都至关重要。
 
 ### Amazon VPC（Virtual Private Cloud）：
 
@@ -166,10 +173,13 @@ title: "AWS Certified Data Engineer Associate Cheat Sheet"
 
 ## Serverless
 
-- 在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Serverless 部分，我们深入探讨 Amazon Virtual Private Cloud（VPC）、AWS Direct Connect 和 AWS Transit Gateway 的细节。
-- 本部分旨在加深你对 AWS 网络服务的理解，这些服务对构建安全、可扩展、高效的网络架构至关重要。
-- 掌握用于隔离云资源的 VPC、用于专用网络连接的 Direct Connect，以及用于网络扩展和互联的 Transit Gateway，是 DEA-C01 考试的必备内容。
-- 这些服务构成了 AWS 网络管理和优化的骨干，对任何数据工程方案都至关重要。
+在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Serverless 部分，我们深入探讨 Amazon Virtual Private Cloud（VPC）、AWS Direct Connect 和 AWS Transit Gateway 的细节。
+
+本部分旨在加深你对 AWS 网络服务的理解，这些服务对构建安全、可扩展、高效的网络架构至关重要。
+
+掌握用于隔离云资源的 VPC、用于专用网络连接的 Direct Connect，以及用于网络扩展和互联的 Transit Gateway，是 DEA-C01 考试的必备内容。
+
+这些服务构成了 AWS 网络管理和优化的骨干，对任何数据工程方案都至关重要。
 
 ### AWS Lambda：
 
@@ -229,9 +239,11 @@ title: "AWS Certified Data Engineer Associate Cheat Sheet"
 
 ## Database（数据库）
 
-- 在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Database 部分，我们聚焦一系列关键的 AWS 数据库服务，包括 Amazon RDS、Aurora、DynamoDB、Redshift 和 AWS Data Pipeline。
-- 本部分旨在让你全面理解这些数据库技术——它们在 AWS 数据工程中都扮演着重要角色。从 RDS 和 Aurora 的托管关系型数据库能力，到 DynamoDB 的 NoSQL 方案、Redshift 强大的数据仓库功能，以及 AWS Data Pipeline 提供的数据编排，掌握这些服务对 DEA-C01 考试必不可少。
-- 本部分旨在提供在 AWS 生态中设计、实现和管理健壮、可扩展、高效数据库方案所需的知识。
+在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Database 部分，我们聚焦一系列关键的 AWS 数据库服务，包括 Amazon RDS、Aurora、DynamoDB、Redshift 和 AWS Data Pipeline。
+
+本部分旨在让你全面理解这些数据库技术——它们在 AWS 数据工程中都扮演着重要角色。从 RDS 和 Aurora 的托管关系型数据库能力，到 DynamoDB 的 NoSQL 方案、Redshift 强大的数据仓库功能，以及 AWS Data Pipeline 提供的数据编排，掌握这些服务对 DEA-C01 考试必不可少。
+
+本部分旨在提供在 AWS 生态中设计、实现和管理健壮、可扩展、高效数据库方案所需的知识。
 
 ### Amazon RDS（Relational Database Service）：
 
@@ -334,8 +346,9 @@ title: "AWS Certified Data Engineer Associate Cheat Sheet"
 
 ## Analytics（分析）
 
-- 在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Analytics 部分，我们深入介绍核心 AWS 分析服务，包括 AWS Glue、Amazon Athena、Amazon EMR、Amazon Kinesis、AWS Lake Formation 和 Amazon QuickSight。
-- 本部分对理解如何利用这些服务高效分析和处理大型数据集至关重要。
+在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Analytics 部分，我们深入介绍核心 AWS 分析服务，包括 AWS Glue、Amazon Athena、Amazon EMR、Amazon Kinesis、AWS Lake Formation 和 Amazon QuickSight。
+
+本部分对理解如何利用这些服务高效分析和处理大型数据集至关重要。
 
 ### AWS Glue：
 
@@ -452,8 +465,9 @@ title: "AWS Certified Data Engineer Associate Cheat Sheet"
 
 ## Deployment and Management（部署与管理）
 
-- 在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Deployment and Management 部分，我们聚焦 AWS CloudFormation、Amazon CloudWatch、Amazon AppFlow 和 Amazon Managed Workflows for Apache Airflow（MWAA）等关键 AWS 服务。
-- 本部分深入介绍在 AWS 上高效部署、监控和管理数据工程工作流与资源所必需的工具和服务。
+在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Deployment and Management 部分，我们聚焦 AWS CloudFormation、Amazon CloudWatch、Amazon AppFlow 和 Amazon Managed Workflows for Apache Airflow（MWAA）等关键 AWS 服务。
+
+本部分深入介绍在 AWS 上高效部署、监控和管理数据工程工作流与资源所必需的工具和服务。
 
 ### AWS CloudFormation：
 
@@ -529,8 +543,9 @@ title: "AWS Certified Data Engineer Associate Cheat Sheet"
 
 ## Security, Identity, and Compliance（安全、身份与合规）
 
-- 在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Security, Identity, and Compliance 部分，我们深入介绍 AWS Identity and Access Management（IAM）、AWS Secrets Manager、Amazon EventBridge 和 AWS CloudTrail 等关键 AWS 服务。本部分旨在加深你对 AWS 中安全与合规方面的理解，这些是任何数据工程岗位的基础。
-- 你将了解：用于管理 AWS 资源访问的 IAM、用于保护敏感信息的 Secrets Manager、用于事件驱动安全监控的 EventBridge，以及用于记录和跟踪用户活动的 CloudTrail。掌握这些服务对 DEA-C01 考试必不可少，因为它们在保障 AWS 云中数据工程方案的安全与合规方面发挥着关键作用。
+在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Security, Identity, and Compliance 部分，我们深入介绍 AWS Identity and Access Management（IAM）、AWS Secrets Manager、Amazon EventBridge 和 AWS CloudTrail 等关键 AWS 服务。本部分旨在加深你对 AWS 中安全与合规方面的理解，这些是任何数据工程岗位的基础。
+
+你将了解：用于管理 AWS 资源访问的 IAM、用于保护敏感信息的 Secrets Manager、用于事件驱动安全监控的 EventBridge，以及用于记录和跟踪用户活动的 CloudTrail。掌握这些服务对 DEA-C01 考试必不可少，因为它们在保障 AWS 云中数据工程方案的安全与合规方面发挥着关键作用。
 
 ### AWS Identity and Access Management（IAM）：
 
@@ -629,9 +644,11 @@ title: "AWS Certified Data Engineer Associate Cheat Sheet"
 
 ## Migration（迁移）
 
-- 在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Migration 部分，我们聚焦 AWS DataSync 和 AWS Database Migration Service（DMS）——AWS 生态中数据迁移的两个关键服务。
-- 本部分专门为你提供这些服务的必备知识和实用洞察，对任何数据工程从业者都至关重要。理解 DataSync 高效数据传输与同步的功能和最佳实践，以及 DMS 无缝数据库迁移的能力，对在 DEA-C01 考试中取得好成绩非常关键。
-- 这些服务能够顺畅且安全地将数据迁移到 AWS，是你数据工程工具箱中不可或缺的工具。
+在这份 AWS Certified Data Engineer Associate（DEA-C01）考试 cheat sheet 的 Migration 部分，我们聚焦 AWS DataSync 和 AWS Database Migration Service（DMS）——AWS 生态中数据迁移的两个关键服务。
+
+本部分专门为你提供这些服务的必备知识和实用洞察，对任何数据工程从业者都至关重要。理解 DataSync 高效数据传输与同步的功能和最佳实践，以及 DMS 无缝数据库迁移的能力，对在 DEA-C01 考试中取得好成绩非常关键。
+
+这些服务能够顺畅且安全地将数据迁移到 AWS，是你数据工程工具箱中不可或缺的工具。
 
 ### AWS DataSync：
 
@@ -671,27 +688,28 @@ title: "AWS Certified Data Engineer Associate Cheat Sheet"
 
 ## 常见问题
 
-### 有志成为数据工程师的人应该重点关注哪些核心 AWS 服务？
+### **有志成为数据工程师的人应该重点关注哪些核心 AWS 服务？**
 
 有志成为数据工程师的人应该熟悉 Amazon S3、AWS Glue、Amazon Kinesis、Amazon EMR 和 Amazon Redshift 等服务。这些服务构成典型数据管道的骨干，也是 AWS Certified Data Engineer Associate 考试的核心。
 
-### 如何使用这份 cheat sheet 备考？
+### **如何使用这份 cheat sheet 备考？**
 
 这份 cheat sheet 是快速参考指南，用于强化你对核心概念和服务的理解。请配合动手实践和完整模拟考试一起使用。如需更多学习资源，请访问 [AWS 认证培训页面](https://digitalcloud.training/get-started-with-aws-training/)。
 
-### 这份 cheat sheet 包含在 AWS 上管理数据管道的技巧吗？
+### **这份 cheat sheet 包含在 AWS 上管理数据管道的技巧吗？**
 
 包含。cheat sheet 突出了设计和管理数据管道的最佳实践，包括使用 AWS Glue 进行 ETL（提取、转换、加载）处理，以及使用 Amazon Kinesis 进行实时数据流处理。
 
-### cheat sheet 中提到成本优化策略了吗？
+### **cheat sheet 中提到成本优化策略了吗？**
 
 cheat sheet 简要涉及成本优化技巧，例如选择合适的 Amazon S3 存储类别，以及使用 Amazon Redshift 的 concurrency scaling 功能。如需全面的成本管理指南，请访问 [AWS Cost Management 博客](https://digitalcloud.training/aws-cost-management/)。
 
-### 能找到与 cheat sheet 内容相关的练习题或模拟考试吗？
+### **能找到与 cheat sheet 内容相关的练习题或模拟考试吗？**
 
 cheat sheet 本身是总结性工具，Digital Cloud Training 提供针对 AWS Certified Data Engineer Associate 考试的完整模拟考试和测验。请查看 [AWS Practice Exams 版块](https://digitalcloud.training/aws-data-engineer-free-practice-questions/) 检验你的知识。
 
 ## 用免费练习题检验你的知识
 
-- 获取**免费练习题**，亲自感受 AWS Certified Data Engineer Associate（DEA-C01）考试题目的难度：
-- <https://digitalcloud.training/aws-data-engineer-free-practice-questions/>
+获取**免费练习题**，亲自感受 AWS Certified Data Engineer Associate（DEA-C01）考试题目的难度：
+
+<https://digitalcloud.training/aws-data-engineer-free-practice-questions/>

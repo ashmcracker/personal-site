@@ -22,7 +22,6 @@ title: "AWS Security Services"
 - AWS 云合规让你了解 AWS 为维护云安全和数据保护所部署的健全控制措施。
 - 由于系统构建在 AWS 云基础设施之上，合规责任将由双方共担。
 - 合规计划包括：
-
 - 认证 / 鉴证（Certifications / attestations）。
 - 法律、法规与隐私。
 - 对齐 / 框架（Alignments / frameworks）。
@@ -40,7 +39,6 @@ title: "AWS Security Services"
 - 智能化的威胁检测服务。
 - 可检测账户入侵、实例入侵、恶意侦察和存储桶（bucket）入侵。
 - 持续监控以下来源的事件：
-
 - AWS CloudTrail 管理事件（Management Events）。
 - AWS CloudTrail S3 数据事件（Data Events）。
 - Amazon VPC Flow Logs。
@@ -49,7 +47,6 @@ title: "AWS Security Services"
 ## AWS WAF 与 AWS Shield
 
 WAF：
-
 - AWS WAF 是一种 Web 应用防火墙（web application firewall）。
 - 防范可能危及应用可用性、破坏安全性或消耗过多资源的常见攻击手段。
 - WAF 允许你创建规则，根据 IP 地址、HTTP header 和 body 或自定义 URI 等条件过滤 Web 流量。
@@ -57,7 +54,6 @@ WAF：
 - 这些规则称为 Web ACL。
 
 Shield：
-
 - AWS Shield 是托管的分布式拒绝服务（DDoS）防护服务。
 - 通过持续在线检测和自动内联缓解措施，保护运行在 AWS 上的 Web 应用。
 - 帮助最大限度地减少应用停机时间和延迟。
@@ -88,34 +84,28 @@ Shield：
 ## AWS Inspector 与 AWS Trusted Advisor
 
 AWS Inspector：
-
 - Inspector 是自动化安全评估服务，帮助提升部署在 AWS 上的应用的安全性和合规性。
 - Inspector 自动评估应用是否存在漏洞或偏离最佳实践的情况。
 - 使用安装在 EC2 实例上的 agent。
 - 实例必须打上标签。
 
 AWS Trusted Advisor：
-
 - Trusted Advisor 是一个在线资源，通过优化你的 AWS 环境来降低成本、提升性能并改善安全性。
 - Trusted Advisor 提供实时指导，帮助你按照最佳实践开通资源。
 - Advisor 会在成本优化、性能、安全和容错方面为你提供建议。
 
 Trusted Advisor 扫描你的 AWS 基础设施，并在五个类别上与 AWS 最佳实践进行对比：
-
 - 成本优化（Cost Optimization）。
 - 性能（Performance）。
 - 安全（Security）。
 - 容错（Fault Tolerance）。
 - 服务限额（Service Limits）。
-
 - Trusted Advisor 有两个版本。
 - 核心检查和建议（免费）：
-
 - 可访问 7 项核心检查，帮助提升安全性和性能。
 - 检查项包括 S3 bucket 权限、security group、IAM 使用情况、root 账户 MFA、EBS 公开快照、RDS 公开快照。
 
 完整 Trusted Advisor 权益（Business 和 Enterprise 支持计划）：
-
 - 完整的检查集，帮助优化你的整个 AWS 基础设施。
 - 提供安全、性能、成本、容错和服务限额方面的建议。
 - 额外权益包括每周更新通知、告警、结合 CloudWatch 的自动化操作，以及通过 AWS Support API 进行编程访问。
@@ -125,7 +115,6 @@ Trusted Advisor 扫描你的 AWS 基础设施，并在五个类别上与 AWS 最
 - 渗透测试是通过模拟攻击来测试自有应用安全漏洞的做法。
 - AWS 允许渗透测试。可执行渗透测试的资源范围是有限的。
 - 针对以下服务执行渗透测试无需事先获得许可：
-
 - Amazon EC2 实例、NAT Gateway 和 Elastic Load Balancer。
 - Amazon RDS。
 - Amazon CloudFront。
@@ -134,7 +123,6 @@ Trusted Advisor 扫描你的 AWS 基础设施，并在五个类别上与 AWS 最
 - AWS Lambda 和 Lambda@Edge 函数。
 - Amazon Lightsail 资源。
 - Amazon Elastic Beanstalk 环境。
-
 - 你可以在[**这里**](https://aws.amazon.com/security/penetration-testing/)阅读完整的漏洞与渗透测试支持政策。
 - 如果账户已经被入侵或可能被入侵，AWS 建议采取以下步骤：
 
@@ -158,7 +146,6 @@ Trusted Advisor 扫描你的 AWS 基础设施，并在五个类别上与 AWS 最
 - Amazon Cognito 让你能够快速轻松地为 Web 和移动应用添加用户注册、登录和访问控制功能。
 - Amazon Cognito 可扩展到数百万用户，支持通过 Apple、Facebook、Google、Amazon 等社交身份提供商登录，也支持通过 SAML 2.0 和 OpenID Connect 接入企业身份提供商。
 - AWS Cognito 的两个主要组件是 user pool 和 identity pool：
-
 - User pool 是用户目录，为你的应用用户提供注册和登录选项。
 - Identity pool 让你能够授予用户访问其他 AWS 服务的权限。
 
@@ -170,11 +157,9 @@ User pool 和 identity pool 可以单独使用，也可以一起使用。
 
 - AWS 提供多种目录类型。
 - 目前考试中涉及以下三种类型，本页也会涵盖：
-
 - AWS Directory Service for Microsoft Active Directory。
 - Simple AD。
 - AD Connector。
-
 - 作为 AWS Directory Service 的替代方案，你也可以在 AWS 云（EC2 上）自建 Microsoft AD 域控制器。
 - 下表总结了本页涵盖的目录服务以及其他几种服务，并给出了一些典型使用场景：
 

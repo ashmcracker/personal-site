@@ -68,7 +68,6 @@ title: "Amazon EBS"
 ## EBS Volume 类型
 
 SSD，通用型 – gp2/gp3：
-
 - 卷大小 1 GiB 到 16 TiB。
 - 每卷最高 16,000 IOPS。
 - 性能：
@@ -81,7 +80,6 @@ SSD，通用型 – gp2/gp3：
   - 开发和测试环境。
 
 SSD，预置 IOPS – io1/io2：
-
 - 超过 16,000 IOPS。
 - 每卷最高 64,000 IOPS（Nitro 实例）。
 - 其他实例类型每卷最高 32,000 IOPS。
@@ -95,14 +93,12 @@ SSD，预置 IOPS – io1/io2：
   - I/O 密集型数据库工作负载。
 
 HDD，吞吐量优化型 – (st1)：
-
 - 频繁访问、吞吐密集型、大数据集和大 I/O 尺寸的工作负载，如 MapReduce、Kafka、日志处理、数据仓库和 ETL 工作负载。
 - 吞吐量以 MiB/s 计量，每 TB 可突发至 250 MiB/s，基线吞吐量为每 TB 40 MB/s，每卷最大吞吐量 500 MiB/s。
 - 不能作为启动卷。
 - 不支持 EBS multi-attach。
 
 HDD，冷数据型 – (sc1)：
-
 - 成本最低的存储——不能作为启动卷。
 - 访问频率较低的大型冷数据集工作负载。
 - 每 TiB 可突发至 80 MiB/s，基线吞吐量为 12 MiB/s。
@@ -110,7 +106,6 @@ HDD，冷数据型 – (sc1)：
 - 不支持 EBS multi-attach。
 
 EBS 优化实例：
-
 - 为 Amazon EBS I/O 提供专用带宽。
 - EBS 优化实例设计上兼容所有 EBS volume 类型。
 - 最大带宽：400 Mbps – 12000 Mbps。
@@ -160,23 +155,19 @@ EBS 优化实例：
 ## 加密
 
 你可以加密 EC2 实例的启动卷和数据卷。当你创建加密的 EBS volume 并将其挂载到受支持的实例类型时，以下类型的数据会被加密：
-
 - 卷内的静态数据（data at rest）。
 - 卷与实例之间传输的所有数据。
 - 从该卷创建的所有快照。
 - 从这些快照创建的所有卷。
-
 - 所有 EBS volume 类型都支持加密。
 - 加密卷的 IOPS 性能与未加密卷相同。
 - 所有实例系列都支持加密。
 - Amazon EBS 加密可在以下实例类型上使用：
-
 - 通用型：A1、M3、M4、M5、M5a、M5ad、M5d、T2、T3 和 T3a。
 - 计算优化型：C3、C4、C5、C5d 和 C5n。
 - 内存优化型：cr1.8xlarge、R3、R4、R5、R5a、R5ad、R5d、u-6tb1.metal、u-9tb1.metal、u-12tb1.metal、X1、X1e 和 z1d。
 - 存储优化型：D2、h1.2xlarge、h1.4xlarge、I2 和 I3。
 - 加速计算型：F1、G2、G3、G4、P2 和 P3。
-
 - EBS 使用行业标准的 AES-256 算法，通过数据密钥（data key）加密你的卷。
 - 你的数据密钥与加密数据一起存储在磁盘上，但在存储之前 EBS 会先使用你的 CMK 加密数据密钥。你的数据密钥绝不会以明文形式出现在磁盘上。
 - 同一个数据密钥由该卷的快照以及从这些快照创建的后续卷共享。
@@ -203,7 +194,6 @@ EBS 优化实例：
 - 接收账户必须先复制快照，然后才能从快照创建卷。
 - 建议接收账户使用自己的 CMK 密钥对共享的加密快照重新加密。
 - 以下信息适用于快照：
-
 - 快照是异步创建的，且是增量的。
 - 可以复制未加密的快照（可选择加密）。
 - 可以复制加密的快照（可选择用不同密钥重新加密）。
@@ -218,7 +208,6 @@ EBS 优化实例：
 - 如果在没有加密密钥访问权限的情况下复制加密快照，操作会静默失败（需要跨账户权限）。
 
 以下情况可能需要复制快照：
-
 - 在其他区域创建服务。
 - DR（灾难恢复）——能够在另一个区域从快照恢复。
 - 迁移到另一个区域。
@@ -226,7 +215,6 @@ EBS 优化实例：
 - 数据留存。
 
 要对 RAID 阵列做应用一致性快照：
-
 - 停止应用程序向磁盘写入。
 - 将所有缓存刷写到磁盘。
 - 冻结文件系统。
@@ -237,14 +225,11 @@ EBS 优化实例：
 
 - Amazon Machine Image (AMI) 是一种特殊类型的虚拟设备，用于在 Amazon Elastic Compute Cloud（"EC2"）中创建虚拟机。
 - AMI 包含以下内容：
-
 - 实例根卷的模板（例如操作系统、应用服务器和应用程序）。
 - 启动权限，控制哪些 AWS 账户可以使用该 AMI 启动实例。
 - block device mapping，指定实例启动时要挂载的卷。
-
 - AMI 分为 instance store-backed 和 EBS-backed 两种。
 - Instance store-backed：
-
 - 从 AWS instance store-backed AMI 启动一个 EC2 实例。
 - 按需修改根卷。
 - 创建 AMI，它会被上传到用户指定的 S3 bucket（用户 bucket）。
@@ -255,7 +240,6 @@ EBS 优化实例：
 - instance store-backed 卷只能在启动时创建。
 
 EBS-backed：
-
 - 必须停止实例以创建一致的镜像，然后创建 AMI。
 - AWS 会自动注册 AMI。
 - 创建过程中 AWS 会为所有挂载的卷创建快照——无需指定 bucket，但你需要为 S3 存储付费。
@@ -263,7 +247,6 @@ EBS-backed：
 - 现在可以创建带有加密的根/启动卷和数据卷的 AMI（每个卷也可以使用不同的 CMK）。
 
 复制 AMI：
-
 - 你可以在 AWS 区域内或跨区域复制 Amazon Machine Image (AMI)，使用 AWS Management Console、AWS CLI 或 SDK，或 Amazon EC2 API，它们都支持 CopyImage 操作。
 - 可以复制 Amazon EBS-backed AMI 和 instance store-backed AMI。
 - 可以复制加密的 AMI 和带加密快照的 AMI。
@@ -302,7 +285,6 @@ EBS-backed：
 
 - Amazon Elastic Block Store (Amazon EBS) 会将[多项指标](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using_cloudwatch_ebs.html)的数据点发送到 CloudWatch。
 - 考试需要理解的几个特定指标：
-
 - DiskReadBytes / DiskWriteBytes：
   - 对应的是 instance store volume，不是 EBS。
   - 包含在 AWS/EC2 命名空间中。
@@ -311,10 +293,8 @@ EBS-backed：
   - 包含在 AWS/EBS 命名空间中。
 
 Amazon EBS volume 有两种 Amazon CloudWatch 监控类型：
-
 - 基本监控——数据每 5 分钟自动提供一次，免费。包括 EBS-backed 实例的根设备卷数据。
 - 详细监控——Provisioned IOPS SSD (io1) 卷自动向 CloudWatch 发送 1 分钟粒度的指标。
-
 - Amazon EBS General Purpose SSD (gp2)、Throughput Optimized HDD (st1)、Cold HDD (sc1) 和 Magnetic (standard) 卷自动向 CloudWatch 发送 5 分钟粒度的指标。
 - Provisioned IOPS SSD (io1) 卷自动向 CloudWatch 发送 1 分钟粒度的指标。仅当卷挂载到实例时才会向 CloudWatch 报告数据。
 - 卷[状态检查](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-volume-status.html)让你能更好地了解、跟踪和管理 Amazon EBS volume 上数据的潜在不一致性。
@@ -334,7 +314,6 @@ Amazon EBS volume 有两种 Amazon CloudWatch 监控类型：
 ## Amazon Data Lifecycle Manager (DLM)
 
 自动化 EBS 快照和 EBS-backed AMI 的创建、保留和删除。
-
 - 通过强制执行定期备份计划来保护重要数据。
 - 创建可定期刷新的标准化 AMI。
 - 按照审计或内部合规要求保留备份。

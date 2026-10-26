@@ -8,7 +8,6 @@ title: "AWS IAM"
 - IAM 用于安全地控制个人和组对 AWS 资源的访问。
 - IAM 让为多个用户提供对 AWS 资源的安全访问变得简单。
 - IAM 可用于管理：
-
 - 用户（Users）。
 - 组（Groups）。
 - 访问策略（Access policies）。
@@ -17,18 +16,15 @@ title: "AWS IAM"
 - 用户密码策略。
 - 多因素认证（MFA）。
 - 用于编程访问（CLI）的 API 密钥。
-
 - 提供对 AWS 账户的集中式控制。
 - 支持对 AWS 账户的共享访问。
 - 默认情况下，新创建的用户对任何 AWS 服务都没有访问权限——他们只能登录 AWS 控制台。
 - 必须显式授予权限，用户才能访问某个 AWS 服务。
 - IAM 用户是被授予了 AWS 账户访问权限的个人。
 - 每个 IAM 用户有三个主要组成部分：
-
 - 用户名。
 - 密码。
 - 访问各种资源的权限。
-
 - 使用 IAM 可以应用细粒度权限。
 - 可以为用户分配各自的安全凭证，例如访问密钥、密码和多因素认证设备。
 - IAM 不用于应用程序级别的身份认证。
@@ -36,11 +32,9 @@ title: "AWS IAM"
 - 可以为 AWS 账户及账户下的单个用户启用/强制使用多因素认证（MFA）。
 - MFA 使用一种认证设备，持续生成随机的六位一次性认证码。
 - 可以通过以下三种方式使用 MFA 设备进行认证：
-
 - 通过 **AWS Management Console**——系统会提示用户输入用户名、密码和认证码。
 - 使用 **AWS API**——在 IAM 策略中添加限制，开发人员可以请求临时安全凭证，并在 AWS STS API 请求中传递 MFA 参数。
 - 使用 **AWS CLI**，通过 STS 获取临时安全凭证（aws sts get-session-token）。
-
 - 想了解如何设置 MFA？在下面简短的 AWS Hands-on Labs 视频教程中，你将学习如何为 AWS Root 账户激活虚拟多因素认证（MFA）。在不到 5 分钟的时间里，我们涵盖：删除 Root 账户访问密钥和激活多因素认证。
 - 最佳实践是为所有用户使用 MFA，并为所有特权用户使用 U2F 或硬件 MFA 设备。
 - IAM 是通用的（全局的），不区分区域。
@@ -64,7 +58,6 @@ title: "AWS IAM"
 ## IAM 要素
 
 主体（Principals）：
-
 - 可以对 AWS 资源执行操作的实体。
 - 你的管理员 IAM 用户是你的第一个主体。
 - 你可以允许用户和服务代入（assume）角色。
@@ -73,7 +66,6 @@ title: "AWS IAM"
 - IAM 用户、角色、联合用户和应用程序都是 AWS 主体。
 
 请求（Requests）：
-
 - 主体通过控制台、CLI、SDK 或 API 发送请求。
 - 请求包括：
   - 主体想要执行的操作（或操作命令）。
@@ -86,13 +78,11 @@ title: "AWS IAM"
   - 资源数据，即与所请求资源相关的数据。
 
 认证（Authentication）：
-
 - 发送请求的主体必须经过认证才能向 AWS 发送请求。
 - 要从控制台认证，必须使用用户名和密码登录。
 - 要从 API 或 CLI 认证，必须提供访问密钥和秘密密钥。
 
 授权（Authorization）：
-
 - IAM 使用请求上下文中的值检查匹配的策略，并决定允许还是拒绝该请求。
 - IAM 策略以 JSON 文档形式存储在 IAM 中，指定允许或拒绝的权限。
 - IAM 策略可以是：
@@ -107,14 +97,12 @@ title: "AWS IAM"
 - 默认情况下，只有 root 用户可以访问账户中的所有资源。
 
 操作（Actions）：
-
 - 操作由服务定义。
 - 操作是你可以对资源做的事情，例如查看、创建、编辑、删除。
 - 任何未被显式允许的资源操作都会被拒绝。
 - 要允许主体执行某个操作，必须在应用于该主体或受影响资源的策略中包含必要的操作。
 
 资源（Resources）：
-
 - 资源是存在于某个服务中的实体。
 - 例如 EC2 实例、S3 存储桶、IAM 用户和 DynamoDB 表。
 - 每个 AWS 服务都定义了一组可以对资源执行的操作。
@@ -125,13 +113,11 @@ title: "AWS IAM"
 ## 认证方法
 
 控制台密码：
-
 - 用户可输入该密码登录交互式会话，如 AWS Management Console。
 - 你可以允许用户更改自己的密码。
 - 你可以先禁用所有用户更改密码的选项，再使用 IAM 策略为选定的 IAM 用户授予更改密码的权限，从而只允许他们修改密码。
 
 访问密钥（Access Keys）：
-
 - 由 **access key ID** 和 **secret access key** 组合而成。
 - 一个用户同一时间最多可分配两个处于激活状态的访问密钥。
 - 在程序代码中使用 **API**，或在命令行中使用 **AWS CLI** 或 **AWS PowerShell** 工具时，可使用它们对 AWS 发起编程式调用。
@@ -143,7 +129,6 @@ title: "AWS IAM"
 - 你可以禁用用户的访问密钥，使其无法用于 API 调用。
 
 服务器证书：
-
 - 可用于向某些 AWS 服务进行身份认证的 SSL/TLS 证书。
 - AWS 建议使用 AWS Certificate Manager (ACM) 来配置、管理和部署服务器证书。
 - 仅在必须支持 ACM 不支持的区域中的 HTTPS 连接时才使用 IAM。
@@ -156,20 +141,16 @@ title: "AWS IAM"
 
 - IAM 用户是代表个人或服务的实体。
 - 可以分配：
-
 - 用于对 AWS API、CLI、SDK 及其他开发工具进行编程访问的 access key ID 和 secret access key。
 - 用于访问管理控制台的密码。
-
 - 默认情况下，用户无法访问账户中的任何内容。
 - 账户 root 用户凭证是创建账户时使用的电子邮件地址和密码。
 - root 账户拥有完整的管理权限，且这些权限无法被限制。
 - root 账户最佳实践：
-
 - 不要使用 root 用户凭证。
 - 不要共享 root 用户凭证。
 - 创建 IAM 用户并根据需要分配管理权限。
 - 启用 MFA。
-
 - 可以创建代表应用程序的 IAM 用户，这些被称为“服务账户”。
 - 每个 AWS 账户最多可有 5000 个用户。
 - 每个用户账户都有一个友好名称和一个 ARN，用于在整个 AWS 中唯一标识该用户。
@@ -205,7 +186,6 @@ title: "AWS IAM"
 - 临时凭证主要与 IAM 角色一起使用，并会自动过期。
 - 角色可以通过控制台临时代入，也可以通过 **AWS CLI**、**Tools for Windows PowerShell** 或 **API** 以编程方式代入。
 - IAM 角色与 EC2 实例：
-
 - IAM 角色可通过实例配置文件（instance profiles），为运行在 EC2 实例上的应用程序授予发起 AWS API 请求的权限。
 - 一个 EC2 实例同一时间只能分配一个角色。
 - 角色可以在**创建 EC2 实例时或之后的任何时间**分配。
@@ -213,7 +193,6 @@ title: "AWS IAM"
 - 应用程序从实例元数据中检索临时安全凭证。
 
 角色委托：
-
 - 创建一个带有两个策略的 IAM 角色：
   - 权限策略（Permissions policy）——为角色使用者授予对资源所需的权限。
   - 信任策略（Trust policy）——指定允许代入该角色的可信账户。
@@ -236,13 +215,11 @@ title: "AWS IAM"
 ## 内联策略与托管策略
 
 共有 3 种类型的策略：
-
 - 托管策略（Managed policies）。
 - 客户托管策略（Customer managed policies）。
 - 内联策略（Inline policies）。
 
 托管策略（Managed Policy）：
-
 - 由 AWS 创建和管理。
 - 用于基于工作职能的常见使用场景。
 - 省去自己创建策略的麻烦。
@@ -250,14 +227,12 @@ title: "AWS IAM"
 - 无法更改所分配的权限。
 
 客户托管策略（Customer Managed Policy）：
-
 - 你在自己的 AWS 账户中创建和管理的独立策略。
 - 可附加到多个用户、组和角色——但仅限你自己的账户内。
 - 可以通过复制现有托管策略再进行自定义来创建。
 - 推荐在现有 AWS 托管策略无法满足环境需求时使用。
 
 内联策略（Inline Policy）：
-
 - 内联策略嵌入在其所应用的用户、组或角色中。
 - 实体与策略之间是严格的 1:1 关系。
 - 删除嵌入了内联策略的用户、组或角色时，该策略也会一并删除。
@@ -272,7 +247,6 @@ title: "AWS IAM"
 - 你无法更改 AWS 托管策略中定义的权限。
 - 一些 AWS 托管策略是为特定工作职能设计的。
 - 针对特定工作的 AWS 托管策略包括：
-
 - Administrator。
 - Billing。
 - Database Administrator。
@@ -283,7 +257,6 @@ title: "AWS IAM"
 - Support User。
 - System Administrator。
 - View-Only User。
-
 - 你可以创建在自己的 AWS 账户中管理的独立策略，我们称之为客户托管策略。
 - 然后可以将这些策略附加到 AWS 账户中的多个主体实体。
 - 将策略附加到主体实体时，你就赋予了该实体策略中定义的权限。
@@ -295,7 +268,6 @@ title: "AWS IAM"
 - 如果存在权限边界（permissions boundary）、Organizations SCP 或会话策略，它们可能会用隐式拒绝覆盖允许。
 - 任何策略中的显式拒绝都会覆盖任何允许。
 - 理解该逻辑需要了解以下几个概念：
-
 - **基于身份的策略（Identity-based policies）**——附加到 IAM 身份（用户、用户组或角色），并为 IAM 实体（用户和角色）授予权限。
 - **基于资源的策略（Resource-based policies）**——为指定为主体的主体（账户、用户、角色或联合用户）授予权限。
 - **IAM 权限边界（IAM permissions boundaries）**——权限边界是一项高级功能，用于设置基于身份的策略可以为 IAM 实体（用户或角色）授予的最大权限。
@@ -313,7 +285,6 @@ title: "AWS IAM"
 ![IAM Instance Profiles](/cheat-sheets/images/2022-01-iam-instance-profiles.jpeg)
 
 你可以使用以下 AWS CLI 命令在 AWS 账户中操作实例配置文件：
-
 - 创建实例配置文件：aws iam create-instance-profile
 - 将角色添加到实例配置文件：aws iam add-role-to-instance-profile
 - 列出实例配置文件：aws iam list-instance-profiles、aws iam list-instance-profiles-for-role
@@ -329,7 +300,6 @@ title: "AWS IAM"
 - 凭证始终全局有效。
 - STS 支持 AWS CloudTrail，它会记录你的 AWS 账户的 AWS 调用并将日志文件传送到 S3 存储桶。
 - 临时安全凭证的工作方式与 IAM 用户使用的长期访问密钥凭证几乎相同，区别如下：
-
 - 临时安全凭证是短期的。
 - 可以配置为持续几分钟到几小时不等。
 - 凭证过期后，AWS 不再识别它们，也不允许使用它们发起任何 API 请求。
@@ -337,31 +307,26 @@ title: "AWS IAM"
 - 当临时安全凭证过期时（甚至之前），如果请求用户仍有权限，可以请求新凭证。
 
 STS 的优势包括：
-
 - 你无需在应用程序中分发或嵌入长期 AWS 安全凭证。
 - 你可以为用户提供对 AWS 资源的访问，而无需为他们定义 AWS 身份（临时安全凭证是 IAM 角色和身份联合的基础）。
 - 临时安全凭证生命周期有限，因此当不再需要时，你无需轮换或显式撤销它们。
 - 临时安全凭证过期后无法重用（你可以指定凭证的有效时长，最长不超过上限）。
 
 AWS STS API 操作返回的临时安全凭证包括：
-
 - 一个访问密钥，由 access key ID 和 secret access key 组成。
 - 一个会话令牌（session token）。
 - 过期时间或有效时长。
 - 用户（或用户运行的应用程序）可以使用这些凭证访问你的资源。
 
 使用 STS，你可以通过以下 API 之一请求会话令牌：
-
 - AssumeRole——只能由 IAM 用户使用（可用于 MFA）。
 - AssumeRoleWithSAML——可由任何传递了 SAML 认证响应、且该响应表明来自已知（可信）身份提供商认证的用户使用。
 - AssumeRoleWithWebIdentity——可由传递了 web 身份令牌、且该令牌表明来自已知（可信）身份提供商认证的用户使用。
 - GetSessionToken——可由 IAM 用户或 AWS 账户 root 用户使用（可用于 MFA）。
 - GetFederationToken——可由 IAM 用户或 AWS 账户 root 用户使用。
-
 - AWS 建议使用 Cognito 与互联网身份提供商进行身份联合。
 - 用户可以来自三个来源。
 - **联合（通常是 AD）：**
-
 - 使用 SAML 2.0。
 - 基于用户的 AD 凭证授予临时访问权限。
 - 无需是 IAM 中的用户。
@@ -376,7 +341,6 @@ AWS STS API 操作返回的临时安全凭证包括：
 - 允许一个 AWS 账户中的用户访问另一个账户中的资源。
 - 要在不同账户中发起请求，该账户中的资源必须附加了包含所需权限的基于资源的策略。
 - 或者你必须代入该账户中具有所需权限的角色（基于身份的策略）。
-
 - STS 有几种使用方式。
 - 场景 1：
 
@@ -405,7 +369,6 @@ AWS STS API 操作返回的临时安全凭证包括：
 ## IAM 最佳实践
 
 为保护 AWS 资源，建议遵循以下最佳实践：
-
 - 妥善保管你的 AWS 账户 root 用户访问密钥。
 - 使用角色委托权限。
 - 授予最小权限。

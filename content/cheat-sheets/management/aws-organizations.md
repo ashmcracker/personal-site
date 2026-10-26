@@ -8,7 +8,6 @@ title: "AWS Organizations"
 - AWS 账户天然就是权限、安全、成本和工作负载的边界。
 - 在扩展云环境时，使用多账户架构是推荐的最佳实践。
 - AWS Organizations 为管理多账户环境提供了许多功能，包括：
-
 - 通过 AWS Command Line Interface (CLI)、SDK 或 API 以编程方式创建新账户，简化账户创建流程。
 - 将账户分组到 organizational unit (OU) 中，即服务于单个应用或服务的账户分组。
 - 应用 tag policy 对组织中的资源进行分类或跟踪，并为用户或应用提供基于属性的访问控制（attribute-based access control）。
@@ -20,14 +19,11 @@ title: "AWS Organizations"
 - 跨账户启用 AWS CloudTrail，生成云环境中所有活动的日志，成员账户无法关闭或修改该日志。
 - Organizations 为你提供单一的合并账单。
 - 此外，你还可以查看跨账户的资源使用情况，使用 AWS Cost Explorer 跟踪成本，并使用 AWS Compute Optimizer 优化计算资源的使用。
-
 - AWS Organizations 对所有 AWS 客户免费开放，不收取额外费用。
 - [**AWS Organizations API**](https://docs.aws.amazon.com/organizations/latest/APIReference/Welcome.html) 支持账户创建和管理的自动化。
 - AWS Organizations 提供两种功能集：
-
 - 合并账单（Consolidated billing）。
 - 全部功能（All features）。
-
 - 默认情况下，组织支持合并账单功能。
 - 合并账单将付费账户（paying account）和关联账户（linked account）分开。
 - 你可以通过合并账单，使用 AWS Organizations 为组织中的所有 AWS 账户设置单一的支付方式。
@@ -51,7 +47,6 @@ title: "AWS Organizations"
 - **Organizational Unit (OU) –**OU 是组织内一组 AWS 账户的分组。OU 还可以包含其他 OU，从而构建层级结构。
 - **Policy（策略）–**策略是包含一条或多条语句的"文档"，用于定义你想要应用到一组 AWS 账户的控制规则。AWS Organizations 支持一种特定的策略类型，称为 Service Control Policy (SCP)。SCP 定义了组织内不同账户可用的 AWS 服务操作，例如 Amazon EC2 的 RunInstances。
 - 管理账户的最佳实践：
-
 - [**仅在必须使用管理账户的任务中使用管理账户。**](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_best-practices_mgmt-acct.html#best-practices_mgmt-use)
 - [**为管理账户的 root 用户使用群组邮箱地址。**](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_best-practices_mgmt-acct.html#best-practices_mgmt-acct_email-address)
 - [**为管理账户的 root 用户使用复杂密码。**](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_best-practices_mgmt-acct.html#best-practices_mgmt-acct_complex-password)
@@ -83,7 +78,6 @@ title: "AWS Organizations"
 - 管理员仍需向 IAM 用户或角色、或账户中的资源附加 identity-based policy 或 resource-based policy 来授予权限。
 - 有效权限是 SCP 允许的权限与 IAM 及 resource-based policy 允许的权限之间的逻辑交集。
 - SCP 继承规则：
-
 - SCP ***仅影响 IAM 用户和角色***，即由组织内账户管理的用户和角色。SCP 不直接影响 resource-based policy，也不影响组织外部账户的用户或角色。
 - SCP 限制成员账户中 IAM 用户和角色的权限，包括成员账户的 root 用户。
 - 任何账户只拥有其***所有***上级层级都允许的权限。
@@ -100,7 +94,6 @@ title: "AWS Organizations"
 - 如果同时存在 permissions boundary（IAM 的高级功能）和 SCP，则 boundary、SCP 和 identity-based policy 三者都必须允许该操作。
 
 你***不能***使用 SCP 限制以下任务：
-
 - 管理账户执行的任何操作。
 - 使用附加到 service-linked role 的权限执行的任何操作。
 - 以 root 用户身份注册 Enterprise 支持计划。
@@ -121,15 +114,12 @@ title: "AWS Organizations"
 - Resource group 允许你将资源分组，然后为它们打标签。
 - Tag Editor 可以辅助查找资源并添加标签。
 - **你可以通过以下任一入口访问 Resource Groups：**
-
 - AWS Management Console 的导航栏。
 - 在 AWS Systems Manager 控制台中，通过左侧导航窗格中的 Resource Groups 入口。
 - 使用 Resource Groups API，通过 AWS CLI 命令或 AWS SDK 编程语言。
-
 - Resource group 是位于同一 AWS 区域、且符合查询条件的一组 AWS 资源集合。
 - 在 Resource Groups 中，可以基于两种查询类型来构建分组。
 - 两种查询类型都包含以 AWS::service::resource 格式指定的资源。
-
 - **基于标签（Tag-based）–**基于标签的查询包含资源列表和标签。标签是帮助你在组织内识别和分类资源的键。标签可以选择性地为键设置值。
 - **基于 AWS CloudFormation 堆栈（Stack-based）–**在基于 AWS CloudFormation 堆栈的查询中，你选择当前区域中账户里的一个 AWS CloudFormation 堆栈，然后选择堆栈中希望加入分组的资源类型。查询只能基于一个 AWS CloudFormation 堆栈。
 

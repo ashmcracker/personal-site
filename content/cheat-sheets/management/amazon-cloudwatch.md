@@ -7,11 +7,9 @@ title: "Amazon CloudWatch"
 - Amazon CloudWatch 是一项面向 AWS 云资源以及你在 AWS 上运行的应用的监控服务。
 - CloudWatch 用于收集和跟踪指标、收集和监控日志文件，以及设置告警。
 - 借助 CloudWatch，你可以：
-
 - 获得资源利用率的系统级全局可见性。
 - 监控应用性能。
 - 监控运行状况。
-
 - CloudWatch 告警（alarm）监控指标，并可配置为自动触发操作。
 - CloudWatch Logs 集中收集来自系统、应用和 AWS 服务的日志。
 - CloudWatch Events 提供描述 AWS 资源变化的系统事件流。
@@ -22,7 +20,6 @@ title: "Amazon CloudWatch"
 - CloudWatch 与 AWS IAM 集成。
 - CloudWatch 可以自动响应 AWS 资源的变化。
 - 借助 CloudWatch，你可以监控以下资源：
-
 - EC2 实例。
 - DynamoDB 表。
 - RDS 数据库实例。
@@ -30,7 +27,6 @@ title: "Amazon CloudWatch"
 - 你的应用生成的任何日志文件。
 
 CloudWatch 按以下方式保留指标数据：
-
 - 周期小于 60 秒的数据点可保留 3 小时。这些数据点属于高分辨率自定义指标。
 - 周期为 60 秒（1 分钟）的数据点可保留 15 天。
 - 周期为 300 秒（5 分钟）的数据点可保留 63 天。
@@ -57,7 +53,6 @@ CloudWatch 按以下方式保留指标数据：
 - 指标无法删除，但会在 15 个月后自动过期。
 - 指标由名称、命名空间以及零个或多个维度唯一定义。
 - CloudWatch 按以下方式保留指标数据：
-
 - 周期小于 60 秒的数据点可保留 3 小时。这些数据点属于高分辨率自定义指标。
 - 周期为 60 秒（1 分钟）的数据点可保留 15 天。
 - 周期为 300 秒（5 分钟）的数据点可保留 63 天。
@@ -74,10 +69,8 @@ CloudWatch 按以下方式保留指标数据：
 ## 高分辨率指标（High-Resolution Metrics）
 
 每个指标属于以下之一：
-
 - 标准分辨率，数据粒度为一分钟
 - 高分辨率，数据粒度为一秒
-
 - AWS 服务生成的指标默认为标准分辨率。
 - 发布自定义指标时，你可以将其定义为标准分辨率或高分辨率。
 - 发布高分辨率指标时，CloudWatch 以 1 秒的分辨率存储它，你可以以 1 秒、5 秒、10 秒、30 秒或 60 秒的任意倍数为周期读取和检索它。
@@ -158,11 +151,9 @@ CloudWatch 按以下方式保留指标数据：
 - Amazon CloudWatch Logs 让你可以使用现有的系统、应用和自定义日志文件来监控和排查系统及应用问题。
 - 你可以使用 Amazon CloudWatch Logs 监控、存储和访问来自 Amazon Elastic Compute Cloud (Amazon EC2) 实例、AWS CloudTrail、Route 53 和其他来源的日志文件。
 - 功能特性：
-
 - **监控来自 Amazon EC2 实例的日志** —— 监控应用和系统日志，并可触发通知。
 - **监控 CloudTrail 记录的事件** —— 可以基于 CloudTrail 捕获的 API 活动在 CloudWatch 中创建告警。
 - **日志保留** —— 默认情况下，日志无限期保留。可按日志组配置，从 1 天到 10 年。
-
 - CloudWatch Logs 可用于实时应用和系统监控，以及长期日志保留。
 - CloudTrail 日志可以发送到 CloudWatch Logs 进行实时监控。
 - CloudWatch Logs 指标筛选器（metric filter）可以针对特定术语、短语或值评估 CloudTrail 日志。
@@ -179,7 +170,6 @@ CloudWatch 按以下方式保留指标数据：
 - 现在有一个统一的 CloudWatch 代理，可同时收集日志和指标。
 - 统一的 CloudWatch 代理包含内存和磁盘利用率等指标。
 - 统一的 CloudWatch 代理让你能够执行以下操作：
-
 - 跨操作系统从 Amazon EC2 实例收集更多系统级指标。除 EC2 实例的指标外，这些指标还可以包括客户机内部（in-guest）指标。
 - 从本地服务器收集系统级指标。这些服务器可以是混合环境中的服务器，也可以是不受 AWS 管理的服务器。
 - 使用 StatsD 和 collectd 协议从应用或服务检索自定义指标。
@@ -192,7 +182,6 @@ CloudWatch 按以下方式保留指标数据：
 - 可以使用 CloudWatch Events 通过 cron 或 rate 表达式调度在特定时间自动触发的自动化操作。
 - 可以匹配事件并将其路由到一个或多个目标函数或流。
 - 目标包括：
-
 - Amazon EC2 实例。
 - AWS Lambda 函数。
 - Amazon Kinesis Data Streams 中的流。
@@ -216,7 +205,6 @@ CloudWatch 按以下方式保留指标数据：
 - **常用 API 操作**
 - 理解以下 API 操作对 Developer Associate 考试很有帮助。考试前你还应该在 AWS 网站上查看这些以及其他 API 操作。
 - GetMetricData
-
 - 在单个请求中检索多达 500 个不同的指标。
 
 PutMetricData

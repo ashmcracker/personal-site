@@ -23,13 +23,11 @@ title: "Amazon OpenSearch"
 - 你可以使用 Kibana 或 OpenSearch Dashboards 以及 REST API 来配置告警。
 - 通知可以通过自定义 webhook、Slack、Amazon SNS 和 Amazon Chime 发送。
 - OpenSearch Service 支持多种查询语言，例如：
-
 - Domain-Specific Language (DSL)。
 - 通过 OpenSearch SQL 使用 SQL 查询。
 - OpenSearch Piped Processing Language (PPL)。
 
 OpenSearch 可与以下开源工具集成：
-
 - Logstash。
 - OpenTelemetry。
 - ElasticSearch API。
@@ -39,7 +37,6 @@ OpenSearch 可与以下开源工具集成：
 - OpenSearch Services 的 domain 可以启动到 Amazon VPC 中。
 - 使用 VPC 可以实现 OpenSearch Service 与 VPC 内其他服务之间的安全通信。
 - 以下是 VPC domain 与公有 domain 的一些区别：
-
 - 由于逻辑隔离，位于 VPC 内的 domain 比使用公有终端节点的 domain 多一层安全防护。
 - 公有 domain 可以从任何联网设备访问，而 VPC domain 则需要某种形式的 VPN 或代理。
 - 与公有 domain 相比，VPC domain 在控制台中显示的信息更少。具体来说，**Cluster health** 标签页不包含 shard 信息，也没有 **Indices** 标签页。
@@ -47,7 +44,6 @@ OpenSearch 可与以下开源工具集成：
 - 你无法对位于 VPC 内的 domain 应用基于 IP 的访问策略，因为 security group 已经在执行基于 IP 的访问控制。
 
 请注意以下限制：
-
 - 如果你在 VPC 内启动了一个新 domain，之后无法再切换为使用公有终端节点。反过来也一样。
 - 你可以选择在 VPC 内启动 domain 或使用公有终端节点，但两者不能兼得。
 - 你无法在使用 dedicated tenancy 的 VPC 中启动 domain，必须使用 tenancy 设置为 **Default** 的 VPC。
@@ -69,14 +65,11 @@ OpenSearch 可与以下开源工具集成：
 - 节点间加密是可选的，可以通过控制台、CLI 或 API 启用。
 - 节点间加密一旦启用就无法禁用。如需关闭，必须从未启用该设置的快照创建一个新 domain。
 - Amazon OpenSearch Service 支持三种类型的访问策略：
-
 - [Resource-based policy（基于资源的策略）](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ac.html#ac-types-resource)
 - [Identity-based policy（基于身份的策略）](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ac.html#ac-types-identity)
 - [IP-based policy（基于 IP 的策略）](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ac.html#ac-types-ip)
-
 - 细粒度访问控制（fine-grained access control）为 Amazon OpenSearch Service 提供了更多能力。
 - 细粒度访问控制具有以下优势：
-
 - 基于角色的访问控制（role-based access control）。
 - 索引、文档和字段级别的安全性。
 - OpenSearch Dashboards 多租户（multi-tenancy）。

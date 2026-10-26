@@ -13,13 +13,11 @@ title: "AWS Monitoring and Logging Services"
 - 用于收集和跟踪指标、收集和监控日志文件，以及设置告警。
 - 自动响应 AWS 资源的变化。
 - 可监控的资源包括：
-
 - EC2 实例。
 - DynamoDB 表。
 - RDS 数据库实例。
 - 应用程序和服务生成的自定义指标。
 - 应用程序生成的任何日志文件。
-
 - 获得资源利用率的系统级全局视图。
 - CloudWatch 监控涵盖应用程序性能。
 - 监控运行健康状况。
@@ -31,12 +29,10 @@ title: "AWS Monitoring and Logging Services"
 - CloudTrail 日志可以发送到 CloudWatch Logs 进行实时监控。
 - CloudWatch Logs 指标筛选器可以针对特定术语、短语或值评估 CloudTrail 日志。
 - CloudWatch 按如下方式保留指标数据：
-
 - 周期小于 60 秒的数据点保留 3 小时。这些数据点是高分辨率自定义指标。
 - 周期为 60 秒（1 分钟）的数据点保留 15 天。
 - 周期为 300 秒（5 分钟）的数据点保留 63 天。
 - 周期为 3600 秒（1 小时）的数据点保留 455 天（15 个月）。
-
 - 控制面板（Dashboards）允许你创建、自定义、交互并保存 AWS 资源和自定义指标的图表。
 - 告警（Alarms）可用于监控账户中的任何 Amazon CloudWatch 指标。
 - 事件（Events）是描述 AWS 资源变化的系统事件流。
@@ -47,11 +43,9 @@ title: "AWS Monitoring and Logging Services"
 - EC2 实例没有内存使用率的标准指标。
 - 自定义指标是你提供给 Amazon CloudWatch 的任何指标（例如网页加载时间或应用程序性能）。
 - 存储日志的选项：
-
 - CloudWatch Logs。
 - 集中式日志系统（如 Splunk）。
 - 自定义脚本并存储在 S3 上。
-
 - 不要将日志存储在非持久性磁盘上：
 - 最佳实践是将日志存储在 CloudWatch Logs 或 S3 中。
 - CloudWatch Logs 订阅可跨多个 AWS 账户使用（使用跨账户访问）。
@@ -65,20 +59,17 @@ title: "AWS Monitoring and Logging Services"
 - 通过记录账户上执行的操作，提供对用户活动的可见性。
 - API 历史记录支持安全分析、资源变更跟踪和合规审计。
 - 记录通过以下方式发起的 API 调用：
-
 - AWS Management Console。
 - AWS SDK。
 - 命令行工具。
 - 高级别 AWS 服务（如 CloudFormation）。
 
 CloudTrail 记录来自大多数 AWS 服务的账户活动和服务事件，并记录以下内容：
-
 - API 调用者的身份。
 - API 调用的时间。
 - API 调用者的源 IP 地址。
 - 请求参数。
 - AWS 服务返回的响应元素。
-
 - CloudTrail 默认启用。
 - CloudTrail 按 AWS 账户划分。
 - 你可以使用 S3 存储桶整合多个账户的日志：

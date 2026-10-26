@@ -7,11 +7,9 @@ title: "AWS Cloud Computing Concepts"
 - 云计算是通过互联网，以按使用量付费的方式，经由云服务平台按需交付计算能力、数据库存储、应用程序和其他 IT 资源。
 - 云计算提供了一种简单的方式，让你通过互联网访问服务器、存储、数据库以及各种应用服务。
 - 下面这篇入门级文章介绍了与云计算相关的一些关键 **AWS 概念**：
-
 - [**什么是云计算？云 vs 传统 IT**](https://digitalcloud.training/what-is-cloud-computing/)
 
 以下文章提供了关于基础计算概念的更多信息：
-
 - [**云计算基础——计算**](https://digitalcloud.training/cloud-computing-basics-compute/)
 - [**云计算基础——存储**](https://digitalcloud.training/cloud-computing-basics-storage/)
 - [**云计算基础——网络**](https://digitalcloud.training/cloud-computing-basics-network/)
@@ -81,7 +79,6 @@ title: "AWS Cloud Computing Concepts"
 - SaaS 应用的常见例子是基于 Web 的电子邮件——你可以直接收发邮件，而无需管理邮件产品的功能更新，也无需维护邮件程序运行所需的服务器和操作系统。
 - SaaS 提供高可用性、容错能力、可扩展性和弹性。
 - 以下文章提供了更多信息：
-
 - [**云计算服务模型——IaaS、PaaS、SaaS**](https://digitalcloud.training/cloud-computing-service-models-iaas-paas-saas/)
 
 ## 云部署类型
@@ -108,5 +105,4 @@ title: "AWS Cloud Computing Concepts"
 - 本地部署无法提供云计算的许多好处，但有时人们看重它能提供专用资源这一点。
 - 在大多数情况下，这种部署模型与传统 IT 基础设施相同，只是使用应用管理和虚拟化技术来尝试提高资源利用率。
 - 以下文章提供了更多信息：
-
 - [**云计算部署模型——公有云、私有云与混合云**](https://digitalcloud.training/cloud-computing-deployment-models/)

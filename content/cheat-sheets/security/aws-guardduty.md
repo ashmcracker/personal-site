@@ -11,7 +11,6 @@ title: "AWS GuardDuty"
 - Amazon GuardDuty 让你能够使用专为云端开发和优化的内置检测技术。
 - AWS 安全团队会持续维护和改进这些检测算法。
 - 主要的检测类别包括：
-
 - **侦察（Reconnaissance）：** 表明攻击者正在进行侦察的活动，例如：
   - 异常的 API 活动。
   - VPC 内部端口扫描。

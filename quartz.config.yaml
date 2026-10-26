@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: "Ashm's Corner"
+  pageTitle: Ashm's Corner
   pageTitleSuffix: ""
   enableSPA: true
   enablePopovers: true
@@ -67,6 +67,9 @@ plugins:
   - source: "@quartz-community/github-flavored-markdown"
     enabled: true
     order: 40
+  - source: github:VingGit/custom-file-explorer-sorting-support
+    enabled: true
+    order: 45
   - source: "@quartz-community/table-of-contents"
     enabled: true
     order: 50
@@ -257,6 +260,16 @@ plugins:
       position: afterBody
       priority: 50
       display: all
+  - source: github:VingGit/custom-file-explorer-sorting-support
+    enabled: false
+    options:
+      specProperty: sorting-spec
+      bookmarksOrderProperty: bookmarks-order
+      iconProperty: icon
+      articleNavigation: false
+      previousArticleProperty: PreviousArticle
+      nextArticleProperty: NextArticle
+    order: 35
 layout:
   groups:
     toolbar:

@@ -10,7 +10,6 @@ title: "AWS Backup"
 - 与 AWS Organizations 集成，可集中部署数据保护策略。
 - 跨 AWS 账户和资源，配置、管理和治理备份活动。
 - AWS Backup 可以保护多种 AWS 资源，包括：
-
 - Amazon EC2 实例。
 - Amazon [EBS](https://digitalcloud.training/amazon-s3-vs-ebs-vs-efs-comparing-aws-storage-services/) 卷。
 - Amazon [RDS](https://digitalcloud.training/amazon-rds-vs-dynamodb/) 数据库。
@@ -22,7 +21,6 @@ title: "AWS Backup"
 - AWS Storage Gateway 卷。
 - 本地 VMware 工作负载以及 VMware Cloud on AWS。
 - Amazon S3 bucket。
-
 - AWS Backup 可以将备份跨多个 AWS 服务复制到不同的 Region。
 - 跨 Region 的备份副本可以通过调度手动或自动部署。
 - 还可以为 AWS Organization 内的账户配置跨账户备份。

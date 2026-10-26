@@ -50,7 +50,6 @@ Amazon SNS 为应用提供解耦能力，使消息可以被异步处理。
 ### SNS Subscriber 和 Endpoint
 
 订阅 SNS topic 时支持以下 endpoint 类型：
-
 - HTTP/HTTPS。
 - Email/Email-JSON。
 - Amazon Kinesis Data Firehose。
@@ -69,7 +68,6 @@ Amazon SNS 为应用提供解耦能力，使消息可以被异步处理。
 ![Amazon SNS and SQS Fan Out](/cheat-sheets/images/2022-01-amazon-sns-and-sqs-fan-out.jpeg)
 
 应用到应用（A2A）消息支持扇出：
-
 - [扇出到 Kinesis Data Firehose delivery stream](https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html)。
 - [扇出到 Lambda 函数](https://docs.aws.amazon.com/sns/latest/dg/sns-lambda-as-subscriber.html)。
 - [扇出到 Amazon SQS 队列](https://docs.aws.amazon.com/sns/latest/dg/sns-sqs-as-subscriber.html)。
@@ -116,24 +114,19 @@ Amazon SNS 为应用提供解耦能力，使消息可以被异步处理。
 - FIFO 队列还支持消息组，允许在单个队列内存在多个有序消息组。
 - 限制为每秒 300 个事务（TPS），但具备标准队列的所有功能。
 - FIFO 队列的去重：
-
 - 随消息提供 MessageDeduplicationId。
 - 去重间隔为 5 分钟。
 - 基于内容去重——MessageDeduplicationId 由消息体的 SHA-256 生成。
 
 FIFO 队列的排序：
-
 - 要确保消息之间严格排序，请指定 MessageGroupId。
 - Group ID 不同的消息可能会被乱序接收。
 - Group ID 相同的消息一次只会投递给一个 consumer。
-
 - FIFO 队列要求为消息添加 Message Group ID 和 Message Deduplication ID 参数。
 - Message Group ID：
-
 - 指定消息属于某个特定消息组的标签。属于同一消息组的消息保证按 FIFO 方式处理。
 
 Message Deduplication ID：
-
 - 在去重间隔内用于消息去重的令牌。
 
 下表对标准队列和 FIFO 队列进行了并排对比：
@@ -170,7 +163,6 @@ Message Deduplication ID：
 - 长轮询可以在队列级别启用，也可以在 API 级别使用 WaitTimeSeconds 启用。
 - 当 Receive Message Wait Time 大于 0 秒且最大为 20 秒时，长轮询生效。
 - 短轮询：
-
 - 不等待消息出现在队列中。
 - 只查询一部分可用服务器上的消息（基于加权随机执行）。
 - 短轮询是默认方式。
@@ -178,7 +170,6 @@ Message Deduplication ID：
 - 请求次数更多，意味着成本更高。
 
 长轮询：
-
 - 请求次数更少，降低成本。
 - 通过查询所有服务器，消除“假空”响应。
 - SQS 会等到队列中有消息可用时才发送响应。
@@ -211,7 +202,6 @@ Message Deduplication ID：
 - 对于标准 SQS 队列，修改此设置不影响已在队列中的消息的延迟，只影响新消息。
 - 对于 FIFO 队列，此设置会影响已在队列中的消息的延迟。
 - 何时使用延迟队列：
-
 - 大型分布式应用可能需要在处理中引入延迟。
 - 你需要对整个队列的消息应用延迟。
 - 例如，增加几秒钟延迟，以便在向客户发送在线交易确认通知之前，先完成销售或库存数据库的更新。
@@ -224,7 +214,6 @@ DLQ 必须与源队列类型相同。
 
 - SQS 可以配置为 AWS Lambda 函数的事件源。
 - Lambda 与 SQS：
-
 - 你可以使用 AWS Lambda 函数来处理 Amazon Simple Queue Service（Amazon SQS）队列中的消息。
 - Lambda event source mapping 支持标准队列和先进先出（FIFO）队列。
 - 借助 Amazon SQS，你可以将任务从应用的某个组件卸载到队列中，并异步处理它们。
@@ -238,7 +227,6 @@ DLQ 必须与源队列类型相同。
 - 你可以使用 Amazon S3 和 Amazon SQS Extended Client Library for Java 来管理 Amazon SQS 消息。
 - 适用于存储和消费最大 2 GB 的消息。
 - 你可以使用 Amazon SQS Extended Client Library for Java 完成以下操作：
-
 - 指定消息是始终存储在 Amazon S3 中，还是仅在消息大小超过 256 KB 时才存储。
 - 发送一条引用存储在 Amazon S3 bucket 中单个消息对象的消息。
 - 从 Amazon S3 bucket 获取对应的消息对象。
@@ -261,14 +249,11 @@ DLQ 必须与源队列类型相同。
 - SQS 符合 PCI DSS 1 级标准，且符合 HIPAA 使用条件。
 - 传输中安全通过 HTTPS 提供。
 - 可以使用 KMS 启用服务器端加密（SSE）。
-
 - 可以设置要使用的 CMK。
 - 可以设置数据密钥重用周期。
 - SSE 只加密消息体，不加密消息属性。
-
 - IAM policy 必须允许使用 SQS。
 - 你也可以在 SQS 队列访问策略中指定权限：
-
 - 提供更细粒度的控制。
 - 控制传入的请求。
 
@@ -276,41 +261,33 @@ DLQ 必须与源队列类型相同。
 
 - 考试中需要了解的 API：
 - CreateQueue（aws sqs create-queue）：
-
 - 创建一个新的标准或 FIFO 队列。可以在请求中传入一个或多个属性。
 
 DeleteQueue（aws sqs delete-queue）：
-
 - 删除由 QueueUrl 指定的队列，无论队列内容如何。
 - 如果指定的队列不存在，Amazon SQS 会返回成功响应。
 
 PurgeQueue（aws sqs purge-queue）：
-
 - 删除由 QueueURL 参数指定的队列中的消息。
 
 SendMessage（aws sqs send-message）：
-
 - 向指定队列投递一条消息。
 
 ReceiveMessage（aws sqs receive-messsage）：
-
 - 从指定队列检索一条或多条消息（最多 10 条）。
 - 使用 WaitTimeSeconds 参数可启用长轮询支持。
 
 DeleteMessage（aws sqs delete-message）：
-
 - 从指定队列删除指定的消息。
 - 要选择要删除的消息，请使用消息的 ReceiptHandle（而不是发送消息时收到的 MessageId）。
 
 ChangeMessageVisibility（aws sqs change-message-visibility）：
-
 - 将队列中指定消息的 visibility timeout 更改为新值。
 - 消息的默认 visibility timeout 为 30 秒。
 - 最小值为 0 秒。
 - 最大值为 12 小时。
 
 为了降低成本或用单个操作处理最多 10 条消息，可以使用以下操作：
-
 - SendMessageBatch
 - DeleteMessageBatch
 - ChangeMessageVisibilityBatch
@@ -335,7 +312,6 @@ ChangeMessageVisibility（aws sqs change-message-visibility）：
 - Worker 是与 Amazon SWF 交互的程序，用于获取任务、处理收到的任务并返回结果。
 - decider 是控制任务协调的程序，即根据应用逻辑控制任务的排序、并发和调度。
 - SWF 应用包含以下逻辑组件：
-
 - Domain。
 - Workflow。
 - Activity。
@@ -382,7 +358,6 @@ ChangeMessageVisibility（aws sqs change-message-visibility）：
 - 提供描述流程和实时状态的可视化界面。
 - 提供每个步骤执行的详细日志。
 - AWS Step Functions 的特性：
-
 - **内置错误处理 –** AWS Step Functions 跟踪每个步骤的状态，因此你可以自动重试失败或超时的任务、捕获特定错误并优雅恢复，无论任务耗时几秒还是几个月。
 - **自动扩缩 –** AWS Step Functions 会根据工作负载变化，自动扩展运行应用各步骤所需的操作和底层计算资源。随着请求频率增加，Step Functions 会自动扩展，确保应用工作流的性能始终保持在高水平。
 - **按使用量付费 –** 使用 AWS Step Functions，你只需为应用工作流从一个步骤到下一个步骤的转换付费，这称为状态转换（state transition）。计费按状态转换计量，无论每个状态持续多久（最长一年）。

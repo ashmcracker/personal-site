@@ -9,29 +9,23 @@ title: "AWS Lambda"
 - 使用无服务器（serverless）计算时，你的应用仍然运行在服务器上，但所有服务器管理工作都由 AWS 完成。
 - 你无法登录运行 Lambda 函数的计算实例，也无法自定义操作系统或语言运行时。
 - Lambda 函数：
-
 - 由代码及所有相关依赖组成。
 - 配置信息与函数关联。
 - 在创建函数时指定配置信息。
 - 提供用于更新配置数据的 API。
-
 - 你可以指定需要分配给 Lambda 函数的内存大小。
 - AWS Lambda 按你指定的内存比例分配 CPU 算力，比例与通用型 EC2 实例类型相同。
 - 函数可以访问：
-
 - AWS 服务或非 AWS 服务。
 - 运行在 VPC 中的 AWS 服务（例如 RedShift、ElastiCache、RDS 实例）。
 - 运行在 AWS VPC 中 EC2 实例上的非 AWS 服务。
-
 - 要让 Lambda 函数访问私有 VPC 内的资源，必须提供额外的 VPC 专属配置信息，包括 VPC subnet ID 和 security group ID。
 - AWS Lambda 使用这些信息来设置弹性网络接口（ENI），从而使你的函数能够访问这些资源。
 - 你可以按 1 MB 的步长申请额外内存，范围从 128 MB 到 10240 MB。
 - 存在最大执行超时时间。
-
 - 最长 15 分钟（900 秒），默认为 3 秒。
 - 按运行时间计费。
 - 达到超时时间时 Lambda 会终止函数。
-
 - 代码通过使用 AWS SDK 发起的 API 调用来触发。
 - Lambda 在执行函数时代入一个 IAM 角色。
 - AWS Lambda 将代码存储在 Amazon S3 中，并进行静态加密。
@@ -41,7 +35,6 @@ title: "AWS Lambda"
 - Lambda 函数是无服务器且相互独立的，1 个事件 = 1 个函数。
 - 函数可以触发其他函数，因此 1 个事件可以触发多个函数。
 - 使用场景分为以下几类：
-
 - 将 Lambda 函数与作为事件源的 AWS 服务结合使用。
 - 通过 Amazon API Gateway 以 HTTPS 按需调用 Lambda 函数（自定义 REST API 和端点）。
 - 使用自定义应用（移动端、Web 应用、客户端）以及 AWS SDK、AWS Mobile SDK 和 AWS Mobile SDK for Android 按需调用 Lambda 函数。
@@ -81,7 +74,6 @@ $ aws lambda invoke --function-name my-function --invocation-type Event --payloa
 - 事件源是产生事件的 AWS 服务或开发人员创建的应用程序，这些事件触发 AWS Lambda 函数运行。
 - 对于不直接调用 Lambda 函数的服务，你可以使用事件源映射来处理流或队列中的项目。
 - 支持的 AWS 事件源包括：
-
 - [**Amazon S3**](https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-s3)。
 - [**Amazon DynamoDB**](https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-dynamo-db)。
 - [**Amazon Kinesis Data Streams**](https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-kinesis-streams)。
@@ -101,16 +93,13 @@ $ aws lambda invoke --function-name my-function --invocation-type Event --payloa
 - [**Amazon CloudFront**](https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-cloudfront)。
 - [**Amazon Kinesis Data Firehose**](https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-kinesis-firehose)。
 - [**其他事件源：按需调用 Lambda 函数**](https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#api-gateway-with-lambda)。
-
 - 其他事件源可以按需调用 Lambda 函数。
 - 应用程序需要权限才能调用 Lambda 函数。
 - Lambda 可以响应通过 Amazon API Gateway 发起的 HTTP 请求或使用 AWS SDK 发起的 API 调用来运行代码。
 - Lambda 从中读取事件的服务：
-
 - [**Amazon Kinesis**](https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html)
 - [**Amazon DynamoDB**](https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html)
 - [**Amazon Simple Queue Service**](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html)
-
 - 事件源映射使用函数的[**执行角色（execution role）**](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html)中的权限来读取和管理事件源中的项目。
 - 权限、事件结构、设置和轮询行为因事件源而异。
 - 要处理流或队列中的项目，你可以创建事件源映射。
@@ -123,12 +112,10 @@ $ aws lambda invoke --function-name my-function --invocation-type Event --payloa
 - 版本控制意味着你可以拥有函数的多个版本。
 - 你可以使用版本管理 AWS Lambda 函数的部署。例如，你可以发布函数的新版本用于 beta 测试，而不影响稳定生产版本的用户。
 - 函数版本包含以下信息：
-
 - 函数代码及所有相关依赖。
 - 执行函数的 Lambda 运行时。
 - 所有函数设置，包括环境变量。
 - 用于标识此函数版本的唯一 Amazon Resource Name (ARN)。
-
 - 你在 $LATEST 上工作，这是代码的最新版本——它是可变的（可修改）。
 - 当你准备发布 Lambda 函数时，就创建一个版本（版本是有编号的）。
 - 编号版本从 1 开始分配，后续版本递增 1。
@@ -169,11 +156,9 @@ aws lambda update-alias --function-name myfunction --name myalias --routing-conf
 ## 函数依赖
 
 如果你的 Lambda 函数依赖外部库，如 AWS X-Ray SDK、数据库客户端等，你需要将这些包与代码一起安装并打包成 zip。
-
 - Node.js 使用 npm 和 “node\_modules” 目录。
 - Python 使用 pip 的 —target 选项。
 - Java 包含相关的 .jar 文件。
-
 - 如果 zip 文件小于 50MB，直接上传到 Lambda，否则上传到 S3。
 - 原生库（native libraries）需要在 Amazon Linux 上编译才能工作。
 - AWS SDK 默认随每个 Lambda 函数提供。
@@ -188,11 +173,9 @@ aws lambda update-alias --function-name myfunction --name myalias --routing-conf
 
 - 函数的并发是指在给定时间处理请求的实例数量。对于初始流量突增，你的函数在一个区域中的累计并发可以达到 500 到 3000 之间的初始水平，具体因区域而异。
 - 突发并发限制：
-
 - 3000——美国西部（俄勒冈）、美国东部（弗吉尼亚北部）、欧洲（爱尔兰）。
 - 1000——亚太（东京）、欧洲（法兰克福）。
 - 500——其他区域。
-
 - 初始突增之后，函数的并发每分钟可以额外扩展 500 个实例。这会持续进行，直到有足够的实例处理所有请求，或达到并发上限。
 - 默认账户限制为每个区域每秒最多 1000 次执行（可以提高）。
 - 这是一项安全功能，用于限制每个账户在每个区域中所有函数的并发执行总数。
@@ -200,15 +183,12 @@ aws lambda update-alias --function-name myfunction --name myalias --routing-conf
 - 如果超过并发执行限制，可能会遇到 TooManyRequestsException。
 - 你可能会收到 HTTP 状态码 429，消息为 “Request throughput limit exceeded”。
 - 限流行为：
-
 - 同步调用返回限流错误 429。
 - 异步调用自动重试（两次），然后进入死信队列（Dead Letter Queue，DLQ）。
-
 - DLQ 可以是 SNS 主题或 SQS 队列。
 - 原始事件负载会被发送到 DLQ。
 - Lambda 函数需要具有 SNS / SQS 权限的 IAM 角色。
 - Lambda 还集成了 X-Ray 用于调试。
-
 - 可以使用 X-Ray 追踪 Lambda。
 - 需要在 Lambda 配置中启用，它会运行 X-Ray daemon。
 - 在代码中使用 AWS SDK。
@@ -241,12 +221,10 @@ aws lambda update-alias --function-name myfunction --name myalias --routing-conf
 - 执行记录以 JSON 格式包含请求和响应的详细信息，包括版本、时间戳、请求上下文、请求负载、响应上下文和响应负载。
 - 对于每种执行状态（如 Success 或 Failure），你可以选择四种目标之一：另一个 Lambda 函数、SNS、SQS 或 EventBridge。Lambda 也可以配置为将不同的执行结果路由到不同的目标。
 - On-Success（成功时）：
-
 - 当函数成功调用时，Lambda 会将每次成功调用的记录路由到目标资源。
 - 你可以用它通过执行状态监控无服务器应用的健康状况，或基于调用结果构建工作流。
 
 On-Failure（失败时）：
-
 - Destinations 让你能够在处理函数调用成功的同时处理失败。
 - 当函数调用失败时，例如重试次数用尽或事件存活时间超限（达到 TTL），
 - Destinations 会将每次失败调用的记录路由到目标资源，以便进一步调查或处理。
@@ -275,12 +253,10 @@ On-Failure（失败时）：
 - Lambda@Edge 允许你在全球 AWS 站点运行代码，无需预置或管理服务器，以最低的网络延迟响应最终用户。
 - Lambda@Edge 让你运行 Node.js 和 Python Lambda 函数来自定义 CloudFront 交付的内容，并在离观看者更近的 AWS 站点执行这些函数。
 - 函数响应 CloudFront 事件运行，无需预置或管理服务器。你可以使用 Lambda 函数在以下节点更改 CloudFront 请求和响应：
-
 - CloudFront 收到观看者请求之后（viewer request）。
 - CloudFront 将请求转发到源之前（origin request）。
 - CloudFront 收到来自源的响应之后（origin response）。
 - CloudFront 将响应转发给观看者之前（viewer response）。
-
 - 你只需将 Node.js 代码上传到 AWS Lambda，并配置函数由 Amazon CloudFront 请求触发。
 - 随后，当收到内容请求时，代码就可以在全球 AWS 站点执行，并随 CloudFront 请求量在全球范围扩展。
 
@@ -288,10 +264,8 @@ On-Failure（失败时）：
 
 - 你可以将 Lambda 函数连接到 VPC 中的私有子网。
 - Lambda 需要以下 VPC 配置信息才能连接到 VPC：
-
 - 私有子网 ID。
 - Security Group ID（具有所需访问权限）。
-
 - Lambda 使用这些信息，通过私有子网中的可用 IP 地址设置弹性网络接口（ENI）。
 - Lambda 函数只能访问单个 VPC。如果指定了多个子网，它们必须都在同一个 VPC 中。
 - 默认配置下，配置为访问特定 VPC 中资源的 Lambda 函数将无法访问互联网。
@@ -300,11 +274,9 @@ On-Failure（失败时）：
 - 无法连接到专用租户（dedicated tenancy）VPC。
 - ***考试提示：****如果 Lambda 函数需要连接 VPC 且需要访问互联网，请确保连接到具有指向 NAT Gateway 路由的私有子网（NAT Gateway 位于公共子网中）。*
 - Lambda 使用函数的权限来创建和管理网络接口。要连接到 VPC，函数的执行角色必须具有以下权限：
-
 - ec2:CreateNetworkInterface
 - ec2:DescribeNetworkInterfaces
 - ec2:DeleteNetworkInterface
-
 - 这些权限包含在 AWSLambdaVPCAccessExecutionRole 托管策略中。
 - 仅在需要时才连接 VPC，因为它会减慢函数执行速度。
 
@@ -323,12 +295,10 @@ On-Failure（失败时）：
 - **考试提示：**可以使用 API、AWS Management Console 或 CLI 将函数注册到目标组。
 - 当负载均衡器将请求转发到以 Lambda 函数为目标的目标组时，它会调用你的 Lambda 函数，并以 JSON 格式将请求内容传递给 Lambda 函数。
 - 限制：
-
 - Lambda 函数和目标组必须在同一账户和同一区域中。
 - 发送给 Lambda 函数的请求体最大为 1 MB。
 - Lambda 函数可发送的响应 JSON 最大为 1 MB。
 - 不支持 WebSocket。Upgrade 请求会被拒绝并返回 HTTP 400 状态码。
-
 - 默认情况下，lambda 类型的目标组禁用健康检查。
 - 你可以启用健康检查以通过 Amazon Route 53 实现 DNS 故障转移。Lambda 函数可以在响应健康检查请求之前检查下游服务的健康状况。
 - 如果你使用 AWS Management Console 创建目标组并注册 Lambda 函数，控制台会代表你向 Lambda 函数策略添加所需权限。
@@ -345,7 +315,6 @@ On-Failure（失败时）：
 - 每账户并发执行数——1000（软限制）。
 - 函数突发并发 500–3000（因区域而异）。
 - 调用负载：
-
 - 同步 6 MB。
 - 异步 256 KB。
 
@@ -366,28 +335,23 @@ Lambda 函数部署包大小为 50 MB（压缩后），解压后 250 MB。
 ## 开发最佳实践
 
 在函数 handler 之外执行一次性的耗时任务，例如：
-
 - 连接数据库。
 - 初始化 AWS SDK。
 - 拉取依赖或数据集。
 
 使用环境变量存储：
-
 - 连接字符串、S3 存储桶等。
 - 密码和其他敏感数据（可使用 KMS 加密）。
 
 将部署包大小最小化到运行时所需。
-
 - 如有需要，拆分函数。
 - 牢记 Lambda 限制。
-
 - 避免使用递归代码，永远不要让 Lambda 函数调用自身。
 - 除非必要，否则不要将 Lambda 函数放入 VPC（初始化时间可能更长）。
 
 ## 计费
 
 定价基于：
-
 - 请求数量。
 - 请求时长，从代码开始执行到返回或终止的时间计算。
 - 分配给函数的内存量。

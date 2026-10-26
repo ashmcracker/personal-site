@@ -11,13 +11,11 @@ title: "AWS KMS"
 ## AWS KMS Keys
 
 KMS key 由以下部分组成：
-
 - 别名（Alias）。
 - 创建日期。
 - 描述。
 - 密钥状态。
 - 密钥材料（由客户提供或由 AWS 提供）。
-
 - KMS keys 是 AWS KMS 中的主要资源。
 - KMS key 包含元数据，如 key ID、创建日期、描述和密钥状态。
 - KMS key 还包含用于加密和解密数据的密钥材料。
@@ -28,13 +26,11 @@ KMS key 由以下部分组成：
 - KMS key 可以生成、加密和解密数据加密密钥（Data Encryption Keys，DEK）。
 - KMS key 永远无法从 KMS 导出（CloudHSM 允许导出）。
 - AWS 托管 KMS keys：
-
 - 由 AWS 管理的 KMS keys 供与 KMS 交互的 AWS 服务用于加密数据。
 - 它们只能由创建它们的服务在特定区域内使用。
 - 在你首次使用该服务实施加密时创建。
 
 客户托管 KMS keys：
-
 - 提供更大的灵活性。
 - 你可以执行轮换、访问治理和密钥策略配置。
 - 当密钥不再需要时，你可以启用和禁用它。
@@ -76,10 +72,8 @@ KMS key 由以下部分组成：
 
 - 你可以在密钥上设置使用策略，决定哪些用户可以使用它们加密和解密数据，以及在什么条件下使用。
 - 密钥材料选项：
-
 - 由 KMS 生成。
 - 导入你自己的密钥材料。
-
 - 你可以在 KMS 中生成 KMS keys，也可以在 AWS CloudHSM 集群中生成，或从你自己的密钥管理基础设施导入。
 - 这些主密钥受硬件安全模块（HSM）保护，并且仅在这些模块内部使用。
 - 你可以将数据直接提交给 KMS，使用这些主密钥进行加密或解密。
@@ -100,7 +94,6 @@ KMS key 由以下部分组成：
 ## 使用 KMS 进行密钥管理
 
 你可以在 AWS KMS 中执行以下密钥管理功能：
-
 - 创建具有唯一别名和描述的密钥。
 - 导入你自己的密钥材料。
 - 定义哪些 IAM 用户和角色可以管理密钥。
@@ -142,13 +135,11 @@ KMS key 由以下部分组成：
 
 - 以下 API 对考试很有帮助：
 - Encrypt（aws kms encrypt）：
-
 - 使用客户主密钥（KMS key）将明文加密为密文。
 - 你可以加密少量任意数据，例如个人标识符、数据库密码或其他敏感信息。
 - 你可以使用 Encrypt 操作将加密数据从一个 AWS 区域移动到另一个区域。
 
 Decrypt（aws kms decrypt）：
-
 - 解密由 AWS KMS key 使用以下任一操作加密的密文：
   - Encrypt
   - GenerateDataKey
@@ -157,23 +148,19 @@ Decrypt（aws kms decrypt）：
   - GenerateDataKeyPairWithoutPlaintext
 
 Re-encrypt（aws kms re-encrypt）：
-
 - 解密密文，然后完全在 AWS KMS 内部重新加密。
 - 你可以使用此操作更改数据加密所用的客户主密钥（KMS key），例如手动轮换 KMS key 或更改保护密文的 KMS key 时。
 - 你也可以使用它在同一个 KMS key 下重新加密密文，例如更改密文的加密上下文（encryption context）。
 
 Enable-key-rotation：
-
 - 为指定的对称客户主密钥（KMS key）启用密钥材料的自动轮换。
 - 你无法对不同 AWS 账户中的 KMS key 执行此操作。
 
 GenerateDataKey（aws kms generate-data-key）：
-
 - 为指定的对称客户主密钥（KMS key）启用密钥材料的自动轮换。
 - 你无法对不同 AWS 账户中的 KMS key 执行此操作。
 
 GenerateDataKeyWithoutPlaintext（generate-data-key-without-plaintext）：
-
 - 生成唯一的对称数据密钥。
 - 此操作返回在你指定的客户主密钥（KMS key）下加密的数据密钥。
 - 要请求非对称数据密钥对，请使用 GenerateDataKeyPair 或 GenerateDataKeyPairWithoutPlaintext 操作。
@@ -182,7 +169,6 @@ GenerateDataKeyWithoutPlaintext（generate-data-key-without-plaintext）：
 
 - AWS KMS 与 AWS 服务和客户端工具包集成，使用一种称为信封加密（envelope encryption）的方法来加密你的数据。
 - 在这种方法下，KMS 生成数据密钥用于加密数据，而数据密钥本身则使用你在 KMS 中的主密钥加密：
-
 - KMS key 用于加密数据密钥（信封密钥）。
 - 信封密钥用于解密数据。
 

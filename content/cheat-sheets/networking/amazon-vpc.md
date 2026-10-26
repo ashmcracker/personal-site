@@ -16,14 +16,11 @@ title: "Amazon VPC"
 - 当首次预置 Amazon EC2 资源时，系统会为每个 AWS 账户自动创建一个默认 VPC。
 - 默认 VPC 中的 subnet 全是公有 subnet。
 - 公有 subnet 是指满足以下条件的 subnet：
-
 - “Auto-assign public IPv4 address”设置为“Yes”。
 - subnet 的 route table 关联了 Internet Gateway。
-
 - 默认 VPC 中的实例始终同时拥有公有和私有 IP 地址。
 - AZ 名称对不同用户映射到不同的物理区域（即 AZ“ap-southeast-2a”对不同用户可能映射到不同的物理区域）。
 - VPC 的组成部分：
-
 - **Virtual Private Cloud：**AWS 云中一个逻辑隔离的虚拟网络。你可以从选定的范围中定义 VPC 的 IP 地址空间。
 - **Subnet：**VPC IP 地址范围中的一个分段，用于放置成组的隔离资源（与 AZ 一一对应）。
 - **Internet Gateway：**VPC 一侧连接公共 Internet 的组件。
@@ -37,7 +34,6 @@ title: "Amazon VPC"
 - **Egress-only Internet Gateway：**一种有状态网关，为 IPv6 流量提供仅从 VPC 到 Internet 的出站访问。
 
 连接到 VPC 的方式有：
-
 - 基于硬件的 VPN。
 - Direct Connect。
 - VPN CloudHub。
@@ -64,11 +60,9 @@ title: "Amazon VPC"
 ## Subnet 与 Subnet 规模规划
 
 subnet 的类型：
-
 - 如果 subnet 的流量被路由到 internet gateway，该 subnet 称为**公有 subnet**。
 - 如果 subnet 没有通往 internet gateway 的路由，该 subnet 称为**私有 subnet**。
 - 如果 subnet 没有通往 internet gateway 的路由，但其流量被路由到用于 VPN 连接的 virtual private gateway，该 subnet 称为**仅 VPN subnet（VPN-only subnet）**。
-
 - VPC 创建时带有一个主地址范围（CIDR 块，可以是 16-28 位之间的任意值），subnet 范围在该范围内创建。
 - 新 subnet 总是关联到默认 route table。
 - VPC 创建后无法更改 CIDR 块。
@@ -85,17 +79,14 @@ subnet 的类型：
 - 一个自定义 VPC 只能挂载一个 Internet gateway。
 - IPv6 地址全是公有的，地址范围由 AWS 分配。
 - 建议使用 RFC 1918 中指定的私有 IP 范围：
-
 - 10.0.0.0 – 10.255.255.255（10/8 前缀）
 - 172.16.0.0 – 172.31.255.255（172.16/12 前缀）
 - 192.168.0.0 – 192.168.255.255（192.168/16 前缀）
-
 - 不过，也可以使用可公网路由的 CIDR 块创建 VPC。
 - 允许的块大小在 /28 掩码到 /16 掩码之间。
 - VPC 内各 subnet 的 CIDR 块不能重叠。
 - 每个 subnet CIDR 块中的前四个 IP 地址和最后一个 IP 地址不可供你使用。
 - 例如，在 CIDR 块为 10.0.0.0/24 的 subnet 中，以下五个 IP 地址是保留的：
-
 - 10.0.0.0：网络地址。
 - 10.0.0.1：由 AWS 保留给 VPC 路由器。
 - 10.0.0.2：由 AWS 保留。
@@ -108,10 +99,8 @@ subnet 的类型：
 
 - Internet Gateway 是一种水平扩展、冗余且高可用的 VPC 组件，允许 VPC 中的实例与 Internet 通信。
 - Internet Gateway 有两个用途：
-
 - 在 VPC 的 route table 中为可路由到 Internet 的流量提供目标。
 - 为分配了公有 IPv4 地址的实例执行网络地址转换（NAT）。
-
 - Internet Gateway（IGW）必须先创建，然后挂载到 VPC，添加到 route table，再关联到相关 subnet。
 - 没有可用性风险或带宽限制。
 - 如果你的 subnet 关联了通往 Internet 的路由，那它就是公有 subnet。
@@ -122,25 +111,21 @@ subnet 的类型：
 - IGW 必须先分离（detach）才能删除。
 - 同一时间只能将一个 IGW 挂载到一个 VPC。
 - 网关术语：
-
 - Internet gateway（IGW）——AWS VPC 一侧连接公共 Internet 的组件。
 - Virtual private gateway（VPG）——AWS 一侧的 VPC 端点。
 - Customer gateway（CGW）——连接的客户一端的表示。
 
 要让 VPC subnet 中的实例能够访问 Internet 或被 Internet 访问，你必须执行以下操作：
-
 - 为 VPC 挂载一个 Internet Gateway。
 - 确保 subnet 的 route table 指向 Internet Gateway（见下文）。
 - 确保 subnet 中的实例拥有全局唯一的 IP 地址（公有 IPv4 地址、Elastic IP 地址或 IPv6 地址）。
 - 确保 network access control 和 security group 规则允许相关流量进出实例。
 
 必须更新 subnet 的 route table 以指向 IGW，可以是：
-
 - 指向所有目的地，例如 IPv4 的 0.0.0.0/0 或 IPv6 的 ::/0。
 - 指向特定的公有 IPv4 地址，例如你公司在 AWS 之外的公有终端节点。
 
 Egress-only Internet Gateway（仅出站互联网网关）：
-
 - 为使用 IPv6 地址的实例提供出站 Internet 访问。
 - 阻止对这些 IPv6 实例的入站访问。
 - IPv6 地址全局唯一，因此默认即为公有。
@@ -151,13 +136,11 @@ Egress-only Internet Gateway（仅出站互联网网关）：
 ## VPC 向导
 
 VPC with a Single Public Subnet（带单个公有 subnet 的 VPC）：
-
 - 你的实例运行在 AWS 云中一个私有、隔离的区域，可直接访问 Internet。
 - 可以使用 network access control list 和 security group 严格控制进出实例的网络流量。
 - 创建一个 /16 网络和一个 /24 subnet。公有 subnet 实例使用 Elastic IP 或公有 IP 访问 Internet。
 
 VPC with Public and Private Subnets（带公有和私有 subnet 的 VPC）：
-
 - 除了包含公有 subnet 外，此配置还增加了一个私有 subnet，其中的实例无法从 Internet 寻址。
 - 私有 subnet 中的实例可以通过公有 subnet 使用网络地址转换（NAT）建立到 Internet 的出站连接。
 - 创建一个 /16 网络和两个 /24 subnet。
@@ -165,13 +148,11 @@ VPC with Public and Private Subnets（带公有和私有 subnet 的 VPC）：
 - 私有 subnet 实例通过网络地址转换（NAT）访问 Internet。
 
 VPC with Public and Private Subnets and Hardware VPN Access（带公有、私有 subnet 和硬件 VPN 访问的 VPC）：
-
 - 此配置在 Amazon VPC 与数据中心之间增加了一条 IPsec 虚拟专用网络（VPN）连接——实际上将你的数据中心扩展到了云端，同时 Amazon VPC 中公有 subnet 的实例仍可直接访问 Internet。
 - 创建一个 /16 网络和两个 /24 subnet。
 - 一个 subnet 直接连接 Internet，另一个 subnet 通过 IPsec VPN 隧道连接到你的企业网络。
 
 VPC with a Private Subnet Only and Hardware VPN Access（仅私有 subnet 且带硬件 VPN 访问的 VPC）：
-
 - 你的实例运行在 AWS 云中一个私有、隔离的区域，私有 subnet 中的实例无法从 Internet 寻址。
 - 你可以通过 IPsec 虚拟专用网络（VPN）隧道将此私有 subnet 连接到你的企业数据中心。
 - 创建一个 /16 网络和一个 /24 subnet，并在 Amazon VPC 与你的企业网络之间预置一条 IPsec VPN 隧道。
@@ -289,7 +270,6 @@ VPC with a Private Subnet Only and Hardware VPN Access（仅私有 subnet 且带
 ## VPC 连接方式
 
 连接到 VPC 有多种方式，包括：
-
 - AWS Managed VPN。
 - AWS Direct Connect。
 - AWS Direct Connect 加 VPN。
@@ -424,12 +404,10 @@ VPC with a Private Subnet Only and Hardware VPN Access（仅私有 subnet 且带
 - 两个 VPC 可以位于不同区域（也称为跨区域 VPC peering 连接）。
 - 在不同区域的 VPC 之间发送的数据是加密的（收取流量费用）。
 - 跨区域 VPC peering 有一些限制：
-
 - 无法创建引用对端 security group 的 security group 规则。
 - 无法启用 DNS 解析。
 - 最大 MTU 为 1500 字节（不支持 jumbo frame）。
 - 区域支持有限。
-
 - AWS 使用 VPC 的现有基础设施来创建 VPC peering 连接。
 - 它既不是网关也不是 VPN 连接，不依赖单独的物理硬件。
 - 通信没有单点故障，也没有带宽瓶颈。
@@ -469,12 +447,10 @@ VPC with a Private Subnet Only and Hardware VPN Access（仅私有 subnet 且带
 - Interface endpoint 使用 AWS PrivateLink，是一个带私有 IP 地址的弹性网络接口（ENI），作为发往受支持服务的流量的入口。
 - 使用 PrivateLink，你可以将 VPC 连接到受支持的 AWS 服务、其他 AWS 账户托管的服务（VPC endpoint service）以及受支持的 AWS Marketplace 合作伙伴服务。
 - 通过跨区域 VPC Peering 访问 AWS PrivateLink：
-
 - AWS VPC 中的应用可以使用跨区域 VPC Peering 安全地访问其他 AWS 区域的 AWS PrivateLink endpoint。
 - AWS PrivateLink 让你能够以高可用、可扩展的方式私有访问托管在 AWS 上的服务，无需使用公有 IP，也无需让流量经过 Internet。
 - 即使服务端点位于不同的 AWS 区域，客户也可以私有地连接到该服务。
 - 使用跨区域 VPC Peering 的流量始终留在 AWS 全球骨干网上，绝不经过公共 Internet。
-
 - gateway endpoint 是一种网关，作为 route table 中指定路由的目标，用于发往受支持的 AWS 服务的流量。
 - interface VPC endpoint（interface endpoint）让你能够连接到由 AWS PrivateLink 支持的服务。
 - 下表列出了两种 endpoint 的关键信息：
@@ -490,7 +466,6 @@ VPC with a Private Subnet Only and Hardware VPN Access（仅私有 subnet 且带
 - 你可以创建 IAM 用户策略，授予用户创建、修改、描述和删除 endpoint 的权限。
 - 有[一长串](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html)服务受 interface endpoint 支持。
 - gateway endpoint 仅适用于：
-
 - Amazon DynamoDB
 - Amazon S3
 
@@ -500,14 +475,12 @@ VPC with a Private Subnet Only and Hardware VPN Access（仅私有 subnet 且带
 
 - 你可以允许其他 AWS 账户将其应用资源（如 EC2 实例、Relational Database Service (RDS) 数据库、Redshift 集群和 Lambda 函数）创建到共享的、集中管理的 Amazon Virtual Private Cloud (VPC) 中。
 - VPC 共享（VPC sharing）允许将 subnet 共享给同一 AWS Organization 内的其他 AWS 账户。好处包括：
-
 - 职责分离：集中控制 VPC 结构、路由和 IP 地址分配。
 - 应用所有者继续拥有自己的资源、账户和 security group。
 - VPC 共享参与者可以互相引用对方的 security group ID。
 - 效率：subnet 中的密度更高，VPN 和 AWS Direct Connect 的使用更高效。
 - 可以避免硬性限制，例如通过简化的网络架构绕过每条 AWS Direct Connect 连接 50 个 VIF 的限制。
 - 通过复用 NAT gateway、VPC interface endpoint 和可用区内流量，可以优化成本。
-
 - 你可以为每个账户创建独立的 Amazon VPC，由账户所有者负责每个 Amazon VPC 的连接和安全。
 - 使用 VPC 共享，你的 IT 团队可以拥有并管理 Amazon VPC，应用开发者不再需要管理或配置 Amazon VPC，但他们可以按需访问。
 - 还可以共享 Amazon VPC，以利用 VPC 内部的隐式路由，服务于需要高度互联且处于同一信任边界内的应用。
@@ -520,17 +493,14 @@ VPC with a Private Subnet Only and Hardware VPN Access（仅私有 subnet 且带
 - Flow Log 捕获进出 VPC 中网络接口的 IP 流量信息。
 - Flow log 数据使用 Amazon CloudWatch Logs 存储。
 - Flow log 可以在以下级别创建：
-
 - VPC。
 - Subnet。
 - 网络接口。
-
 - 除非对端 VPC 在你的账户中，否则你无法为与你的 VPC 对等的 VPC 启用 flow log。
 - 你无法为 flow log 打标签。
 - flow log 创建后无法更改其配置。
 - 创建 flow log 后无法更改其配置（需要删除后重新创建）。
 - 并非所有流量都会被监控，例如以下流量会被排除：
-
 - 发往 Route53 的流量。
 - Windows 许可证激活产生的流量。
 - 进出 169.254.169.254 的流量（实例元数据）。

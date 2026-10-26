@@ -181,7 +181,6 @@ Parameter Store 定价如下：
 - • 我可以如何使用 Systems Manager？
 - 你可以通过 CLI、SDK 和 AWS 控制台使用 AWS Systems Manager。
 - 感谢你阅读我们对 Systems Manager 的解析，了解这项服务的实用之处。
-
 - 什么是托管实例（managed instance）？
 
 托管实例是指任何可以使用 AWS Systems Manager 管理的本地服务器或 Amazon EC2 实例。

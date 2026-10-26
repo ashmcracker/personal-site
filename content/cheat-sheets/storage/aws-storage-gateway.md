@@ -53,7 +53,6 @@ title: "AWS Storage Gateway"
 - 一个 tape gateway 最多可有 1,500 盘虚拟磁带，最大总容量为 1 PB。
 - 管理 AWS Storage Gateway
 - 你可能需要关闭或重启虚拟机进行维护，例如为 hypervisor 打补丁。在关闭虚拟机之前，必须先停止网关。
-
 - 对于 file gateway，直接关闭虚拟机即可。
 - 对于 volume 和 tape gateway，先停止网关，重启虚拟机，然后启动网关。
 

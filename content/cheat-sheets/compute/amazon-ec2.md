@@ -10,7 +10,6 @@ title: "Amazon EC2"
 - 实例使用称为 Amazon Machine Images (AMI) 的预配置模板。
 - 每个 AMI 包含启动 EC2 实例所需的信息（包括操作系统和自带的软件包）。
 - Amazon EC2 目前支持多种操作系统，包括：
-
 - Amazon Linux。
 - Ubuntu。
 - Windows Server。
@@ -23,17 +22,14 @@ title: "Amazon EC2"
 - Gentoo Linux。
 - Oracle Linux。
 - FreeBSD。
-
 - EC2 计算单元（ECU）提供对 Amazon EC2 实例整数处理能力的相对度量。
 - 使用 EC2 时，你在操作系统层拥有完全控制权（root/admin 权限）。
 - 密钥对（key pair）用于安全地连接到 EC2 实例：
-
 - 密钥对由 AWS 保存的**公钥**和你自己保存的**私钥文件**组成。
 - 对于 Windows AMI，需要私钥文件来获取登录实例的密码。
 - 对于 Linux AMI，私钥文件让你可以安全地通过 SSH（secure shell）登录实例。
 
 Metadata 与 User Data：
-
 - User data 是用户在实例启动时以脚本形式提供的数据。
 - Instance metadata 是关于实例的数据，可用于配置或管理运行中的实例。
 - User data 上限为 16KB。
@@ -83,14 +79,11 @@ Metadata 与 User Data：
 
 - Amazon Machine Image (AMI) 提供启动实例所需的信息。
 - AMI 包含以下内容：
-
 - 实例根卷的模板（例如操作系统、应用服务器和应用程序）。
 - 启动权限，控制哪些 AWS 账户可以使用该 AMI 启动实例。
 - block device mapping，指定实例启动时要挂载的卷。
-
 - AMI 是区域性的。你只能从 AMI 所在区域启动它。不过可以通过控制台、命令行或 API 将 AMI 复制到其他区域。
 - 挂载到实例的卷可以是 EBS 或 instance store：
-
 - Amazon Elastic Block Store (EBS) 提供持久化存储。卷由驻留在 Amazon S3 上的 EBS 快照创建。
 - Instance store volume 是临时性的（非持久化）。这意味着实例关闭后数据会丢失。卷由存储在 Amazon S3 上的模板创建。
 
@@ -155,7 +148,6 @@ Metadata 与 User Data：
 | 享受降价优惠 | 不可以 | 可以 |
 
 RI 属性：
-
 - 实例类型——指定 CPU、内存、网络能力。
 - 平台——Linux、SUSE Linux、RHEL、Microsoft Windows、Microsoft SQL Server。
 - 租期——默认（共享）租期或专用（Dedicated）租期。
@@ -215,7 +207,6 @@ RI 属性：
 - 按小时或按秒计费（仅 Linux 实例支持按秒计费）。
 - 不同区域的实例之间的数据传输收费（传入和传出）。
 - 满足以下至少一个条件时适用区域数据传输费率，但即使两个条件都满足，同一实例也只收一次费用：
-
 - 另一个实例在不同的可用区，无论使用哪种地址类型。
 - 使用了公网或 Elastic IP 地址，无论另一个实例在哪个可用区。
 
@@ -244,11 +235,9 @@ RI 属性：
 ## IP 地址
 
 可以分配给 Amazon EC2 实例的 IP 地址有三种类型：
-
 - 公网 IP（Public）——自动分配给公有子网中实例的公网地址，实例停止/启动后会重新分配。
 - 私有 IP（Private）——自动分配给所有实例的私有地址。
 - 弹性 IP（Elastic IP）——静态的公网地址。
-
 - 实例停止后公网 IPv4 地址会丢失，但私有地址（IPv4 和 IPv6）会保留。
 - 重启（restart）实例时公网 IPv4 地址会保留。
 - 实例停止时 Elastic IP 会保留。
@@ -269,12 +258,10 @@ RI 属性：
 - 当你停止并启动 EC2 实例时，它通常会被迁移到不同的底层硬件上。
 - *考试提示：如果 EC2 状态检查失败或当前物理主机有计划内维护，可以通过停止并启动 EC2 实例将其迁移到不同的物理主机。*
 - 只有在实例停止时才能修改以下属性：
-
 - 实例类型。
 - User data。
 - 内核（Kernel）。
 - RAM 磁盘。
-
 - 所有 IP 地址（IPv4 和 IPv6）在网络接口被卸载或重新分配到另一个实例时会一直跟随网络接口。
 - 只要在同一 AZ 内，你可以将网络接口挂载到不同 subnet 的实例上。
 - 你可以将本地网络中部分或全部可公网路由的 IPv4 或 IPv6 地址段带到 AWS，这称为 BYOIP。
@@ -292,7 +279,6 @@ RI 属性：
 
 - 弹性网络接口（简称网络接口）是 VPC 中的一种逻辑网络组件，代表一张虚拟网卡。
 - 网络接口可以包含以下属性：
-
 - 来自你 VPC IPv4 地址段的一个主私有 IPv4 地址。
 - 来自你 VPC IPv4 地址段的一个或多个辅助私有 IPv4 地址。
 - 每个私有 IPv4 地址对应一个 Elastic IP 地址（IPv4）。
@@ -302,7 +288,6 @@ RI 属性：
 - 一个 MAC 地址。
 - 一个源/目标检查（source/destination check）标志。
 - 一段描述。
-
 - 你可以在账户中创建和配置网络接口，并将其挂载到 VPC 中的实例上。
 - 不能通过绑定多个 ENI 来提升实例的网络带宽。
 - eth0 是主网络接口，不能移动或卸载。
@@ -312,11 +297,9 @@ RI 属性：
 - 可以指定使用 subnet 内的哪个 IP 地址，也可以让它自动分配。
 - 启动时只能额外添加一个 ENI，之后可以挂载更多。
 - 挂载 ENI：
-
 - ENI 可以"热挂载"（hot attach）到运行中的实例。
 - ENI 可以在实例停止时"温挂载"（warm attach）。
 - ENI 可以在实例启动时"冷挂载"（cold attach）。
-
 - 如果你添加第二个接口，AWS 不会为 eth0 分配公网 IP 地址（你需要添加一个 Elastic IP）。
 - 默认接口会随实例终止而终止。
 - 手动添加的接口默认不会随实例终止。
@@ -341,27 +324,22 @@ RI 属性：
 - Elastic Fabric Adapter (EFA) 是 Amazon EC2 实例的网络接口，使客户能够在 AWS 上大规模运行需要高水平节点间通信的应用。
 - 其定制的操作系统（OS）bypass 硬件接口提升了实例间通信的性能，这对扩展此类应用至关重要。
 - EFA 的常见使用场景包括：
-
 - 使用 Message Passing Interface (MPI) 的高性能计算（HPC）应用。
 - 使用 NVIDIA Collective Communications Library (NCCL) 的机器学习（ML）应用。
-
 - 借助 EFA，你可以获得本地 HPC 集群的应用性能，同时享有 AWS 云的按需弹性和灵活性。
 - EFA 是可选的 EC2 网络功能，可以在任何受支持的 EC2 实例上免费启用。
 
 ## ENI vs ENA vs EFA
 
 何时使用 ENI：
-
 - 这是基本的适配器类型，适合没有任何高性能需求的场景。
 - 可用于所有实例类型。
 
 何时使用 ENA：
-
 - 适合需要更高带宽和更低实例间延迟的场景。
 - 仅部分实例类型支持（仅限 HVM）。
 
 何时使用 EFA：
-
 - 高性能计算。
 - MPI 和 ML 场景。
 - 紧耦合应用。
@@ -371,17 +349,14 @@ RI 属性：
 
 - Placement group 是按以下配置之一对实例进行的逻辑分组。
 - **Cluster**——将实例聚集到单个 AZ 内的低延迟组中：
-
 - Cluster placement group 是单个可用区内实例的逻辑分组。
 - Cluster placement group 推荐给受益于低网络延迟、高网络吞吐量或两者兼有、且大部分网络流量发生在组内实例之间的应用。
 
 **Spread**——将实例分散到不同的底层硬件上（可跨 AZ）：
-
 - Spread placement group 中的每个实例都放置在不同的底层硬件上。
 - Spread placement group 推荐给拥有少量关键实例、且这些实例应相互隔离的应用。
 
 **Partition**——将每个组划分为称为分区（partition）的逻辑段：
-
 - Amazon EC2 确保 placement group 内每个分区拥有自己的一组机架。
 - 每个机架有自己的网络和电源。placement group 内任意两个分区不共享机架，让你可以在应用中隔离硬件故障的影响。
 - Partition placement group 可用于在不同机架上部署大型分布式复制型工作负载，例如 HDFS、HBase 和 Cassandra。
@@ -439,41 +414,33 @@ RI 属性：
 - 如果一项或多项检查失败，整体状态为 **impaired**。
 - 系统状态检查（StatusCheckFailed\_System）检测需要 **AWS** 介入修复的实例问题。
 - 以下是可能导致系统状态检查失败的问题示例：
-
 - 网络连接中断。
 - 系统供电中断。
 - 物理宿主机上的软件问题。
 - 物理宿主机上影响网络可达性的硬件问题。
-
 - 实例状态检查（StatusCheckFailed\_Instance）检测需要**你**介入修复的问题。
 - 以下是可能导致实例状态检查失败的问题示例：
-
 - 系统状态检查失败。
 - 网络或启动配置错误。
 - 内存耗尽。
 - 文件系统损坏。
 - 内核不兼容。
-
 - 状态检查内置于 Amazon EC2，因此无法禁用或删除。
 - 不过，你可以创建或删除基于状态检查结果触发的告警。
 - 你可以创建监控 Amazon EC2 实例的 Amazon CloudWatch 告警，并在状态检查失败时自动执行操作。
 - 操作可以包括：
-
 - 恢复实例（仅特定实例类型支持，且仅适用于 StatusCheckFailed\_System）。
 - 停止实例（仅适用于 EBS-backed 卷）。
 - 终止实例（启用终止保护时无法终止）。
 - 重启实例。
-
 - 最佳实践是通过 EC2 重启实例，而不是在操作系统内重启。
 - CloudWatch 监控频率：
-
 - 标准监控 = 5 分钟。
 - 详细监控 = 1 分钟（收费）。
 
 ### 统一 CloudWatch Agent
 
 统一 CloudWatch agent 让你能够做到以下几点：
-
 - 跨操作系统从 Amazon EC2 实例收集更多系统级指标。除 EC2 实例指标外，还可以包括客户机内部（in-guest）指标。可收集的额外指标列表见 [CloudWatch Agent 收集的指标](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/metrics-collected-by-CloudWatch-agent.html)。
 - 从本地服务器收集系统级指标。包括混合环境中的服务器以及非 AWS 管理的服务器。
 - 使用 StatsD 和 collectd 协议从应用或服务获取自定义指标。StatsD 在 Linux 服务器和运行 Windows Server 的服务器上都受支持，collectd 仅在 Linux 服务器上受支持。
@@ -522,16 +489,13 @@ RI 属性：
 - VM Import/Export 是将 VMware、Microsoft、XEN 虚拟机迁移到云端的工具。
 - 也可用于将 EC2 实例转换为 VMware、Microsoft 或 XEN 虚拟机。
 - 支持：
-
 - Windows 和 Linux。
 - VMware ESX VMDK（OVA 镜像仅用于导出）。
 - Citrix XEN VHD。
 - Microsoft Hyper-V VHD。
-
 - 只能通过 API 或 CLI 使用（不能使用控制台）。
 - 生成 VMDK 或 VHD 镜像前先停止 VM。
 - AWS 提供了一个 vCenter 的 VM connector 插件：
-
 - 允许将 VM 迁移到 S3。
 - 然后转换为 EC2 AMI。
 - 进度可在 vCenter 中跟踪。

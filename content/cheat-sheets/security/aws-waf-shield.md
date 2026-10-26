@@ -16,7 +16,6 @@ title: "AWS WAF & Shield"
 - 这些条件包括 IP 地址、HTTP header、HTTP body、URI 字符串、SQL 注入和跨站脚本攻击。
 - 可以使用字符串匹配条件，根据请求中出现的字符串来允许或阻止 Web 请求。
 - 例如，AWS WAF 可以匹配请求的以下部分中的值：
-
 - Header —— 指定的请求 header，例如 User-Agent 或 Referer header。
 - HTTP method —— HTTP 方法，表示请求要求源站执行的操作类型。CloudFront 支持以下方法：DELETE、GET、HEAD、OPTIONS、PATCH、POST 和 PUT。
 - Query string —— URL 中 ? 字符之后出现的部分（如果有）。
@@ -24,7 +23,6 @@ title: "AWS WAF & Shield"
 - Body —— 请求中包含要作为 HTTP 请求体发送到 Web 服务器的任何附加数据的部分，例如表单数据。
 - 单个查询参数（仅值）—— 你定义为查询字符串一部分的任何参数。
 - 所有查询参数（仅值）—— 同上，但会检查查询字符串中的所有参数。
-
 - 新规则可以在几分钟内部署完毕，让你能够快速响应不断变化的流量模式。
 - 当 AWS 服务收到网站的请求时，请求会被转发给 AWS WAF，根据定义的规则进行检查。
 - 一旦请求满足规则中定义的条件，AWS WAF 会根据你定义的操作指示底层服务阻止或允许该请求。

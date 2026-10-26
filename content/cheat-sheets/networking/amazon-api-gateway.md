@@ -6,11 +6,9 @@ title: "Amazon API Gateway"
 
 - API Gateway 是一项完全托管的服务，让开发人员能够轻松发布、维护、监控和保护任意规模的 API。
 - API Gateway 支持以下功能：
-
 - 创建、部署和管理 [**REST**](https://en.wikipedia.org/wiki/Representational_state_transfer) 应用程序接口（API），用于暴露后端 HTTP 端点、AWS Lambda 函数或其他 AWS 服务。
 - 创建、部署和管理 [**WebSocket**](https://tools.ietf.org/html/rfc6455) API，用于暴露 AWS Lambda 函数或其他 AWS 服务。
 - 通过前端 HTTP 和 WebSocket 端点调用已暴露的 API 方法。
-
 - API Gateway 与 Lambda 一起构成了 AWS 无服务器基础设施中面向应用的部分。
 - 后端服务包括 Amazon EC2、AWS Lambda 或任何 Web 应用（公有或私有端点）。
 
@@ -115,16 +113,13 @@ title: "Amazon API Gateway"
 
 - 阶段变量类似于 API Gateway 的环境变量。
 - 阶段变量可用于：
-
 - Lambda 函数 ARN。
 - HTTP 端点。
 - 参数映射模板。
 
 阶段变量的使用场景：
-
 - 配置各阶段要对接的 HTTP 端点（dev、test、prod 等）。
 - 通过映射模板向 AWS Lambda 传递配置参数。
-
 - 阶段变量会传递到 Lambda 中的 "context" 对象。
 - 阶段变量与 Lambda 别名（alias）配合使用。
 - 你可以创建阶段变量来指示对应的 Lambda 别名。
@@ -161,14 +156,11 @@ title: "Amazon API Gateway"
 
 - API Gateway 针对你账户中的所有 API，对稳态请求速率和请求提交的突发量设置了限制。
 - 限制如下：
-
 - 默认情况下，API Gateway 将稳态请求速率限制为每秒 10,000 个请求。
 - 一个 AWS 账户内所有 API 的最大并发请求数为 5,000。
 - 如果超过每秒 10,000 个请求或 5,000 个并发请求，你将收到 429 Too Many Requests 错误响应。
-
 - 捕获到此类异常后，客户端可以在遵守 API Gateway 限流限制的前提下，以限速的方式重新提交失败的请求。
 - Amazon API Gateway 提供两种基本的限流相关设置：
-
 - **服务器端（Server-side）**限流限制应用于所有客户端。这些限制设置是为了防止你的 API 以及你的账户被过多请求淹没。
 - **按客户端（Per-client）**限流限制应用于使用与你的使用策略关联的 API key 作为客户端标识符的客户端。
 
@@ -288,7 +280,6 @@ REST API 的公共接口，定义了应用开发者应在 API 响应中期望收
 - CORS 是另一端的服务器（而非浏览器中的客户端代码）放宽同源策略的一种方式。
 - CORS 允许网页上受限的资源（例如字体）从最初共享资源的域名之外的其他域名被请求。
 - 使用 CORS：
-
 - 如果使用 JavaScript / AJAX，可以在 API Gateway 上启用 CORS。
 - 可用于启用来自 API 所在域之外的其他域的请求。
 - 允许在不同域之间共享资源。
@@ -300,7 +291,6 @@ REST API 的公共接口，定义了应用开发者应在 API 响应中期望收
 
 - 有多种机制可用于控制和管理对 API 的访问。
 - 这些机制包括：
-
 - Resource-based policy。
 - 标准 IAM Role 和 Policy（identity-based policy）。
 - IAM Tag。
@@ -312,7 +302,6 @@ REST API 的公共接口，定义了应用开发者应在 API 响应中期望收
 
 - Amazon API Gateway resource policy 是附加到 API 的 JSON 策略文档，用于控制指定的主体（通常是 IAM 用户或角色）是否可以调用该 API。
 - 你可以使用 API Gateway resource policy 来允许你的 API 被以下主体安全调用：
-
 - 来自指定 AWS 账户的用户。
 - 指定的源 IP 地址范围或 CIDR 块。
 - 指定的虚拟私有云（VPC）或 VPC 端点（任何账户中的）。
@@ -349,7 +338,6 @@ REST API 的公共接口，定义了应用开发者应在 API 响应中期望收
 ![Amazon API Gateway Cognito User Pool](/cheat-sheets/images/2022-01-amazon-api-gateway-cognito-user-pool.jpeg)
 
 用户池提供：
-
 - 注册和登录服务。
 - 内置的可自定义 Web UI 用于用户登录。
 - 支持 Facebook、Google、Login with Amazon 和 Sign in with Apple 的社交登录，以及使用用户池中 SAML 身份提供商的登录。
@@ -359,13 +347,11 @@ REST API 的公共接口，定义了应用开发者应在 API 响应中期望收
 ## 其他功能与优势
 
 API Gateway 提供了多项有助于创建和管理 API 的功能：
-
 - 计量（Metering）—— 定义计划来计量和限制第三方开发者对 API 的访问。
 - 安全性 —— API Gateway 提供多种工具来授权对 API 的访问并控制服务操作的访问。
 - 弹性（Resiliency）—— 通过限流管理流量，使后端操作能够承受流量高峰。
 - 运维监控 —— API Gateway 提供指标仪表板来监控对服务的调用。
 - 生命周期管理 —— 同时运行多个 API 版本以及每个版本的多个阶段，以便在发布新 API 版本后，现有应用可以继续调用旧版本。
-
 - API Gateway 提供对后端 API 的稳健、安全且可扩展的访问，并为你的 API 托管多个版本和发布阶段。
 - 你可以创建 API key 并分发给开发者。
 - 可选择使用 AWS Sig-v4 来授权对 API 的访问。
@@ -389,7 +375,6 @@ API Gateway 提供了多项有助于创建和管理 API 的功能：
 - Amazon API Gateway 与 AWS CloudTrail 集成，可提供对 REST API 所做更改的完整可审计历史记录。
 - 所有针对 Amazon API Gateway API 进行的创建、修改、删除或部署 REST API 的调用都会记录到 CloudTrail。
 - 理解以下指标对考试很有帮助：
-
 - 监控 IntegrationLatency 指标以衡量后端的响应能力。
 - 监控 Latency 指标以衡量 API 调用的整体响应能力。
 - 监控 CacheHitCount 和 CacheMissCount 指标，以优化缓存容量从而达到期望的性能。

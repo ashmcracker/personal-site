@@ -70,7 +70,6 @@ title: "Amazon Athena"
 ## 最佳实践
 
 Athena 性能的[**最佳实践**](https://aws.amazon.com/blogs/big-data/top-10-performance-tuning-tips-for-amazon-athena/)：
-
 - **对数据进行分区** —— 将表划分为多个部分，并根据日期、国家、区域等列值将相关数据放在一起。Athena 支持 Hive 分区。
 - **对数据进行分桶** —— 在单个分区内对数据进行分桶。
 - **使用压缩** —— AWS 建议使用 Apache Parquet 或 Apache ORC。

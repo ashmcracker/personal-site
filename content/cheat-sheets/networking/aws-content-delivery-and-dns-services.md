@@ -10,21 +10,17 @@ title: "AWS Content Delivery and DNS Services"
 
 - Amazon Route 53 是 AWS 的域名服务（Domain Name Service）。
 - Route 53 主要提供三项功能：
-
 - 域名注册 —— Route 53 允许你注册域名。
 - 域名服务（DNS）—— Route 53 通过全球分布的权威 DNS 服务器网络，将域名解析为 IP 地址。
 - 健康检查 —— Route 53 会向你的应用发送自动请求，验证其是否可达、可用且功能正常。
-
 - 这些功能可以任意组合使用。
 - Route 53 的优势：
-
 - 域名注册。
 - DNS 服务。
 - Traffic Flow（将用户引导到最佳端点）。
 - 健康检查。
 - DNS 故障转移（系统故障时自动切换域名端点）。
 - 可与 ELB、S3 和 CloudFront 集成作为端点。
-
 - 路由策略（routing policy）决定 Route 53 DNS 如何响应查询。
 - 下表列出了每种路由策略的关键功能：
 
@@ -44,19 +40,16 @@ title: "AWS Content Delivery and DNS Services"
 - 这让客户可以更快地访问内容，同时还能防御 DDoS 攻击。
 - CloudFront 可用于分发数据、视频、应用和 API。
 - CloudFront 的优势：
-
 - 在边缘节点缓存内容，快速分发给客户。
 - 内置分布式拒绝服务（DDoS）攻击防护。
 - 可与多种 AWS 服务集成（S3、EC2、ELB、Route 53、Lambda）。
 
 源（Origin）与分配（Distribution）：
-
 - origin 是 CDN 要分发的文件的来源。
 - origin 可以是 S3 bucket、EC2 实例、Elastic Load Balancer 或 Route 53，也可以是外部（非 AWS）源。
 - 要用 CloudFront 分发内容，需要创建一个 distribution。
 
 CloudFront 使用边缘节点（Edge Location）和区域边缘缓存（Regional Edge Cache）：
-
 - edge location 是缓存内容的位置（独立于 AWS 区域/AZ）。
 - 请求会被自动路由到最近的 edge location。
 - Regional Edge Cache 位于源站 Web 服务器和全球 edge location 之间，缓存容量更大。

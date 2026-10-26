@@ -19,13 +19,11 @@ title: "Amazon S3 and Glacier"
 - 建议通过 SDK 和 API 访问 S3（控制台也是使用 API）。
 - 针对特定操作的事件通知，可以发送告警或触发动作。
 - 通知可以发送到：
-
 - SNS Topic。
 - SQS Queue。
 - Lambda 函数。
 - 需要先配置 SNS/SQS/Lambda，再配置 S3。
 - S3 不额外收费，但你需要为 SNS、SQS 和 Lambda 付费。
-
 - Requester pays 功能让请求者付费（同时取消匿名访问）。
 - 可以提供对对象的限时访问。
 - 对新对象的 PUT 提供写后读一致性（read after write consistency）。
@@ -33,13 +31,11 @@ title: "Amazon S3 and Glacier"
 - S3 上只能存储文件（对象）。
 - HTTP 200 状态码表示成功写入 S3。
 - S3 数据由以下部分组成：
-
 - 键（名称）。
 - 值（数据）。
 - 版本 ID。
 - 元数据（metadata）。
 - 访问控制列表（ACL）。
-
 - Amazon S3 会自动扩展以应对高请求速率。
 - 例如，你的应用可以在 bucket 中的每个前缀下达到至少每秒 3,500 次 PUT/POST/DELETE 和 5,500 次 GET 请求。
 - bucket 中前缀的数量没有限制。
@@ -64,13 +60,11 @@ Amazon S3 提供的附加功能包括：
 ## 使用场景
 
 典型使用场景包括：
-
 - **备份与存储**——为他人提供数据备份和存储服务。
 - **应用托管**——提供部署、安装和管理 Web 应用的服务。
 - **媒体托管**——构建冗余、可扩展且高可用的基础设施，托管视频、照片或音乐的上传和下载。
 - **软件分发**——托管供客户下载的软件应用。
 - **静态网站**——你可以配置一个从 S3 bucket 运行的静态网站。
-
 - S3 是持久的、高持久性的数据存储。
 - 持久性数据存储（persistent data store）是非易失性存储系统，断电后数据仍然保留。
 - 这与临时数据存储（transient）和易失数据存储（ephemeral）形成对比，后者在断电时会丢失数据。
@@ -85,12 +79,10 @@ Amazon S3 提供的附加功能包括：
 ## Bucket
 
 文件存储在 bucket 中：
-
 - bucket 可以视为对象的容器。
 - bucket 是对象的扁平容器。
 - 它不提供对象的层次结构。
 - 你可以使用对象键名（前缀）来模拟文件夹。
-
 - 默认每个账户 100 个 bucket。
 - bucket 中可以存储无限数量的对象。
 - 你可以在 bucket 中创建文件夹（仅通过控制台可用）。
@@ -105,7 +97,6 @@ Amazon S3 提供的附加功能包括：
 - 可以将一个 bucket 备份到另一个账户中的另一个 bucket。
 - 可以为 bucket 启用日志记录。
 - bucket 命名规则：
-
 - bucket 名称长度至少 3 个字符，最多 63 个字符。
 - bucket 名称必须以小写字母或数字开头和结尾。
 - bucket 名称必须是一个或多个以句点分隔的标签。
@@ -118,12 +109,10 @@ Amazon S3 提供的附加功能包括：
 
 - 每个对象都通过唯一的键（ID 或名称）存储和检索。
 - S3 中的对象通过以下信息唯一标识和寻址：
-
 - 服务端点（service endpoint）。
 - bucket 名称。
 - 对象键（名称）。
 - 可选的对象版本。
-
 - 存储在 bucket 中的对象永远不会离开其存储的区域，除非你将它们移到另一个区域或启用跨区域复制。
 - 你可以在上传对象时以及之后的任何时间使用 AWS Management Console 定义对象权限。
 
@@ -131,7 +120,6 @@ Amazon S3 提供的附加功能包括：
 
 - 子资源从属于对象，它们不独立存在，而是始终与另一个实体（如对象或 bucket）关联。
 - 与 bucket 关联的子资源（配置容器）包括：
-
 - Lifecycle——定义对象的生命周期。
 - Website——静态网站托管的配置。
 - Versioning——在对象变更时保留多个版本。
@@ -141,7 +129,6 @@ Amazon S3 提供的附加功能包括：
 - 日志记录（Logging）。
 
 与对象关联的子资源包括：
-
 - ACL——定义访问对象的权限。
 - Restore——恢复归档对象。
 
@@ -155,7 +142,6 @@ Amazon S3 提供的附加功能包括：
 ## 存储类别
 
 S3 有六种存储类别。
-
 - S3 Standard（持久、立即可用、频繁访问）。
 - S3 Intelligent-Tiering（自动将数据移动到最具成本效益的层级）。
 - S3 Standard-IA（持久、立即可用、不频繁访问）。
@@ -183,12 +169,10 @@ S3 有六种存储类别。
 ## 访问与访问策略
 
 有四种机制可以控制对 Amazon S3 资源的访问：
-
 - IAM policy。
 - Bucket policy。
 - 访问控制列表（ACL）。
 - 查询字符串身份验证（指向 Amazon S3 对象的 URL，仅在有限时间内有效）。
-
 - 可以通过配置 Amazon S3 bucket 为针对它的所有请求创建访问日志记录来实现访问审计。
 - 要在日志中捕获 IAM/用户身份信息，请配置 AWS CloudTrail Data Events。
 - 默认情况下，bucket、其对象以及相关子资源都是私有的。
@@ -200,19 +184,16 @@ S3 有六种存储类别。
 - AWS 上任何资源的格式为：
 - arn:partition:service:region:namespace:relative-id。
 - 对于 S3 资源：
-
 - aws 是通用的分区名称。
 - s3 是服务名。
 - 不需要指定 Region 和 namespace。
 - 对于 Amazon S3，可以是 bucket-name 或 bucket-name/object-key。可以使用通配符。
 
 S3 资源的格式为：
-
 - arn:aws:s3:::bucket\_name。
 - arn:aws:s3:::bucket\_name/key\_name。
 
 bucket 所有者可以授予另一个 AWS 账户（或账户中的用户）上传对象的跨账户权限。
-
 - 上传对象的 AWS 账户拥有这些对象。
 - bucket 所有者对其他账户拥有的对象没有权限，但是：
   - bucket 所有者支付相关费用。
@@ -220,31 +201,26 @@ bucket 所有者可以授予另一个 AWS 账户（或账户中的用户）上�
   - 无论所有权如何，bucket 所有者都可以归档任何对象或恢复已归档的对象。
 
 可以将 bucket 和对象的访问权限授予：
-
 - 单个用户。
 - AWS 账户。
 - 所有人（公有/匿名）。
 - 所有经过身份验证的用户（AWS 用户）。
-
 - 访问策略定义对资源的访问，可以与资源（bucket 和对象）以及用户关联。
 - 你可以使用 AWS Policy Generator 为你的 Amazon S3 bucket 创建 bucket policy。
 - 策略分为 resource-based policy 和 user policy 两类。
 - Resource-based policy（基于资源的策略）：
-
 - 附加到 bucket 和对象。
 - 基于 ACL 的策略定义权限。
 - ACL 可用于向其他账户授予读/写权限。
 - bucket policy 可用于向其他 AWS 账户或 IAM 用户授予对 bucket 和对象的权限。
 
 User policy（用户策略）：
-
 - 可以使用 IAM 管理对 S3 资源的访问。
 - 使用 IAM 可以创建用户、组和角色，并将访问策略附加到它们以授予资源访问权限。
 - 无法在 IAM 用户策略中授予匿名权限，因为策略是附加到用户的。
 - 用户策略可以授予对 bucket 及其中对象的权限。
 
 ACL：
-
 - S3 ACL 让你能够管理对 bucket 和对象的访问。
 - 每个 bucket 和对象都有一个作为子资源附加的 ACL。
 - bucket 和对象的权限相互独立。
@@ -253,7 +229,6 @@ ACL：
 - 创建 bucket 或对象时，S3 会创建一个默认 ACL，授予资源所有者对资源的完全控制权限。
 
 跨账户访问：
-
 - 你可以使用电子邮件地址或 canonical user ID 向另一个 AWS 账户授予权限。
 - 但是，如果你在授权请求中提供电子邮件地址，Amazon S3 会查找该账户的 canonical user ID 并将其添加到 ACL。
 - 被授权账户随后可以将其他账户提供的访问权限委托给其账户内的各个用户。
@@ -261,26 +236,22 @@ ACL：
 ## 预定义组
 
 Authenticated Users 组：
-
 - 该组代表所有 AWS 账户。
 - 授予该组的访问权限允许任何 AWS 账户访问资源。
 - 所有请求必须经过签名（经过身份验证）。
 - 任何经过身份验证的用户都可以访问资源。
 
 All Users 组：
-
 - 授予该组的访问权限允许世界上任何人访问资源。
 - 请求可以签名（经过身份验证）或不签名（匿名）。
 - 不签名的请求会在请求中省略身份验证头。
 - AWS 建议永远不要向 All Users 组授予 WRITE、WRITE\_ACP 或 FULL\_CONTROL 权限。
 
 Log Delivery 组：
-
 - 向该组授予 bucket 的 WRITE 权限可使 S3 写入服务器访问日志。
 - 不适用于对象。
 
 下表列出了 Amazon S3 在 ACL 中支持的权限集。
-
 - 对象 ACL 和 bucket ACL 的 ACL 权限集是相同的。
 - 根据上下文（bucket ACL 或对象 ACL），这些 ACL 权限授予特定 bucket 或对象操作的权限。
 - 下表列出了这些权限，并描述它们在对象和 bucket 上下文中的含义。
@@ -294,41 +265,33 @@ Log Delivery 组：
 | FULL\_CONTROL | 允许被授权者拥有 bucket 的 READ、WRITE、READ\_ACP、WRITE\_ACP 权限 | 允许被授权者拥有对象的 READ、WRITE、READ\_ACP、WRITE\_ACP 权限 |
 
 请注意以下几点：
-
 - 权限在账户级别为经过身份验证的用户分配。
 - 无法向单个 IAM 用户分配权限。
 - 在 bucket 上授予 Read 时，仅提供列出 bucket 中对象的能力。
 - 在对象上授予 Read 时，可以读取数据。
 - ACP 表示访问控制权限，READ\_ACP/WRITE\_ACP 控制谁可以读/写 ACL 本身。
 - WRITE 仅适用于 bucket 级别（ACP 除外）。
-
 - bucket policy 的大小限制为 20 KB。
 - 对象 ACL 每个 ACL 最多 100 条授予权限。
 - bucket ACL 唯一推荐的使用场景是向 S3 Log Delivery 组授予写权限。
 - 使用 ACL 管理权限存在一些限制：
-
 - 无法向单个用户授予权限。
 - 无法授予条件权限。
 - 无法显式拒绝访问。
-
 - 当授予其他 AWS 账户上传对象的权限时，这些对象的权限只能由对象所有者使用对象 ACL 来管理。
 - bucket policy 可用于：
-
 - 向用户授予对你账户拥有的 bucket 的权限。
 - 管理对象权限（对象所有者与 bucket 所有者是同一账户时）。
 - 管理所有 Amazon S3 权限的跨账户权限。
 
 用户策略可用于：
-
 - 授予所有 Amazon S3 操作的权限。
 - 管理你账户中用户的权限。
 - 向账户内的用户授予对象权限。
 
 IAM 用户要访问另一个账户中的资源，必须具备以下条件：
-
 - 通过用户策略获得来自父账户的权限。
 - 通过 bucket policy 获得资源所有者授予 IAM 用户的权限，或通过 bucket policy、bucket ACL 或对象 ACL 获得授予父账户的权限。
-
 - 如果某个 AWS 账户拥有某项资源，它可以将权限授予另一个账户，该账户随后可以将这些权限或其子集委托给账户内的用户（权限委托）。
 - 从另一个账户获得权限的账户不能将权限跨账户委托给第三个 AWS 账户。
 
@@ -339,14 +302,12 @@ IAM 用户要访问另一个账户中的资源，必须具备以下条件：
 - 传输到其他区域的数据收费。
 - 数据检索费用（适用于 S3 Standard-IA、S3 One Zone-IA、S3 Glacier 和 S3 Glacier Deep Archive）。
 - 收费项目包括：
-
 - 每 GB/月的存储费。
 - 传出 S3 的数据传输。
 - 上传请求（PUT 和 GET）。
 - 检索请求（S3-IA 或 Glacier）。
 
 Requester pays（请求者付费）：
-
 - bucket 所有者只支付对象存储费用。
 - 请求者支付请求（上传/下载）和数据传输费用。
 - 只能在 bucket 级别启用。
@@ -357,10 +318,8 @@ Requester pays（请求者付费）：
 - 分段上传将对象分成多个部分，独立、并行、按任意顺序上传。
 - 使用 S3 Multipart Upload API 执行。
 - 建议用于 100MB 或更大的对象。
-
 - 可用于 5MB 到 5TB 的对象。
 - 大于 5GB 的对象必须使用。
-
 - 如果任何部分的传输失败，可以重新传输该部分。
 - 提升吞吐量。
 - 可以暂停和恢复对象上传。
@@ -372,7 +331,6 @@ Requester pays（请求者付费）：
 - 对于大于 5GB 的文件，必须使用分段上传 API。
 - 可以使用 AWS SDK 或 REST API 执行。
 - 复制操作可用于：
-
 - 生成对象的额外副本。
 - 重命名对象。
 - 更改副本的存储类别或静态加密状态。
@@ -396,7 +354,6 @@ Requester pays（请求者付费）：
 - 现已符合 HIPAA 规范。
 - 可以将分段上传与传输加速结合使用。
 - 必须使用以下终端节点之一：
-
 - .s3-accelerate.amazonaws.com。
 - .s3-accelerate.dualstack.amazonaws.com（dual-stack 选项）。
 
@@ -418,7 +375,6 @@ S3 Transfer Acceleration 支持所有 bucket 级功能，包括分段上传。
 - 仅支持对对象的 GET 和 HEAD 请求。
 - 仅支持公开可读的内容。
 - 要在 bucket 上启用网站托管，需指定：
-
 - 索引文档（默认网页）。
 - 错误文档（可选）。
 
@@ -454,10 +410,8 @@ S3 Transfer Acceleration 支持所有 bucket 级功能，包括分段上传。
 - 可以启用多因素身份验证（MFA）删除。
 - MFA 删除也可以应用于更改版本控制设置。
 - MFA 删除适用于：
-
 - 更改 bucket 的版本控制状态。
 - 永久删除对象。
-
 - 跨区域复制要求源 bucket 和目标 bucket 都启用版本控制。
 - 回退到先前版本的操作不会被复制。
 - 默认情况下，HTTP GET 检索最新版本。
@@ -466,14 +420,11 @@ S3 Transfer Acceleration 支持所有 bucket 级功能，包括分段上传。
 - 你可以删除该 DELETE 标记，对象将再次可用。
 - 启用版本控制时的删除会复制删除标记，但删除删除标记的操作不会被复制。
 - bucket 版本控制状态：
-
 - Enabled（已启用）。
 - Versioned（已版本化）。
 - Un-versioned（未版本化）。
-
 - 启用版本控制之前已存在的对象，其版本 ID 为 NULL。
 - 暂停（Suspension）：
-
 - 如果暂停版本控制，现有对象保持原样，但不会创建新版本。
 - 版本控制暂停期间，新对象的版本 ID 为 NULL，上传同名对象会覆盖现有对象。
 
@@ -481,13 +432,10 @@ S3 Transfer Acceleration 支持所有 bucket 级功能，包括分段上传。
 
 - 用于优化存储成本、遵守数据保留策略以及保持 S3 存储的良好维护。
 - *生命周期配置*是一组规则，定义 Amazon S3 对一组对象应用的操作。有两种类型的操作：
-
 - **转换操作（Transition action）**——定义对象何时转换到另一个[存储类别](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html)。例如，你可以选择在对象创建 30 天后将其转换到 STANDARD\_IA 存储类别，或在创建一年后将对象归档到 GLACIER 存储类别。
 
 生命周期转换请求会产生费用。定价信息请参见 [Amazon S3 定价](https://aws.amazon.com/s3/pricing/)。
-
 - **过期操作（Expiration action）**——定义对象何时过期。Amazon S3 会代表你删除过期对象。
-
 - 生命周期配置是一个 XML 文件，作为子资源应用在 bucket 级别。
 - 可以与版本控制结合使用，也可以独立使用。
 - 可以应用于当前版本和先前版本。
@@ -496,7 +444,6 @@ S3 Transfer Acceleration 支持所有 bucket 级功能，包括分段上传。
 ### 支持的转换及相关约束
 
 Amazon S3 支持使用生命周期配置在存储类别之间进行以下转换：
-
 - 可以从 STANDARD 存储类别转换到任何其他存储类别。
 - 可以从任何存储类别转换到 GLACIER 或 DEEP\_ARCHIVE 存储类别。
 - 可以从 STANDARD\_IA 存储类别转换到 INTELLIGENT\_TIERING 或 ONEZONE\_IA 存储类别。
@@ -504,7 +451,6 @@ Amazon S3 支持使用生命周期配置在存储类别之间进行以下转换�
 - 可以从 GLACIER 存储类别转换到 DEEP\_ARCHIVE 存储类别。
 
 不支持以下生命周期转换：
-
 - 无法从任何存储类别转换到 STANDARD 存储类别。
 - 无法从任何存储类别转换到 REDUCED\_REDUNDANCY 存储类别。
 - 无法从 INTELLIGENT\_TIERING 存储类别转换到 STANDARD\_IA 存储类别。
@@ -513,7 +459,6 @@ Amazon S3 支持使用生命周期配置在存储类别之间进行以下转换�
 - 无法从 DEEP\_ARCHIVE 存储类别转换到任何其他存储类别。
 
 生命周期存储类别转换有以下约束：
-
 - 从 STANDARD 或 STANDARD\_IA 存储类别转换到 INTELLIGENT\_TIERING。适用以下约束：
   - 对于较大的对象，转换到 INTELLIGENT\_TIERING 具有成本优势。Amazon S3 不会将小于 128 KB 的对象转换到 INTELLIGENT\_TIERING 存储类别，因为这不具成本效益。
 - 从 STANDARD 存储类别转换到 STANDARD\_IA 或 ONEZONE\_IA。适用以下约束：
@@ -553,7 +498,6 @@ Amazon S3 支持使用生命周期配置在存储类别之间进行以下转换�
 - 使用 Amazon S3 托管密钥的服务端加密（SSE-S3）时，每个对象都使用唯一密钥加密。
 - 作为额外的保障措施，它还使用定期轮换的主密钥加密密钥本身。
 - Amazon S3 服务端加密使用目前最强的分组密码之一——256 位高级加密标准（AES-256）来加密你的数据。
-
 - 每个对象使用唯一密钥加密。
 - 加密密钥本身用主密钥加密。
 - AWS 定期轮换主密钥。
@@ -565,7 +509,6 @@ Amazon S3 支持使用生命周期配置在存储类别之间进行以下转换�
 - CMK 的使用有单独的权限，可为你在 Amazon S3 中的对象提供额外的防未授权访问保护。
 - SSE-KMS 还提供审计跟踪，显示你的 CMK 何时被使用以及被谁使用。
 - 此外，你可以创建和管理客户托管的 CMK，或使用对你、你的服务和你的区域唯一的 AWS 托管 CMK。
-
 - KMS 使用客户主密钥（CMK）进行加密。
 - 可以使用自动创建的 CMK 密钥。
 - 或者你可以选择自己的密钥（让你可以控制密钥管理）。
@@ -575,11 +518,9 @@ Amazon S3 支持使用生命周期配置在存储类别之间进行以下转换�
 ### SSE-C——使用客户提供密钥的服务端加密
 
 使用客户提供密钥的服务端加密（SSE-C）时，你管理加密密钥，Amazon S3 管理加密（写入磁盘时）和解密（访问对象时）。
-
 - 客户端管理密钥，S3 管理加密。
 - AWS 不存储加密密钥。
 - 如果密钥丢失，数据将无法解密。
-
 - 使用客户提供加密密钥的服务端加密（SSE-C）时，必须使用以下请求头提供加密密钥信息：
 - x-amz-server-side​-encryption​-customer-algorithm——使用此头指定加密算法。头值必须为“AES256”。
 - x-amz-server-side​-encryption​-customer-key——使用此头提供 256 位、base64 编码的加密密钥，供 Amazon S3 用于加密或解密你的数据。
@@ -596,7 +537,6 @@ Amazon S3 支持使用生命周期配置在存储类别之间进行以下转换�
 #### 选项 1：使用存储在 AWS Key Management Service (AWS KMS) 中的客户主密钥（CMK）
 
 上传对象时——使用客户主密钥（CMK）ID，客户端首先向 AWS KMS 发送请求，获取可用于加密对象数据的 CMK。AWS KMS 返回随机生成的数据密钥的两个版本：
-
 - 数据密钥的明文版本，客户端用它来加密对象数据。
 - 同一数据密钥的密文 blob，客户端将其作为对象元数据上传到 Amazon S3。
 
@@ -622,7 +562,6 @@ Amazon S3 支持使用生命周期配置在存储类别之间进行以下转换�
 - 要启用通知，必须先添加通知配置，指明你希望 Amazon S3 发布的事件以及希望 Amazon S3 发送通知的目标。
 - 你可以将通知配置为按对象键名的前缀和后缀进行过滤。
 - **Amazon S3 可以为以下事件发布通知：**
-
 - 新对象创建事件。
 - 对象删除事件。
 - 对象恢复事件。
@@ -634,7 +573,6 @@ Amazon S3 支持使用生命周期配置在存储类别之间进行以下转换�
 - 将事件消息发布到 Amazon Simple Notification Service (Amazon SNS) topic。
 - 将事件消息发布到 Amazon Simple Queue Service (Amazon SQS) 队列。
 - 通过调用 Lambda 函数并将事件消息作为参数传递，将事件消息发布到 AWS Lambda。
-
 - 需要授予 Amazon S3 向 Amazon SNS topic 或 Amazon SQS 队列发布消息的权限。
 - 还需要授予 Amazon S3 代表你调用 AWS Lambda 函数的权限。
 
@@ -651,7 +589,6 @@ Amazon S3 支持使用生命周期配置在存储类别之间进行以下转换�
 - CloudWatch 请求指标在启用后 15 分钟内即可在 CloudWatch 中查看。
 - CloudWatch 存储指标默认为所有 bucket 启用，每天报告一次。
 - 可监控的 S3 指标包括：
-
 - S3 请求。
 - Bucket 存储量。
 - Bucket 大小。
@@ -675,10 +612,8 @@ Amazon S3 支持使用生命周期配置在存储类别之间进行以下转换�
 - 你可以跨 AWS 账户设置 CRR，将复制的数据存储在目标区域的不同账户中。
 - 通过将对象复制到离用户更近的 bucket，提供数据的低延迟访问。
 - 要激活 CRR，需要在源 bucket 上配置复制：
-
 - 定义要复制到的另一个区域中的 bucket。
 - 指定复制所有对象，或具有特定键名前缀的对象子集。
-
 - 副本将是完全一致的副本，共享相同的键名和元数据。
 - 你可以指定不同的存储类别（默认使用源存储类别）。
 - AWS S3 会使用 SSL 加密传输中的数据。
@@ -686,20 +621,17 @@ Amazon S3 支持使用生命周期配置在存储类别之间进行以下转换�
 - bucket 所有者必须拥有读取对象和对象 ACL 的权限。
 - 可以跨账户使用，但源 bucket 所有者必须拥有将对象复制到目标 bucket 的权限。
 - 复制的触发条件包括：
-
 - 向源 bucket 上传对象。
 - 删除源 bucket 中的对象。
 - 对象、其元数据或 ACL 的更改。
 
 会被复制的内容：
-
 - 启用复制后创建的新对象。
 - 对象的更改。
 - 使用 AWS 托管密钥以 SSE-S3 创建的对象。
 - 对象 ACL 的更新。
 
 不会被复制的内容：
-
 - 启用复制之前已存在的对象（可以使用 copy API）。
 - 使用 SSE-C 和 SSE-KMS 创建的对象。
 - bucket 所有者没有权限的对象。
@@ -708,12 +640,10 @@ Amazon S3 支持使用生命周期配置在存储类别之间进行以下转换�
 - 源 bucket 中从另一个区域复制过来的对象不会被再次复制。
 
 删除行为：
-
 - 如果发出的 DELETE 请求未指定对象版本 ID，则会添加删除标记并被复制。
 - 如果发出的 DELETE 请求指定了对象版本 ID，则对象会被删除，但删除标记不会被复制。
 
 费用：
-
 - 上传请求。
 - 跨区域传输。
 - 两个区域的 S3 存储。
@@ -750,7 +680,6 @@ Amazon S3 支持使用生命周期配置在存储类别之间进行以下转换�
 ## 监控与报告
 
 Amazon [CloudWatch](https://digitalcloud.training/amazon-cloudwatch/) 的 Amazon S3 指标可以帮助你了解和改进使用 Amazon S3 的应用性能。你可以通过多种方式将 CloudWatch 与 Amazon S3 结合使用。
-
 - **bucket 的每日存储指标**——使用 CloudWatch 监控 bucket 存储，它会收集 Amazon S3 的存储数据并处理成可读的每日指标。这些 Amazon S3 存储指标每天报告一次，免费提供给所有客户。
 - **请求指标**——监控 Amazon S3 请求，快速识别并处理运营问题。指标以 1 分钟为间隔提供（会有一些处理延迟）。这些 CloudWatch 指标按 Amazon CloudWatch 自定义指标的相同费率计费。
 - **复制指标**——监控待复制的 S3 API 操作总数、待复制对象的总大小，以及到目标区域的最大复制时间。只有启用了 S3 Replication Time Control (S3 RTC) 的复制规则才会发布复制指标。
@@ -779,7 +708,6 @@ Amazon [CloudWatch](https://digitalcloud.training/amazon-cloudwatch/) 的 Amazon
 - Glacier 是面向不频繁访问数据的归档存储解决方案。
 - 有三个存储层级：
 - **S3 Glacier Instant Retrieval**
-
 - 毫秒级数据检索，性能与 S3 Standard 相同
 - 设计持久性为跨多个可用区的对象 99.999999999%
 - 即使一整个可用区被摧毁，数据也能保持完好
@@ -804,7 +732,6 @@ Amazon [CloudWatch](https://digitalcloud.training/amazon-cloudwatch/) 的 Amazon
 - 磁带库的理想替代品
 - 检索时间在 12 小时以内
 - 支持 S3 PUT API 直接上传到 S3 Glacier Deep Archive，并支持 S3 生命周期管理自动迁移对象
-
 - 顶层各层级之间的关键区别在于：Deep Archive 成本更低，但检索时间要长得多（12 小时）。
 - S3 Glacier 层的检索时间可配置，从几分钟到几小时（费用相应变化）。
 - 归档对象无法实时访问，你需要提交检索请求。
@@ -829,11 +756,9 @@ Amazon [CloudWatch](https://digitalcloud.training/amazon-cloudwatch/) 的 Amazon
 - 可以为归档添加描述，不能添加其他元数据。
 - Glacier 归档 ID 在上传时添加，每次上传都是唯一的。
 - 归档检索：
-
 - Expedited（加急）检索时间为 1-5 分钟（最贵）。
 - Standard（标准）检索时间为 3.5 小时（较便宜，每月免费检索 10GB 数据）。
 - Bulk（批量）检索时间为 5-12 小时（最便宜，适用于大量数据）。
-
 - 你可以只检索归档的一部分。
 - 检索数据时，数据会被复制到 S3，而归档仍保留在 Glacier 中，因此存储类别不会改变。
 - 检索任务完成时，AWS SNS 可以发送通知。
@@ -843,7 +768,6 @@ Amazon [CloudWatch](https://digitalcloud.training/amazon-cloudwatch/) 的 Amazon
 - 同一区域内 EC2 与 Glacier 之间的数据传输不收费。
 - 如果在 90 天内删除数据，会产生费用。
 - 恢复时你需要支付：
-
 - Glacier 归档费用。
 - 请求费用。
 - S3 上恢复数据的费用。

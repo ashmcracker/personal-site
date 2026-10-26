@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "plugins": {
+    "custom-file-explorer-sorting-support": {
+      "source": "github:VingGit/custom-file-explorer-sorting-support",
+      "resolved": "https://github.com/VingGit/custom-file-explorer-sorting-support.git",
+      "commit": "9c509fc269da826764e3cf50a6e8f44b5d910bf1",
+      "installedAt": "2026-10-26T17:10:24.381Z"
+    }
+  }
+}

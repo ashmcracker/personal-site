@@ -20,10 +20,8 @@ title: "Amazon Cognito"
 ## 用户池与身份池（User Pools and Identity Pools）
 
 AWS Cognito 的两个主要组件是用户池（user pool）和身份池（identity pool）：
-
 - 用户池是用户目录，为你的应用用户提供注册和登录选项。
 - 身份池让你能够授予用户访问其他 AWS 服务的权限。
-
 - 你可以单独或一起使用身份池和用户池。
 - 应用无需在设备本地嵌入或存储 AWS 凭证，并且为用户在所有移动设备上提供无缝体验。
 - Cognito Identity 提供临时安全凭证，用于访问你应用在 AWS 上的后端资源或 Amazon API Gateway 之后的任何服务。
@@ -42,7 +40,6 @@ AWS Cognito 的两个主要组件是用户池（user pool）和身份池（ident
 - 无论用户直接登录还是通过第三方登录，用户池的所有成员都有一个目录配置文件，你可以通过 SDK 访问。
 - Cognito 充当身份提供商与 AWS 之间的身份代理（Identity Broker）。
 - 用户池提供：
-
 - 注册和登录服务。
 - 内置的可自定义 Web UI 用于用户登录。
 - 支持 Facebook、Google 和 Login with Amazon 的社交登录，以及使用用户池中 SAML 身份提供商的登录。
@@ -62,7 +59,6 @@ AWS Cognito 的两个主要组件是用户池（user pool）和身份池（ident
 - 为了给你的应用提供无缝的用户体验，Cognito 使用推送同步（Push Synchronization）在多台设备之间推送更新并同步用户数据。
 - 每当存储在云中的数据发生变化时，Amazon SNS 会向所有设备发送静默推送通知。
 - Amazon Cognito 身份池支持以下身份提供商：
-
 - 公共提供商：Login with Amazon（Identity Pools）、Facebook（Identity Pools）、Google（Identity Pools）。
 - Amazon Cognito 用户池。
 - OpenID Connect 提供商（Identity Pools）。

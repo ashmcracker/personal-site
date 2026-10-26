@@ -28,14 +28,11 @@ title: "AWS Networking Services"
 - 首次预置 Amazon EC2 资源时，会为每个 AWS 账户自动创建默认 VPC。
 - 默认 VPC 的子网全部是公有子网。
 - 公有子网具有以下特征的子网：
-
 - “Auto-assign public IPv4 address” 设置为 “Yes”。
 - 子网路由表关联了 Internet Gateway。
-
 - 默认 VPC 中的实例始终同时拥有公有和私有 IP 地址。
 - AZ 名称对不同用户映射到不同的物理区域（例如，AZ “ap-southeast-2a” 对不同用户可能映射到不同的物理区域）。
 - VPC 的组件：
-
 - **Virtual Private Cloud**：AWS 云中逻辑隔离的虚拟网络。你从你选择的范围中定义 VPC 的 IP 地址空间。
 - **子网（Subnet）**：VPC IP 地址范围的一个分段，你可以在其中放置成组的隔离资源（映射到一个 AZ，1:1）。
 - **Internet Gateway**：Amazon VPC 侧连接公共互联网的组件。
@@ -49,18 +46,15 @@ title: "AWS Networking Services"
 - **仅出站 Internet Gateway（Egress-only Internet Gateway）**：一种有状态网关，为从 VPC 到互联网的 IPv6 流量提供仅出站访问。
 
 安全连接 VPC 的选项：
-
 - AWS 托管 VPN——设置快速。
 - Direct Connect——高带宽、低延迟，但需要数周到数月才能建立。
 - VPN CloudHub——用于将多个站点连接到 AWS。
 - 软件 VPN——使用第三方软件。
-
 - 弹性网络接口（ENI）是代表网卡（NIC）的逻辑网络组件。
 - ENI 可以从 EC2 实例上附加和分离，ENI 的配置会保留。
 - 流日志（Flow Logs）捕获进出 VPC 中网络接口的 IP 流量信息。
 - 流日志数据使用 Amazon CloudWatch Logs 存储。
 - 流日志可以在以下级别创建：
-
 - VPC。
 - 子网。
 - 网络接口。
@@ -73,7 +67,6 @@ title: "AWS Networking Services"
 - 创建子网时，你需要指定子网的 CIDR 块，它是 VPC CIDR 块的子集。
 - 每个子网必须完全位于一个可用区内，不能跨可用区。
 - 子网类型：
-
 - 如果子网的流量路由到 internet gateway，则该子网称为公有子网（public subnet）。
 - 如果子网没有到 internet gateway 的路由，则该子网称为私有子网（private subnet）。
 - 如果子网没有到 internet gateway 的路由，但流量路由到用于 VPN 连接的 virtual private gateway，则该子网称为仅 VPN 子网（VPN-only subnet）。
@@ -98,13 +91,11 @@ Internet Gateway 是一种水平扩展、冗余且高可用的 VPC 组件，允�
 
 - VPC 向导可用于创建以下四种配置：
 - 带单个公有子网的 VPC：
-
 - 你的实例运行在 AWS 云的私有隔离区域中，可直接访问互联网。
 - 可以使用网络 ACL 和安全组对实例的入站和出站网络流量进行严格控制。
 - 创建一个 /16 网络和一个 /24 子网。公有子网实例使用 Elastic IP 或公有 IP 访问互联网。
 
 带公有和私有子网的 VPC：
-
 - 除了公有子网外，此配置还添加了一个私有子网，其中的实例无法从互联网寻址。
 - 私有子网中的实例可以通过公有子网使用网络地址转换（NAT）建立到互联网的出站连接。
 - 创建一个 /16 网络和两个 /24 子网。
@@ -112,13 +103,11 @@ Internet Gateway 是一种水平扩展、冗余且高可用的 VPC 组件，允�
 - 私有子网实例通过网络地址转换（NAT）访问互联网。
 
 带公有和私有子网及硬件 VPN 访问的 VPC：
-
 - 此配置在 Amazon VPC 与数据中心之间添加 IPsec 虚拟专用网络（VPN）连接——实际上将数据中心扩展到了云端，同时为 Amazon VPC 中的公有子网实例提供直接的互联网访问。
 - 创建一个 /16 网络和两个 /24 子网。
 - 一个子网直接连接互联网，另一个子网通过 IPsec VPN 隧道连接到你的企业网络。
 
 仅带私有子网及硬件 VPN 访问的 VPC：
-
 - 你的实例运行在 AWS 云的私有隔离区域中，私有子网中的实例无法从互联网寻址。
 - 你可以通过 IPsec 虚拟专用网络（VPN）隧道将此私有子网连接到你的企业数据中心。
 - 创建一个 /16 网络和一个 /24 子网，并在 Amazon VPC 与企业网络之间预置 IPsec VPN 隧道。
@@ -152,12 +141,10 @@ Internet Gateway 是一种水平扩展、冗余且高可用的 VPC 组件，允�
 - AWS Direct Connect 是一项网络服务，提供了使用互联网将客户本地站点连接到 AWS 之外的另一种选择。
 - 数据通过 AWS 与客户数据中心或企业网络之间的私有网络连接传输。
 - Direct Connect 的优势：
-
 - 大流量场景下降低成本。
 - 提高可靠性（性能可预测）。
 - 提高带宽（带宽可预测）。
 - 降低延迟。
-
 - 每个 AWS Direct Connect 连接可以配置一个或多个虚拟接口（VIF）。
 - 公有 VIF 允许访问公共服务，如 S3、EC2 和 DynamoDB。
 - 私有 VIF 允许访问你的 VPC。
@@ -198,7 +185,6 @@ Internet Gateway 是一种水平扩展、冗余且高可用的 VPC 组件，允�
 - AWS 计算、存储、数据库和其他服务在 Outposts 上本地运行，你可以使用熟悉的 AWS 服务和工具访问该区域中提供的全部 AWS 服务，构建、管理和扩展本地应用程序。
 - Outposts 以 42U 机架形式提供，可从 1 个机架扩展到 96 个机架，形成计算和存储容量池。
 - 可以在 AWS Outposts 上运行的服务包括：
-
 - Amazon EC2。
 - Amazon EBS。
 - Amazon S3。

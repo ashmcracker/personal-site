@@ -24,7 +24,6 @@ title: "AWS Application Integration Service"
 - Amazon SNS 用于构建和集成松耦合的分布式应用。
 - SNS 提供即时的推送式投递（无需轮询）。
 - SNS 的核心概念：
-
 - Topic —— 用来标记和分组你要发送消息的不同 endpoint。
 - Subscription —— topic 发送消息的目标 endpoint。
 - Publisher —— 向 SNS 提供待发送消息的人 / 告警 / 事件。
@@ -32,11 +31,9 @@ title: "AWS Application Integration Service"
 ![amazon-sns-publishers-subscribers](/cheat-sheets/images/2022-02-amazon-sns-publishers-subscribers.png)
 
 SNS 的用法：
-
 - 发送自动或手动通知。
 - 向 email、手机（SMS）、SQS 和 HTTP endpoint 发送通知。
 - 与 CloudWatch 等其他 AWS 服务紧密集成，让你 AWS 账户中的告警、事件和操作都可以触发通知。
-
 - API 简单，易于与应用集成。
 - 通过多种传输协议提供灵活的消息投递。
 - 采用低廉的按使用量付费模式，无前期费用。
@@ -44,7 +41,6 @@ SNS 的用法：
 - 数据类型为 JSON。
 - SNS 支持广泛的需求，包括事件通知、应用监控、工作流系统、时效性强的信息更新、移动应用，以及任何产生或消费通知的应用。
 - SNS Subscriber 类型：
-
 - HTTP。
 - HTTPS。
 - Email。
@@ -54,12 +50,10 @@ SNS 的用法：
 - Lambda。
 
 SNS 支持通过多种传输协议发送通知：
-
 - HTTP/HTTPS —— subscriber 在注册订阅时指定一个 URL。
 - Email/Email-JSON —— 消息以邮件形式发送到注册的地址（纯文本或 JSON 对象）。
 - SQS —— 用户可以指定一个 SQS 标准队列作为 endpoint。
 - SMS —— 消息以短信形式发送到注册的手机号。
-
 - Topic 名称最长 256 个字符。
 - SNS 支持对经过身份验证的调用进行 CloudTrail 审计。
 - SNS 为接收到的所有消息提供持久化存储（跨多个 AZ）。

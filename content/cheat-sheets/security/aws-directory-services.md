@@ -6,13 +6,11 @@ title: "AWS Directory Services"
 
 - AWS 提供多种目录类型。
 - 目前考试中涉及以下三种类型，本页将进行介绍：
-
 - Active Directory Service for Microsoft Active Directory。
 - Simple AD。
 - AD Connector。
 
 除了 AWS Directory 服务之外，你也可以在 AWS 云中（EC2 上）自建 Microsoft AD DC。
-
 - 自建时可以加入现有的本地 Active Directory 域（复制模式）。
 - 必须建立 VPN（如果有 Direct Connect，则在其之上）。
 - 复制模式的安全性低于建立信任关系。
@@ -47,23 +45,19 @@ title: "AWS Directory Services"
 ![AWS Microsoft AD Use Cases](/cheat-sheets/images/2022-01-aws-microsoft-ad-use-cases.jpeg)
 
 包含的安全特性：
-
 - 细粒度密码策略管理。
 - 通过 SSL/TLS 进行 LDAP 加密。
 - 通过 HIPAA 和 PCI DSS 认证。
 - 通过与现有基于 RADIUS 的 MFA 基础设施集成实现多因素认证。
-
 - 通过 CloudTrail 提供监控，通过 SNS 发送通知，每日自动快照。
 - 可通过添加 Domain Controller 进行扩展的可伸缩服务。
 - 以 HA 配置部署在同一区域的两个 AZ 中。
 - AWS Microsoft AD 不支持复制模式（即向本地 AD 复制）。
 - 两个版本：
-
 - Standard Edition 针对员工不超过 5,000 人的中小企业进行了优化，可用作主目录。它提供足够的存储容量，支持最多 30,000 个目录对象（如用户、组和计算机）。
 - Enterprise Edition 专为支持最多 500,000 个目录对象的企业组织设计。
 
 目录共享：
-
 - AWS Directory Service for Microsoft Active Directory 允许你在一个账户中使用目录，并与多个账户和 VPC 共享。
 - 每共享一个额外账户，按小时收取共享费用。
 - 共享目录到的额外 VPC 以及安装目录的账户不收取共享费用。
@@ -78,33 +72,27 @@ title: "AWS Directory Services"
 - 可以创建用户并控制对 AWS 上应用的访问。
 - 提供 AWS MS AD 功能的子集。
 - 功能包括：
-
 - 管理用户账户。
 - 管理组。
 - 应用组策略。
 - 安全连接 EC2 实例。
 - 基于 Kerberos 的 SSO。
 - 支持加入 Linux 或 Windows 的 EC2 实例。
-
 - AWS 提供监控、每日快照和恢复服务。
 - 支持手动快照。
 - Simple AD 兼容 WorkSpaces、WorkDocs、WorkMail 和 QuickSight。
 - 你还可以使用 Simple AD 用户账户登录 AWS 管理控制台来管理 AWS 资源。
 - 提供两个版本：
-
 - Small —— 支持最多 500 个用户（约 2000 个对象）。
 - Large —— 支持最多 5000 个用户（约 20,000 个对象）。
-
 - AWS 在一个 AZ 内的两个不同子网上创建两台目录服务器和 DNS 服务器。
 - Simple AD 不支持：
-
 - DNS 动态更新。
 - Schema 扩展。
 - 多因素认证。
 - LDAPS 通信。
 - PowerShell AD cmdlet。
 - FSMO 角色转移。
-
 - 不兼容 RDS SQL Server。
 - 不支持与其他域的信任关系（请使用 AWS MS AD）。
 
@@ -115,10 +103,8 @@ title: "AWS Directory Services"
 - 将你现有的本地 AD 连接到 AWS。
 - 当你想将现有 Active Directory 与 AWS 服务结合使用时，这是最佳选择。
 - AD Connector 有两种规格：
-
 - Small —— 适用于最多 500 个用户的组织。
 - Large —— 适用于最多 5000 个用户的组织。
-
 - VPC 必须通过 VPN 或 Direct Connect 连接到你的本地网络。
 - 当用户登录 AWS 应用时，AD Connector 会将登录请求转发到你本地的 AD DC。
 - 你还可以通过 AD Connector 将 EC2 实例加入本地 AD。

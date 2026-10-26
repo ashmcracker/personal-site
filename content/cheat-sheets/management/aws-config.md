@@ -23,7 +23,6 @@ title: "AWS Config"
 - Config Rule 表示资源应满足的期望配置，并会根据 AWS Config 记录的相关资源变更进行评估。
 - [**AWS Config Rules**](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html) 可以检查资源是否满足某些期望条件，如果发现违规，该资源会被标记为“不合规（noncompliant）”。
 - Config Rules 示例：
-
 - [**Amazon RDS**](https://digitalcloud.training/amazon-rds/) 是否启用了备份？
 - AWS 账户是否启用了 CloudTrail？
 - [**Amazon EBS**](https://digitalcloud.training/amazon-ebs/) 卷是否已加密。

@@ -10,14 +10,11 @@ AWS 云管理服务可用于账户管理、配置合规、应用交付和系统�
 
 - AWS Organizations 允许你将多个 AWS 账户整合到一个由你创建并集中管理的组织中。
 - 提供两种功能集：
-
 - Consolidated Billing。
 - 全部功能。
-
 - 包含 root 账户和组织单元（OU）。
 - 策略应用于 root 账户或 OU。
 - Consolidated billing 包含：
-
 - Paying Account —— 独立存在，无法访问其他账户的资源。
 - Linked Accounts —— 所有 linked account 都是独立的。
 
@@ -28,15 +25,12 @@ AWS 云管理服务可用于账户管理、配置合规、应用交付和系统�
 - 简化创建多账户环境的过程。
 - 为你搭建治理、合规和安全护栏（guardrail）。
 - 与其他服务和功能集成，为你搭建环境，包括：
-
 - AWS Organizations、SCP、OU、AWS Config、AWS CloudTrail、Amazon S3、Amazon SNS、AWS CloudFormation、AWS Service Catalog、AWS Single Sign-On（SSO）。
 
 AWS Control Tower 可为你配置的护栏示例包括：
-
 - 禁止对 Amazon Simple Storage Service（Amazon S3）bucket 的公开写访问。
 - 禁止未启用多因素认证的 root 用户访问。
 - 为挂载到 Amazon EC2 实例的 Amazon EBS 卷启用加密。
-
 - AWS Config
 - AWS Config 是一项全托管服务，为你提供 AWS 资源清单、配置历史和配置变更通知，以实现安全和监管合规。
 - 使用 AWS Config，你可以发现现存和已删除的 AWS 资源，评估整体合规性是否符合规则，并深入查看资源在任意时间点的配置详情。AWS Config 支持合规审计、安全分析、资源变更跟踪和故障排查。
@@ -54,7 +48,6 @@ AWS Control Tower 可为你配置的护栏示例包括：
 
 - 管理多种 AWS 资源，包括 Amazon EC2、Amazon S3、Amazon RDS 等。
 - Systems Manager 组件：
-
 - Automation。
 - Run Command。
 - Inventory。

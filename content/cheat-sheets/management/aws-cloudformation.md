@@ -54,11 +54,9 @@ title: "AWS CloudFormation"
 ### 模板元素
 
 必需项：
-
 - 资源列表及相关的配置值。
 
 非必需项：
-
 - 模板参数（上限 60 个）。
 - 输出值（上限 60 个）。
 - 数据表列表。
@@ -66,7 +64,6 @@ title: "AWS CloudFormation"
 ### 模板组成部分
 
 **Resources** —— *必需的* Resources 段声明你想包含在 stack 中的 AWS 资源，例如 Amazon EC2 实例或 Amazon S3 bucket。
-
 - 必需。
 - 表示将要创建的 AWS 组件。
 - 资源声明后可以互相引用。
@@ -84,10 +81,8 @@ title: "AWS CloudFormation"
 ### 参数（Parameters）
 
 使用*可选的* Parameters 段来自定义模板。参数让你在每次创建或更新 stack 时向模板传入自定义值。
-
 - 为 CloudFormation 模板提供输入。
 - 有利于模板复用。
-
 - 下面的示例声明了一个名为 InstanceTypeParameter 的参数。该参数让你在创建或更新 stack 时指定要使用的 Amazon EC2 实例类型。
 - ***注意：****InstanceTypeParameter 的默认值是 t2.micro。除非提供其他值，否则 AWS CloudFormation 会使用该值来预置 stack。*
 
@@ -107,7 +102,6 @@ Parameters:
 
 - 伪参数是由 AWS CloudFormation 预定义的参数，无需在模板中声明。用法与普通参数相同，可作为 Ref 函数的参数。
 - 例如：
-
 - AWS::AccountId —— 返回正在创建 stack 的 AWS 账户 ID。
 - AWS::NotificationARNs —— 返回当前 stack 的通知 Amazon Resource Name（ARN）列表。
 - AWS::Region —— 返回表示当前资源所在 AWS 区域的字符串。
@@ -116,7 +110,6 @@ Parameters:
 ### 映射（Mappings）
 
 *可选的* Mappings 段将键映射到一组对应的命名值。
-
 - 固定变量。
 - 适合区分不同区域、环境、AMI 等。
 - 需要提前知道这些值。
@@ -145,7 +138,6 @@ RegionMap:
 ### 输出（Outputs）
 
 *可选的* Outputs 段声明输出值，这些值可以被导入到其他 stack（用于创建跨 stack 引用）、在响应中返回（用于描述 stack 调用），或在 AWS CloudFormation 控制台中查看。
-
 - 输出可以被导入到其他 stack。
 - 可以在控制台或使用 AWS CLI 查看输出。
 - 如果一个 Stack 的输出被另一个 CloudFormation Stack 引用，则无法删除该 Stack。
@@ -169,7 +161,6 @@ Outputs:
 ### 条件（Conditions）
 
 *可选的* Conditions 段包含一些语句，用于定义在什么情况下创建或配置实体。
-
 - 根据条件控制资源的创建。
 - 可应用于资源和输出。
 
@@ -211,7 +202,6 @@ Resources:
 - AWS CloudFormation 提供了若干内置函数，帮助你管理 stack。在模板中使用内置函数，可以为那些直到运行时才可知的属性赋值。
 - ***考试提示：****至少要掌握下面列出的内置函数。完整列表见：https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html*
 - **Ref**
-
 - Fn::Ref（YAML 中写作 !Ref）。
 - 内置函数 Ref 返回指定参数或资源的值。
 - 指定参数的逻辑名时，返回该参数的值。
@@ -317,9 +307,7 @@ Resources:
       ImageId: !FindInMap
 
         - RegionMap
-
         - !Ref 'AWS::Region'
-
         - HVM64
 
       InstanceType: m1.small
@@ -347,13 +335,9 @@ Fn::ImportValue:
 !Join
 
   - ''
-
   - - 'arn:'
-
     - !Ref Partition
-
     - ':s3:::elasticbeanstalk-*-'
-
     - !Ref 'AWS::AccountId'
 ```
 
@@ -368,7 +352,6 @@ Fn::ImportValue:
 Name: !Sub
 
   - www.$
-
   - { Domain: !Ref RootDomainName }
 ```
 
@@ -380,12 +363,10 @@ Name: !Sub
 - 使用模板创建、更新和删除 stack。
 - 可通过 Management Console、CLI 或 API 部署。
 - Stack 创建出错时：
-
 - 出错自动回滚默认开启。
 - 即使出错，已预置的资源仍会收费。
 
 更新 stack：
-
 - AWS CloudFormation 提供两种更新 stack 的方式：直接更新（direct update），或创建并执行变更集（change set）。
 - 直接更新 stack 时，你提交变更，AWS CloudFormation 会立即部署。
 - 想快速部署更新时使用直接更新。
@@ -409,7 +390,6 @@ Name: !Sub
 ## 最佳实践
 
 AWS 提供了 Python“辅助脚本（helper scripts）”，可帮助你在 EC2 实例上安装软件和启动服务。
-
 - 通过 CloudFormation 对环境做变更，而不是直接操作资源。
 - 使用变更集（Change Set）识别更新中的潜在问题点。
 - 使用 Stack Policy 明确保护 stack 中的敏感部分。
@@ -432,7 +412,6 @@ AWS 提供了 Python“辅助脚本（helper scripts）”，可帮助你在 EC2
 ## CloudFormation 辅助脚本
 
 cfn-init：
-
 - cfn-init 辅助脚本读取 AWS::CloudFormation::Init 键中的模板元数据，并据此执行以下操作：
 - 从 AWS CloudFormation 获取并解析元数据
 - 安装软件包
@@ -442,7 +421,6 @@ cfn-init：
 - 日志输出到 /var/log/cfn-init.log
 
 cfn-signal：
-
 - cfn-signal 辅助脚本向 AWS CloudFormation 发送信号，表明 Amazon EC2 实例是否已成功创建或更新。
 - 如果你在实例上安装并配置了软件，可以在软件就绪时向 AWS CloudFormation 发送信号。
 - cfn-signal 脚本通常与 [**CreationPolicy**](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-creationpolicy.html) 或带有 [**WaitOnResourceSignals**](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatepolicy.html) 更新策略的 Auto Scaling 组配合使用。
@@ -450,7 +428,6 @@ cfn-signal：
 - 你可以向创建策略（[**CreationPolicy**](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-creationpolicy.html)）或等待条件句柄（[**WaitOnResourceSignals**](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatepolicy.html)）发送信号。
 
 错误排查：
-
 - 确保 AMI 中包含 CloudFormation 辅助脚本。
 - 检查 cfn-init 和 cfn-signal 命令是否已成功运行。
 - 验证互联网连通性。
@@ -464,50 +441,41 @@ cfn-signal：
 - AWS CloudFormation 会将有效信号发布到 stack 事件中，方便你跟踪已发送的信号数量。
 
 以下 CloudFormation 资源支持创建策略：
-
 - [**AWS::AutoScaling::AutoScalingGroup**](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html)
 - [**AWS::EC2::Instance**](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html)
 - [**AWS::CloudFormation::WaitCondition**](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-waitcondition.html)
 
 DeletionPolicy 属性：
-
 - 使用 DeletionPolicy 属性，可以在 stack 被删除时保留资源或（在某些情况下）备份资源。
 - 为每个你想控制的资源指定 DeletionPolicy 属性。
 - 如果资源没有 DeletionPolicy 属性，AWS CloudFormation 默认会删除该资源。
 
 DependsOn 属性：
-
 - 使用 DependsOn 属性，可以指定某个资源必须在另一个资源之后创建。
 - 给资源添加 DependsOn 属性后，该资源只有在 DependsOn 指定的资源创建完成后才会被创建。
 
 WaitCondition：
-
 - 注意：对于 Amazon EC2 和 Auto Scaling 资源，AWS 建议使用 CreationPolicy 属性而不是等待条件。
 - 等待条件适用于以下场景：
 - 将 stack 资源创建与 stack 创建之外的配置操作进行协调。
 - 跟踪配置过程的状态。
-
 - UpdatePolicy 属性（WaitOnResourceSignals）
 - 使用 UpdatePolicy 属性指定 AWS CloudFormation 如何处理以下资源的更新：
-
 - [**AWS::AutoScaling::AutoScalingGroup**](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html)，
 - [**AWS::ElastiCache::ReplicationGroup**](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup)
 - [**AWS::Elasticsearch::Domain**](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticsearch-domain.html)
 - [**AWS::Lambda::Alias**](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-alias.html)
 
 UpdateReplacePolicy 属性：
-
 - 使用 UpdateReplacePolicy 属性，可以在 stack 更新操作期间资源被替换时，保留或（在某些情况下）备份资源的现有物理实例。
 
 ## 回滚与创建失败
 
 [**Stack 创建失败**](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html)：
-
 - 默认情况下所有内容都会被删除。
 - 可以选择禁用回滚（便于排查失败原因）。
 
 Stack 更新失败：
-
 - stack 会自动回滚到上一个已知的正常状态。
 - 日志可以帮助你理解发生了什么问题。
 

@@ -9,7 +9,6 @@ title: "Amazon FSx"
 - 你无需担心文件服务器和存储的管理，因为 Amazon FSx 将硬件预置、软件配置、打补丁和备份等耗时的管理任务自动化了。
 - Amazon FSx 将文件系统与云原生 AWS 服务集成，使其适用于更广泛的工作负载。
 - Amazon FSx 提供四种文件系统供你选择：
-
 - Amazon FSx for Windows File Server，面向基于 Windows 的应用
 - Amazon FSx for Lustre，面向计算密集型工作负载。
 - Amazon FSx for NetApp ONTAP。
@@ -33,10 +32,8 @@ title: "Amazon FSx"
 - **高可用性：**Amazon FSx 会在文件系统所在的可用区（创建时指定）内自动复制你的数据，以保护其免受组件故障影响；持续监控硬件故障，并在发生故障时自动替换基础设施组件。
 - **Multi-AZ：**Amazon FSx 提供多可用区（AZ）部署选项，即使某个 AZ 不可用也能保证数据的持续可用。Multi-AZ 文件系统包含分别位于不同 AZ 的活动和备用文件服务器，写入文件系统磁盘的任何更改都会跨 AZ 同步复制到备用服务器。
 - 支持 Windows 原生文件系统功能：
-
 - 访问控制列表（ACL）、卷影副本（shadow copy）和用户配额。
 - NTFS 文件系统，可通过 SMB 协议被多达数千个计算实例访问。
-
 - 与 Microsoft Active Directory (AD) 配合，轻松将文件系统与 Windows 环境集成。
 - 基于 SSD 存储构建，Amazon FSx 提供快速性能：每个文件系统吞吐量最高 2 GB/秒，数十万 IOPS，以及稳定的亚毫秒级延迟。
 - 可以选择与文件系统大小无关的吞吐量级别。
@@ -74,19 +71,16 @@ title: "Amazon FSx"
 - Amazon FSx 为处理大量数据提供高吞吐量，并以稳定的亚毫秒级延迟执行操作。
 - Amazon FSx for Lustre 支持数千个 EC2 实例的文件访问，让你能为基因组学、地震勘探和视频渲染等高性能工作负载提供文件存储。
 - Amazon S3：
-
 - Amazon FSx 与 Amazon S3 原生配合，让你轻松访问 S3 数据来运行数据处理工作负载。
 - 你的 S3 对象在文件系统中呈现为文件，你可以将结果写回 S3。
 - 这让你可以在 FSx for Lustre 上运行数据处理工作负载，同时将长期数据存储在 S3 或本地数据存储中。
 
 本地环境：
-
 - 对于因峰值需求或容量限制需要突发到云端的本地工作负载，可以使用 Amazon FSx for Lustre。
 - 要将现有本地数据迁移到 Amazon FSx，你可以通过 AWS Direct Connect 或 VPN 从本地客户端挂载 Amazon FSx for Lustre 文件系统，然后使用并行复制工具将数据导入 Amazon FSx for Lustre 文件系统。
 - 你可以随时将结果写回，持久化存储在你的数据湖中。
 
 安全：
-
 - 所有 Amazon FSx 文件系统数据都进行静态加密。
 - 你可以使用开源 Lustre 客户端从计算实例访问文件系统。
 - 挂载后，你可以像操作本地文件系统一样处理文件系统中的文件和目录。

@@ -17,13 +17,11 @@ title: "AWS Developer Tools Overview"
 
 - AWS CodeCommit 是一项完全托管的[**源代码控制**](https://aws.amazon.com/devops/source-control/)服务，托管安全的基于 Git 的仓库。
 - Git 是开源的分布式源代码控制系统：
-
 - 为所有代码、二进制文件、镜像和库提供集中式仓库。
 - 跟踪和管理代码变更。
 - 维护版本历史。
 - 管理来自多个来源的更新。
 - 支持协作。
-
 - 它让团队能够在安全且高度可扩展的生态系统中轻松协作开发代码。
 - CodeCommit 让你无需运维自己的源代码控制系统，也无需担心其基础设施的扩展问题。
 - 你可以用 CodeCommit 安全地存储从源代码到二进制文件的任何内容，它能与现有 Git 工具无缝配合。
@@ -49,7 +47,6 @@ title: "AWS Developer Tools Overview"
 - 你需要配置 Git 客户端以与 CodeCommit 仓库通信。
 - 作为配置的一部分，你需要提供 IAM 凭证，供 CodeCommit 对你进行身份认证。
 - IAM 支持三种类型的 CodeCommit 凭证：
-
 - Git 凭证：由 IAM 生成的用户名和密码对，用于通过 HTTPS 与 CodeCommit 仓库通信。
 - SSH 密钥：本地生成的公私钥对，可与 IAM 用户关联，用于通过 SSH 与 CodeCommit 仓库通信。
 - [**AWS access key**](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)：可配合 AWS CLI 自带的 credential helper，通过 HTTPS 与 CodeCommit 仓库通信。
@@ -66,14 +63,12 @@ title: "AWS Developer Tools Overview"
 - 你可以使用 AWS SNS、AWS Lambda 或 AWS CloudWatch Event 规则在 CodeCommit 中触发通知。
 - 通知与 pull request 和评论事件相关——触发器与向分支推送代码或创建/删除分支相关。
 - 通知（SNS / AWS Lambda）的使用场景：
-
 - 删除分支。
 - master 分支发生推送时触发。
 - 通知外部构建系统。
 - 触发 AWS Lambda 函数执行代码库分析。
 
 CloudWatch Event 规则的使用场景：
-
 - pull request 更新（创建/更新/删除/评论）时触发。
 - 提交评论事件。
 - CloudWatch Event 规则可以发送到 SNS Topic。
@@ -105,12 +100,10 @@ CloudWatch Event 规则的使用场景：
 ### CodeBuild 核心概念
 
 **Build project（构建项目）**—— 定义 CodeBuild 如何运行构建，包括以下设置：
-
 - 源代码的位置。
 - 要使用的构建环境。
 - 要运行的构建命令。
 - 构建输出的存储位置。
-
 - **Build environment（构建环境）**—— CodeBuild 用于构建的操作系统、语言运行时和工具。
 - **Build Specification（构建规范）**—— 描述 CodeBuild 运行构建所需的命令和设置集合的 YAML 文件。
 
@@ -148,7 +141,6 @@ pre_build:
 commands:
 
 - echo Logging in to Amazon ECR...
-
 - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
 
 build:
@@ -156,11 +148,8 @@ build:
 commands:
 
 - echo Build started on `date`
-
 - echo Building the Docker image...
-
 - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
-
 - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
 
 post_build:
@@ -168,25 +157,20 @@ post_build:
 commands:
 
 - echo Build completed on `date`
-
 - echo Pushing the Docker image...
-
 - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
 ```
 
 - ***考试提示：****源代码根目录下必须有 buildspec.yml 文件。*
 - 你可以定义环境变量：
-
 - 明文变量。
 - 使用 SSM Parameter Store 保存的加密密钥（secure secrets）。
 
 阶段（Phases）：
-
 - Install：安装构建可能需要的依赖。
 - Pre-build：构建前要执行的最后命令。
 - Build：实际的构建命令。
 - Post build：收尾工作（如输出 zip 文件）。
-
 - Artifacts（产物）：上传到 S3（使用 KMS 加密）。
 - Cache（缓存）：缓存到 S3 的文件（通常是依赖），供后续构建使用。
 
@@ -200,14 +184,12 @@ commands:
 
 - CodeDeploy 是一项部署服务，可将应用部署自动化到 Amazon EC2 实例、本地实例、无服务器 Lambda 函数或 Amazon ECS 服务。
 - 你几乎可以部署任意类型的应用内容，包括：
-
 - 无服务器 AWS Lambda 函数。
 - Web 和配置文件。
 - 可执行文件。
 - 软件包。
 - 脚本。
 - 多媒体文件。
-
 - CodeDeploy 可以部署运行在服务器上、存储在 Amazon S3 bucket、GitHub 仓库或 Bitbucket 仓库中的应用内容。
 - CodeDeploy 也可以部署无服务器 Lambda 函数。
 - 使用 CodeDeploy 前无需修改现有代码。
@@ -223,27 +205,23 @@ commands:
 
 - AWS CodeDeploy 应用包含要部署什么以及如何部署的信息。
 - 需要选择计算平台：
-
 - EC2/本地（On-premises）。
 - AWS Lambda。
 - Amazon ECS。
 
 EC2/On-Premises：
-
 - Amazon EC2 云实例、本地服务器，或两者兼有。
 - 使用 EC2/On-Premises 计算平台的部署通过就地（in-place）或蓝绿（blue/green）部署类型管理流量引导到实例的方式。
 
 ![](/cheat-sheets/images/2022-02-Deployments-that-use-EC2-On-Premises-1024x401.webp)
 
 AWS Lambda：
-
 - 用于部署由更新版本 Lambda 函数组成的应用。
 - 通过选择金丝雀（canary）、线性（linear）或一次性（all-at-once）配置，你可以管理部署期间流量切换到更新后 Lambda 函数版本的方式。
 
 ![](/cheat-sheets/images/2022-02-canary-linear-or-all-at-once-configuration-1024x441.png)
 
 Amazon ECS：
-
 - 用于将 Amazon ECS 容器化应用部署为一个任务集（task set）。
 - CodeDeploy 通过将应用的更新版本安装为新的替换任务集来执行蓝绿部署。
 - CodeDeploy 将生产流量从原始应用任务集重新路由到替换任务集。
@@ -254,48 +232,39 @@ Amazon ECS：
 
 - 部署组（Deployment Group）
 - 每个部署组属于一个应用，并指定：
-
 - 部署配置（deployment configuration）—— 一组部署规则以及部署期间使用的成功/失败条件。
 - 部署事件的通知配置。
 - 用于监控部署的 Amazon CloudWatch 告警。
 - 部署回滚配置。
-
 - 部署类型（Deployment Type）
 - CodeDeploy 提供两种部署类型选项——就地（in-place）和蓝绿（blue/green）。
 
 ![](/cheat-sheets/images/2022-02-Deployment-type-1024x313.png)
 
 就地部署（In-place deployment）：
-
 - 部署组中每个实例上的应用会被停止，安装最新的应用修订版本，然后启动并验证新版本应用。
 - 可以使用负载均衡器，使每个实例在部署期间注销，部署完成后再恢复服务。
 - 只有使用 EC2/On-Premises 计算平台的部署才能使用就地部署。
-
 - ***考试提示：****AWS Lambda 和 Amazon ECS 部署不能使用就地部署类型。*
 - EC2/On-Premises 计算平台上的蓝绿部署：
-
 - 部署组中的实例（原始环境）会被另一组实例（替换环境）取代，步骤如下：
   - 为替换环境预置实例。
   - 在替换实例上安装最新的应用修订版本。
   - 可选的等待时间，用于应用测试和系统验证等活动。
   - 替换环境中的实例注册到 Elastic Load Balancing 负载均衡器，流量被重新路由到这些实例。
   - 原始环境中的实例被注销，可以终止，也可以继续运行作其他用途。
-
 - ***注意：****如果使用 EC2/On-Premises 计算平台，请注意蓝绿部署仅适用于 Amazon EC2 实例。*
 - AWS Lambda 计算平台上的蓝绿部署：
-
 - 流量从当前无服务器环境切换到使用更新后 Lambda 函数版本的环境。
 - 你可以指定执行验证测试的 Lambda 函数，并选择流量切换的方式。
 - 所有 AWS Lambda 计算平台部署都是蓝绿部署。
 - 因此无需指定部署类型。
 
 Amazon ECS 计算平台上的蓝绿部署：
-
 - 流量从 Amazon ECS 服务中包含原始版本应用的任务集，切换到同一服务中的替换任务集。
 - 可以通过部署配置将流量切换设置为线性或金丝雀方式。
 - 使用指定负载均衡器监听器的协议和端口重新路由生产流量。
 - 部署期间，可以使用测试监听器（test listener）向替换任务集提供流量，同时运行验证测试。
-
 - 在 Amazon EC2 上部署：
 - CodeDeploy 通过标签或 Auto Scaling 组名称识别 EC2 实例。
 
@@ -350,7 +319,6 @@ runas: root
 ApplicationStart:
 
 - location: scripts/start_server.sh
-
 - location: scripts/create_test_db.sh
 
 timeout: 300
@@ -411,13 +379,9 @@ AssignPublicIp: "ENABLED"
 Hooks:
 
 - BeforeInstall: "LambdaFunctionToValidateBeforeInstall"
-
 - AfterInstall: "LambdaFunctionToValidateAfterTraffic"
-
 - AfterAllowTestTraffic: "LambdaFunctionToValidateAfterTestTrafficStarts"
-
 - BeforeAllowTraffic: "LambdaFunctionToValidateBeforeAllowingProductionTraffic"
-
 - AfterAllowTraffic: "LambdaFunctionToValidateAfterAllowingProductionTraffic"
 ```
 
@@ -449,12 +413,10 @@ TargetVersion: "2"
 Hooks:
 
 - BeforeAllowTraffic: "LambdaFunctionToValidateBeforeTrafficShift"
-
 - AfterAllowTraffic: "LambdaFunctionToValidateAfterTrafficShift"
 ```
 
 可用的 hook 如下：
-
 - BeforeAllowTraffic —— 指定在流量路由到新部署的 Lambda 函数之前要运行的任务或函数。
 - AfterAllowTraffic —— 指定在流量路由到新部署的 Lambda 函数之后要运行的任务或函数。
 
@@ -482,14 +444,11 @@ CodeDeploy 会记录你的部署，你可以获取部署状态、部署配置参
 - **EC2/On-Premises：**流量从原始环境的一组实例切换到替换环境的一组实例。
 - ***注意：****所有 AWS Lambda 和 Amazon ECS 部署都是蓝绿部署。EC2/On-Premises 部署可以是就地部署或蓝绿部署。*
 - 对于 Amazon ECS 和 AWS Lambda，部署期间有三种流量切换方式：
-
 - 金丝雀（Canary）：流量分两次切换。你可以从预定义的金丝雀选项中选择，指定第一次切换到更新后 Amazon ECS 任务集 / Lambda 函数的流量百分比，以及第二次切换剩余流量之前等待的分钟数。
 - 线性（Linear）：流量以相等增量切换，每次增量之间间隔相等分钟数。你可以从预定义的线性选项中选择，指定每次增量切换的流量百分比和每次增量之间的分钟数。
 - 一次性（All-at-once）：所有流量一次性从原始 Amazon ECS 任务集 / Lambda 函数切换到更新后的 Amazon ECS 任务集 / Lambda 函数。
-
 - 对于 Amazon EC2，你可以选择替换环境的指定方式：
 - **复制现有 Amazon EC2 Auto Scaling 组：**
-
 - 在蓝绿部署期间，CodeDeploy 会在部署过程中为替换环境创建实例。
 - 使用该选项时，CodeDeploy 以你指定的 Amazon EC2 Auto Scaling 组作为替换环境的模板，包括相同数量的运行实例和许多其他配置选项。
 
@@ -508,7 +467,6 @@ CodeDeploy 会记录你的部署，你可以获取部署状态、部署配置参
 - 使用用户定义的软件发布流程。
 - 快速可靠地发布新功能和缺陷修复。
 - CodePipeline 在流水线的每个阶段为许多 AWS 和第三方软件提供工具集成，包括：
-
 - 源（Source）阶段 —— S3、CodeCommit、GitHub、ECR、Bitbucket Cloud（beta）。
 - 构建（Build）—— CodeBuild、Jenkins。
 - 部署（Deploy）阶段 —— CloudFormation、CodeDeploy、ECS、Elastic Beanstalk、AWS Service Catalog、S3。
@@ -518,28 +476,23 @@ CodeDeploy 会记录你的部署，你可以获取部署状态、部署配置参
 ### CodePipeline 核心概念
 
 流水线（Pipeline）：
-
 - 描述软件变更如何走完发布流程的工作流。
 
 产物（Artifact）：
-
 - 流水线中各操作和阶段要处理的文件或变更。
 - 每个流水线阶段都可以产生“artifact”。
 - artifact 会被传递、存储在 Amazon S3 中，然后传递给下一阶段。
 
 阶段（Stage）：
-
 - 流水线被划分为多个阶段，例如构建阶段、部署阶段。
 - 每个阶段可以有顺序执行和/或并行执行的操作。
 - 阶段示例：构建、测试、部署、负载测试等。
 - 可以在任何阶段定义手动审批。
 
 操作（Action）：
-
 - 阶段至少包含一个操作，这些操作对 artifact 执行某些处理，并以 artifact 作为输入、输出或两者兼有。
 
 过渡（Transition）：
-
 - 流水线内从一个阶段进入下一个阶段的过程。
 
 下图展示了一条带手动审批阶段的流水线：
@@ -567,23 +520,19 @@ CodeDeploy 会记录你的部署，你可以获取部署状态、部署配置参
 ### 优势与功能
 
 面向各种项目和编程语言的项目模板：
-
 - 借助 AWS CodeStar 项目模板，你可以轻松开发各种应用，包括网站、Web 应用、Web 服务和 Alexa 技能。
 - AWS CodeStar 项目模板包含受支持编程语言的入门代码，包括 Java、JavaScript、PHP、Ruby 和 Python。
 
 在团队中安全协作：
-
 - AWS CodeStar 让你能够以安全的方式在团队中协作。
 - AWS CodeStar 简化为团队设置项目访问权限的过程，因为它提供遵循 AWS 安全最佳实践的内置基于角色的策略。
 - 你可以轻松管理项目所有者、贡献者和查看者的访问权限，无需为每个服务手动配置策略。
 
 支持多种集成开发环境（IDE）：
-
 - 与基于云的 AWS Cloud9 IDE 原生集成。
 - 也可以选择多种流行 IDE，如 Microsoft Visual Studio 和 Eclipse。
 
 CodeStar 与多个其他 AWS 服务集成，包括：
-
 - CodeCommit。
 - CodeBuild。
 - CodeDeploy。
@@ -608,32 +557,27 @@ CodeStar 与多个其他 AWS 服务集成，包括：
 ### 优势与功能
 
 只用浏览器写代码：
-
 - AWS Cloud9 让你可以灵活地在托管的 Amazon EC2 实例或任何支持 SSH 的现有 Linux 服务器上运行开发环境。
 - 这意味着你可以只用浏览器编写、运行和调试应用，无需安装或维护本地 IDE。
 - Cloud9 代码编辑器和集成调试器包含实用的省时功能，如代码提示、代码补全和单步调试。
 - Cloud9 终端提供基于浏览器的 shell 体验，让你可以安装额外软件、执行 git push 或输入命令。
 
 实时协同编码：
-
 - AWS Cloud9 让代码协作变得简单。
 - 只需几次点击即可与团队共享开发环境并结对编程。
 - 协作时，团队成员可以实时看到彼此的输入，并在 IDE 内即时聊天。
 
 轻松构建无服务器应用：
-
 - AWS Cloud9 让编写、运行和调试无服务器应用变得简单。
 - 它预配置了无服务器开发所需的全部 SDK、库和插件。
 - Cloud9 还提供本地测试和调试 AWS Lambda 函数的环境。
 - 这让你可以直接迭代代码，节省时间并提高代码质量。
 
 直接通过终端访问 AWS：
-
 - AWS Cloud9 自带终端，拥有托管开发环境的 Amazon EC2 实例的 sudo 权限，并预配置了已通过身份认证的 AWS Command Line Interface。
 - 这让你能够快速运行命令并直接访问 AWS 服务。
 
 快速开始新项目：
-
 - AWS Cloud9 让你可以轻松开始新项目。
 - Cloud9 的开发环境预装了 40 多种编程语言的工具链，包括 Node.js、JavaScript、Python、PHP、Ruby、Go 和 C++。
 - 由于无需为开发机安装或配置文件、SDK 和插件，你可以在几分钟内开始为流行的应用栈编写代码。
@@ -680,38 +624,31 @@ CodeGuru 可以检测许多安全问题，例如：
 
 - 你可以用 X-Ray 分析开发中和生产中的应用，从简单的三层应用到由数千个服务组成的复杂微服务应用均可。
 - AWS X-Ray 支持运行在以下平台的应用：
-
 - Amazon Elastic Compute Cloud（Amazon EC2）。
 - Amazon EC2 Container Service（Amazon ECS）。
 - AWS Lambda。
 - AWS Elastic Beanstalk。
 
 在 EC2 / 本地环境上使用 X-Ray：
-
 - Linux 系统必须运行 X-Ray daemon。
 - EC2 使用 IAM instance role；本地实例使用其他 AWS 凭证。
 
 在 Lambda 上使用 X-Ray：
-
 - 确保在 Lambda 配置中勾选 X-Ray 集成（Lambda 会运行 daemon）。
 - IAM role 使用 Lambda 的角色。
 
 在 Elastic Beanstalk 上使用 X-Ray：
-
 - 在 Elastic Beanstalk 控制台中设置配置。
 - 或使用 Beanstalk 扩展（.ebextensions/xray-daemon.config）
 
 在 ECS/EKS/Fargate 上使用 X-Ray：
-
 - 创建一个运行 daemon 的 Docker 镜像，或使用官方 X-Ray Docker 镜像。
 - 确保端口映射和网络设置正确，并定义好 IAM task role。
-
 - X-Ray SDK 会捕获发往 MySQL 和 PostgreSQL 数据库（自建、Amazon RDS、Amazon Aurora）以及 Amazon DynamoDB 的请求元数据。
 - 它还会捕获发往 Amazon Simple Queue Service 和 Amazon Simple Notification Service 的请求元数据。
 - X-Ray SDK 安装在你的应用中，将数据转发给 X-Ray daemon，daemon 再转发给 X-Ray API。
 - 然后你可以在 X-Ray 控制台中可视化正在发生的事情。
 - X-Ray SDK 提供：
-
 - 拦截器（interceptor），向代码中添加对传入 HTTP 请求的追踪。
 - 客户端处理器（client handler），对应用用来调用其他 AWS 服务的 AWS SDK 客户端进行插桩（instrument）。
 - 一个 HTTP 客户端，用于插桩对其他内部和外部 HTTP Web 服务的调用。
@@ -722,23 +659,19 @@ CodeGuru 可以检测许多安全问题，例如：
 - 代码必须经过插桩（instrument）才能使用 AWS X-Ray SDK。
 - IAM role 必须配置正确才能向 X-Ray 发送 trace。
 - X-Ray daemon agent 支持配置跨账户发送 trace：
-
 - 确保 IAM 权限正确——agent 将代入（assume）一个角色。
 - 这样就可以用一个集中账户收集所有应用的追踪数据。
 
 ### X-Ray 关键术语
 
 Trace（追踪）：
-
 - 一个 X-Ray trace 是共享同一 trace ID 的一组数据点。
 
 Segment（分段）：
-
 - 一个 X-Ray segment 封装了分布式应用中单个组件（例如授权服务）的所有数据点。
 - segment 以注解（annotation）形式包含系统定义和用户定义的数据，并由一个或多个代表该服务发出的远程调用的子分段（subsegment）组成。
 
 Subsegment（子分段）：
-
 - subsegment 提供更细粒度的计时信息，以及应用为完成原始请求而发出的下游调用的详情。
 - subsegment 可以包含对 AWS 服务、外部 HTTP API 或 SQL 数据库调用的更多细节。
 - 你甚至可以定义任意 subsegment，对应用中的特定函数或代码行进行插桩。
@@ -746,7 +679,6 @@ Subsegment（子分段）：
 - 这样你就能看到所有下游依赖，即使它们不支持追踪，或者位于外部。
 
 Annotation（注解）：
-
 - X-Ray annotation 是与 segment 关联的系统定义或用户定义数据。
 - 系统定义的注解包括 AWS 服务添加到 segment 的数据，而用户定义的注解是开发者添加到 segment 的元数据。
 - 一个 segment 可以包含多个注解。
@@ -754,13 +686,11 @@ Annotation（注解）：
 - 使用注解在 segment 或 subsegment 上记录你希望被索引以便搜索的信息。
 
 采样（Sampling）：
-
 - 为了提供高性能且经济高效的体验，X-Ray 不会为发往应用的每个请求都收集数据。
 - 它只为统计上具有代表性数量的请求收集数据。
 - X-Ray 不应用作审计或合规工具，因为它不保证数据完整性。
 
 元数据（Metadata）：
-
 - 键值对，不索引，也不能用于搜索。
 
 ***考试提示：****记住：注解可用于向 segment 和 subsegment 添加系统或用户定义的数据，这些数据会被索引以供搜索。元数据不会被索引，也不能用于搜索。*
@@ -776,11 +706,9 @@ Annotation（注解）：
 - X-Ray SDK 安装在你的应用中，将数据转发给 X-Ray daemon，daemon 再转发给 X-Ray API。
 - 然后你可以在 X-Ray 控制台中可视化正在发生的事情。
 - X-Ray SDK 提供：
-
 - 拦截器（interceptor），向代码中添加对传入 HTTP 请求的追踪。
 - 客户端处理器（client handler），对应用用来调用其他 AWS 服务的 AWS SDK 客户端进行插桩。
 - 一个 HTTP 客户端，用于插桩对其他内部和外部 HTTP Web 服务的调用。
-
 - 代码必须经过插桩才能使用 AWS X-Ray SDK。
 - IAM role 必须配置正确才能向 X-Ray 发送 trace。
 

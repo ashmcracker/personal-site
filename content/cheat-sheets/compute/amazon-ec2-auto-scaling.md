@@ -7,7 +7,6 @@ title: "Amazon EC2 Auto Scaling"
 - AWS Auto Scaling 监控你的应用程序并自动调整容量，以尽可能低的成本维持稳定、可预测的性能。
 - AWS Auto Scaling 指跨多个 AWS 服务的一组 Auto Scaling 能力的集合。
 - AWS Auto Scaling 家族中的服务包括：
-
 - Amazon EC2（称为 Amazon EC2 Auto Scaling）。
 - Amazon ECS。
 - Amazon DynamoDB。
@@ -32,14 +31,12 @@ title: "Amazon EC2 Auto Scaling"
 - Launch configuration 是用于创建新 EC2 实例的模板，包含实例系列、实例类型、AMI、密钥对和 security group 等参数。
 - launch configuration 一旦定义就不能编辑。
 - launch configuration：
-
 - 可以从 AWS 控制台或 CLI 创建。
 - 可以创建新的 launch configuration，或者
 - 可以使用现有运行中的 EC2 实例来创建 launch configuration。
   - AMI 必须存在于 EC2 上。
   - 实例启动后创建的 EC2 实例标签和任何额外块存储卷不会被考虑在内。
 - 如果想更改 launch configuration，必须新建一个，做出所需修改，然后在 Auto Scaling 组中使用它。
-
 - 一个 launch configuration 可以用于多个 Auto Scaling 组（ASG）。
 - Launch template 与 launch configuration 类似，但提供更多选项（详见下文）。
 - Auto Scaling 组（ASG）是由 Auto Scaling 策略管理的 EC2 实例的逻辑分组。
@@ -50,7 +47,6 @@ title: "Amazon EC2 Auto Scaling"
 - 配置后，ASG 中现有或新增的 EC2 实例都会自动注册到 ASG 定义的 ELB 上。
 - 如果向 ASG 添加实例会导致超出 ASG 的最大容量，请求会失败。
 - 满足以下条件时可以将运行中的实例加入 ASG：
-
 - 实例处于 running 状态。
 - 用于启动实例的 AMI 仍然存在。
 - 实例不属于其他 ASG。
@@ -60,7 +56,6 @@ title: "Amazon EC2 Auto Scaling"
 
 - 扩展选项定义触发条件以及何时预置/释放实例。
 - 有四种扩展选项：
-
 - Maintain（维持）——保持特定或最小数量的实例运行。
 - Manual（手动）——使用最大、最小或特定数量的实例。
 - Scheduled（计划）——按计划增加或减少实例数量。
@@ -140,7 +135,6 @@ title: "Amazon EC2 Auto Scaling"
 - 启用 Auto Scaling 组指标后，Auto Scaling 组每分钟向 [CloudWatch](https://digitalcloud.training/amazon-cloudwatch/) 发送采样数据（免费）。
 - 你可以使用 AWS Management Console、AWS CLI 或 AWS SDK 启用和禁用 Auto Scaling 组指标。
 - AWS/AutoScaling 命名空间包含以下指标，每 1 分钟发送到 CloudWatch：
-
 - GroupMinSize
 - GroupMaxSize
 - GroupDesiredCapacity
@@ -151,14 +145,12 @@ title: "Amazon EC2 Auto Scaling"
 - GroupTotalInstances
 
 Amazon EC2 实例也会向 Amazon CloudWatch 发送指标：
-
 - 基本监控每 5 分钟向 CloudWatch 发送 ASG 实例的 EC2 指标。
 - 可以启用详细监控，每 1 分钟发送指标（收费）。
 - 如果从控制台创建 launch configuration，默认启用 EC2 实例的基本监控。
 - 如果从 CLI 创建 launch configuration，默认启用 EC2 实例的详细监控。
 
 EC2 Auto Scaling 使用健康检查来判断实例是否健康可用。
-
 - 默认情况下 Auto Scaling 使用 EC2 状态检查。
 - 除 EC2 状态检查外，Auto Scaling 还支持 ELB 健康检查和自定义健康检查。
 - 如果任何已配置的健康检查返回不健康状态，实例将被终止。
@@ -193,12 +185,10 @@ EC2 Auto Scaling 使用健康检查来判断实例是否健康可用。
 ## ASG 行为与配置
 
 EC2 Auto Scaling——终止策略（Termination Policy）：
-
 - 终止策略控制发生缩减（scale-in）事件时哪些实例先被终止。
 - 系统配置了默认终止策略，你也可以创建自定义的终止策略。
 - 默认终止策略有助于确保 EC2 实例均匀分布在各可用区，以实现高可用。
 - 默认策略相当通用且灵活，可覆盖多种场景。
-
 - 你可以启用实例保护（Instance Protection），防止 Auto Scaling 缩减并终止 EC2 实例。
 - 如果 Auto Scaling 在某个 AZ 启动实例失败，它会尝试其他 AZ 直到成功。
 - 默认健康检查宽限期为 300 秒。
@@ -206,12 +196,10 @@ EC2 Auto Scaling——终止策略（Termination Policy）：
 - "Scale in"（缩减）是扩展策略终止 EC2 实例的过程。
 - 建议为每个配置的扩展事件创建对应的缩减事件。
 - 出现不均衡（imbalance）可能是由于：
-
 - 手动从配置中移除 AZ/subnet。
 - 手动终止 EC2 实例。
 - EC2 容量问题。
 - 达到了 Spot 价格。
-
 - 所有 Elastic IP 和 EBS volume 会从被终止的 EC2 实例上卸载，需要手动重新挂载。
 - 使用自定义健康检查时，可以通过 CLI 命令将实例状态设置为不健康，例如：
 - ***aws autoscaling set–instance-health –instance-id i-123abc45d –health-status Unhealthy***
@@ -232,21 +220,18 @@ EC2 Auto Scaling——终止策略（Termination Policy）：
 - ASG 对待 Spot 实例与按需实例相同。
 - 可以混合使用 Spot 实例与按需实例（使用 launch template 时）。
 - ASG 可以配置为在以下情况发送 Amazon SNS 通知：
-
 - 实例启动时。
 - 实例终止时。
 - 实例启动失败时。
 - 实例终止失败时。
 
 合并 ASG：
-
 - 可以将多个单 AZ 的 Auto Scaling 组合并为一个多 AZ 的 ASG。
 - 合并只能通过 CLI 执行。
 - 操作过程是将其中一个组重新划分区域（rezone），使其覆盖其他 ASG 所在的 AZ，然后删除其他 ASG。
 - 无论 ASG 是否附加了 ELB 都可以执行此操作。
 
 冷却期（Cooldown Period）：
-
 - 冷却期是你可以为 Auto Scaling 组配置的设置，确保在上一次扩展活动生效之前不会启动或终止更多实例。
 - 创建 Auto Scaling 组时默认应用 300 秒的冷却期。
 - 你可以在创建 Auto Scaling 组时配置冷却期。

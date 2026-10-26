@@ -43,16 +43,12 @@ title: "Amazon EFS"
 - 生命周期管理会将一段时间内未被访问的文件移动到 EFS Infrequent Access 存储类别。
 - Amazon EFS 性能
 - 有两种性能模式：
-
 - "General Purpose"（通用型）性能模式适合大多数文件系统。
 - "Max I/O" 性能模式针对几十、几百甚至数千个 EC2 实例同时访问文件系统的应用进行了优化。
-
 - Amazon EFS 设计上支持突发（burst），允许在一段时间内达到高吞吐量水平。
 - 有两种吞吐量模式：
-
 - "Bursting"（突发）——吞吐量随文件系统大小扩展。
 - "Provisioned"（预置）——吞吐量固定为指定的数值。
-
 - Amazon EFS 文件系统分布在数量不受限制的存储服务器上，使文件系统能够弹性扩展至 PB 级，并允许 Amazon EC2 实例大规模并行访问你的数据。
 - 这种分布式数据存储设计意味着多线程应用以及从多个 Amazon EC2 实例并发访问数据的应用可以达到非常高的总吞吐量和 IOPS。
 - 下表对比了 AWS 文件存储（EFS）和块存储（EBS）的高层性能与存储特性：
@@ -67,12 +63,10 @@ title: "Amazon EFS"
 - EFS 提供静态数据（at rest）和传输中数据（in transit）的加密能力。
 - 加密密钥由 AWS Key Management Service (KMS) 管理。
 - 传输中加密：
-
 - 传输中数据加密使用 Transport Layer Security (TLS) 1.2 加密客户端与 EFS 文件系统之间发送的数据。
 - 挂载文件系统时启用传输中加密。
 
 静态加密：
-
 - 在 EFS 控制台或使用 AWS CLI、SDK 启用静态加密。
 - 静态加密必须在创建文件系统时启用。
 - 静态加密的数据在写入时透明加密，读取时透明解密。
@@ -90,13 +84,11 @@ title: "Amazon EFS"
 - EFS Security Group 充当防火墙，你添加的规则定义流量流向。
 - 监控与报告
 - Amazon EFS 控制台为你的文件系统显示以下监控信息：
-
 - 当前计量大小。
 - 挂载目标数量。
 - 生命周期状态。
 
 Amazon EFS 向 Amazon CloudWatch 报告指标。几个有用的指标：
-
 - TotalIOBytes——使用每日 Sum 统计值来确定吞吐量。
 - ClientConnections——使用每日 Sum 统计值跟踪来自 EC2 实例的连接数。
 - BurstCreditBalance——监控突发积分余额。

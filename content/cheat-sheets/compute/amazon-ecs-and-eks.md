@@ -10,10 +10,8 @@ title: "Amazon ECS and EKS"
 - 通过 API 调用，你可以启动和停止容器化应用、查询集群的完整状态，并使用 security group、Elastic Load Balancing、EBS volume 和 IAM role 等功能。
 - Amazon ECS 可以根据资源需求和可用性要求，调度容器在集群中的放置位置。
 - Amazon ECS 本身不额外收费。你需要为以下内容付费：
-
 - 使用 EC2 启动类型创建的资源（例如 EC2 实例和 EBS volume）。
 - Fargate 启动类型下运行的任务数量与配置。
-
 - 可以使用 Elastic Beanstalk 来处理 Amazon ECS 集群的预置、负载均衡、自动扩展、监控以及容器在集群中的放置。
 - 也可以直接使用 ECS，对应用架构进行更细粒度的控制。
 - 可以将 Amazon ECS 上的服务关联到 Elastic Load Balancing (ELB) 服务中的 Application Load Balancer (ALB)。
@@ -91,7 +89,6 @@ title: "Amazon ECS and EKS"
 - 任务定义使用 Docker 镜像来启动容器。
 - 你需要指定要运行的任务数量（即容器数量）。
 - 任务定义中可以指定的一些参数包括：
-
 - 任务中的容器使用哪些 Docker 镜像。
 - 每个容器使用多少 CPU 和内存。
 - 任务中的容器是否相互链接。
@@ -144,7 +141,6 @@ title: "Amazon ECS and EKS"
 - Amazon ECS 服务可以选择配置 Service Auto Scaling，自动上调或下调期望任务数量。
 - Service Auto Scaling 利用 Application Auto Scaling 服务提供该功能。
 - Amazon ECS Service Auto Scaling 支持以下类型的扩展策略：
-
 - [目标跟踪扩展策略（Target Tracking Scaling Policies）](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-autoscaling-targettracking.html)——基于特定 CloudWatch 指标的目标值来增加或减少服务运行的任务数量。这类似于恒温器维持室内温度的方式。你设定温度，恒温器完成剩下的工作。
 - [步进扩展策略（Step Scaling Policies）](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-autoscaling-stepscaling.html)——响应 CloudWatch 告警来增加或减少服务运行的任务数量。步进扩展基于一组称为步进调整的扩展调整，调整幅度随告警突破的大小而变化。
 - [计划扩展（Scheduled Scaling）](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-scheduled-scaling.html)——基于日期和时间增加或减少服务运行的任务数量。
@@ -184,13 +180,11 @@ title: "Amazon ECS and EKS"
 ![Amazon ECS with AWS X-Ray Daemon](/cheat-sheets/images/2022-01-amazon-ecs-with-aws-x-ray-daemon-1.jpeg)
 
 任务定义：
-
 - X-Ray 运行在 UDP 2000 端口。
 - 必须指定 daemon 地址。
 - 必须将容器相互链接。
 
 X-Ray 提供可以与你的应用一起部署的 Docker 容器镜像：
-
 - 命令：*docker pull amazon/aws-xray-daemon*
 
 ## ECS 与 Elastic Beanstalk
@@ -208,12 +202,10 @@ X-Ray 提供可以与你的应用一起部署的 Docker 容器镜像：
 - 环境中的每个实例运行相同的一组容器，这些容器在 Dockerrun.aws.json 文件中定义。
 - 当需要向每个实例部署多个 Docker 容器时，使用多容器平台。
 - Elastic Beanstalk 会创建以下资源：
-
 - ECS 集群。
 - EC2 容器实例。
 - 负载均衡器（高可用模式）。
 - 任务定义与执行。
-
 - 需要在源代码根目录放置配置文件 Dockerrun.aws.json。
 - 你的 Docker 镜像必须预先构建好（可以存储在 ECR 中）。
 
@@ -230,19 +222,15 @@ X-Ray 提供可以与你的应用一起部署的 Docker 容器镜像：
 
 - 必须先进行身份验证。
 - 要使用 get-login-password 向 Amazon ECR 仓库验证 Docker，运行 **aws ecr get-login-password** 命令：
-
 - aws ecr get-login-password –region us-east-1 | docker login –username AWS –password-stdin aws\_account\_id.dkr.ecr.us-east-1.amazonaws.com
 
 为镜像打标签：
-
 - docker tag e9ae3c220b23 aws\_account\_id.dkr.ecr.region.amazonaws.com/my-web-app
 
 使用 **docker push** 命令推送镜像：
-
 - docker push aws\_account\_id.dkr.ecr.region.amazonaws.com/my-web-app
 
 使用 **docker pull** 命令拉取镜像。镜像名称格式应为 registry/repository[:tag] 按标签拉取，或 registry/repository[@digest] 按摘要拉取。
-
 - docker pull aws\_account\_id.dkr.ecr.region.amazonaws.com/my-web-app:e9ae3c220b23
 
 ## 在 ECS 中使用 Amazon Elastic Load Balancer

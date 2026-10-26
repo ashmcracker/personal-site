@@ -50,7 +50,6 @@ AWS Front-End Web and Mobile 服务支持原生 iOS/Android、React Native 和 J
 - 简单的访问可以通过 API key 保护。
 - 更严格的访问控制可以使用 AWS IAM role。
 - AWS AppSync 还集成了：
-
 - Amazon Cognito User Pool，提供邮箱和密码功能
 - 社交身份提供商（Facebook、Google+ 和 Login with Amazon）。
 - 基于 SAML 的企业联合认证。

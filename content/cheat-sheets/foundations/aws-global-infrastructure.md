@@ -23,7 +23,6 @@ title: "AWS Global Infrastructure"
 - 注意，region 之间的数据传输是收费的。
 - 启动 EC2 实例时，必须选择同一 region 中的 AMI。如果 AMI 在其他 region，可以将 AMI 复制到你使用的 region。
 - Region 与 Endpoint：
-
 - 使用命令行界面或 API 操作实例时，必须指定其区域 endpoint。
 - 为了降低应用的数据延迟，大多数 AWS 服务都提供区域 endpoint 来接收你的请求。
 - endpoint 是作为 Web 服务入口的 URL。

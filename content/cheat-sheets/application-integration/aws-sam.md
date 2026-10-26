@@ -76,14 +76,12 @@ AWS 提供了大量示例 SAM 应用，可作为你的起点。你可以[直接�
 - 所有配置代码均为 YAML。
 - "Transform" 头表明这是一个 SAM 模板： Transform: ‘AWS::Serverless-2016-10-31’
 - 资源类型有多种：
-
 - AWS::Serverless::Function (AWS Lambda)
 - AWS::Serverless::Api (API Gateway)
 - AWS::Serverless::SimpleTable (DynamoDB)
 - AWS::Serverless::Application (AWS Serverless Application Repository)
 - AWS::Serverless::HttpApi (API Gateway HTTP API)
 - AWS::Serverless::LayerVersion (Lambda layer)
-
 - 打包并部署到 AWS 只需要两个命令。
 - 可以使用：
 
@@ -103,7 +101,6 @@ aws cloudformation deploy
 
 - SAM Policy Template 是一组用于为 Lambda 函数应用权限的模板。
 - 示例：
-
 - S3ReadPolicy。
 - SQSPollerPolicy。
 - DynamoDBCrudPolicy。

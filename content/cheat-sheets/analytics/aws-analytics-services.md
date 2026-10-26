@@ -5,7 +5,6 @@ title: "AWS Analytics Services"
 ![Amazon Analytics Cheat Sheets](/cheat-sheets/images/2022-02-AWS-Analytics-1-1024x652.png)
 
 AWS 提供了多种分析（Analytics）服务，包括：
-
 - Amazon Athena
 - Amazon EMR
 - Amazon CloudSearch
@@ -96,7 +95,6 @@ AWS 提供了多种分析（Analytics）服务，包括：
 - Kinesis Data Streams 适用于快速从数据 producer 移出数据，然后持续处理这些数据的场景。
 - Kinesis Data Streams 会**存储数据**，供应用稍后处理（这是与 Firehose 的关键区别，Firehose 直接将数据投递到 AWS 服务）。
 - 常见使用场景包括：
-
 - 加速日志和数据馈送的摄取。
 - 实时指标和报表。
 - 实时数据分析。
@@ -120,11 +118,9 @@ AWS 提供了多种分析（Analytics）服务，包括：
 - 可以使用标准 SQL 查询处理 Kinesis 数据流。
 - 提供实时分析。
 - 使用场景：
-
 - 生成时间序列分析。
 - 为实时仪表板提供数据。
 - 创建实时告警和通知。
-
 - 可快速编写并针对流数据源运行强大的 SQL 代码。
 - 可以从 Kinesis Streams 和 Kinesis Firehose 摄取数据。
 - 输出到 S3、RedShift、Elasticsearch 和 Kinesis Data Streams。

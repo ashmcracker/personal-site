@@ -15,7 +15,6 @@ title: "AWS Compute Services"
 - Amazon EC2 让你只需为实际使用的容量付费，改变了计算的经济模式。
 - Amazon EC2 为开发者提供了构建容错应用的工具，并将其与常见故障场景隔离开来。
 - EC2 的优势包括：
-
 - **弹性的 Web 规模计算** —— 可以在几分钟内（而非几小时）增减容量，并同时启动一到数千个实例。
 - **完全可控** —— 你对每个实例拥有完全控制权（包括 root 访问），可以通过 Web 服务 API 停止和启动实例而不丢失数据。
 - **灵活的云托管服务** —— 可以从多种实例类型、操作系统和软件包中选择，也可以选择不同内存、CPU 和存储配置的实例。
@@ -23,16 +22,13 @@ title: "AWS Compute Services"
 - **可靠性** —— EC2 提供高度可靠的环境，可以快速、可预期地启用替换实例，每个区域的 SLA 为 99.99%。
 - **安全性** —— EC2 与 VPC 配合，在你指定的 IP 地址范围内提供安全的环境，并提供 Security Group、Network ACL 和 IPSec VPN 功能。
 - **低成本** —— Amazon 将规模效应带来的成本优势传递给用户，费率很低，且按实际消耗容量计费。
-
 - Amazon Machine Image（AMI）是一种特殊类型的虚拟 appliance，用于在 Amazon Elastic Compute Cloud（EC2）中创建虚拟机。
 - AMI 包含以下内容：
-
 - 一个或多个 **EBS** 快照；对于 instance-store -backed AMI，则是实例根卷的模板（例如操作系统、应用服务器和应用程序）。
 - 启动权限，控制哪些 AWS 账户可以使用该 AMI 启动实例。
 - 块设备映射（block device mapping），指定实例启动时要挂载的卷。
 
 AMI 主要分为三类：
-
 - **Community AMI** —— 免费使用，一般只需选择想要的操作系统。
 - **AWS Marketplace AMI** —— 付费使用，通常打包了额外的授权软件。
 - **My AMIs** —— 你自己创建的 AMI。
@@ -40,7 +36,6 @@ AMI 主要分为三类：
 ![ec2-instance-launch](/cheat-sheets/images/2022-02-ec2-instance-launch-1.png)
 
 元数据（Metadata）与用户数据（User Data）：
-
 - User data 是用户在实例启动时以脚本形式提供的数据。
 - 实例元数据是关于实例的数据，可用于配置或管理运行中的实例。
 - User data 上限为 16KB。
@@ -52,13 +47,11 @@ Instance Metadata Query 工具让你无需输入完整 URI 或类别名称即可
 ## 定价
 
 按需（On-Demand）：
-
 - 适合希望享受 EC2 低成本和灵活性、又不想预付费或做长期承诺的用户。
 - 适合短期、波动大或不可预测、且不能被中断的工作负载。
 - 适合首次在 EC2 上开发或测试的应用。
 
 预留实例（Reserved）：
-
 - 适合用量稳定或可预测的应用。
 - 适合需要预留容量的应用。
 - 用户可以通过预付款进一步降低总体计算成本。
@@ -67,14 +60,12 @@ Instance Metadata Query 工具让你无需输入完整 URI 或类别名称即可
 - 计划预留实例（Scheduled RI）可在你预留的时间窗口内启动。该选项让你把容量预留与可预测的周期性计划匹配，只需每天、每周或每月中的一部分时间。
 
 竞价实例（Spot）：
-
 - 适合开始和结束时间灵活的应用。
 - 适合只有在极低计算价格下才可行的应用。
 - 适合急需大量额外计算容量的用户。
 - 如果是 Amazon 终止你的实例，你无需付费；如果是你自己终止，则需支付该小时的费用。
 
 专用主机（Dedicated Hosts）：
-
 - 专供你使用的物理服务器。
 - 你可以控制哪些实例部署在该主机上。
 - 可按需购买，也可通过 Dedicated Host Reservation 购买。
@@ -87,7 +78,6 @@ Instance Metadata Query 工具让你无需输入完整 URI 或类别名称即可
 - 按主机计费。
 
 专用实例（Dedicated Instances）：
-
 - 运行在专属于你的硬件上的虚拟化实例。
 - 同样使用物理上专用的 EC2 服务器。
 - 不提供专用主机的额外可见性和控制能力（例如实例在服务器上的放置方式）。
@@ -97,7 +87,6 @@ Instance Metadata Query 工具让你无需输入完整 URI 或类别名称即可
 - 每个区域每小时额外收取 $2。
 
 Savings Plans：
-
 - Savings Plans 是一种灵活的定价模式，可为你的 AWS 计算用量节省最多 72%。
 - 该定价模式为 Amazon EC2 实例用量提供更低价格，不受实例系列、规格、操作系统、租期（tenancy）或 AWS 区域限制。
 - 同样适用于 AWS Fargate 和 AWS Lambda 用量。
@@ -152,14 +141,12 @@ Savings Plans：
 - AWS Lambda 只在需要时执行代码，并自动扩展。
 - 你只需为消耗的计算时间付费（代码不运行时不收费）。
 - AWS Lambda 的优势：
-
 - 无需管理服务器。
 - 持续扩展。
 - 毫秒级计费。
 - 几乎可与所有其他 AWS 服务集成。
 
 AWS Lambda 的主要使用场景：
-
 - 数据处理。
 - 实时文件处理。
 - 实时流处理。

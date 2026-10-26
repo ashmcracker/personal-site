@@ -33,14 +33,12 @@ title: "Amazon Kinesis"
 - Kinesis Data Streams 适合快速地从数据生产者接收数据并持续处理这些数据。
 - Kinesis Data Streams **存储数据**供应用稍后处理（这是与 Firehose 的关键区别，Firehose 将数据直接投递到 AWS 服务）。
 - 常见使用场景包括：
-
 - 加速日志和数据馈送（data feed）的接收。
 - 实时指标与报告。
 - 实时数据分析。
 - 复杂流处理。
 
 下图展示了 Kinesis Data Streams 的高层架构。
-
 - 生产者持续向 Kinesis Data Streams 推送数据。
 - 消费者实时处理数据。
 - 消费者可以使用 Amazon DynamoDB、Amazon Redshift 或 Amazon S3 等 AWS 服务存储处理结果。
@@ -52,11 +50,9 @@ title: "Amazon Kinesis"
 
 - 生产者创建构成流的数据。
 - 生产者可以通过以下方式使用：
-
 - Kinesis Streams API。
 - Kinesis Producer Library (KPL)。
 - Kinesis Agent。
-
 - 记录（record）是存储在 Amazon Kinesis 数据流中的数据单元。
 - 记录由序列号、分区键和数据 blob 组成。
 - 默认情况下，流中的记录自加入流之时起最多可访问 24 小时（通过启用扩展数据保留可提高至 7 天）。
@@ -69,7 +65,6 @@ title: "Amazon Kinesis"
 - 流的总容量是其各分片容量之和。
 - Kinesis Data Streams 支持重新分片（resharding），让你能调整流中的分片数量，以适应流经流的数据速率变化。
 - 重新分片操作有两种类型：分片拆分（shard split）和分片合并（shard merge）。
-
 - 分片拆分是将一个分片分成两个分片。
 - 分片合并是将两个分片合并为一个分片。
 
@@ -104,12 +99,10 @@ title: "Amazon Kinesis"
 - 一条记录的最大大小（Base64 编码前）为 1000 KB。
 - 目标（destination）是数据将被投递到的数据存储。
 - Firehose 目标包括：
-
 - Amazon S3。
 - Amazon Redshift。
 - Amazon Elasticsearch Service。
 - Splunk。
-
 - 生产者提供数据流。
 - 没有分片概念，完全自动化。
 - 可以使用现有的 AWS Key Management Service (KMS) 密钥加密数据。
@@ -137,26 +130,21 @@ title: "Amazon Kinesis"
 - 可以使用标准 SQL 查询处理 Kinesis 数据流。
 - 提供实时分析。
 - 使用场景：
-
 - 生成时间序列分析。
 - 为实时仪表盘提供数据。
 - 创建实时告警和通知。
-
 - 针对流数据源快速编写并运行强大的 SQL 代码。
 - 可以从 Kinesis Streams 和 Kinesis Firehose 摄入数据。
 - 输出到 S3、RedShift、Elasticsearch 和 Kinesis Data Streams。
 - 位于 Kinesis Data Streams 和 Kinesis Data Firehose 之上。
 - 一个 Kinesis Data Analytics 应用由三个组件组成：
-
 - 输入（Input）——应用的流数据源。
 - 应用代码（Application code）——处理输入并产生输出的一系列 SQL 语句。
 - 输出（Output）——保存中间结果的一个或多个应用内流。
 
 Kinesis Data Analytics 支持两种类型的输入：流数据源和参考数据源：
-
 - 流数据源是持续生成的数据，被读入你的应用进行处理。
 - 参考数据源是静态数据，应用用它丰富来自流数据源的数据。
-
 - 可以配置目标来持久化结果。
 - 支持 Kinesis Streams 和 Kinesis Firehose（S3、RedShift、Elasticsearch）作为目标。
 - 可以使用 IAM 为 Kinesis Analytics 授予从数据源读取记录和写入目标的权限。
@@ -165,7 +153,6 @@ Kinesis Data Analytics 支持两种类型的输入：流数据源和参考数据
 
 - Kinesis Client Library 是一个 Java 库，帮助分布式应用从 Kinesis Stream 读取记录并分担读取工作负载。
 - KCL 与 AWS SDK 中的 Kinesis Data Streams API 不同。
-
 - Kinesis Data Streams API 帮助你管理 Kinesis Data Streams 的各个方面（包括创建流、重新分片以及写入和读取记录）。
 - KCL 专门为消费者角色中的数据处理提供一层抽象。
 
@@ -173,7 +160,6 @@ Kinesis Data Analytics 支持两种类型的输入：流数据源和参考数据
 
 - KCL 充当你的记录处理逻辑与 Kinesis Data Streams 之间的中间层。
 - 当你启动 KCL 应用时，它会调用 KCL 实例化一个 worker。KCL 执行以下任务：
-
 - 连接到流。
 - 枚举分片。
 - 与其他 worker（如果有）协调分片关联。
@@ -183,7 +169,6 @@ Kinesis Data Analytics 支持两种类型的输入：流数据源和参考数据
 - 为已处理的记录设置检查点（checkpoint）。
 - 当 worker 实例数量变化时，平衡分片与 worker 的关联。
 - 当分片被拆分或合并时，平衡分片与 worker 的关联。
-
 - KCL 确保每个分片都有一个记录处理器。
 - 管理记录处理器数量与分片及消费者数量的相对关系。
 - 如果你只有一个消费者，KCL 会在该单个消费者上创建所有记录处理器。
@@ -194,17 +179,13 @@ Kinesis Data Analytics 支持两种类型的输入：流数据源和参考数据
 
 - 如果有两个消费者，它会做负载均衡，在一半实例上创建一半处理器，另一半创建在另一个实例上。
 - 扩展消费者：
-
 - 使用 KCL 时，一般应确保实例数量不超过分片数量（故障或备用目的除外）。
 - 每个分片只能被一个 KCL 实例读取。
 - 你绝不需要多个实例来处理一个分片。
-
 - 不过，一个 worker 可以处理多个分片。
 - 示例：
-
 - 4 个分片 = 最多 4 个 KCL 实例。
 - 6 个分片 = 最多 6 个 KCL 实例。
-
 - 进度通过检查点记录到 DynamoDB（需要 IAM 访问权限）。
 - KCL 可以运行在 EC2、Elastic Beanstalk 和本地服务器上。
 - 记录在分片级别按顺序读取。
@@ -220,7 +201,6 @@ Kinesis Data Analytics 支持两种类型的输入：流数据源和参考数据
 ## SQS vs SNS vs Kinesis
 
 SQS：
-
 - 消费者拉取数据。
 - 数据被消费后即删除。
 - 可以拥有任意数量的 worker（消费者）。
@@ -229,7 +209,6 @@ SQS：
 - 单条消息延迟。
 
 SNS：
-
 - 将数据推送给众多订阅者。
 - 最多 10,000,000 个订阅者。
 - 数据不持久化（未投递即丢失）。
@@ -239,7 +218,6 @@ SNS：
 - 与 SQS 集成实现扇出（fan-out）架构模式。
 
 Kinesis：
-
 - 消费者拉取数据。
 - 可以有任意数量的消费者。
 - 可以重放数据。

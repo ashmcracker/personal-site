@@ -7,12 +7,10 @@ title: "AWS Elastic Load Balancing (AWS ELB)"
 - Elastic Load Balancing 自动将传入的应用流量分发到多个目标，例如 Amazon EC2 实例、容器和 IP 地址。
 - 网络流量可以分发到 AWS 区域内的一个或多个 Availability Zone（AZ）。
 - AWS 上有四种类型的 Elastic Load Balancer（ELB）：
-
 - **Classic Load Balancer（CLB）**—— 最老的一代，在第四层和第七层提供基本的负载均衡。
 - **Application Load Balancer（ALB）**—— 第七层负载均衡器，根据请求内容路由连接。
 - **Network Load Balancer（NLB）**—— 第四层负载均衡器，根据 IP 协议数据路由连接。
 - **Gateway Load Balancer（GLB）**—— 第三/四层负载均衡器，用于防火墙和 IDS/IPS 系统等虚拟设备前端。
-
 - ***注意：****本页不详细介绍 CLB，因为它是上一代负载均衡器，大多数 AWS 考试已不再涉及。*
 - 下表对比了与 AWS 考试相关的一些关键特性：
 
@@ -40,29 +38,24 @@ title: "AWS Elastic Load Balancing (AWS ELB)"
 - 可以使用 Amazon Route 53 配合在每个区域配置的 ELB 实现区域级负载均衡。
 - ELB 可以是**面向 Internet** 的，也可以是**仅内部**的。
 - 面向 Internet 的 ELB：
-
 - ELB 节点拥有公有 IP。
 - 将流量路由到 EC2 实例的私有 IP 地址。
 - 在定义 ELB 的每个 AZ 中需要一个公有子网。
 - ELB DNS 名称格式：<name>-<id-number>.<region>.elb.amazonaws.com。
 
 仅内部的 ELB：
-
 - ELB 节点拥有私有 IP。
 - 将流量路由到 EC2 实例的私有 IP 地址。
 - ELB DNS 名称格式：**internal**-<name>-<id-number>.<region>.elb.amazonaws.com。
-
 - 仅内部的负载均衡器不需要 Internet gateway。
 - EC2 实例和容器可以注册到 ELB。
 - ELB 节点使用你子网中的 IP 地址，确保子网至少为 /27，并确保至少有 8 个可用 IP 地址供 ELB 扩展。
 - ELB 将流量转发到 eth0（主 IP 地址）。
 - ELB listener 是检查连接请求的进程：
-
 - CLB listener 支持 TCP 和 HTTP/HTTPS 协议。
 - ALB listener 支持 HTTP 和 HTTPS 协议。
 - NLB listener 支持 TCP、UDP 和 TLS 协议。
 - GLB listener 支持 IP 协议。
-
 - 删除 ELB 不会影响注册到它的实例（实例不会被删除，只是不再接收请求）。
 - ALB 必须指定至少 2 个子网。
 - NLB 只需指定一个子网（建议至少添加 2 个）。
@@ -80,7 +73,6 @@ title: "AWS Elastic Load Balancing (AWS ELB)"
 - 你还需要放行健康检查端口和后端 listener 的端口和协议。
 - ELB 的安全组配置：
 - ELB 入站（允许）。
-
 - 面向 Internet 的 ELB：
   - 来源：0.0.0.0/0。
   - 协议：TCP。
@@ -96,7 +88,6 @@ title: "AWS Elastic Load Balancing (AWS ELB)"
 ![Internal-Only ELB Security Group Inbound Rules](/cheat-sheets/images/2022-01-internal-only-elb-security-group-inbound-rules.jpeg)
 
 出站（允许，两种类型的 ELB 均适用）：
-
 - 目标：EC2 注册实例的安全组。
 - 协议：TCP。
 - 端口：健康检查/Listener。
@@ -105,7 +96,6 @@ title: "AWS Elastic Load Balancing (AWS ELB)"
 
 - 注册实例的安全组配置：
 - 注册实例的入站（允许，两种类型的 ELB 均适用）。
-
 - 来源：ELB 安全组。
 - 协议：TCP。
 - 端口：健康检查/Listener。
@@ -113,7 +103,6 @@ title: "AWS Elastic Load Balancing (AWS ELB)"
 ![EC2 Registered Instances Security Group Inbound Rules](/cheat-sheets/images/2022-01-ec2-registered-instances-security-group-inbound-ru.jpeg)
 
 出站（允许，两种类型的 ELB 均适用）。
-
 - 目标：ELB 安全组。
 - 协议：TCP。
 - 端口：Ephemeral（临时端口）。
@@ -132,7 +121,6 @@ title: "AWS Elastic Load Balancing (AWS ELB)"
 ## ELB 监控
 
 监控方式包括：
-
 - CloudWatch —— 每 1 分钟一次。
   - ELB 服务仅在有活动请求时发送信息。
   - 可用于触发 SNS 通知。
@@ -166,7 +154,6 @@ title: "AWS Elastic Load Balancing (AWS ELB)"
 ![ALB Host-Path Routing](/cheat-sheets/images/2022-01-alb-host-path-routing.jpeg)
 
 可以定义以下属性：
-
 - Deregistration delay —— Elastic Load Balancing 在注销目标之前等待的时间。
 - Slow start duration —— 负载均衡器向新注册的目标线性增加流量份额的时间（秒）。
 - Stickiness —— 指示是否启用粘性会话。
@@ -184,7 +171,6 @@ title: "AWS Elastic Load Balancing (AWS ELB)"
 - 如果按 IP 地址注册，可以使用一个或多个网络接口上的任意私有地址将流量路由到实例。
 - 不能在 target group 中混合不同类型（EC2、ECS、IP、Lambda 函数）。
 - IP 地址可用于注册：
-
 - 对等 VPC 中的实例。
 - 可通过 IP 地址和端口寻址的 AWS 资源。
 - 通过 Direct Connect 或 VPN 连接到 AWS 的本地资源。
@@ -202,26 +188,21 @@ title: "AWS Elastic Load Balancing (AWS ELB)"
 - ALB 会根据传入的应用流量自动扩展其请求处理能力。
 - 你可以将 ALB 配置为面向 Internet，或创建不带公有 IP 地址的负载均衡器作为内部（非面向 Internet）负载均衡器。
 - ALB 支持基于内容的路由，即根据请求内容将请求路由到某个服务。例如：
-
 - **基于 host 的路由**根据 HTTP header 中的 Host 字段路由客户端请求，允许你从同一个负载均衡器路由到多个域。
 - **基于 path 的路由**根据 HTTP header 中的 URL 路径路由客户端请求（例如 /images 或 /orders）。
-
 - 支持微服务和容器，可在单个 EC2 实例上跨多个端口进行负载均衡。
 - 与 Amazon Cognito 集成实现用户认证。
 - slow start 模式允许目标在爬坡期内“预热”。
 - 健康检查：
-
 - 健康检查可以自定义响应码（200-399）。
 - API 和管理控制台中提供健康检查失败的详细信息。
 - 健康检查失败时会返回原因码。
 - 健康检查不支持 WebSockets。
 - Fail open 指当没有任何 AZ 包含健康目标时，负载均衡器节点会将请求路由到所有目标。
-
 - 提供详细的访问日志信息，每 5 或 6 分钟保存到 S3 bucket。
 - 支持删除保护。
 - Deregistration delay 类似于 connection draining。
 - **粘性会话（Sticky Session）：**
-
 - 使用 cookie 确保客户端在 cookie 有效期内绑定到单个后端实例。
 - ALB 支持基于时长的 cookie 和基于应用的 cookie。
 - 对于基于应用的 cookie，每个 target group 指定 cookie 名称。
@@ -232,7 +213,6 @@ title: "AWS Elastic Load Balancing (AWS ELB)"
 ### Listener 与规则
 
 Listener：
-
 - 每个 ALB 至少需要一个 listener，最多可有 10 个。
 - Listener 定义监听的端口和协议。
 - 可以添加一个或多个 listener。
@@ -311,7 +291,6 @@ Listener：
 - ALB 支持基于 path 的路由和优先级规则。
 - ALB 通过 service load balancing 与 EC2 container service 集成。
 - 联合认证（federated authentication）：
-
 - ALB 支持来自符合 OIDC 的身份提供商（如 Google、Facebook 和 Amazon）的认证。
 - 通过 listener 规则上的认证动作实现，并与 Amazon Cognito 集成以创建 user pool。
 - AWS SAM 也可以与 Amazon Cognito 配合使用。
@@ -329,7 +308,6 @@ Listener：
 - 与 Amazon Route 53 的集成使得可以将故障的负载均衡器 IP 地址从服务中移除，并将流量重定向到另一个区域中的备用 NLB。
 - NLB 支持跨区域负载均衡（cross-zone），但通过控制台创建 NLB 时默认不启用。
 - NLB 的 target group 支持以下协议和端口：
-
 - **协议：**TCP、TLS、UDP、TCP\_UDP。
 - **端口：**1-65535。
 

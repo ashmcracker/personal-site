@@ -19,7 +19,6 @@ title: "AWS OpsWorks"
 - OpsWorks Stacks 支持 Linux 和 Windows 工作负载，并使用 Chef Recipe 来配置那些最适合自动化的任务。
 - 每个 OpsWorks stack 由多个层（layer）构成——每层代表不同的 stack 组件，例如一个独立的负载均衡器、一个数据库或一组 EC2 实例。
 - AWS OpsWorks Stacks 具有以下特性：
-
 - EC2 实例可以使用模板配置部署，包括 EBS 卷。
 - 实例上的软件可以按需配置，或根据随时间发生的事件自动配置——从将基础 OS 镜像引导为运行中的服务器，到修改运行中的服务以反映变更。
 - Stack 可以由 AWS OpsWorks 服务自动修复。OpsWorks Stacks 可以用新实例替换 stack 中失败的实例，确保最大的正常运行时间和可用性。

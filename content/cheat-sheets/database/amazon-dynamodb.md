@@ -17,11 +17,9 @@ title: "Amazon DynamoDB"
 - 支持多 AZ 冗余和跨区域复制选项。
 - 存储数据的底层硬件分布在 3 个地理位置不同的数据中心。
 - DynamoDB 由以下部分组成：
-
 - 表（Table）。
 - 项目（Item）。
 - 属性（Attribute）。
-
 - 表是项目的集合，项目由属性（列）组成。
 - 属性由名称和一个值或一组值构成。
 - DynamoDB 中的属性类似于其他数据库系统中的字段或列。
@@ -48,7 +46,6 @@ title: "Amazon DynamoDB"
 ## 反模式（Anti-Patterns）
 
 Amazon DynamoDB 不适合以下情况：
-
 - 传统的 RDS 应用。
 - Join 和/或复杂事务。
 - BLOB 数据。
@@ -58,10 +55,8 @@ Amazon DynamoDB 不适合以下情况：
 
 - 所有身份验证和访问控制都使用 IAM 管理。
 - DynamoDB 支持 identity-based policy：
-
 - 将权限策略附加到账户中的用户或组。
 - 将权限策略附加到角色（授予跨账户权限）。
-
 - DynamoDB 不支持 resource-based policy。
 - 你可以使用特殊的 IAM 条件来限制用户只能访问他们自己的记录。
 - 在 DynamoDB 中，主要资源是表。
@@ -82,7 +77,6 @@ Amazon DynamoDB 不适合以下情况：
 - 分区管理完全由 DynamoDB 处理——你永远不需要自己管理分区。
 - DynamoDB 为你的表分配足够的分区，使其能够处理你预置的吞吐量需求。
 - DynamoDB 会在以下情况下为表分配额外的分区：
-
 - 如果你将表的预置吞吐量设置提高到超出现有分区所能支持的水平。
 - 如果现有分区已满，需要更多存储空间。
 
@@ -93,7 +87,6 @@ Amazon DynamoDB 不适合以下情况：
 - DynamoDB 基于主键存储和检索数据。
 - 主键有两种类型：
 - 分区键（Partition key）—— 唯一属性（例如用户 ID）。
-
 - 分区键的值会输入到内部哈希函数中，该函数决定数据存储的分区或物理位置。
 - 如果使用分区键作为主键，则任意两个项目不能有相同的分区键。
 
@@ -102,7 +95,6 @@ Amazon DynamoDB 不适合以下情况：
 ![Amazon DynamoDB Table with Partition Key](/cheat-sheets/images/2022-01-amazon-dynamodb-table-with-partition-key.jpeg)
 
 复合键（Composite key）—— 分区键 + 排序键（Sort key）的组合。
-
 - 例如用户在论坛发帖。分区键是用户 ID，排序键是帖子的时间戳。
 - 两个项目可以有相同的分区键，但它们必须有不同的排序键。
 - 具有相同分区键的所有项目存储在一起，然后按排序键的值排序。
@@ -117,13 +109,11 @@ Amazon DynamoDB 不适合以下情况：
 - DynamoDB 将预置吞吐量——读容量单位（RCU）和写容量单位（WCU）——均匀分配到各个分区。
 - 如果你的访问模式对单个分区键值超过 3000 RCU 或 1000 WCU，你的请求可能会被限流。
 - 超出限制的读写可能由以下问题导致：
-
 - 由于选择了错误的分区键导致数据分布不均。
 - 频繁访问分区中的同一个键（最热门的项目，也称为热键 hot key）。
 - 请求速率超过预置吞吐量。
 
 分区键的最佳实践：
-
 - 使用高基数（high-cardinality）属性——例如 e-mailid、employee\_no、customerid、sessionid、orderid 等。
 - 使用复合属性——例如以 customerid+productid+countrycode 作为分区键，以 order\_date 作为排序键。
 - 缓存热门项目——使用 DynamoDB Accelerator (DAX) 缓存读取。
@@ -133,19 +123,16 @@ Amazon DynamoDB 不适合以下情况：
 
 - DynamoDB 支持最终一致性读取和强一致性读取。
 - 最终一致性读取（Eventually consistent reads）：
-
 - 从 DynamoDB 表读取数据时，响应可能不反映最近完成的写入操作的结果。
 - 响应可能包含一些过期数据。
 - 如果你在短时间后重复读取请求，响应应返回最新数据。
 
 强一致性读取（Strongly consistent reads）：
-
 - 当你请求强一致性读取时，DynamoDB 返回包含最新数据的响应，反映之前所有成功写入操作的更新。
 - 如果存在网络延迟或中断，强一致性读取可能不可用。在这种情况下，DynamoDB 可能返回服务器错误（HTTP 500）。
 - 强一致性读取的延迟可能高于最终一致性读取。
 - 全局二级索引不支持强一致性读取。
 - 强一致性读取比最终一致性读取消耗更多吞吐量容量。
-
 - DynamoDB 默认使用最终一致性读取。
 - 你可以在 GetItem、Query 和 Scan API 中通过将 --consistent-read（或 ConsistentRead）参数设置为 "true" 来配置强一致性读取。
 
@@ -218,7 +205,6 @@ Amazon DynamoDB 不适合以下情况：
 - 大量较小的操作将允许其他请求成功执行而不被限流。
 - 尽可能避免使用 scan 操作：以可以使用 Query、Get 或 BatchGetItem API 的方式设计表。
 - Scan 性能优化：
-
 - 默认情况下，scan 操作按顺序处理数据，每次返回 1MB 数据后再继续检索下一个 1MB。它一次只能扫描一个分区。
 - 你可以配置 DynamoDB 改用并行扫描，将表或索引在逻辑上划分为多个段（segment）并并行扫描每个段。
 
@@ -229,7 +215,6 @@ Amazon DynamoDB 不适合以下情况：
 - 索引是一种数据结构，允许你对表中的特定列执行快速查询。
 - 你选择要包含在索引中的列，然后在索引上运行搜索，而不是在整个数据集上搜索。
 - DynamoDB 支持两种用于加速查询的索引类型：
-
 - 本地二级索引（Local Secondary Index）。
 - 全局二级索引（Global Secondary Index）。
 
@@ -260,11 +245,9 @@ Amazon DynamoDB 不适合以下情况：
 - 它加速与这个备用分区键和排序键相关的任何查询。
 - 一个例子是以电子邮件地址作为分区键，以最后登录日期作为排序键。
 - 使用 GSI 时，索引是一张新的"表"，你可以将属性投影（project）到它上面。
-
 - 原表的分区键和排序键始终被投影（KEYS\_ONLY）。
 - 可以指定要投影的额外属性（INCLUDE）。
 - 可以使用主表的所有属性（ALL）。
-
 - 你必须为索引定义 RCU / WCU。
 - 可以随时添加/修改 GSI。
 - 如果 GSI 上的写入被限流，主表也会被限流（即使主表有足够的 WCU）。LSI 不会引起任何特殊的限流问题。
@@ -284,7 +267,6 @@ Amazon DynamoDB 不适合以下情况：
 - DynamoDB Auto Scaling 使用 AWS Application Auto Scaling 服务，代表你根据流量模式动态调整预置吞吐量容量。
 - 这使表或全局二级索引能够增加其预置读写容量以应对流量的突然增长，而不会被限流。
 - 读容量单位（RCU）：
-
 - 每次从表读取数据的 API 调用都是一个读取请求。
 - 读取请求可以是强一致的、最终一致的或事务性的。
 - 对于最大 4 KB 的项目，一个 RCU 每秒可执行一次*强一致性*读取请求。
@@ -294,7 +276,6 @@ Amazon DynamoDB 不适合以下情况：
 - 例如，对 8 KB 项目的强一致性读取需要两个 RCU，对 8 KB 项目的最终一致性读取需要一个 RCU，对 8 KB 项目的事务性读取需要四个 RCU。
 
 写容量单位（WCU）：
-
 - 每次向表写入数据的 API 调用都是一个写入请求。
 - 对于最大 1 KB 的项目，一个 WCU 每秒可执行一次*标准*写入请求。
 - 大于 1 KB 的项目需要额外的 WCU。
@@ -302,17 +283,14 @@ Amazon DynamoDB 不适合以下情况：
 - 例如，对 1 KB 项目的标准写入请求需要一个 WCU，对 3 KB 项目的标准写入请求需要三个 WCU，对 3 KB 项目的事务性写入请求需要六个 WCU。
 
 复制写容量单位（rWCU）：
-
 - 使用 DynamoDB 全局表时，你的数据会自动写入你选择的多个 AWS 区域。
 - 每次写入都发生在本地区域以及复制区域中。
 
 流读取请求单位（Streams read request unit）：
-
 - 对 DynamoDB Streams 的每次 GetRecords API 调用都是一个流读取请求单位。
 - 每个流读取请求单位最多可返回 1 MB 数据。
 
 事务性读/写请求：
-
 - 在 DynamoDB 中，事务性读取或写入与标准读取或写入的不同之处在于，它保证单个事务集中包含的所有操作作为一个整体成功或失败。
 
 ### DynamoDB 按需容量（On-Demand Capacity）
@@ -331,13 +309,11 @@ Amazon DynamoDB 不适合以下情况：
 - DynamoDB 的 AWS SDK 会自动重试收到此异常的请求。
 - 你的请求最终会成功，除非重试队列太大而无法完成。
 - 性能问题的可能原因：
-
 - 热键（Hot key）—— 某个分区键被读取过于频繁。
 - 热分区（Hot partition）—— 当数据访问不均衡时，某个"热"分区相比其他分区会收到更高的读写流量。
 - 大项目 —— 大项目消耗更多 RCU 和 WCU。
 
 解决方法：
-
 - 降低请求频率并使用指数退避（exponential backoff）。
 - 尽量将应用设计为在表及其二级索引的所有逻辑分区键上活动均匀分布。
 - 有效利用突发容量（burst capacity）—— DynamoDB 目前保留最多 5 分钟（300 秒）的未使用读写容量，可以快速使用。
@@ -356,7 +332,6 @@ Amazon DynamoDB 不适合以下情况：
 - 通过集群预置，按节点收费（运行在 EC2 实例上）。
 - 定价按消耗的节点小时计算，取决于你选择的实例类型。
 - 工作原理：
-
 - DAX 是写穿（write-through）缓存服务——这意味着数据会同时写入缓存和后端存储。
 - 允许你将 DynamoDB API 调用指向 DAX 集群，如果项目在缓存中（缓存命中），DAX 会将结果返回给应用。
 - 如果请求的项目不在缓存中（缓存未命中），DAX 会对 DynamoDB 执行最终一致性 GetItem 操作。
@@ -378,11 +353,9 @@ Amazon DynamoDB 不适合以下情况：
 - 在过期日期/时间之后自动删除项目。
 - 过期项目会被标记为待删除。
 - 非常适合移除不相关或过期的数据，例如：
-
 - 会话数据。
 - 事件日志。
 - 临时数据。
-
 - 无额外费用，不消耗 WCU / RCU。
 - TTL 是由 DynamoDB 操作的后台任务。
 - TTL 有助于减少存储并随时间管理表大小。
@@ -422,7 +395,6 @@ Amazon DynamoDB 不适合以下情况：
 - StreamSpecification 参数决定流的配置方式：
 - StreamEnabled —— 指定是否为表启用流（true）或禁用（false）。
 - StreamViewType —— 指定每当表中数据被修改时将写入流的信息：
-
 - KEYS\_ONLY —— 仅被修改项目的键属性。
 - NEW\_IMAGE —— 修改后的整个项目。
 - OLD\_IMAGE —— 修改前的整个项目。
@@ -438,7 +410,6 @@ Amazon DynamoDB 不适合以下情况：
 - DeleteItem —— 删除单个行（可执行条件删除）。
 - DeleteTable —— 删除整个表（比对所有项目使用 DeleteItem 更快）。
 - BatchWriteItem —— 一次调用最多可 put 或 delete 25 个项目（最大 16MB 写入 / 每个项目 400KB）。
-
 - 批处理通过减少 API 调用次数来降低延迟。
 - 操作并行执行以提高效率。
 
@@ -479,14 +450,12 @@ Amazon DynamoDB 不适合以下情况：
 - ElastiCache 可用于 DynamoDB 前端，以提升对不经常变化数据的读取性能。
 - 触发器与 AWS Lambda 集成以响应触发。
 - 与 RedShift 的集成：
-
 - RedShift 以高级商业智能能力补充 DynamoDB。
 - 将数据从 DynamoDB 表复制到 RedShift 后，你可以执行复杂的数据分析查询，包括与其他表的 join。
 - 从 DynamoDB 表复制数据的操作会占用该表的读取容量。
 - 数据复制完成后，SQL 查询不会影响 DynamoDB 中的数据。
 
 DynamoDB 与 EMR 上的 Apache Hive 集成。Hive 让你能够：
-
 - 读写 DynamoDB 表中的数据，允许你使用类 SQL 语言（HiveQL）查询 DynamoDB 数据。
 - 将数据从 DynamoDB 表复制到 S3 bucket，反之亦然。
 - 将数据从 DynamoDB 表复制到 HDFS，反之亦然。
@@ -509,7 +478,6 @@ DynamoDB 与 EMR 上的 Apache Hive 集成。Hive 让你能够：
 - DynamoDB 全局表非常适合拥有全球分散用户的大规模应用。
 - 全局表提供到全球 AWS 区域的自动多主复制，因此无论用户位于何处，你都可以为他们提供低延迟的数据访问。
 - 定义：
-
 - ***全局表（global table）***是一个或多个副本表的集合，全部由单个 AWS 账户拥有。
 - ***副本表（replica table***，简称*副本*）是作为全局表一部分的单个 DynamoDB 表。每个副本存储相同的数据项集合。任何给定的全局表每个区域只能有一个副本表。
 
@@ -529,12 +497,10 @@ DynamoDB 与 EMR 上的 Apache Hive 集成。Hive 让你能够：
 - 这使表或全局二级索引能够增加其预置读写容量以应对流量的突然增长，而不会被限流。
 - 当工作负载减少时，Application Auto Scaling 会降低吞吐量，这样你就不必为未使用的预置容量付费。
 - Application Auto Scaling 的工作方式：
-
 - 你为表或全局二级索引创建*扩展策略（scaling policy）*。
 - 扩展策略指定你要扩展读取容量还是写入容量（或两者），以及表或索引的最小和最大预置容量单位设置。
 - 扩展策略还包含*目标利用率（target utilization）*——某一时间点消耗的预置吞吐量百分比。
 - 使用*目标跟踪（target tracking）*算法，根据实际工作负载向上或向下调整表（或索引）的预置吞吐量，使实际容量利用率保持在目标利用率附近。
-
 - 目前，如果表的消耗容量变为零，Auto Scaling 不会缩减你的预置容量。
 - 如果使用 AWS 管理控制台创建表或全局二级索引，DynamoDB Auto Scaling 默认启用。
 

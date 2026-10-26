@@ -28,7 +28,6 @@ Auto Scaling 和 Elastic Load Balancing 是 AWS 的两项功能，可以单独�
 - ELB 可以在单个 Availability Zone 内或跨多个 Availability Zone 应对应用流量的变化。
 - ELB 具备高可用性、自动扩展和强大的安全性，是让你的应用具备容错能力所必需的。
 - AWS 上有四种类型的 Elastic Load Balancer (ELB)：
-
 - Application Load Balancer (ALB)——第 7 层负载均衡器，根据请求内容进行连接路由。
 - Network Load Balancer (NLB)——第 4 层负载均衡器，根据 IP 协议数据进行连接路由。
 - Classic Load Balancer (CLB)——三者中最老的一种，在第 4 层和第 7 层都提供基本的负载均衡（考试已不再涉及）。

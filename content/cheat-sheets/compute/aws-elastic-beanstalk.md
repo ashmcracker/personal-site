@@ -9,7 +9,6 @@ title: "AWS Elastic Beanstalk"
 - 可以使用多个可用区来提升应用的可靠性和可用性。
 - 被视为一种 Platform as a Service（PaaS）解决方案。
 - 支持以下平台：
-
 - [Docker](https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html#platforms-supported.docker)
 - [Multicontainer Docker](https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html#platforms-supported.mcdocker)
 - [Preconfigured Docker](https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html#platforms-supported.dockerpreconfig)
@@ -22,7 +21,6 @@ title: "AWS Elastic Beanstalk"
 - [PHP](https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html#platforms-supported.PHP)
 - [Python](https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html#platforms-supported.python)
 - [Ruby](https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html#platforms-supported.ruby)
-
 - 开发者可以专注于编写代码，无需担心基础设施部署。
 - 你只需为预置的资源付费，Elastic Beanstalk 本身不收费。
 - Elastic Beanstalk 会自动扩缩你的应用。
@@ -50,17 +48,14 @@ title: "AWS Elastic Beanstalk"
 
 - Elastic Beanstalk 由多个层次组成，各层说明如下：
 - **Application（应用）**：
-
 - 在 Elastic Beanstalk 中，application 是不同元素的集合，例如 environment、environment configuration 和 application version。
 - 一个 application 中可以包含多个 application version。
 
 **Application version（应用版本）**：
-
 - application version 是对一段可部署代码的特定引用。
 - application version 通常指向存放代码的 Amazon S3 bucket。
 
 **Environment（环境）**：
-
 - environment 指已部署到 AWS 资源上的某个 application version。
 - 这些资源由 AWS Elastic Beanstalk 配置和预置。
 - environment 由 Elastic Beanstalk 创建的所有资源组成，而不仅仅是运行你上传代码的 EC2 实例。
@@ -68,17 +63,14 @@ title: "AWS Elastic Beanstalk"
 ![Elastic Beanstalk Applications Environments and Versions](/cheat-sheets/images/2022-01-elastic-beanstalk-applications-environments-and-ve.jpeg)
 
 **Environment tier（环境层）**：
-
 - 根据应用的用途决定 Elastic Beanstalk 如何预置资源。
 - **Web server** 是标准应用，监听并处理 HTTP 请求，通常在 80 端口。
 - **Worker** 是专用应用，带有后台处理任务，监听 Amazon SQS 队列中的消息。
 
 **Environment configuration（环境配置）**：
-
 - environment configuration 是一组参数和设置的集合，决定 Elastic Beanstalk 如何为环境预置资源以及这些资源的行为方式。
 
 **Configuration template（配置模板）**：
-
 - 这是一个模板，为创建新的、唯一的环境配置提供基线。
 
 ## 部署选项
@@ -94,7 +86,6 @@ AWS Elastic Beanstalk 提供了多种处理[**部署**](https://docs.aws.amazon.
 
 - 部署策略包括：All at once、Rolling、Rolling with additional batch 和 Immutable。
 - All at once：
-
 - 同时将新版本部署到所有实例。
 - 部署期间所有实例都会停止服务。
 - 部署速度最快。
@@ -104,7 +95,6 @@ AWS Elastic Beanstalk 提供了多种处理[**部署**](https://docs.aws.amazon.
 - 无额外成本。
 
 Rolling：
-
 - 一次更新少量实例（一个批次），第一批健康后再进行下一批（每次只有一个批次停机）。
 - 应用同时运行新旧两个版本。
 - 部署期间每个批次的实例会停止服务。
@@ -115,7 +105,6 @@ Rolling：
 - 部署时间较长。
 
 Rolling with additional batch：
-
 - 类似 Rolling，但会先启动一个新批次实例，确保完全可用。
 - 应用以满容量运行。
 - 可以设置批次大小。
@@ -126,7 +115,6 @@ Rolling with additional batch：
 - 适合生产环境。
 
 Immutable：
-
 - 在新的 ASG 中启动新实例，将版本更新部署到这些实例，健康后再将流量切换过去。
 - 零停机。
 - 新代码通过 ASG 部署到新实例。
@@ -134,10 +122,8 @@ Immutable：
 - 部署时间最长。
 - 失败时可快速回滚。
 - 非常适合生产环境。
-
 - 此外，Elastic Beanstalk 支持 blue/green 部署。
 - Blue / Green 部署：
-
 - 这不是 Elastic Beanstalk 的内置功能。
 - 你创建一个新的“staging”环境并在其中部署更新。
 - 新环境（green）可以独立验证，如有问题可以回滚。
@@ -170,10 +156,8 @@ Immutable：
 
 - Elastic Beanstalk 最多可以存储 1000 个应用版本。
 - 要淘汰旧版本，可以使用生命周期策略：
-
 - 基于时间 —— 指定最大保留时长。
 - 基于数量 —— 指定最大保留数量。
-
 - 正在使用中的版本不会被删除。
 - 可以选择不删除 S3 中的源包，以防止数据丢失。
 
@@ -193,7 +177,6 @@ Immutable：
 - .ebextensions 文件夹必须包含在应用源代码包的顶层目录中。
 - UI 中设置的所有参数都可以在代码中配置。
 - 要求：
-
 - 必须位于源代码的 .ebextensions/ 目录中。
 - YAML 或 JSON 格式。
 - 可以使用 .config 扩展名（例如 logging.config）。
@@ -215,7 +198,6 @@ Immutable：
 ![Elastic Beanstalk and Amazon RDS](/cheat-sheets/images/2022-01-elastic-beanstalk-and-amazon-rds.jpeg)
 
 从 Beanstalk 环境内的 RDS 迁移到独立 RDS 的步骤：
-
 - 为 RDS DB 拍摄快照。
 - 在 RDS DB 上启用删除保护。
 - 创建一个不带 RDS DB 的新环境，并将应用指向现有 RDS DB。
@@ -226,7 +208,6 @@ Immutable：
 ### 连接 Amazon RDS 数据库
 
 环境更新完成后，DB 实例的主机名和其他连接信息会通过以下环境属性提供给应用：
-
 - RDS\_HOSTNAME —— DB 实例的主机名。
 - RDS\_PORT —— DB 实例接受连接的端口。默认值因数据库引擎而异。
 - RDS\_DB\_NAME —— 数据库名称，ebdb。
@@ -243,13 +224,11 @@ Immutable：
 ## 安全
 
 Elastic Beanstalk 支持 HTTPS：
-
 - 将 SSL 证书加载到负载均衡器上。
 - 可以通过控制台或代码完成（.ebextensions/securelistener-alb.config）。
 - SSL 证书可以使用 ACM 或 CLI 申请。
 
 将 HTTP 重定向到 HTTPS：
-
 - 在应用中配置。
 - 在 ALB 上配置规则。
 - 确保健康检查不被重定向。

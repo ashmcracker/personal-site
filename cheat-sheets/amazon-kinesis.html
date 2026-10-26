@@ -29,11 +29,47 @@ code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF
 pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
 pre code{background:none;padding:0;color:inherit}
 blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+
+/* === TOC sidebar === */
+.layout{display:flex;gap:24px;max-width:1240px;margin:30px auto;padding:0 20px;align-items:flex-start}
+.layout .content{flex:1;min-width:0;margin:0;padding:0;max-width:none}
+.toc-sidebar{flex:0 0 260px;width:260px;position:sticky;top:110px;max-height:calc(100vh - 140px);
+  overflow-y:auto;background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:13px}
+.toc-sidebar .toc-title{padding:0 16px 10px;font-weight:600;color:var(--primary);
+  border-bottom:1px solid var(--border);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.toc-sidebar .toc-toggle{background:none;border:none;color:var(--secondary);cursor:pointer;
+  font-size:12px;padding:2px 6px;border-radius:4px}
+.toc-sidebar .toc-toggle:hover{background:#e8f0f7}
+.toc-sidebar ul{list-style:none;margin:0;padding:0}
+.toc-sidebar li{margin:0}
+.toc-sidebar a{display:block;padding:5px 16px;color:var(--text);text-decoration:none;
+  border-left:3px solid transparent;line-height:1.4;word-break:break-word}
+.toc-sidebar a:hover{background:#e8f0f7;color:var(--primary)}
+.toc-sidebar a.active{border-left-color:var(--secondary);background:#e8f0f7;color:var(--primary);font-weight:600}
+.toc-sidebar .toc-h3 a{padding-left:32px;font-size:12.5px;color:#555}
+.toc-sidebar .toc-h3 a.active{color:var(--primary)}
+.toc-sidebar.collapsed ul{display:none}
+.toc-fab{display:none}
+@media(max-width:1100px){
+  .toc-sidebar{display:none}
+  .toc-fab{display:block;position:fixed;right:16px;bottom:16px;z-index:200;
+    background:var(--primary);color:#fff;border:none;border-radius:99px;
+    padding:10px 18px;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  .toc-fab:hover{background:var(--secondary)}
+  .toc-drawer{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.4);display:none}
+  .toc-drawer.open{display:block}
+  .toc-drawer .toc-sidebar{display:block;position:absolute;right:0;top:0;bottom:0;
+    width:280px;max-height:none;border-radius:0;overflow-y:auto}
+}
+
 </style>
 </head>
 <body>
 <div class="header"><h1>Amazon Kinesis</h1><div class="subtitle">AWS Cheat Sheet</div></div>
-<div class="content"><div class="card">
+<div class="layout">
+<div class="content">
+<div class="card">
 <div class="wp-block-image is-resized">
 <figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-01-Amazon-Kinesis-1024x652.png" alt="Amazon Kinesis Services" class="wp-image-486244" style="width:400px" /></figure>
 </div>
@@ -54,7 +90,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-image"><img decoding="async" src="images/2022-01-word-image-2.png" alt="" class="wp-image-296578"/></figure>
 
-<h2 class="wp-block-heading"><a id="post-296569-_andk006dgseq"></a>Kinesis Video Streams</h2>
+<h2 class="wp-block-heading" id="section-1"><a id="post-296569-_andk006dgseq"></a>Kinesis Video Streams</h2>
 
 <p class="wp-block-paragraph">Kinesis Video Streams 让你轻松地将视频从联网设备安全地流式传输到 AWS，用于分析、机器学习（ML）和其他处理。</p>
 
@@ -76,7 +112,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <div class="adplugg-tag" data-adplugg-zone="all_access_membership_body"></div>
 
-<h2 class="wp-block-heading"><a id="post-296569-_s4wugea8kpo"></a>Kinesis Data Streams</h2>
+<h2 class="wp-block-heading" id="section-2"><a id="post-296569-_s4wugea8kpo"></a>Kinesis Data Streams</h2>
 
 <p class="wp-block-paragraph">Kinesis Data Streams 让你能够构建处理或分析流数据的自定义应用，以满足特定需求。</p>
 
@@ -182,7 +218,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">Kinesis Data Streams 跨三个 AZ 同步复制。</p>
 
-<h2 class="wp-block-heading">Kinesis Data Firehose</h2>
+<h2 class="wp-block-heading" id="section-3">Kinesis Data Firehose</h2>
 
 <p class="wp-block-paragraph">Kinesis Data Firehose 是将流数据加载到数据存储和分析工具的最简单方式。</p>
 
@@ -248,9 +284,9 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">对于 Splunk 目标，流数据会投递到 Splunk，并且可以选择同时备份到你的 S3 bucket：</p>
 
-<h2 class="wp-block-heading"><img loading="lazy" decoding="async" class="alignnone wp-image-296596" src="images/2022-01-amazon-kinesis-data-firehose-splunk-destination.jpeg" alt="Amazon Kinesis Data Firehose Splunk Destination" width="750" height="294"><a id="post-296569-_qu934ipo7jrm"></a></h2>
+<h2 class="wp-block-heading" id="section-4"><img loading="lazy" decoding="async" class="alignnone wp-image-296596" src="images/2022-01-amazon-kinesis-data-firehose-splunk-destination.jpeg" alt="Amazon Kinesis Data Firehose Splunk Destination" width="750" height="294"><a id="post-296569-_qu934ipo7jrm"></a></h2>
 
-<h2 class="wp-block-heading">Kinesis Data Analytics</h2>
+<h2 class="wp-block-heading" id="section-5">Kinesis Data Analytics</h2>
 
 <p class="wp-block-paragraph">Amazon Kinesis Data Analytics 是处理和分析实时流数据的最简单方式。</p>
 
@@ -300,7 +336,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">可以使用 IAM 为 Kinesis Analytics 授予从数据源读取记录和写入目标的权限。</p>
 
-<h2 class="wp-block-heading"><a id="post-296569-_2ho0qa20krxz"></a>Kinesis Client Library</h2>
+<h2 class="wp-block-heading" id="section-6"><a id="post-296569-_2ho0qa20krxz"></a>Kinesis Client Library</h2>
 
 <p class="wp-block-paragraph">Kinesis Client Library 是一个 Java 库，帮助分布式应用从 Kinesis Stream 读取记录并分担读取工作负载。</p>
 
@@ -378,7 +414,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">记录在分片级别按顺序读取。</p>
 
-<h2 class="wp-block-heading"><a id="post-296569-_1p1z92rabdsq"></a>安全</h2>
+<h2 class="wp-block-heading" id="section-7"><a id="post-296569-_1p1z92rabdsq"></a>安全</h2>
 
 <p class="wp-block-paragraph">使用 IAM policy 控制访问/授权。</p>
 
@@ -390,7 +426,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">提供 VPC 端点，可在 VPC 内访问 Kinesis。</p>
 
-<h2 class="wp-block-heading"><a id="post-296569-_prynwec0i4pt"></a>SQS vs SNS vs Kinesis</h2>
+<h2 class="wp-block-heading" id="section-8"><a id="post-296569-_prynwec0i4pt"></a>SQS vs SNS vs Kinesis</h2>
 
 <p class="wp-block-paragraph">SQS：</p>
 
@@ -446,6 +482,77 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <li>必须预置吞吐量。</li>
 </ul>
-</div></div>
+</div>
+</div>
+<aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">Kinesis Video Streams</a></li><li class="toc-h2"><a href="#section-2">Kinesis Data Streams</a></li><li class="toc-h2"><a href="#section-3">Kinesis Data Firehose</a></li><li class="toc-h2"><a href="#section-5">Kinesis Data Analytics</a></li><li class="toc-h2"><a href="#section-6">Kinesis Client Library</a></li><li class="toc-h2"><a href="#section-7">安全</a></li><li class="toc-h2"><a href="#section-8">SQS vs SNS vs Kinesis</a></li></ul></aside>
+</div>
+<button class="toc-fab" type="button">目录</button>
+<div class="toc-drawer"><aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">Kinesis Video Streams</a></li><li class="toc-h2"><a href="#section-2">Kinesis Data Streams</a></li><li class="toc-h2"><a href="#section-3">Kinesis Data Firehose</a></li><li class="toc-h2"><a href="#section-5">Kinesis Data Analytics</a></li><li class="toc-h2"><a href="#section-6">Kinesis Client Library</a></li><li class="toc-h2"><a href="#section-7">安全</a></li><li class="toc-h2"><a href="#section-8">SQS vs SNS vs Kinesis</a></li></ul></aside></div>
+<script>
+(function(){
+  var sidebar=document.querySelector('.toc-sidebar');
+  if(!sidebar) return;
+  var links=Array.prototype.slice.call(sidebar.querySelectorAll('a[href^="#"]'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+
+  // 折叠/展开
+  var toggle=sidebar.querySelector('.toc-toggle');
+  if(toggle){
+    toggle.addEventListener('click',function(){
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent=sidebar.classList.contains('collapsed')?'展开':'收起';
+    });
+  }
+
+  // scrollspy
+  var ticking=false;
+  function spy(){
+    ticking=false;
+    var pos=window.scrollY+120;
+    var current=-1;
+    for(var i=0;i<heads.length;i++){
+      if(heads[i]&&heads[i].offsetTop<=pos) current=i;
+    }
+    if(current===-1&&heads.length) current=0;
+    links.forEach(function(a,i){a.classList.toggle('active',i===current);});
+    // 让高亮项保持在目录可视区内
+    if(current>=0&&links[current]&&!sidebar.classList.contains('collapsed')){
+      var el=links[current];
+      var r=el.getBoundingClientRect(),sr=sidebar.getBoundingClientRect();
+      if(r.top<sr.top+40||r.bottom>sr.bottom-10){
+        sidebar.scrollTop+=r.top-sr.top-sr.height/3;
+      }
+    }
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){window.requestAnimationFrame(spy);ticking=true;}
+  },{passive:true});
+  spy();
+
+  // 平滑滚动
+  links.forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.getElementById(a.getAttribute('href').slice(1));
+      if(t){
+        e.preventDefault();
+        window.scrollTo({top:t.offsetTop-100,behavior:'smooth'});
+        history.replaceState(null,'','#'+t.id);
+        var drawer=document.querySelector('.toc-drawer');
+        if(drawer) drawer.classList.remove('open');
+      }
+    });
+  });
+
+  // 窄屏抽屉
+  var fab=document.querySelector('.toc-fab');
+  var drawer=document.querySelector('.toc-drawer');
+  if(fab&&drawer){
+    fab.addEventListener('click',function(){drawer.classList.add('open');});
+    drawer.addEventListener('click',function(e){
+      if(e.target===drawer) drawer.classList.remove('open');
+    });
+  }
+})();
+</script>
 </body>
 </html>

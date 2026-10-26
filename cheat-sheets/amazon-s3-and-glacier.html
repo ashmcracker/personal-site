@@ -29,11 +29,47 @@ code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF
 pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
 pre code{background:none;padding:0;color:inherit}
 blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+
+/* === TOC sidebar === */
+.layout{display:flex;gap:24px;max-width:1240px;margin:30px auto;padding:0 20px;align-items:flex-start}
+.layout .content{flex:1;min-width:0;margin:0;padding:0;max-width:none}
+.toc-sidebar{flex:0 0 260px;width:260px;position:sticky;top:110px;max-height:calc(100vh - 140px);
+  overflow-y:auto;background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:13px}
+.toc-sidebar .toc-title{padding:0 16px 10px;font-weight:600;color:var(--primary);
+  border-bottom:1px solid var(--border);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.toc-sidebar .toc-toggle{background:none;border:none;color:var(--secondary);cursor:pointer;
+  font-size:12px;padding:2px 6px;border-radius:4px}
+.toc-sidebar .toc-toggle:hover{background:#e8f0f7}
+.toc-sidebar ul{list-style:none;margin:0;padding:0}
+.toc-sidebar li{margin:0}
+.toc-sidebar a{display:block;padding:5px 16px;color:var(--text);text-decoration:none;
+  border-left:3px solid transparent;line-height:1.4;word-break:break-word}
+.toc-sidebar a:hover{background:#e8f0f7;color:var(--primary)}
+.toc-sidebar a.active{border-left-color:var(--secondary);background:#e8f0f7;color:var(--primary);font-weight:600}
+.toc-sidebar .toc-h3 a{padding-left:32px;font-size:12.5px;color:#555}
+.toc-sidebar .toc-h3 a.active{color:var(--primary)}
+.toc-sidebar.collapsed ul{display:none}
+.toc-fab{display:none}
+@media(max-width:1100px){
+  .toc-sidebar{display:none}
+  .toc-fab{display:block;position:fixed;right:16px;bottom:16px;z-index:200;
+    background:var(--primary);color:#fff;border:none;border-radius:99px;
+    padding:10px 18px;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  .toc-fab:hover{background:var(--secondary)}
+  .toc-drawer{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.4);display:none}
+  .toc-drawer.open{display:block}
+  .toc-drawer .toc-sidebar{display:block;position:absolute;right:0;top:0;bottom:0;
+    width:280px;max-height:none;border-radius:0;overflow-y:auto}
+}
+
 </style>
 </head>
 <body>
 <div class="header"><h1>Amazon S3 and Glacier</h1><div class="subtitle">AWS Cheat Sheet</div></div>
-<div class="content"><div class="card">
+<div class="layout">
+<div class="content">
+<div class="card">
 <div class="wp-block-image is-resized">
 <figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-01-Amazon-S3-and-Glacier-1-1024x652.png" alt="Amazon S3 and Glacier Services" class="wp-image-486358" style="width:400px" /></figure>
 </div>
@@ -187,7 +223,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_stmez5vqdz0w"></a>附加功能</h2>
+<h2 class="wp-block-heading" id="section-1"><a id="post-296110-_stmez5vqdz0w"></a>附加功能</h2>
 
 
 
@@ -203,7 +239,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_uq8mm8an691u"></a>使用场景</h2>
+<h2 class="wp-block-heading" id="section-2"><a id="post-296110-_uq8mm8an691u"></a>使用场景</h2>
 
 
 
@@ -253,7 +289,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_c8memdnwymxw"></a>Bucket</h2>
+<h2 class="wp-block-heading" id="section-3"><a id="post-296110-_c8memdnwymxw"></a>Bucket</h2>
 
 
 
@@ -361,7 +397,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_4ptumchoarkw"></a>对象（Object）</h2>
+<h2 class="wp-block-heading" id="section-4"><a id="post-296110-_4ptumchoarkw"></a>对象（Object）</h2>
 
 
 
@@ -399,7 +435,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_kiidk9jzuh4a"></a>子资源（Subresource）</h2>
+<h2 class="wp-block-heading" id="section-5"><a id="post-296110-_kiidk9jzuh4a"></a>子资源（Subresource）</h2>
 
 
 
@@ -455,7 +491,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_p3gono9fgvei"></a>跨域资源共享（CORS）</h2>
+<h2 class="wp-block-heading" id="section-6"><a id="post-296110-_p3gono9fgvei"></a>跨域资源共享（CORS）</h2>
 
 
 
@@ -475,7 +511,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_yz3gpqa1brea"></a>存储类别</h2>
+<h2 class="wp-block-heading" id="section-7"><a id="post-296110-_yz3gpqa1brea"></a>存储类别</h2>
 
 
 
@@ -542,7 +578,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_o9wml62zxu7z"></a>访问与访问策略</h2>
+<h2 class="wp-block-heading" id="section-8"><a id="post-296110-_o9wml62zxu7z"></a>访问与访问策略</h2>
 
 
 
@@ -796,7 +832,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_gqjtmdzkof7"></a>预定义组</h2>
+<h2 class="wp-block-heading" id="section-9"><a id="post-296110-_gqjtmdzkof7"></a>预定义组</h2>
 
 
 
@@ -1002,7 +1038,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_il0qo5nq3lw4"></a>计费</h2>
+<h2 class="wp-block-heading" id="section-10"><a id="post-296110-_il0qo5nq3lw4"></a>计费</h2>
 
 
 
@@ -1062,7 +1098,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_67gofrhbksjp"></a>分段上传（Multipart Upload）</h2>
+<h2 class="wp-block-heading" id="section-11"><a id="post-296110-_67gofrhbksjp"></a>分段上传（Multipart Upload）</h2>
 
 
 
@@ -1108,7 +1144,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_xvwbogbubj3q"></a>S3 复制（Copy）</h2>
+<h2 class="wp-block-heading" id="section-12"><a id="post-296110-_xvwbogbubj3q"></a>S3 复制（Copy）</h2>
 
 
 
@@ -1154,7 +1190,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_qu2uhq3x1bb1"></a>传输加速（Transfer Acceleration）</h2>
+<h2 class="wp-block-heading" id="section-13"><a id="post-296110-_qu2uhq3x1bb1"></a>传输加速（Transfer Acceleration）</h2>
 
 
 
@@ -1224,7 +1260,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_lspebaz1c75m"></a>静态网站</h2>
+<h2 class="wp-block-heading" id="section-14"><a id="post-296110-_lspebaz1c75m"></a>静态网站</h2>
 
 
 
@@ -1298,7 +1334,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_ekmghkx9tdhh"></a>预签名 URL（Pre-Signed URL）</h2>
+<h2 class="wp-block-heading" id="section-15"><a id="post-296110-_ekmghkx9tdhh"></a>预签名 URL（Pre-Signed URL）</h2>
 
 
 
@@ -1326,7 +1362,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_tzlpi7w1m0k3"></a>版本控制（Versioning）</h2>
+<h2 class="wp-block-heading" id="section-16"><a id="post-296110-_tzlpi7w1m0k3"></a>版本控制（Versioning）</h2>
 
 
 
@@ -1452,7 +1488,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_52phy1xm7zi8"></a>对象生命周期管理</h2>
+<h2 class="wp-block-heading" id="section-17"><a id="post-296110-_52phy1xm7zi8"></a>对象生命周期管理</h2>
 
 
 
@@ -1496,7 +1532,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296110-_oz59edodmi62"></a>支持的转换及相关约束</h3>
+<h3 class="wp-block-heading" id="section-18"><a id="post-296110-_oz59edodmi62"></a>支持的转换及相关约束</h3>
 
 
 
@@ -1598,7 +1634,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_wvznjtz6k5a6"></a>加密</h2>
+<h2 class="wp-block-heading" id="section-19"><a id="post-296110-_wvznjtz6k5a6"></a>加密</h2>
 
 
 
@@ -1614,7 +1650,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296110-_r7kqvkgterm9"></a>服务端加密选项</h3>
+<h3 class="wp-block-heading" id="section-20"><a id="post-296110-_r7kqvkgterm9"></a>服务端加密选项</h3>
 
 
 
@@ -1650,7 +1686,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296110-_ybxv5dwvx9kt"></a>SSE-S3——使用 S3 托管密钥的服务端加密</h3>
+<h3 class="wp-block-heading" id="section-21"><a id="post-296110-_ybxv5dwvx9kt"></a>SSE-S3——使用 S3 托管密钥的服务端加密</h3>
 
 
 
@@ -1684,7 +1720,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296110-_ijpa1bbv1o2"></a>SSE-KMS——使用 AWS KMS 密钥的服务端加密</h3>
+<h3 class="wp-block-heading" id="section-22"><a id="post-296110-_ijpa1bbv1o2"></a>SSE-KMS——使用 AWS KMS 密钥的服务端加密</h3>
 
 
 
@@ -1726,7 +1762,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296110-_r3kz9njenpry"></a>SSE-C——使用客户提供密钥的服务端加密</h3>
+<h3 class="wp-block-heading" id="section-23"><a id="post-296110-_r3kz9njenpry"></a>SSE-C——使用客户提供密钥的服务端加密</h3>
 
 
 
@@ -1764,7 +1800,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296110-_pr3qg5skwlp"></a>客户端加密</h3>
+<h3 class="wp-block-heading" id="section-24"><a id="post-296110-_pr3qg5skwlp"></a>客户端加密</h3>
 
 
 
@@ -1842,7 +1878,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_kcrlvbs4h74l"></a><a id="post-296110-_i40870r6v76m"></a>事件通知</h2>
+<h2 class="wp-block-heading" id="section-25"><a id="post-296110-_kcrlvbs4h74l"></a><a id="post-296110-_i40870r6v76m"></a>事件通知</h2>
 
 
 
@@ -1914,7 +1950,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_bkqnc5oh0qen"></a>对象标签（Object Tag）</h2>
+<h2 class="wp-block-heading" id="section-26"><a id="post-296110-_bkqnc5oh0qen"></a>对象标签（Object Tag）</h2>
 
 
 
@@ -1930,7 +1966,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_pkomdjx33fkd"></a>Amazon S3 CloudWatch 指标</h2>
+<h2 class="wp-block-heading" id="section-27"><a id="post-296110-_pkomdjx33fkd"></a>Amazon S3 CloudWatch 指标</h2>
 
 
 
@@ -1976,7 +2012,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_22wu1tccs49t"></a>跨区域复制（CRR）</h2>
+<h2 class="wp-block-heading" id="section-28"><a id="post-296110-_22wu1tccs49t"></a>跨区域复制（CRR）</h2>
 
 
 
@@ -2176,7 +2212,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_lfi56uerjju1"></a>同区域复制（SRR）</h2>
+<h2 class="wp-block-heading" id="section-29"><a id="post-296110-_lfi56uerjju1"></a>同区域复制（SRR）</h2>
 
 
 
@@ -2212,7 +2248,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_ryukhmlpxa8m"></a>S3 分析</h2>
+<h2 class="wp-block-heading" id="section-30"><a id="post-296110-_ryukhmlpxa8m"></a>S3 分析</h2>
 
 
 
@@ -2232,7 +2268,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_vnsoapuw0nnx"></a>S3 Inventory</h2>
+<h2 class="wp-block-heading" id="section-31"><a id="post-296110-_vnsoapuw0nnx"></a>S3 Inventory</h2>
 
 
 
@@ -2244,7 +2280,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_57zc88rt4nt"></a>监控与报告</h2>
+<h2 class="wp-block-heading" id="section-32"><a id="post-296110-_57zc88rt4nt"></a>监控与报告</h2>
 
 
 
@@ -2266,7 +2302,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_7n67ykwvuelq"></a>日志与审计</h2>
+<h2 class="wp-block-heading" id="section-33"><a id="post-296110-_7n67ykwvuelq"></a>日志与审计</h2>
 
 
 
@@ -2294,7 +2330,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_ifme942l0btq"></a>S3 性能指南</h2>
+<h2 class="wp-block-heading" id="section-34"><a id="post-296110-_ifme942l0btq"></a>S3 性能指南</h2>
 
 
 
@@ -2326,7 +2362,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296110-_jilkr7a790qe"></a>Glacier</h2>
+<h2 class="wp-block-heading" id="section-35"><a id="post-296110-_jilkr7a790qe"></a>Glacier</h2>
 
 
 
@@ -2594,6 +2630,77 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 <p class="wp-block-paragraph"></p>
-</div></div>
+</div>
+</div>
+<aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">附加功能</a></li><li class="toc-h2"><a href="#section-2">使用场景</a></li><li class="toc-h2"><a href="#section-3">Bucket</a></li><li class="toc-h2"><a href="#section-4">对象（Object）</a></li><li class="toc-h2"><a href="#section-5">子资源（Subresource）</a></li><li class="toc-h2"><a href="#section-6">跨域资源共享（CORS）</a></li><li class="toc-h2"><a href="#section-7">存储类别</a></li><li class="toc-h2"><a href="#section-8">访问与访问策略</a></li><li class="toc-h2"><a href="#section-9">预定义组</a></li><li class="toc-h2"><a href="#section-10">计费</a></li><li class="toc-h2"><a href="#section-11">分段上传（Multipart Upload）</a></li><li class="toc-h2"><a href="#section-12">S3 复制（Copy）</a></li><li class="toc-h2"><a href="#section-13">传输加速（Transfer Acceleration）</a></li><li class="toc-h2"><a href="#section-14">静态网站</a></li><li class="toc-h2"><a href="#section-15">预签名 URL（Pre-Signed URL）</a></li><li class="toc-h2"><a href="#section-16">版本控制（Versioning）</a></li><li class="toc-h2"><a href="#section-17">对象生命周期管理</a></li><li class="toc-h3"><a href="#section-18">支持的转换及相关约束</a></li><li class="toc-h2"><a href="#section-19">加密</a></li><li class="toc-h3"><a href="#section-20">服务端加密选项</a></li><li class="toc-h3"><a href="#section-21">SSE-S3——使用 S3 托管密钥的服务端加密</a></li><li class="toc-h3"><a href="#section-22">SSE-KMS——使用 AWS KMS 密钥的服务端加密</a></li><li class="toc-h3"><a href="#section-23">SSE-C——使用客户提供密钥的服务端加密</a></li><li class="toc-h3"><a href="#section-24">客户端加密</a></li><li class="toc-h2"><a href="#section-25">事件通知</a></li><li class="toc-h2"><a href="#section-26">对象标签（Object Tag）</a></li><li class="toc-h2"><a href="#section-27">Amazon S3 CloudWatch 指标</a></li><li class="toc-h2"><a href="#section-28">跨区域复制（CRR）</a></li><li class="toc-h2"><a href="#section-29">同区域复制（SRR）</a></li><li class="toc-h2"><a href="#section-30">S3 分析</a></li><li class="toc-h2"><a href="#section-31">S3 Inventory</a></li><li class="toc-h2"><a href="#section-32">监控与报告</a></li><li class="toc-h2"><a href="#section-33">日志与审计</a></li><li class="toc-h2"><a href="#section-34">S3 性能指南</a></li><li class="toc-h2"><a href="#section-35">Glacier</a></li></ul></aside>
+</div>
+<button class="toc-fab" type="button">目录</button>
+<div class="toc-drawer"><aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">附加功能</a></li><li class="toc-h2"><a href="#section-2">使用场景</a></li><li class="toc-h2"><a href="#section-3">Bucket</a></li><li class="toc-h2"><a href="#section-4">对象（Object）</a></li><li class="toc-h2"><a href="#section-5">子资源（Subresource）</a></li><li class="toc-h2"><a href="#section-6">跨域资源共享（CORS）</a></li><li class="toc-h2"><a href="#section-7">存储类别</a></li><li class="toc-h2"><a href="#section-8">访问与访问策略</a></li><li class="toc-h2"><a href="#section-9">预定义组</a></li><li class="toc-h2"><a href="#section-10">计费</a></li><li class="toc-h2"><a href="#section-11">分段上传（Multipart Upload）</a></li><li class="toc-h2"><a href="#section-12">S3 复制（Copy）</a></li><li class="toc-h2"><a href="#section-13">传输加速（Transfer Acceleration）</a></li><li class="toc-h2"><a href="#section-14">静态网站</a></li><li class="toc-h2"><a href="#section-15">预签名 URL（Pre-Signed URL）</a></li><li class="toc-h2"><a href="#section-16">版本控制（Versioning）</a></li><li class="toc-h2"><a href="#section-17">对象生命周期管理</a></li><li class="toc-h3"><a href="#section-18">支持的转换及相关约束</a></li><li class="toc-h2"><a href="#section-19">加密</a></li><li class="toc-h3"><a href="#section-20">服务端加密选项</a></li><li class="toc-h3"><a href="#section-21">SSE-S3——使用 S3 托管密钥的服务端加密</a></li><li class="toc-h3"><a href="#section-22">SSE-KMS——使用 AWS KMS 密钥的服务端加密</a></li><li class="toc-h3"><a href="#section-23">SSE-C——使用客户提供密钥的服务端加密</a></li><li class="toc-h3"><a href="#section-24">客户端加密</a></li><li class="toc-h2"><a href="#section-25">事件通知</a></li><li class="toc-h2"><a href="#section-26">对象标签（Object Tag）</a></li><li class="toc-h2"><a href="#section-27">Amazon S3 CloudWatch 指标</a></li><li class="toc-h2"><a href="#section-28">跨区域复制（CRR）</a></li><li class="toc-h2"><a href="#section-29">同区域复制（SRR）</a></li><li class="toc-h2"><a href="#section-30">S3 分析</a></li><li class="toc-h2"><a href="#section-31">S3 Inventory</a></li><li class="toc-h2"><a href="#section-32">监控与报告</a></li><li class="toc-h2"><a href="#section-33">日志与审计</a></li><li class="toc-h2"><a href="#section-34">S3 性能指南</a></li><li class="toc-h2"><a href="#section-35">Glacier</a></li></ul></aside></div>
+<script>
+(function(){
+  var sidebar=document.querySelector('.toc-sidebar');
+  if(!sidebar) return;
+  var links=Array.prototype.slice.call(sidebar.querySelectorAll('a[href^="#"]'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+
+  // 折叠/展开
+  var toggle=sidebar.querySelector('.toc-toggle');
+  if(toggle){
+    toggle.addEventListener('click',function(){
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent=sidebar.classList.contains('collapsed')?'展开':'收起';
+    });
+  }
+
+  // scrollspy
+  var ticking=false;
+  function spy(){
+    ticking=false;
+    var pos=window.scrollY+120;
+    var current=-1;
+    for(var i=0;i<heads.length;i++){
+      if(heads[i]&&heads[i].offsetTop<=pos) current=i;
+    }
+    if(current===-1&&heads.length) current=0;
+    links.forEach(function(a,i){a.classList.toggle('active',i===current);});
+    // 让高亮项保持在目录可视区内
+    if(current>=0&&links[current]&&!sidebar.classList.contains('collapsed')){
+      var el=links[current];
+      var r=el.getBoundingClientRect(),sr=sidebar.getBoundingClientRect();
+      if(r.top<sr.top+40||r.bottom>sr.bottom-10){
+        sidebar.scrollTop+=r.top-sr.top-sr.height/3;
+      }
+    }
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){window.requestAnimationFrame(spy);ticking=true;}
+  },{passive:true});
+  spy();
+
+  // 平滑滚动
+  links.forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.getElementById(a.getAttribute('href').slice(1));
+      if(t){
+        e.preventDefault();
+        window.scrollTo({top:t.offsetTop-100,behavior:'smooth'});
+        history.replaceState(null,'','#'+t.id);
+        var drawer=document.querySelector('.toc-drawer');
+        if(drawer) drawer.classList.remove('open');
+      }
+    });
+  });
+
+  // 窄屏抽屉
+  var fab=document.querySelector('.toc-fab');
+  var drawer=document.querySelector('.toc-drawer');
+  if(fab&&drawer){
+    fab.addEventListener('click',function(){drawer.classList.add('open');});
+    drawer.addEventListener('click',function(e){
+      if(e.target===drawer) drawer.classList.remove('open');
+    });
+  }
+})();
+</script>
 </body>
 </html>

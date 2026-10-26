@@ -29,11 +29,47 @@ code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF
 pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
 pre code{background:none;padding:0;color:inherit}
 blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+
+/* === TOC sidebar === */
+.layout{display:flex;gap:24px;max-width:1240px;margin:30px auto;padding:0 20px;align-items:flex-start}
+.layout .content{flex:1;min-width:0;margin:0;padding:0;max-width:none}
+.toc-sidebar{flex:0 0 260px;width:260px;position:sticky;top:110px;max-height:calc(100vh - 140px);
+  overflow-y:auto;background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:13px}
+.toc-sidebar .toc-title{padding:0 16px 10px;font-weight:600;color:var(--primary);
+  border-bottom:1px solid var(--border);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.toc-sidebar .toc-toggle{background:none;border:none;color:var(--secondary);cursor:pointer;
+  font-size:12px;padding:2px 6px;border-radius:4px}
+.toc-sidebar .toc-toggle:hover{background:#e8f0f7}
+.toc-sidebar ul{list-style:none;margin:0;padding:0}
+.toc-sidebar li{margin:0}
+.toc-sidebar a{display:block;padding:5px 16px;color:var(--text);text-decoration:none;
+  border-left:3px solid transparent;line-height:1.4;word-break:break-word}
+.toc-sidebar a:hover{background:#e8f0f7;color:var(--primary)}
+.toc-sidebar a.active{border-left-color:var(--secondary);background:#e8f0f7;color:var(--primary);font-weight:600}
+.toc-sidebar .toc-h3 a{padding-left:32px;font-size:12.5px;color:#555}
+.toc-sidebar .toc-h3 a.active{color:var(--primary)}
+.toc-sidebar.collapsed ul{display:none}
+.toc-fab{display:none}
+@media(max-width:1100px){
+  .toc-sidebar{display:none}
+  .toc-fab{display:block;position:fixed;right:16px;bottom:16px;z-index:200;
+    background:var(--primary);color:#fff;border:none;border-radius:99px;
+    padding:10px 18px;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  .toc-fab:hover{background:var(--secondary)}
+  .toc-drawer{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.4);display:none}
+  .toc-drawer.open{display:block}
+  .toc-drawer .toc-sidebar{display:block;position:absolute;right:0;top:0;bottom:0;
+    width:280px;max-height:none;border-radius:0;overflow-y:auto}
+}
+
 </style>
 </head>
 <body>
 <div class="header"><h1>Amazon DynamoDB</h1><div class="subtitle">AWS Cheat Sheet</div></div>
-<div class="content"><div class="card">
+<div class="layout">
+<div class="content">
+<div class="card">
 <div class="wp-block-image is-resized">
 <figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-01-Amazon-DynamoDB-1024x652.png" alt="Amazon DynamoDB Services" class="wp-image-486317" style="width:400px" /></figure>
 </div>
@@ -149,7 +185,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_efsl0qkcp16w"></a>反模式（Anti-Patterns）</h2>
+<h2 class="wp-block-heading" id="section-1"><a id="post-296302-_efsl0qkcp16w"></a>反模式（Anti-Patterns）</h2>
 
 
 
@@ -175,7 +211,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading">访问控制</h2>
+<h2 class="wp-block-heading" id="section-2">访问控制</h2>
 
 
 
@@ -225,7 +261,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_qo19a4wbx1rr"></a>分区（Partitions）</h2>
+<h2 class="wp-block-heading" id="section-3"><a id="post-296302-_qo19a4wbx1rr"></a>分区（Partitions）</h2>
 
 
 
@@ -263,7 +299,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_bstwdfbh3wfd"></a>主键（Primary Keys）</h2>
+<h2 class="wp-block-heading" id="section-4"><a id="post-296302-_bstwdfbh3wfd"></a>主键（Primary Keys）</h2>
 
 
 
@@ -327,7 +363,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_dgg26cpsnqtt"></a>分区与性能</h2>
+<h2 class="wp-block-heading" id="section-5"><a id="post-296302-_dgg26cpsnqtt"></a>分区与性能</h2>
 
 
 
@@ -383,7 +419,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_95f4ba46l588"></a>一致性模型（Consistency Models）</h2>
+<h2 class="wp-block-heading" id="section-6"><a id="post-296302-_95f4ba46l588"></a>一致性模型（Consistency Models）</h2>
 
 
 
@@ -443,7 +479,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_v7sepaj6nhxs"></a>DynamoDB 事务（Transactions）</h2>
+<h2 class="wp-block-heading" id="section-7"><a id="post-296302-_v7sepaj6nhxs"></a>DynamoDB 事务（Transactions）</h2>
 
 
 
@@ -507,11 +543,11 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_1rr18niabuba"></a>Scan 和 Query API 调用</h2>
+<h2 class="wp-block-heading" id="section-8"><a id="post-296302-_1rr18niabuba"></a>Scan 和 Query API 调用</h2>
 
 
 
-<h3 class="wp-block-heading"><a id="post-296302-_9l0jgaardrcw"></a>Scan</h3>
+<h3 class="wp-block-heading" id="section-9"><a id="post-296302-_9l0jgaardrcw"></a>Scan</h3>
 
 
 
@@ -559,7 +595,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296302-_q4rel8rhuymh"></a>Query</h3>
+<h3 class="wp-block-heading" id="section-10"><a id="post-296302-_q4rel8rhuymh"></a>Query</h3>
 
 
 
@@ -615,7 +651,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296302-_wilz0gm4qzb9"></a>Scan 与 Query 对比</h3>
+<h3 class="wp-block-heading" id="section-11"><a id="post-296302-_wilz0gm4qzb9"></a>Scan 与 Query 对比</h3>
 
 
 
@@ -639,7 +675,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_vlbugenkc3mb"></a>性能优化</h2>
+<h2 class="wp-block-heading" id="section-12"><a id="post-296302-_vlbugenkc3mb"></a>性能优化</h2>
 
 
 
@@ -673,7 +709,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_d66zhdjldz62"></a>索引（Indexes）</h2>
+<h2 class="wp-block-heading" id="section-13"><a id="post-296302-_d66zhdjldz62"></a>索引（Indexes）</h2>
 
 
 
@@ -699,7 +735,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296302-_dtzcxo8a325y"></a>本地二级索引（LSI）</h3>
+<h3 class="wp-block-heading" id="section-14"><a id="post-296302-_dtzcxo8a325y"></a>本地二级索引（LSI）</h3>
 
 
 
@@ -759,7 +795,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296302-_dg64drkvavgz"></a>全局二级索引（GSI）</h3>
+<h3 class="wp-block-heading" id="section-15"><a id="post-296302-_dg64drkvavgz"></a>全局二级索引（GSI）</h3>
 
 
 
@@ -825,11 +861,11 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_8nbj4fhugfj"></a>性能与优化</h2>
+<h2 class="wp-block-heading" id="section-16"><a id="post-296302-_8nbj4fhugfj"></a>性能与优化</h2>
 
 
 
-<h3 class="wp-block-heading">DynamoDB 预置容量（Provisioned Capacity）</h3>
+<h3 class="wp-block-heading" id="section-17">DynamoDB 预置容量（Provisioned Capacity）</h3>
 
 
 
@@ -959,7 +995,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296302-_v7o8rqbw65me"></a>DynamoDB 按需容量（On-Demand Capacity）</h3>
+<h3 class="wp-block-heading" id="section-18"><a id="post-296302-_v7o8rqbw65me"></a>DynamoDB 按需容量（On-Demand Capacity）</h3>
 
 
 
@@ -983,7 +1019,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296302-_bn56qnlhjj6b"></a>性能与限流（Throttling）</h3>
+<h3 class="wp-block-heading" id="section-19"><a id="post-296302-_bn56qnlhjj6b"></a>性能与限流（Throttling）</h3>
 
 
 
@@ -1043,7 +1079,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296302-_5ige8lqqhoh8"></a>DynamoDB Accelerator (DAX)</h3>
+<h3 class="wp-block-heading" id="section-20"><a id="post-296302-_5ige8lqqhoh8"></a>DynamoDB Accelerator (DAX)</h3>
 
 
 
@@ -1121,7 +1157,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296302-_6yrqnbz3m8zh"></a>DAX 与 ElastiCache 对比</h3>
+<h3 class="wp-block-heading" id="section-21"><a id="post-296302-_6yrqnbz3m8zh"></a>DAX 与 ElastiCache 对比</h3>
 
 
 
@@ -1145,7 +1181,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296302-_lm1h0r8tgq79"></a><a id="post-296302-_948mln4dqwuf"></a>DynamoDB 生存时间（TTL）</h3>
+<h3 class="wp-block-heading" id="section-22"><a id="post-296302-_lm1h0r8tgq79"></a><a id="post-296302-_948mln4dqwuf"></a>DynamoDB 生存时间（TTL）</h3>
 
 
 
@@ -1207,7 +1243,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296302-_xsiwp731lq4d"></a><a id="post-296302-_ge5bt2agfd9m"></a>指数退避（Exponential backoff）</h3>
+<h3 class="wp-block-heading" id="section-23"><a id="post-296302-_xsiwp731lq4d"></a><a id="post-296302-_ge5bt2agfd9m"></a>指数退避（Exponential backoff）</h3>
 
 
 
@@ -1235,7 +1271,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_lxx47u645p0"></a>DynamoDB Streams</h2>
+<h2 class="wp-block-heading" id="section-24"><a id="post-296302-_lxx47u645p0"></a>DynamoDB Streams</h2>
 
 
 
@@ -1321,11 +1357,11 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading">API 调用</h2>
+<h2 class="wp-block-heading" id="section-25">API 调用</h2>
 
 
 
-<h3 class="wp-block-heading"><a id="post-296302-_y5wayaq4mbw0"></a>写入数据</h3>
+<h3 class="wp-block-heading" id="section-26"><a id="post-296302-_y5wayaq4mbw0"></a>写入数据</h3>
 
 
 
@@ -1363,7 +1399,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading"><a id="post-296302-_1fe0nwhkne41"></a>读取数据</h3>
+<h3 class="wp-block-heading" id="section-27"><a id="post-296302-_1fe0nwhkne41"></a>读取数据</h3>
 
 
 
@@ -1385,7 +1421,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_qw9bk277b65c"></a>乐观锁（Optimistic Locking）</h2>
+<h2 class="wp-block-heading" id="section-28"><a id="post-296302-_qw9bk277b65c"></a>乐观锁（Optimistic Locking）</h2>
 
 
 
@@ -1397,7 +1433,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_gjzzl4t7mtmf"></a>条件更新（Conditional Updates）</h2>
+<h2 class="wp-block-heading" id="section-29"><a id="post-296302-_gjzzl4t7mtmf"></a>条件更新（Conditional Updates）</h2>
 
 
 
@@ -1413,7 +1449,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_ezm9e0k89uc2"></a>安全性</h2>
+<h2 class="wp-block-heading" id="section-30"><a id="post-296302-_ezm9e0k89uc2"></a>安全性</h2>
 
 
 
@@ -1429,7 +1465,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_tnqy29r2vpt6"></a><a id="post-296302-_fn2z973pghn7"></a>最佳实践</h2>
+<h2 class="wp-block-heading" id="section-31"><a id="post-296302-_tnqy29r2vpt6"></a><a id="post-296302-_fn2z973pghn7"></a>最佳实践</h2>
 
 
 
@@ -1453,7 +1489,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_diu6km5bsvlf"></a>集成</h2>
+<h2 class="wp-block-heading" id="section-32"><a id="post-296302-_diu6km5bsvlf"></a>集成</h2>
 
 
 
@@ -1509,7 +1545,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_wxbkuce8lgnw"></a>可扩展性</h2>
+<h2 class="wp-block-heading" id="section-33"><a id="post-296302-_wxbkuce8lgnw"></a>可扩展性</h2>
 
 
 
@@ -1537,7 +1573,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_bo1h1qw5eayh"></a>使用全局表（Global Tables）进行跨区域复制</h2>
+<h2 class="wp-block-heading" id="section-34"><a id="post-296302-_bo1h1qw5eayh"></a>使用全局表（Global Tables）进行跨区域复制</h2>
 
 
 
@@ -1603,7 +1639,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_2zmkbvng6203"></a>DynamoDB Auto Scaling</h2>
+<h2 class="wp-block-heading" id="section-35"><a id="post-296302-_2zmkbvng6203"></a>DynamoDB Auto Scaling</h2>
 
 
 
@@ -1654,7 +1690,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><a id="post-296302-_m0jf08iwsdvd"></a><a id="post-296302-_xt7eh7kh2emf"></a><a id="post-296302-_efox0fod98n5"></a><a id="post-296302-_3i7v908ckuxn"></a>数据库的高可用方案</h2>
+<h2 class="wp-block-heading" id="section-36"><a id="post-296302-_m0jf08iwsdvd"></a><a id="post-296302-_xt7eh7kh2emf"></a><a id="post-296302-_efox0fod98n5"></a><a id="post-296302-_3i7v908ckuxn"></a>数据库的高可用方案</h2>
 
 
 
@@ -1679,6 +1715,77 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 <p class="wp-block-paragraph">如果数据库运行在 EC2 上，你必须自己设计高可用方案。</p>
-</div></div>
+</div>
+</div>
+<aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">反模式（Anti-Patterns）</a></li><li class="toc-h2"><a href="#section-2">访问控制</a></li><li class="toc-h2"><a href="#section-3">分区（Partitions）</a></li><li class="toc-h2"><a href="#section-4">主键（Primary Keys）</a></li><li class="toc-h2"><a href="#section-5">分区与性能</a></li><li class="toc-h2"><a href="#section-6">一致性模型（Consistency Models）</a></li><li class="toc-h2"><a href="#section-7">DynamoDB 事务（Transactions）</a></li><li class="toc-h2"><a href="#section-8">Scan 和 Query API 调用</a></li><li class="toc-h3"><a href="#section-9">Scan</a></li><li class="toc-h3"><a href="#section-10">Query</a></li><li class="toc-h3"><a href="#section-11">Scan 与 Query 对比</a></li><li class="toc-h2"><a href="#section-12">性能优化</a></li><li class="toc-h2"><a href="#section-13">索引（Indexes）</a></li><li class="toc-h3"><a href="#section-14">本地二级索引（LSI）</a></li><li class="toc-h3"><a href="#section-15">全局二级索引（GSI）</a></li><li class="toc-h2"><a href="#section-16">性能与优化</a></li><li class="toc-h3"><a href="#section-17">DynamoDB 预置容量（Provisioned Capacity）</a></li><li class="toc-h3"><a href="#section-18">DynamoDB 按需容量（On-Demand Capacity）</a></li><li class="toc-h3"><a href="#section-19">性能与限流（Throttling）</a></li><li class="toc-h3"><a href="#section-20">DynamoDB Accelerator (DAX)</a></li><li class="toc-h3"><a href="#section-21">DAX 与 ElastiCache 对比</a></li><li class="toc-h3"><a href="#section-22">DynamoDB 生存时间（TTL）</a></li><li class="toc-h3"><a href="#section-23">指数退避（Exponential backoff）</a></li><li class="toc-h2"><a href="#section-24">DynamoDB Streams</a></li><li class="toc-h2"><a href="#section-25">API 调用</a></li><li class="toc-h3"><a href="#section-26">写入数据</a></li><li class="toc-h3"><a href="#section-27">读取数据</a></li><li class="toc-h2"><a href="#section-28">乐观锁（Optimistic Locking）</a></li><li class="toc-h2"><a href="#section-29">条件更新（Conditional Updates）</a></li><li class="toc-h2"><a href="#section-30">安全性</a></li><li class="toc-h2"><a href="#section-31">最佳实践</a></li><li class="toc-h2"><a href="#section-32">集成</a></li><li class="toc-h2"><a href="#section-33">可扩展性</a></li><li class="toc-h2"><a href="#section-34">使用全局表（Global Tables）进行跨区域复制</a></li><li class="toc-h2"><a href="#section-35">DynamoDB Auto Scaling</a></li><li class="toc-h2"><a href="#section-36">数据库的高可用方案</a></li></ul></aside>
+</div>
+<button class="toc-fab" type="button">目录</button>
+<div class="toc-drawer"><aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">反模式（Anti-Patterns）</a></li><li class="toc-h2"><a href="#section-2">访问控制</a></li><li class="toc-h2"><a href="#section-3">分区（Partitions）</a></li><li class="toc-h2"><a href="#section-4">主键（Primary Keys）</a></li><li class="toc-h2"><a href="#section-5">分区与性能</a></li><li class="toc-h2"><a href="#section-6">一致性模型（Consistency Models）</a></li><li class="toc-h2"><a href="#section-7">DynamoDB 事务（Transactions）</a></li><li class="toc-h2"><a href="#section-8">Scan 和 Query API 调用</a></li><li class="toc-h3"><a href="#section-9">Scan</a></li><li class="toc-h3"><a href="#section-10">Query</a></li><li class="toc-h3"><a href="#section-11">Scan 与 Query 对比</a></li><li class="toc-h2"><a href="#section-12">性能优化</a></li><li class="toc-h2"><a href="#section-13">索引（Indexes）</a></li><li class="toc-h3"><a href="#section-14">本地二级索引（LSI）</a></li><li class="toc-h3"><a href="#section-15">全局二级索引（GSI）</a></li><li class="toc-h2"><a href="#section-16">性能与优化</a></li><li class="toc-h3"><a href="#section-17">DynamoDB 预置容量（Provisioned Capacity）</a></li><li class="toc-h3"><a href="#section-18">DynamoDB 按需容量（On-Demand Capacity）</a></li><li class="toc-h3"><a href="#section-19">性能与限流（Throttling）</a></li><li class="toc-h3"><a href="#section-20">DynamoDB Accelerator (DAX)</a></li><li class="toc-h3"><a href="#section-21">DAX 与 ElastiCache 对比</a></li><li class="toc-h3"><a href="#section-22">DynamoDB 生存时间（TTL）</a></li><li class="toc-h3"><a href="#section-23">指数退避（Exponential backoff）</a></li><li class="toc-h2"><a href="#section-24">DynamoDB Streams</a></li><li class="toc-h2"><a href="#section-25">API 调用</a></li><li class="toc-h3"><a href="#section-26">写入数据</a></li><li class="toc-h3"><a href="#section-27">读取数据</a></li><li class="toc-h2"><a href="#section-28">乐观锁（Optimistic Locking）</a></li><li class="toc-h2"><a href="#section-29">条件更新（Conditional Updates）</a></li><li class="toc-h2"><a href="#section-30">安全性</a></li><li class="toc-h2"><a href="#section-31">最佳实践</a></li><li class="toc-h2"><a href="#section-32">集成</a></li><li class="toc-h2"><a href="#section-33">可扩展性</a></li><li class="toc-h2"><a href="#section-34">使用全局表（Global Tables）进行跨区域复制</a></li><li class="toc-h2"><a href="#section-35">DynamoDB Auto Scaling</a></li><li class="toc-h2"><a href="#section-36">数据库的高可用方案</a></li></ul></aside></div>
+<script>
+(function(){
+  var sidebar=document.querySelector('.toc-sidebar');
+  if(!sidebar) return;
+  var links=Array.prototype.slice.call(sidebar.querySelectorAll('a[href^="#"]'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+
+  // 折叠/展开
+  var toggle=sidebar.querySelector('.toc-toggle');
+  if(toggle){
+    toggle.addEventListener('click',function(){
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent=sidebar.classList.contains('collapsed')?'展开':'收起';
+    });
+  }
+
+  // scrollspy
+  var ticking=false;
+  function spy(){
+    ticking=false;
+    var pos=window.scrollY+120;
+    var current=-1;
+    for(var i=0;i<heads.length;i++){
+      if(heads[i]&&heads[i].offsetTop<=pos) current=i;
+    }
+    if(current===-1&&heads.length) current=0;
+    links.forEach(function(a,i){a.classList.toggle('active',i===current);});
+    // 让高亮项保持在目录可视区内
+    if(current>=0&&links[current]&&!sidebar.classList.contains('collapsed')){
+      var el=links[current];
+      var r=el.getBoundingClientRect(),sr=sidebar.getBoundingClientRect();
+      if(r.top<sr.top+40||r.bottom>sr.bottom-10){
+        sidebar.scrollTop+=r.top-sr.top-sr.height/3;
+      }
+    }
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){window.requestAnimationFrame(spy);ticking=true;}
+  },{passive:true});
+  spy();
+
+  // 平滑滚动
+  links.forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.getElementById(a.getAttribute('href').slice(1));
+      if(t){
+        e.preventDefault();
+        window.scrollTo({top:t.offsetTop-100,behavior:'smooth'});
+        history.replaceState(null,'','#'+t.id);
+        var drawer=document.querySelector('.toc-drawer');
+        if(drawer) drawer.classList.remove('open');
+      }
+    });
+  });
+
+  // 窄屏抽屉
+  var fab=document.querySelector('.toc-fab');
+  var drawer=document.querySelector('.toc-drawer');
+  if(fab&&drawer){
+    fab.addEventListener('click',function(){drawer.classList.add('open');});
+    drawer.addEventListener('click',function(e){
+      if(e.target===drawer) drawer.classList.remove('open');
+    });
+  }
+})();
+</script>
 </body>
 </html>

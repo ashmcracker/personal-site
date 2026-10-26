@@ -29,11 +29,47 @@ code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF
 pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
 pre code{background:none;padding:0;color:inherit}
 blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+
+/* === TOC sidebar === */
+.layout{display:flex;gap:24px;max-width:1240px;margin:30px auto;padding:0 20px;align-items:flex-start}
+.layout .content{flex:1;min-width:0;margin:0;padding:0;max-width:none}
+.toc-sidebar{flex:0 0 260px;width:260px;position:sticky;top:110px;max-height:calc(100vh - 140px);
+  overflow-y:auto;background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:13px}
+.toc-sidebar .toc-title{padding:0 16px 10px;font-weight:600;color:var(--primary);
+  border-bottom:1px solid var(--border);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.toc-sidebar .toc-toggle{background:none;border:none;color:var(--secondary);cursor:pointer;
+  font-size:12px;padding:2px 6px;border-radius:4px}
+.toc-sidebar .toc-toggle:hover{background:#e8f0f7}
+.toc-sidebar ul{list-style:none;margin:0;padding:0}
+.toc-sidebar li{margin:0}
+.toc-sidebar a{display:block;padding:5px 16px;color:var(--text);text-decoration:none;
+  border-left:3px solid transparent;line-height:1.4;word-break:break-word}
+.toc-sidebar a:hover{background:#e8f0f7;color:var(--primary)}
+.toc-sidebar a.active{border-left-color:var(--secondary);background:#e8f0f7;color:var(--primary);font-weight:600}
+.toc-sidebar .toc-h3 a{padding-left:32px;font-size:12.5px;color:#555}
+.toc-sidebar .toc-h3 a.active{color:var(--primary)}
+.toc-sidebar.collapsed ul{display:none}
+.toc-fab{display:none}
+@media(max-width:1100px){
+  .toc-sidebar{display:none}
+  .toc-fab{display:block;position:fixed;right:16px;bottom:16px;z-index:200;
+    background:var(--primary);color:#fff;border:none;border-radius:99px;
+    padding:10px 18px;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  .toc-fab:hover{background:var(--secondary)}
+  .toc-drawer{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.4);display:none}
+  .toc-drawer.open{display:block}
+  .toc-drawer .toc-sidebar{display:block;position:absolute;right:0;top:0;bottom:0;
+    width:280px;max-height:none;border-radius:0;overflow-y:auto}
+}
+
 </style>
 </head>
 <body>
 <div class="header"><h1>Amazon ECS and EKS</h1><div class="subtitle">AWS Cheat Sheet</div></div>
-<div class="content"><div class="card">
+<div class="layout">
+<div class="content">
+<div class="card">
 <div class="wp-block-image is-resized">
 <figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-01-Amazon-ECS-and-EKS-1024x652.png" alt="Amazon AWS ECS and EKS Services" class="wp-image-486370" style="width:400px" /></figure>
 </div>
@@ -68,7 +104,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <div class="adplugg-tag" data-adplugg-zone="all_access_membership_body"></div>
 
-<h2 class="wp-block-heading"><a id="post-295939-_49zruqvr9xvm"></a>Amazon ECS 与 Amazon EKS 对比</h2>
+<h2 class="wp-block-heading" id="section-1"><a id="post-295939-_49zruqvr9xvm"></a>Amazon ECS 与 Amazon EKS 对比</h2>
 
 <p class="wp-block-paragraph">Amazon 还提供 Elastic Container Service for Kubernetes (Amazon EKS)，可用于在 AWS 上使用 Kubernetes 部署、管理和扩展容器化应用。</p>
 
@@ -76,7 +112,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-table"><table><tbody><tr><td><strong>Amazon ECS</strong></td><td><strong>Amazon EKS</strong></td></tr><tr><td>托管的、高可用、高可扩展的容器平台</td><td>托管的、高可用、高可扩展的容器平台</td></tr><tr><td>AWS 专有平台，支持 Docker 容器</td><td>与上游 Kubernetes 兼容，便于从其他 Kubernetes 部署直接迁移（lift and shift）</td></tr><tr><td>被认为更简单、更易用</td><td>被认为功能更丰富但更复杂，学习曲线较陡</td></tr><tr><td>利用 Route 53、ALB 和 CloudWatch 等 AWS 服务</td><td>托管的 Kubernetes 平台，内部处理很多事情</td></tr><tr><td>"Task"（任务）是运行在底层计算资源上、相对隔离的容器实例</td><td>"Pod" 是共同放置的容器，可以相互共享访问</td></tr><tr><td>可扩展性有限</td><td>可通过丰富的第三方和社区插件扩展。</td></tr></tbody></table></figure>
 
-<h2 class="wp-block-heading"><a id="post-295939-_o8m5b4lj33d4"></a><a id="post-295939-_uwz4i7o4sc5y"></a>启动类型（Launch Type）</h2>
+<h2 class="wp-block-heading" id="section-2"><a id="post-295939-_o8m5b4lj33d4"></a><a id="post-295939-_uwz4i7o4sc5y"></a>启动类型（Launch Type）</h2>
 
 <p class="wp-block-paragraph">Amazon ECS 启动类型决定任务和服务托管在哪种基础设施上。</p>
 
@@ -84,7 +120,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-table"><table><tbody><tr><td><strong>Amazon EC2</strong></td><td><strong>Amazon Fargate</strong></td></tr><tr><td>你可以显式预置 EC2 实例</td><td>控制平面请求资源，Fargate 自动预置</td></tr><tr><td>你负责 EC2 资源池的升级、打补丁和日常维护</td><td>Fargate 按需预置计算资源</td></tr><tr><td>你必须处理集群优化</td><td>Fargate 处理客户侧的优化</td></tr><tr><td>对基础设施有更细粒度的控制</td><td>控制有限，因为基础设施是自动化的</td></tr></tbody></table></figure>
 
-<h3 class="wp-block-heading">Fargate 启动类型</h3>
+<h3 class="wp-block-heading" id="section-3">Fargate 启动类型</h3>
 
 <ul class="wp-block-list">
 <li>Fargate 启动类型让你无需预置和管理后端基础设施即可运行容器化应用。只需注册任务定义，Fargate 就会为你启动容器。</li>
@@ -94,7 +130,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <li>Fargate 仅支持托管在 Elastic Container Registry (ECR) 或 Docker Hub 上的容器镜像。</li>
 </ul>
 
-<h3 class="wp-block-heading">EC2 启动类型</h3>
+<h3 class="wp-block-heading" id="section-4">EC2 启动类型</h3>
 
 <ul class="wp-block-list">
 <li>EC2 启动类型让你可以在自己管理的 Amazon EC2 实例集群上运行容器化应用。</li>
@@ -106,13 +142,13 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-ecs-ec2-vs-fargate-1.jpeg" alt="Amazon ECS EC2 vs Fargate" class="wp-image-295951"/></figure>
 
-<h2 class="wp-block-heading"><a id="post-295939-_wlt9jf6n0ya3"></a>ECS 术语</h2>
+<h2 class="wp-block-heading" id="section-5"><a id="post-295939-_wlt9jf6n0ya3"></a>ECS 术语</h2>
 
 <p class="wp-block-paragraph">下表概述了 Amazon ECS 中使用的一些术语：</p>
 
 <figure class="wp-block-table"><table><tbody><tr><td><strong>Amazon ECS 术语</strong></td><td><strong>定义</strong></td></tr><tr><td>Cluster</td><td>EC2 实例的逻辑分组</td></tr><tr><td>Container Instance</td><td>运行 ECS agent 的 EC2 实例</td></tr><tr><td>Task Definition</td><td>描述 Docker 容器应如何启动的蓝图</td></tr><tr><td>Task</td><td>使用 Task Definition 中设置运行的容器</td></tr><tr><td>Service</td><td>定义长期运行的任务——可通过 Auto Scaling 控制任务数量并挂载 ELB</td></tr></tbody></table></figure>
 
-<h2 class="wp-block-heading"><a id="post-295939-_xf8lzfkyg84g"></a>镜像（Images）</h2>
+<h2 class="wp-block-heading" id="section-6"><a id="post-295939-_xf8lzfkyg84g"></a>镜像（Images）</h2>
 
 <p class="wp-block-paragraph">容器是从称为镜像（image）的只读模板创建的，镜像包含创建 Docker 容器的指令。</p>
 
@@ -130,7 +166,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">开发者可以使用 Docker CLI 推送、拉取和管理镜像。</p>
 
-<h2 class="wp-block-heading"><a id="post-295939-_a7so9lxd38f8"></a>任务与任务定义（Tasks and Task Definitions）</h2>
+<h2 class="wp-block-heading" id="section-7"><a id="post-295939-_a7so9lxd38f8"></a>任务与任务定义（Tasks and Task Definitions）</h2>
 
 <p class="wp-block-paragraph">在 Amazon ECS 中运行 Docker 容器需要任务定义（task definition）。</p>
 
@@ -166,7 +202,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">你可以使用 Amazon ECS Run task 一次性运行一个或多个任务。</p>
 
-<h2 class="wp-block-heading"><a id="post-295939-_41re7dym3l86"></a>ECS 集群</h2>
+<h2 class="wp-block-heading" id="section-8"><a id="post-295939-_41re7dym3l86"></a>ECS 集群</h2>
 
 <p class="wp-block-paragraph">ECS 集群是容器实例的逻辑分组，任务可以放置在其上。</p>
 
@@ -186,7 +222,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">你可以为集群创建 IAM policy，允许或限制用户对特定集群的访问。</p>
 
-<h2 class="wp-block-heading"><a id="post-295939-_mqome3yiaxvs"></a>服务调度器（Service Scheduler）</h2>
+<h2 class="wp-block-heading" id="section-9"><a id="post-295939-_mqome3yiaxvs"></a>服务调度器（Service Scheduler）</h2>
 
 <p class="wp-block-paragraph">你可以使用服务调度器和自定义调度器来调度 ECS。</p>
 
@@ -194,7 +230,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">可以确保任务注册到 ELB 上。</p>
 
-<h2 class="wp-block-heading"><a id="post-295939-_3bfip76xgefn"></a>自定义调度器（Custom Scheduler）</h2>
+<h2 class="wp-block-heading" id="section-10"><a id="post-295939-_3bfip76xgefn"></a>自定义调度器（Custom Scheduler）</h2>
 
 <p class="wp-block-paragraph">你可以创建自己的调度器来满足业务需求。</p>
 
@@ -202,7 +238,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">Amazon ECS 调度器利用 Amazon ECS API 提供的相同集群状态信息来做出合适的放置决策。</p>
 
-<h2 class="wp-block-heading"><a id="post-295939-_x4xywx8m16b8"></a>ECS 容器代理（Container Agent）</h2>
+<h2 class="wp-block-heading" id="section-11"><a id="post-295939-_x4xywx8m16b8"></a>ECS 容器代理（Container Agent）</h2>
 
 <p class="wp-block-paragraph">ECS 容器代理让容器实例能够连接到集群。</p>
 
@@ -214,9 +250,9 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">要在 AWS 上使用非 AWS 的 Linux 实例，必须手动安装 ECS 容器代理。</p>
 
-<h2 class="wp-block-heading"><a id="post-295939-_xskrfg5w8ujm"></a>Auto Scaling</h2>
+<h2 class="wp-block-heading" id="section-12"><a id="post-295939-_xskrfg5w8ujm"></a>Auto Scaling</h2>
 
-<h3 class="wp-block-heading"><a id="post-295939-_g99yjs9k8jum"></a>服务自动扩展（Service Auto Scaling）</h3>
+<h3 class="wp-block-heading" id="section-13"><a id="post-295939-_g99yjs9k8jum"></a>服务自动扩展（Service Auto Scaling）</h3>
 
 <p class="wp-block-paragraph">Amazon ECS 服务可以选择配置 Service Auto Scaling，自动上调或下调期望任务数量。</p>
 
@@ -234,7 +270,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-ecs-service-auto-scaling-1.jpeg" alt="Amazon ECS Service Auto Scaling" class="wp-image-295954"/></figure>
 
-<h3 class="wp-block-heading"><a id="post-295939-_y4y51j4fm8lp"></a>集群自动扩展（Cluster Auto Scaling）</h3>
+<h3 class="wp-block-heading" id="section-14"><a id="post-295939-_y4y51j4fm8lp"></a>集群自动扩展（Cluster Auto Scaling）</h3>
 
 <p class="wp-block-paragraph">使用名为 Capacity Provider 的 Amazon ECS 资源类型。</p>
 
@@ -250,7 +286,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-image"><img decoding="async" src="images/2022-01-word-image-1.png" alt="" class="wp-image-295960"/></figure>
 
-<h2 class="wp-block-heading"><a id="post-295939-_d4vg8ss7dwxk"></a><a id="post-295939-_4fphyukfocg9"></a>安全/SLA</h2>
+<h2 class="wp-block-heading" id="section-15"><a id="post-295939-_d4vg8ss7dwxk"></a><a id="post-295939-_4fphyukfocg9"></a>安全/SLA</h2>
 
 <p class="wp-block-paragraph">EC2 实例使用 IAM role 访问 ECS。</p>
 
@@ -270,7 +306,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">Compute SLA 保证 Amazon ECS 的月度正常运行时间百分比至少为 99.99%。</p>
 
-<h2 class="wp-block-heading"><a id="post-295939-_rqsnyipd5fg6"></a><a id="post-295939-_y8o648y523iu"></a><a id="post-295939-_7fr253r7yl9p"></a><a id="post-295939-_x6xhjsz55jr0"></a>ECS 与 X-Ray</h2>
+<h2 class="wp-block-heading" id="section-16"><a id="post-295939-_rqsnyipd5fg6"></a><a id="post-295939-_y8o648y523iu"></a><a id="post-295939-_7fr253r7yl9p"></a><a id="post-295939-_x6xhjsz55jr0"></a>ECS 与 X-Ray</h2>
 
 <p class="wp-block-paragraph">运行 X-Ray 有两种方式：</p>
 
@@ -298,17 +334,17 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <li>命令：<em>docker pull amazon/aws-xray-daemon</em></li>
 </ul>
 
-<h2 class="wp-block-heading"><a id="post-295939-_9piud2fdxfmz"></a>ECS 与 Elastic Beanstalk</h2>
+<h2 class="wp-block-heading" id="section-17"><a id="post-295939-_9piud2fdxfmz"></a>ECS 与 Elastic Beanstalk</h2>
 
 <p class="wp-block-paragraph">有两个选项：单容器和多容器 Docker 模式。</p>
 
-<h3 class="wp-block-heading"><a id="post-295939-_jvgyar861eum"></a>单容器 Docker</h3>
+<h3 class="wp-block-heading" id="section-18"><a id="post-295939-_jvgyar861eum"></a>单容器 Docker</h3>
 
 <p class="wp-block-paragraph">单容器平台可用于将 Docker 镜像（在 Dockerfile 或 Dockerrun.aws.json 定义中描述）和源代码部署到 Elastic Beanstalk 环境中运行的 EC2 实例上。</p>
 
 <p class="wp-block-paragraph">当每个实例只需要运行一个容器时，使用单容器平台。</p>
 
-<h3 class="wp-block-heading"><a id="post-295939-_fp4oyib9jnll"></a>多容器 Docker（Multicontainer Docker）</h3>
+<h3 class="wp-block-heading" id="section-19"><a id="post-295939-_fp4oyib9jnll"></a>多容器 Docker（Multicontainer Docker）</h3>
 
 <p class="wp-block-paragraph">另一个基础平台 Multicontainer Docker 使用 Amazon Elastic Container Service 协调将多个 Docker 容器部署到 Elastic Beanstalk 环境中的 Amazon ECS 集群。</p>
 
@@ -332,7 +368,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">你的 Docker 镜像必须预先构建好（可以存储在 ECR 中）。</p>
 
-<h2 class="wp-block-heading"><a id="post-295939-_enfjycq7z8kz"></a>Amazon Elastic Container Registry (ECR)</h2>
+<h2 class="wp-block-heading" id="section-20"><a id="post-295939-_enfjycq7z8kz"></a>Amazon Elastic Container Registry (ECR)</h2>
 
 <p class="wp-block-paragraph">Amazon Elastic Container Registry (ECR) 是全托管的 Docker 容器镜像仓库，让开发者能够轻松地存储、管理和部署 Docker 容器镜像。</p>
 
@@ -344,7 +380,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-elastic-container-registry-ecr-1.jpeg" alt="Amazon Elastic Container Registry (ECR)" class="wp-image-295972"/></figure>
 
-<h3 class="wp-block-heading"><a id="post-295939-_baph0dqa9djt"></a>向 ECR 推送和拉取镜像</h3>
+<h3 class="wp-block-heading" id="section-21"><a id="post-295939-_baph0dqa9djt"></a>向 ECR 推送和拉取镜像</h3>
 
 <p class="wp-block-paragraph">必须先进行身份验证。</p>
 
@@ -375,7 +411,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_desk_"></div>
 <div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_mob_"></div>
 
-<h2 class="wp-block-heading"><a id="post-295939-_n8e2qn6ixpgh"></a>在 ECS 中使用 Amazon Elastic Load Balancer</h2>
+<h2 class="wp-block-heading" id="section-22"><a id="post-295939-_n8e2qn6ixpgh"></a>在 ECS 中使用 Amazon Elastic Load Balancer</h2>
 
 <p class="wp-block-paragraph">可以将 Amazon ECS 上的服务关联到 Amazon Elastic Load Balancer (ELB)。</p>
 
@@ -385,7 +421,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-ecs-with-application-load-balancer-alb-1.jpeg" alt="Amazon ECS with Application Load Balancer (ALB)" class="wp-image-295975"/></figure>
 
-<h2 class="wp-block-heading"><a id="post-295939-_jogjl5ct83pt"></a><a id="post-295939-_3r6lcc740uem"></a>Amazon EKS</h2>
+<h2 class="wp-block-heading" id="section-23"><a id="post-295939-_jogjl5ct83pt"></a><a id="post-295939-_3r6lcc740uem"></a>Amazon EKS</h2>
 
 <p class="wp-block-paragraph">Amazon Elastic Kubernetes Service (Amazon EKS) 是在 AWS 和本地运行 Kubernetes 的托管服务。</p>
 
@@ -400,6 +436,77 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <p class="wp-block-paragraph">Amazon EKS 跨三个 AZ 运行 Kubernetes 控制平面以确保高可用，并自动检测和替换不健康的控制平面节点。</p>
 
 <p class="wp-block-paragraph"><strong><em>考试提示：</em></strong><em>主要使用场景是组织需要在混合云和多云环境中管理容器时使用一致的控制平面。</em></p>
-</div></div>
+</div>
+</div>
+<aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">Amazon ECS 与 Amazon EKS 对比</a></li><li class="toc-h2"><a href="#section-2">启动类型（Launch Type）</a></li><li class="toc-h3"><a href="#section-3">Fargate 启动类型</a></li><li class="toc-h3"><a href="#section-4">EC2 启动类型</a></li><li class="toc-h2"><a href="#section-5">ECS 术语</a></li><li class="toc-h2"><a href="#section-6">镜像（Images）</a></li><li class="toc-h2"><a href="#section-7">任务与任务定义（Tasks and Task Definitions）</a></li><li class="toc-h2"><a href="#section-8">ECS 集群</a></li><li class="toc-h2"><a href="#section-9">服务调度器（Service Scheduler）</a></li><li class="toc-h2"><a href="#section-10">自定义调度器（Custom Scheduler）</a></li><li class="toc-h2"><a href="#section-11">ECS 容器代理（Container Agent）</a></li><li class="toc-h2"><a href="#section-12">Auto Scaling</a></li><li class="toc-h3"><a href="#section-13">服务自动扩展（Service Auto Scaling）</a></li><li class="toc-h3"><a href="#section-14">集群自动扩展（Cluster Auto Scaling）</a></li><li class="toc-h2"><a href="#section-15">安全/SLA</a></li><li class="toc-h2"><a href="#section-16">ECS 与 X-Ray</a></li><li class="toc-h2"><a href="#section-17">ECS 与 Elastic Beanstalk</a></li><li class="toc-h3"><a href="#section-18">单容器 Docker</a></li><li class="toc-h3"><a href="#section-19">多容器 Docker（Multicontainer Docker）</a></li><li class="toc-h2"><a href="#section-20">Amazon Elastic Container Registry (ECR)</a></li><li class="toc-h3"><a href="#section-21">向 ECR 推送和拉取镜像</a></li><li class="toc-h2"><a href="#section-22">在 ECS 中使用 Amazon Elastic Load Balancer</a></li><li class="toc-h2"><a href="#section-23">Amazon EKS</a></li></ul></aside>
+</div>
+<button class="toc-fab" type="button">目录</button>
+<div class="toc-drawer"><aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">Amazon ECS 与 Amazon EKS 对比</a></li><li class="toc-h2"><a href="#section-2">启动类型（Launch Type）</a></li><li class="toc-h3"><a href="#section-3">Fargate 启动类型</a></li><li class="toc-h3"><a href="#section-4">EC2 启动类型</a></li><li class="toc-h2"><a href="#section-5">ECS 术语</a></li><li class="toc-h2"><a href="#section-6">镜像（Images）</a></li><li class="toc-h2"><a href="#section-7">任务与任务定义（Tasks and Task Definitions）</a></li><li class="toc-h2"><a href="#section-8">ECS 集群</a></li><li class="toc-h2"><a href="#section-9">服务调度器（Service Scheduler）</a></li><li class="toc-h2"><a href="#section-10">自定义调度器（Custom Scheduler）</a></li><li class="toc-h2"><a href="#section-11">ECS 容器代理（Container Agent）</a></li><li class="toc-h2"><a href="#section-12">Auto Scaling</a></li><li class="toc-h3"><a href="#section-13">服务自动扩展（Service Auto Scaling）</a></li><li class="toc-h3"><a href="#section-14">集群自动扩展（Cluster Auto Scaling）</a></li><li class="toc-h2"><a href="#section-15">安全/SLA</a></li><li class="toc-h2"><a href="#section-16">ECS 与 X-Ray</a></li><li class="toc-h2"><a href="#section-17">ECS 与 Elastic Beanstalk</a></li><li class="toc-h3"><a href="#section-18">单容器 Docker</a></li><li class="toc-h3"><a href="#section-19">多容器 Docker（Multicontainer Docker）</a></li><li class="toc-h2"><a href="#section-20">Amazon Elastic Container Registry (ECR)</a></li><li class="toc-h3"><a href="#section-21">向 ECR 推送和拉取镜像</a></li><li class="toc-h2"><a href="#section-22">在 ECS 中使用 Amazon Elastic Load Balancer</a></li><li class="toc-h2"><a href="#section-23">Amazon EKS</a></li></ul></aside></div>
+<script>
+(function(){
+  var sidebar=document.querySelector('.toc-sidebar');
+  if(!sidebar) return;
+  var links=Array.prototype.slice.call(sidebar.querySelectorAll('a[href^="#"]'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+
+  // 折叠/展开
+  var toggle=sidebar.querySelector('.toc-toggle');
+  if(toggle){
+    toggle.addEventListener('click',function(){
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent=sidebar.classList.contains('collapsed')?'展开':'收起';
+    });
+  }
+
+  // scrollspy
+  var ticking=false;
+  function spy(){
+    ticking=false;
+    var pos=window.scrollY+120;
+    var current=-1;
+    for(var i=0;i<heads.length;i++){
+      if(heads[i]&&heads[i].offsetTop<=pos) current=i;
+    }
+    if(current===-1&&heads.length) current=0;
+    links.forEach(function(a,i){a.classList.toggle('active',i===current);});
+    // 让高亮项保持在目录可视区内
+    if(current>=0&&links[current]&&!sidebar.classList.contains('collapsed')){
+      var el=links[current];
+      var r=el.getBoundingClientRect(),sr=sidebar.getBoundingClientRect();
+      if(r.top<sr.top+40||r.bottom>sr.bottom-10){
+        sidebar.scrollTop+=r.top-sr.top-sr.height/3;
+      }
+    }
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){window.requestAnimationFrame(spy);ticking=true;}
+  },{passive:true});
+  spy();
+
+  // 平滑滚动
+  links.forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.getElementById(a.getAttribute('href').slice(1));
+      if(t){
+        e.preventDefault();
+        window.scrollTo({top:t.offsetTop-100,behavior:'smooth'});
+        history.replaceState(null,'','#'+t.id);
+        var drawer=document.querySelector('.toc-drawer');
+        if(drawer) drawer.classList.remove('open');
+      }
+    });
+  });
+
+  // 窄屏抽屉
+  var fab=document.querySelector('.toc-fab');
+  var drawer=document.querySelector('.toc-drawer');
+  if(fab&&drawer){
+    fab.addEventListener('click',function(){drawer.classList.add('open');});
+    drawer.addEventListener('click',function(e){
+      if(e.target===drawer) drawer.classList.remove('open');
+    });
+  }
+})();
+</script>
 </body>
 </html>

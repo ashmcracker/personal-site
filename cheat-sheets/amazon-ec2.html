@@ -29,11 +29,47 @@ code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF
 pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
 pre code{background:none;padding:0;color:inherit}
 blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+
+/* === TOC sidebar === */
+.layout{display:flex;gap:24px;max-width:1240px;margin:30px auto;padding:0 20px;align-items:flex-start}
+.layout .content{flex:1;min-width:0;margin:0;padding:0;max-width:none}
+.toc-sidebar{flex:0 0 260px;width:260px;position:sticky;top:110px;max-height:calc(100vh - 140px);
+  overflow-y:auto;background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:13px}
+.toc-sidebar .toc-title{padding:0 16px 10px;font-weight:600;color:var(--primary);
+  border-bottom:1px solid var(--border);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.toc-sidebar .toc-toggle{background:none;border:none;color:var(--secondary);cursor:pointer;
+  font-size:12px;padding:2px 6px;border-radius:4px}
+.toc-sidebar .toc-toggle:hover{background:#e8f0f7}
+.toc-sidebar ul{list-style:none;margin:0;padding:0}
+.toc-sidebar li{margin:0}
+.toc-sidebar a{display:block;padding:5px 16px;color:var(--text);text-decoration:none;
+  border-left:3px solid transparent;line-height:1.4;word-break:break-word}
+.toc-sidebar a:hover{background:#e8f0f7;color:var(--primary)}
+.toc-sidebar a.active{border-left-color:var(--secondary);background:#e8f0f7;color:var(--primary);font-weight:600}
+.toc-sidebar .toc-h3 a{padding-left:32px;font-size:12.5px;color:#555}
+.toc-sidebar .toc-h3 a.active{color:var(--primary)}
+.toc-sidebar.collapsed ul{display:none}
+.toc-fab{display:none}
+@media(max-width:1100px){
+  .toc-sidebar{display:none}
+  .toc-fab{display:block;position:fixed;right:16px;bottom:16px;z-index:200;
+    background:var(--primary);color:#fff;border:none;border-radius:99px;
+    padding:10px 18px;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  .toc-fab:hover{background:var(--secondary)}
+  .toc-drawer{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.4);display:none}
+  .toc-drawer.open{display:block}
+  .toc-drawer .toc-sidebar{display:block;position:absolute;right:0;top:0;bottom:0;
+    width:280px;max-height:none;border-radius:0;overflow-y:auto}
+}
+
 </style>
 </head>
 <body>
 <div class="header"><h1>Amazon EC2</h1><div class="subtitle">AWS Cheat Sheet</div></div>
-<div class="content"><div class="card">
+<div class="layout">
+<div class="content">
+<div class="card">
 <div class="wp-block-image is-resized">
 <figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-01-Amazon-EC2-1024x652.png" alt="Amazon EC2 Services" class="wp-image-486379" style="width:400px" /></figure>
 </div>
@@ -114,7 +150,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_body_"></div>
 
-<h2 class="wp-block-heading"><a id="post-295867-_96fdrzbvfs57"></a>EC2 实例类型</h2>
+<h2 class="wp-block-heading" id="section-1"><a id="post-295867-_96fdrzbvfs57"></a>EC2 实例类型</h2>
 
 <p class="wp-block-paragraph">Amazon EC2 提供大量针对不同使用场景优化的实例类型。</p>
 
@@ -124,7 +160,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-table"><table><tbody><tr><td><strong>类别</strong></td><td><strong>系列</strong></td><td><strong>用途/设计</strong></td></tr><tr><td>通用型（General Purpose）</td><td>Mac, T4g, T3, T3a, T2, M6g, M6i, M5, M5a, M5n, M5zn, M5, A1</td><td>通用型实例在计算、内存和网络资源上取得平衡，可用于各种多样化的工作负载。</td></tr><tr><td>计算优化型（Compute Optimized）</td><td>C6g, C6gn, C6i, C5, C5a, C5n, C4</td><td>计算优化型非常适合受益于高性能处理器的计算密集型应用。</td></tr><tr><td>内存优化型（Memory Optimized）</td><td>R6g, R5, R5a, R5b, R5n, R4, X2gd, X1e, X1, High Memory, z1d</td><td>内存优化型实例为在内存中处理大数据集的工作负载提供快速性能。</td></tr><tr><td>加速计算型（Accelerated Computing）</td><td>P4, P3, P2, DL1, Inf1, G5, G4dn, G4ad, G3, F1, VT1</td><td>加速计算型实例使用硬件加速器或协处理器来执行浮点计算、图形处理或数据模式匹配等功能。</td></tr><tr><td>存储优化型（Storage Optimized）</td><td>I3, I3en, D2, D4, D3en, H1</td><td>该实例系列提供基于 Non-Volatile Memory Express (NVMe) SSD 的实例存储，针对低延迟、极高的随机 I/O 性能、高顺序读取吞吐量和高 IOPS 进行了优化，且成本较低。</td></tr></tbody></table></figure>
 
-<h2 class="wp-block-heading"><a id="post-295867-_i4gyeh2h86ja"></a><a id="post-295867-_8ttuzmbe8nlw"></a><a id="post-295867-_cn7mrxbtishv"></a>启动 EC2 实例</h2>
+<h2 class="wp-block-heading" id="section-2"><a id="post-295867-_i4gyeh2h86ja"></a><a id="post-295867-_8ttuzmbe8nlw"></a><a id="post-295867-_cn7mrxbtishv"></a>启动 EC2 实例</h2>
 
 <p class="wp-block-paragraph">选择一个 Amazon Machine Image (AMI)。</p>
 
@@ -162,7 +198,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">必须创建或使用现有密钥对——如果你想通过 SSH 访问实例这是必需的。不过，你也可以为 EC2 实例附加 'AmazonEC2RoleforSSM' IAM role，以通过 Systems Manager（Session Manager）连接实例。</p>
 
-<h2 class="wp-block-heading"><a id="post-295867-_wjefcwuixydd"></a>Amazon Machine Images</h2>
+<h2 class="wp-block-heading" id="section-3"><a id="post-295867-_wjefcwuixydd"></a>Amazon Machine Images</h2>
 
 <p class="wp-block-paragraph">Amazon Machine Image (AMI) 提供启动实例所需的信息。</p>
 
@@ -186,11 +222,11 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <li>Instance store volume 是临时性的（非持久化）。这意味着实例关闭后数据会丢失。卷由存储在 Amazon S3 上的模板创建。</li>
 </ul>
 
-<h2 class="wp-block-heading"><a id="post-295867-_ocm2tfsl0wvo"></a>计费与预置</h2>
+<h2 class="wp-block-heading" id="section-4"><a id="post-295867-_ocm2tfsl0wvo"></a>计费与预置</h2>
 
 <p class="wp-block-paragraph">使用和支付 Amazon EC2 实例的方式有几种选择。</p>
 
-<h3 class="wp-block-heading"><a id="post-295867-_8thdp4i1vrsb"></a>按需（On-Demand）</h3>
+<h3 class="wp-block-heading" id="section-5"><a id="post-295867-_8thdp4i1vrsb"></a>按需（On-Demand）</h3>
 
 <ul class="wp-block-list">
 <li>按使用小时数付费，无承诺期。</li>
@@ -202,7 +238,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <li>适合开发/测试。</li>
 </ul>
 
-<h3 class="wp-block-heading"><a id="post-295867-_at80ep05mju"></a>竞价型（Spot）</h3>
+<h3 class="wp-block-heading" id="section-6"><a id="post-295867-_at80ep05mju"></a>竞价型（Spot）</h3>
 
 <ul class="wp-block-list">
 <li>Amazon EC2 Spot 实例让你可以利用 AWS 云中闲置的 EC2 容量。</li>
@@ -234,7 +270,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <li>为了进一步降低中断的影响，你还可以配置 Spot 实例和 Spot Fleet，使其在容量不可用时通过停止或休眠（而不是终止）实例来<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-interruptions.html#interruption-behavior">响应</a>中断通知。</li>
 </ul>
 
-<h3 class="wp-block-heading"><a id="post-295867-_z0i6m73naz6q"></a>预留实例（Reserved）</h3>
+<h3 class="wp-block-heading" id="section-7"><a id="post-295867-_z0i6m73naz6q"></a>预留实例（Reserved）</h3>
 
 <ul class="wp-block-list">
 <li>提前购买（或同意购买）EC2 实例用量，相比按需价格可获得大幅折扣。</li>
@@ -296,7 +332,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <li>可用区（可选）——如果选择了 AZ，RI 会被预留，折扣应用于该 AZ（Zonal RI）。如果未指定 AZ，则不创建预留，但折扣应用于区域内任何 AZ 中该系列的任何实例（Regional RI）。</li>
 </ul>
 
-<h3 class="wp-block-heading"><a id="post-295867-_30ht1x9tjk7g"></a>Amazon EC2 定价模型对比</h3>
+<h3 class="wp-block-heading" id="section-8"><a id="post-295867-_30ht1x9tjk7g"></a>Amazon EC2 定价模型对比</h3>
 
 <p class="wp-block-paragraph">下表简要对比按需、预留和竞价型定价模型：</p>
 
@@ -304,7 +340,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">默认情况下，你在整个实例系列中最多可运行 20 个按需实例，可购买 20 个预留实例，并按每个区域的动态 Spot 限制请求 Spot 实例。</p>
 
-<h3 class="wp-block-heading"><a id="post-295867-_xeq46i80d3ob"></a>专用主机（Dedicated Hosts）</h3>
+<h3 class="wp-block-heading" id="section-9"><a id="post-295867-_xeq46i80d3ob"></a>专用主机（Dedicated Hosts）</h3>
 
 <ul class="wp-block-list">
 <li>专供你使用的物理服务器。</li>
@@ -328,7 +364,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <li>按主机计费。</li>
 </ul>
 
-<h3 class="wp-block-heading"><a id="post-295867-_virvgamcekj0"></a>专用实例（Dedicated Instances）</h3>
+<h3 class="wp-block-heading" id="section-10"><a id="post-295867-_virvgamcekj0"></a>专用实例（Dedicated Instances）</h3>
 
 <ul class="wp-block-list">
 <li>运行在专供你使用的硬件上的虚拟化实例。</li>
@@ -366,13 +402,13 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <li>使用了公网或 Elastic IP 地址，无论另一个实例在哪个可用区。</li>
 </ul>
 
-<h2 class="wp-block-heading">网络</h2>
+<h2 class="wp-block-heading" id="section-11">网络</h2>
 
 <p class="wp-block-paragraph">网络限制（每个区域或如注明）：</p>
 
 <figure class="wp-block-table"><table><tbody><tr><td><a id="post-295867-_7or74zl8s3sw"></a><a id="post-295867-_6rf2atbwcufy"></a><strong>名称</strong></td><td><strong>默认限制</strong></td></tr><tr><td>EC2-Classic Elastic IP</td><td>5</td></tr><tr><td>EC2-VPC Elastic IP</td><td>5</td></tr><tr><td>VPC</td><td>5</td></tr><tr><td>每个 VPC 的 subnet 数</td><td>200</td></tr><tr><td>每个 VPC 的 security group 数</td><td>500</td></tr><tr><td>每个 VPC security group 的规则数</td><td>50</td></tr><tr><td>每个弹性网络接口的 VPC security group 数</td><td>5</td></tr><tr><td>网络接口数</td><td>350</td></tr><tr><td>每个 VPC 的 network ACL 数</td><td>200</td></tr><tr><td>每个 network ACL 的规则数</td><td>20</td></tr><tr><td>每个 VPC 的路由表数</td><td>200</td></tr><tr><td>每个路由表的条目数</td><td>50</td></tr><tr><td>活动的 VPC peering 连接数</td><td>50</td></tr><tr><td>待处理的 VPC peering 连接请求数</td><td>25</td></tr><tr><td>未接受的 VPC peering 连接的过期时间</td><td>168</td></tr></tbody></table></figure>
 
-<h2 class="wp-block-heading">IP 地址</h2>
+<h2 class="wp-block-heading" id="section-12">IP 地址</h2>
 
 <p class="wp-block-paragraph">可以分配给 Amazon EC2 实例的 IP 地址有三种类型：</p>
 
@@ -457,7 +493,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <p>用于公有和私有子网</p>
 </td></tr><tr><td>Elastic IP 地址</td><td>静态公网 IP 地址 <p>&nbsp;</p> <p>闲置时收费</p> <p>与实例上的私有 IP 地址关联</p> <p>可以在实例和 Elastic Network Adapter 之间移动</p></td></tr></tbody></table></figure>
 
-<h3 class="wp-block-heading"><a id="post-295867-_v2kkv1btk5e5"></a>弹性网络接口（Elastic Network Interface）</h3>
+<h3 class="wp-block-heading" id="section-13"><a id="post-295867-_v2kkv1btk5e5"></a>弹性网络接口（Elastic Network Interface）</h3>
 
 <p class="wp-block-paragraph">弹性网络接口（简称网络接口）是 VPC 中的一种逻辑网络组件，代表一张虚拟网卡。</p>
 
@@ -517,7 +553,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">你可以更改终止行为。</p>
 
-<h3 class="wp-block-heading"><a id="post-295867-_ryk2sel58m13"></a>增强网络——Elastic Network Adapter (ENA)</h3>
+<h3 class="wp-block-heading" id="section-14"><a id="post-295867-_ryk2sel58m13"></a>增强网络——Elastic Network Adapter (ENA)</h3>
 
 <p class="wp-block-paragraph">增强网络提供更高的带宽、更高的每秒数据包（PPS）性能以及持续更低的实例间延迟。</p>
 
@@ -535,7 +571,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">仅在 Amazon VPC 中支持。</p>
 
-<h3 class="wp-block-heading"><a id="post-295867-_z0e8iwckpkbq"></a>Elastic Fabric Adapter (EFA)</h3>
+<h3 class="wp-block-heading" id="section-15"><a id="post-295867-_z0e8iwckpkbq"></a>Elastic Fabric Adapter (EFA)</h3>
 
 <p class="wp-block-paragraph">Elastic Fabric Adapter 是增加了额外能力的 AWS <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/enhanced-networking-ena.html">Elastic Network Adapter</a> (ENA)。</p>
 
@@ -559,7 +595,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">EFA 是可选的 EC2 网络功能，可以在任何受支持的 EC2 实例上免费启用。</p>
 
-<h2 class="wp-block-heading"><a id="post-295867-_j5yrvql3btx4"></a>ENI vs ENA vs EFA</h2>
+<h2 class="wp-block-heading" id="section-16"><a id="post-295867-_j5yrvql3btx4"></a>ENI vs ENA vs EFA</h2>
 
 <p class="wp-block-paragraph">何时使用 ENI：</p>
 
@@ -589,7 +625,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <li>可用于所有实例类型。</li>
 </ul>
 
-<h2 class="wp-block-heading"><a id="post-295867-_7alqrtkqhf2c"></a>Placement Group（置放群组）</h2>
+<h2 class="wp-block-heading" id="section-17"><a id="post-295867-_7alqrtkqhf2c"></a>Placement Group（置放群组）</h2>
 
 <p class="wp-block-paragraph">Placement group 是按以下配置之一对实例进行的逻辑分组。</p>
 
@@ -653,7 +689,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">租期为 host 的实例不能在 placement group 中启动。</p>
 
-<h2 class="wp-block-heading"><a id="post-295867-_dwtcl0ta9mq4"></a>IAM Role</h2>
+<h2 class="wp-block-heading" id="section-18"><a id="post-295867-_dwtcl0ta9mq4"></a>IAM Role</h2>
 
 <p class="wp-block-paragraph">IAM role 比在 EC2 实例上存储 access key 和 secret access key 更安全。</p>
 
@@ -669,7 +705,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">IAM role 是全局通用的，可在任何区域使用。</p>
 
-<h2 class="wp-block-heading"><a id="post-295867-_69he00ntar1h"></a>堡垒机/跳板机（Bastion/Jump Host）</h2>
+<h2 class="wp-block-heading" id="section-19"><a id="post-295867-_69he00ntar1h"></a>堡垒机/跳板机（Bastion/Jump Host）</h2>
 
 <p class="wp-block-paragraph">你可以将 EC2 实例配置为堡垒机（也称跳板机），用于管理访问 VPC 内的实例。</p>
 
@@ -687,7 +723,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">你也可以使用 AWS Systems Manager Session Manager 代替堡垒机。</p>
 
-<h2 class="wp-block-heading"><a id="post-295867-_oqpqegd7lmhh"></a><a id="post-295867-_wgm8b9a8zhfb"></a>监控 EC2</h2>
+<h2 class="wp-block-heading" id="section-20"><a id="post-295867-_oqpqegd7lmhh"></a><a id="post-295867-_wgm8b9a8zhfb"></a>监控 EC2</h2>
 
 <p class="wp-block-paragraph">EC2 状态检查每分钟执行一次，每次返回通过或失败状态。</p>
 
@@ -753,7 +789,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <li>详细监控 = 1 分钟（收费）。</li>
 </ul>
 
-<h3 class="wp-block-heading"><a id="post-295867-_ok4vd7gbe1vi"></a>统一 CloudWatch Agent</h3>
+<h3 class="wp-block-heading" id="section-21"><a id="post-295867-_ok4vd7gbe1vi"></a>统一 CloudWatch Agent</h3>
 
 <p class="wp-block-paragraph">统一 CloudWatch agent 让你能够做到以下几点：</p>
 
@@ -769,7 +805,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">你可以使用命令行手动下载安装 CloudWatch agent，也可以将其与 SSM 集成。</p>
 
-<h2 class="wp-block-heading"><a id="post-295867-_7xdaapu633qi"></a>日志与审计</h2>
+<h2 class="wp-block-heading" id="section-22"><a id="post-295867-_7xdaapu633qi"></a>日志与审计</h2>
 
 <p class="wp-block-paragraph">Amazon EC2 和 Amazon EBS 与 AWS CloudTrail 集成，CloudTrail 会记录用户、角色或 AWS 服务在 Amazon EC2 和 Amazon EBS 中执行的操作。</p>
 
@@ -783,7 +819,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">利用 CloudTrail 收集的信息，你可以确定对 Amazon EC2 和 Amazon EBS 发出的请求、请求来源的 IP 地址、请求发起者、请求时间以及其他详细信息。</p>
 
-<h2 class="wp-block-heading"><a id="post-295867-_swe2s1pyc5g"></a>标签（Tags）</h2>
+<h2 class="wp-block-heading" id="section-23"><a id="post-295867-_swe2s1pyc5g"></a>标签（Tags）</h2>
 
 <p class="wp-block-paragraph">你可以以<em>标签</em>的形式为 AWS 资源分配元数据。</p>
 
@@ -801,13 +837,13 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">大多数资源最多可拥有 50 个标签。</p>
 
-<h2 class="wp-block-heading"><a id="post-295867-_jg32mk1jeeka"></a>资源组（Resource Groups）</h2>
+<h2 class="wp-block-heading" id="section-24"><a id="post-295867-_jg32mk1jeeka"></a>资源组（Resource Groups）</h2>
 
 <p class="wp-block-paragraph">资源组是基于标签定义的 AWS 资源映射。</p>
 
 <p class="wp-block-paragraph">可以创建自定义控制台，围绕给定标签汇总指标、告警和配置详情。</p>
 
-<h2 class="wp-block-heading"><a id="post-295867-_rrel8x1pjjg8"></a>计算的高可用方案</h2>
+<h2 class="wp-block-heading" id="section-25"><a id="post-295867-_rrel8x1pjjg8"></a>计算的高可用方案</h2>
 
 <p class="wp-block-paragraph">保持 AMI 最新对快速故障切换至关重要。</p>
 
@@ -821,9 +857,9 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">Amazon Route 53 健康检查也提供流量的"自愈"重定向。</p>
 
-<h2 class="wp-block-heading"><a id="post-295867-_md6ecwdcrpn6"></a>迁移</h2>
+<h2 class="wp-block-heading" id="section-26"><a id="post-295867-_md6ecwdcrpn6"></a>迁移</h2>
 
-<h3 class="wp-block-heading">VM Import/Export</h3>
+<h3 class="wp-block-heading" id="section-27">VM Import/Export</h3>
 
 <p class="wp-block-paragraph">VM Import/Export 是将 VMware、Microsoft、XEN 虚拟机迁移到云端的工具。</p>
 
@@ -858,7 +894,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_desktop_"></div>
 <div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_mobile_"></div>
 
-<h3 class="wp-block-heading">AWS Server Migration Service (SMS)</h3>
+<h3 class="wp-block-heading" id="section-28">AWS Server Migration Service (SMS)</h3>
 
 <p class="wp-block-paragraph">AWS Server Migration Service (SMS) 是一项无代理（agent-less）服务，让你更轻松、更快速地将数千个本地工作负载迁移到 AWS。</p>
 
@@ -879,6 +915,77 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <p class="wp-block-paragraph">你也可以使用 AWS OpsWorks 通过 Chef 和 Puppet 管理实例。</p>
 
 <p class="wp-block-paragraph">AWS Config 可用于记录 Amazon EC2 实例的配置项并跟踪变更。</p>
-</div></div>
+</div>
+</div>
+<aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">EC2 实例类型</a></li><li class="toc-h2"><a href="#section-2">启动 EC2 实例</a></li><li class="toc-h2"><a href="#section-3">Amazon Machine Images</a></li><li class="toc-h2"><a href="#section-4">计费与预置</a></li><li class="toc-h3"><a href="#section-5">按需（On-Demand）</a></li><li class="toc-h3"><a href="#section-6">竞价型（Spot）</a></li><li class="toc-h3"><a href="#section-7">预留实例（Reserved）</a></li><li class="toc-h3"><a href="#section-8">Amazon EC2 定价模型对比</a></li><li class="toc-h3"><a href="#section-9">专用主机（Dedicated Hosts）</a></li><li class="toc-h3"><a href="#section-10">专用实例（Dedicated Instances）</a></li><li class="toc-h2"><a href="#section-11">网络</a></li><li class="toc-h2"><a href="#section-12">IP 地址</a></li><li class="toc-h3"><a href="#section-13">弹性网络接口（Elastic Network Interface）</a></li><li class="toc-h3"><a href="#section-14">增强网络——Elastic Network Adapter (ENA)</a></li><li class="toc-h3"><a href="#section-15">Elastic Fabric Adapter (EFA)</a></li><li class="toc-h2"><a href="#section-16">ENI vs ENA vs EFA</a></li><li class="toc-h2"><a href="#section-17">Placement Group（置放群组）</a></li><li class="toc-h2"><a href="#section-18">IAM Role</a></li><li class="toc-h2"><a href="#section-19">堡垒机/跳板机（Bastion/Jump Host）</a></li><li class="toc-h2"><a href="#section-20">监控 EC2</a></li><li class="toc-h3"><a href="#section-21">统一 CloudWatch Agent</a></li><li class="toc-h2"><a href="#section-22">日志与审计</a></li><li class="toc-h2"><a href="#section-23">标签（Tags）</a></li><li class="toc-h2"><a href="#section-24">资源组（Resource Groups）</a></li><li class="toc-h2"><a href="#section-25">计算的高可用方案</a></li><li class="toc-h2"><a href="#section-26">迁移</a></li><li class="toc-h3"><a href="#section-27">VM Import/Export</a></li><li class="toc-h3"><a href="#section-28">AWS Server Migration Service (SMS)</a></li></ul></aside>
+</div>
+<button class="toc-fab" type="button">目录</button>
+<div class="toc-drawer"><aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">EC2 实例类型</a></li><li class="toc-h2"><a href="#section-2">启动 EC2 实例</a></li><li class="toc-h2"><a href="#section-3">Amazon Machine Images</a></li><li class="toc-h2"><a href="#section-4">计费与预置</a></li><li class="toc-h3"><a href="#section-5">按需（On-Demand）</a></li><li class="toc-h3"><a href="#section-6">竞价型（Spot）</a></li><li class="toc-h3"><a href="#section-7">预留实例（Reserved）</a></li><li class="toc-h3"><a href="#section-8">Amazon EC2 定价模型对比</a></li><li class="toc-h3"><a href="#section-9">专用主机（Dedicated Hosts）</a></li><li class="toc-h3"><a href="#section-10">专用实例（Dedicated Instances）</a></li><li class="toc-h2"><a href="#section-11">网络</a></li><li class="toc-h2"><a href="#section-12">IP 地址</a></li><li class="toc-h3"><a href="#section-13">弹性网络接口（Elastic Network Interface）</a></li><li class="toc-h3"><a href="#section-14">增强网络——Elastic Network Adapter (ENA)</a></li><li class="toc-h3"><a href="#section-15">Elastic Fabric Adapter (EFA)</a></li><li class="toc-h2"><a href="#section-16">ENI vs ENA vs EFA</a></li><li class="toc-h2"><a href="#section-17">Placement Group（置放群组）</a></li><li class="toc-h2"><a href="#section-18">IAM Role</a></li><li class="toc-h2"><a href="#section-19">堡垒机/跳板机（Bastion/Jump Host）</a></li><li class="toc-h2"><a href="#section-20">监控 EC2</a></li><li class="toc-h3"><a href="#section-21">统一 CloudWatch Agent</a></li><li class="toc-h2"><a href="#section-22">日志与审计</a></li><li class="toc-h2"><a href="#section-23">标签（Tags）</a></li><li class="toc-h2"><a href="#section-24">资源组（Resource Groups）</a></li><li class="toc-h2"><a href="#section-25">计算的高可用方案</a></li><li class="toc-h2"><a href="#section-26">迁移</a></li><li class="toc-h3"><a href="#section-27">VM Import/Export</a></li><li class="toc-h3"><a href="#section-28">AWS Server Migration Service (SMS)</a></li></ul></aside></div>
+<script>
+(function(){
+  var sidebar=document.querySelector('.toc-sidebar');
+  if(!sidebar) return;
+  var links=Array.prototype.slice.call(sidebar.querySelectorAll('a[href^="#"]'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+
+  // 折叠/展开
+  var toggle=sidebar.querySelector('.toc-toggle');
+  if(toggle){
+    toggle.addEventListener('click',function(){
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent=sidebar.classList.contains('collapsed')?'展开':'收起';
+    });
+  }
+
+  // scrollspy
+  var ticking=false;
+  function spy(){
+    ticking=false;
+    var pos=window.scrollY+120;
+    var current=-1;
+    for(var i=0;i<heads.length;i++){
+      if(heads[i]&&heads[i].offsetTop<=pos) current=i;
+    }
+    if(current===-1&&heads.length) current=0;
+    links.forEach(function(a,i){a.classList.toggle('active',i===current);});
+    // 让高亮项保持在目录可视区内
+    if(current>=0&&links[current]&&!sidebar.classList.contains('collapsed')){
+      var el=links[current];
+      var r=el.getBoundingClientRect(),sr=sidebar.getBoundingClientRect();
+      if(r.top<sr.top+40||r.bottom>sr.bottom-10){
+        sidebar.scrollTop+=r.top-sr.top-sr.height/3;
+      }
+    }
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){window.requestAnimationFrame(spy);ticking=true;}
+  },{passive:true});
+  spy();
+
+  // 平滑滚动
+  links.forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.getElementById(a.getAttribute('href').slice(1));
+      if(t){
+        e.preventDefault();
+        window.scrollTo({top:t.offsetTop-100,behavior:'smooth'});
+        history.replaceState(null,'','#'+t.id);
+        var drawer=document.querySelector('.toc-drawer');
+        if(drawer) drawer.classList.remove('open');
+      }
+    });
+  });
+
+  // 窄屏抽屉
+  var fab=document.querySelector('.toc-fab');
+  var drawer=document.querySelector('.toc-drawer');
+  if(fab&&drawer){
+    fab.addEventListener('click',function(){drawer.classList.add('open');});
+    drawer.addEventListener('click',function(e){
+      if(e.target===drawer) drawer.classList.remove('open');
+    });
+  }
+})();
+</script>
 </body>
 </html>

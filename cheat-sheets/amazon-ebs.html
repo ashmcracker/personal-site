@@ -29,11 +29,47 @@ code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF
 pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
 pre code{background:none;padding:0;color:inherit}
 blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+
+/* === TOC sidebar === */
+.layout{display:flex;gap:24px;max-width:1240px;margin:30px auto;padding:0 20px;align-items:flex-start}
+.layout .content{flex:1;min-width:0;margin:0;padding:0;max-width:none}
+.toc-sidebar{flex:0 0 260px;width:260px;position:sticky;top:110px;max-height:calc(100vh - 140px);
+  overflow-y:auto;background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:13px}
+.toc-sidebar .toc-title{padding:0 16px 10px;font-weight:600;color:var(--primary);
+  border-bottom:1px solid var(--border);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.toc-sidebar .toc-toggle{background:none;border:none;color:var(--secondary);cursor:pointer;
+  font-size:12px;padding:2px 6px;border-radius:4px}
+.toc-sidebar .toc-toggle:hover{background:#e8f0f7}
+.toc-sidebar ul{list-style:none;margin:0;padding:0}
+.toc-sidebar li{margin:0}
+.toc-sidebar a{display:block;padding:5px 16px;color:var(--text);text-decoration:none;
+  border-left:3px solid transparent;line-height:1.4;word-break:break-word}
+.toc-sidebar a:hover{background:#e8f0f7;color:var(--primary)}
+.toc-sidebar a.active{border-left-color:var(--secondary);background:#e8f0f7;color:var(--primary);font-weight:600}
+.toc-sidebar .toc-h3 a{padding-left:32px;font-size:12.5px;color:#555}
+.toc-sidebar .toc-h3 a.active{color:var(--primary)}
+.toc-sidebar.collapsed ul{display:none}
+.toc-fab{display:none}
+@media(max-width:1100px){
+  .toc-sidebar{display:none}
+  .toc-fab{display:block;position:fixed;right:16px;bottom:16px;z-index:200;
+    background:var(--primary);color:#fff;border:none;border-radius:99px;
+    padding:10px 18px;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  .toc-fab:hover{background:var(--secondary)}
+  .toc-drawer{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.4);display:none}
+  .toc-drawer.open{display:block}
+  .toc-drawer .toc-sidebar{display:block;position:absolute;right:0;top:0;bottom:0;
+    width:280px;max-height:none;border-radius:0;overflow-y:auto}
+}
+
 </style>
 </head>
 <body>
 <div class="header"><h1>Amazon EBS</h1><div class="subtitle">AWS Cheat Sheet</div></div>
-<div class="content"><div class="card">
+<div class="layout">
+<div class="content">
+<div class="card">
 <div class="wp-block-image is-resized">
 <figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-01-Amazon-EBS-1024x652.png" alt="Amazon EBS Services" class="wp-image-486377" style="width:400px" /></figure>
 </div>
@@ -102,7 +138,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <div class="adplugg-tag" data-adplugg-zone="all_access_membership_body"></div>
 
-<h2 class="wp-block-heading"><a id="post-295879-_ht20jblv8ra9"></a>Instance Store</h2>
+<h2 class="wp-block-heading" id="section-1"><a id="post-295879-_ht20jblv8ra9"></a>Instance Store</h2>
 
 <p class="wp-block-paragraph">Instance store 为实例提供<em>临时性</em>（非持久化）的块级存储。</p>
 
@@ -126,7 +162,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph"><strong><em>考试提示：</em></strong><em>instance store 性能非常高、延迟非常低。如果你能承受实例丢失（即数据有副本），对于高性能/低延迟需求它们是不错的方案。注意题目中提到需要高 I/O 的分布式或复制型数据库。另外记住 instance store 的费用已包含在实例费用中，因此相比 EBS Provisioned IOPS 可能更具成本效益。</em></p>
 
-<h2 class="wp-block-heading"><a id="post-295879-_r8i84gtho3km"></a>EBS 与 Instance Store 对比</h2>
+<h2 class="wp-block-heading" id="section-2"><a id="post-295879-_r8i84gtho3km"></a>EBS 与 Instance Store 对比</h2>
 
 <p class="wp-block-paragraph">EBS-backed 表示根卷是 EBS volume，存储是持久化的。</p>
 
@@ -152,7 +188,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">默认情况下，两种根卷都会在实例终止时被删除，除非你另行配置。</p>
 
-<h2 class="wp-block-heading"><a id="post-295879-_b35iazr93mbf"></a>EBS Volume 类型</h2>
+<h2 class="wp-block-heading" id="section-3"><a id="post-295879-_b35iazr93mbf"></a>EBS Volume 类型</h2>
 
 <p class="wp-block-paragraph">SSD，通用型 – gp2/gp3：</p>
 
@@ -267,7 +303,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <p>1000 MiB/s (gp3)</p>
 </td><td>500 MiB/s</td><td>250 MiB/s</td></tr><tr><td><strong>能否作为启动卷？</strong></td><td>能</td><td>能</td><td>不能</td><td>不能</td></tr><tr><td><strong>EBS Multi-attach</strong></td><td>支持</td><td>不支持</td><td>不支持</td><td>不支持</td></tr></tbody></table></figure>
 
-<h2 class="wp-block-heading">Amazon EBS 快照</h2>
+<h2 class="wp-block-heading" id="section-4">Amazon EBS 快照</h2>
 
 <p class="wp-block-paragraph">快照捕获实例在某个时间点的状态。</p>
 
@@ -311,7 +347,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">可以从快照创建卷，并选择区域内的可用区。</p>
 
-<h2 class="wp-block-heading"><a id="post-295879-_vczeyft2kvib"></a>加密</h2>
+<h2 class="wp-block-heading" id="section-5"><a id="post-295879-_vczeyft2kvib"></a>加密</h2>
 
 <p class="wp-block-paragraph">你可以加密 EC2 实例的启动卷和数据卷。当你创建加密的 EBS volume 并将其挂载到受支持的实例类型时，以下类型的数据会被加密：</p>
 
@@ -451,7 +487,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <li>关闭关联的 EC2 实例。</li>
 </ul>
 
-<h2 class="wp-block-heading"><a id="post-295879-_yst60kvz530y"></a>AMI</h2>
+<h2 class="wp-block-heading" id="section-6"><a id="post-295879-_yst60kvz530y"></a>AMI</h2>
 
 <p class="wp-block-paragraph">Amazon Machine Image (AMI) 是一种特殊类型的虚拟设备，用于在 Amazon Elastic Compute Cloud（"EC2"）中创建虚拟机。</p>
 
@@ -511,7 +547,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <li>可以复制加密的 AMI 和带加密快照的 AMI。</li>
 </ul>
 
-<h2 class="wp-block-heading"><a id="post-295879-_striykbfzdp5"></a>部署与预置<a id="post-295879-_55gxqh6xzzlw"></a></h2>
+<h2 class="wp-block-heading" id="section-7"><a id="post-295879-_striykbfzdp5"></a>部署与预置<a id="post-295879-_55gxqh6xzzlw"></a></h2>
 
 <p class="wp-block-paragraph">终止保护默认关闭，需手动开启（开启后实例被终止时卷/数据会保留）。</p>
 
@@ -527,13 +563,13 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">要在 AZ 之间迁移卷，先创建快照，然后在另一个 AZ 从该快照创建新卷（过程中可以更改大小和类型）。</p>
 
-<h2 class="wp-block-heading"><a id="post-295879-_63zie8lq8nq"></a><a id="post-295879-_c3x9ftwkjb5t"></a>EBS 复制、共享与加密方法</h2>
+<h2 class="wp-block-heading" id="section-8"><a id="post-295879-_63zie8lq8nq"></a><a id="post-295879-_c3x9ftwkjb5t"></a>EBS 复制、共享与加密方法</h2>
 
 <p class="wp-block-paragraph">下图说明了复制 EBS volume、共享 AMI 和快照以及应用加密的各种可选方案：</p>
 
 <figure class="wp-block-image"><img decoding="async" src="images/2022-01-ebs-copying-sharing-and-encryption.jpeg" alt="EBS Copying Sharing and Encryption" class="wp-image-295888"/></figure>
 
-<h2 class="wp-block-heading"><a id="post-295879-_lgia4or2yx7"></a>RAID</h2>
+<h2 class="wp-block-heading" id="section-9"><a id="post-295879-_lgia4or2yx7"></a>RAID</h2>
 
 <p class="wp-block-paragraph">RAID 可用于提升 IOPS。</p>
 
@@ -557,7 +593,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">不建议对根/启动卷使用 RAID。</p>
 
-<h2 class="wp-block-heading"><a id="post-295879-_wkhrot8jw8ns"></a>监控与报告</h2>
+<h2 class="wp-block-heading" id="section-10"><a id="post-295879-_wkhrot8jw8ns"></a>监控与报告</h2>
 
 <p class="wp-block-paragraph">Amazon Elastic Block Store (Amazon EBS) 会将<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using_cloudwatch_ebs.html">多项指标</a>的数据点发送到 CloudWatch。</p>
 
@@ -612,13 +648,13 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <p>Insufficient Data</p>
 </td><td>Insufficient Data</td></tr></tbody></table></figure>
 
-<h2 class="wp-block-heading"><a id="post-295879-_kuhxsdhheufs"></a>日志与审计</h2>
+<h2 class="wp-block-heading" id="section-11"><a id="post-295879-_kuhxsdhheufs"></a>日志与审计</h2>
 
 <p class="wp-block-paragraph">Amazon EC2 和 Amazon EBS 与 AWS CloudTrail 集成，CloudTrail 会记录用户、角色或 AWS 服务在 Amazon EC2 和 Amazon EBS 中执行的操作。</p>
 
 <p class="wp-block-paragraph">CloudTrail 将 Amazon EC2 和 Amazon EBS 的所有 API 调用捕获为事件，包括来自控制台的调用和代码对 API 的调用。</p>
 
-<h2 class="wp-block-heading"><a id="post-295879-_gzpkas7nrxgk"></a>Amazon Data Lifecycle Manager (DLM)</h2>
+<h2 class="wp-block-heading" id="section-12"><a id="post-295879-_gzpkas7nrxgk"></a>Amazon Data Lifecycle Manager (DLM)</h2>
 
 <p class="wp-block-paragraph">自动化 EBS 快照和 EBS-backed AMI 的创建、保留和删除。</p>
 
@@ -637,9 +673,80 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_desk_"></div>
 <div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_mob_"></div>
 
-<h2 class="wp-block-heading"><a id="post-295879-_vez1dn4lby08"></a>EBS 限制（每个区域）</h2>
+<h2 class="wp-block-heading" id="section-13"><a id="post-295879-_vez1dn4lby08"></a>EBS 限制（每个区域）</h2>
 
 <figure class="wp-block-table"><table><tbody><tr><td><strong>名称</strong></td><td><strong>默认限制</strong></td></tr><tr><td>Provisioned IOPS</td><td>300,000</td></tr><tr><td>Provisioned IOPS (SSD) 卷存储 (TiB)</td><td>300</td></tr><tr><td>General Purpose (SSD) 卷存储 (TiB)</td><td>300</td></tr><tr><td>Magnetic 卷存储 (TiB)</td><td>300</td></tr><tr><td>Cold HDD (sc1) 最大存储 (TiB)</td><td>300</td></tr><tr><td>Throughput Optimized HDD (st1) 最大存储 (TiB)</td><td>300</td></tr></tbody></table></figure>
-</div></div>
+</div>
+</div>
+<aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">Instance Store</a></li><li class="toc-h2"><a href="#section-2">EBS 与 Instance Store 对比</a></li><li class="toc-h2"><a href="#section-3">EBS Volume 类型</a></li><li class="toc-h2"><a href="#section-4">Amazon EBS 快照</a></li><li class="toc-h2"><a href="#section-5">加密</a></li><li class="toc-h2"><a href="#section-6">AMI</a></li><li class="toc-h2"><a href="#section-7">部署与预置</a></li><li class="toc-h2"><a href="#section-8">EBS 复制、共享与加密方法</a></li><li class="toc-h2"><a href="#section-9">RAID</a></li><li class="toc-h2"><a href="#section-10">监控与报告</a></li><li class="toc-h2"><a href="#section-11">日志与审计</a></li><li class="toc-h2"><a href="#section-12">Amazon Data Lifecycle Manager (DLM)</a></li><li class="toc-h2"><a href="#section-13">EBS 限制（每个区域）</a></li></ul></aside>
+</div>
+<button class="toc-fab" type="button">目录</button>
+<div class="toc-drawer"><aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">Instance Store</a></li><li class="toc-h2"><a href="#section-2">EBS 与 Instance Store 对比</a></li><li class="toc-h2"><a href="#section-3">EBS Volume 类型</a></li><li class="toc-h2"><a href="#section-4">Amazon EBS 快照</a></li><li class="toc-h2"><a href="#section-5">加密</a></li><li class="toc-h2"><a href="#section-6">AMI</a></li><li class="toc-h2"><a href="#section-7">部署与预置</a></li><li class="toc-h2"><a href="#section-8">EBS 复制、共享与加密方法</a></li><li class="toc-h2"><a href="#section-9">RAID</a></li><li class="toc-h2"><a href="#section-10">监控与报告</a></li><li class="toc-h2"><a href="#section-11">日志与审计</a></li><li class="toc-h2"><a href="#section-12">Amazon Data Lifecycle Manager (DLM)</a></li><li class="toc-h2"><a href="#section-13">EBS 限制（每个区域）</a></li></ul></aside></div>
+<script>
+(function(){
+  var sidebar=document.querySelector('.toc-sidebar');
+  if(!sidebar) return;
+  var links=Array.prototype.slice.call(sidebar.querySelectorAll('a[href^="#"]'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+
+  // 折叠/展开
+  var toggle=sidebar.querySelector('.toc-toggle');
+  if(toggle){
+    toggle.addEventListener('click',function(){
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent=sidebar.classList.contains('collapsed')?'展开':'收起';
+    });
+  }
+
+  // scrollspy
+  var ticking=false;
+  function spy(){
+    ticking=false;
+    var pos=window.scrollY+120;
+    var current=-1;
+    for(var i=0;i<heads.length;i++){
+      if(heads[i]&&heads[i].offsetTop<=pos) current=i;
+    }
+    if(current===-1&&heads.length) current=0;
+    links.forEach(function(a,i){a.classList.toggle('active',i===current);});
+    // 让高亮项保持在目录可视区内
+    if(current>=0&&links[current]&&!sidebar.classList.contains('collapsed')){
+      var el=links[current];
+      var r=el.getBoundingClientRect(),sr=sidebar.getBoundingClientRect();
+      if(r.top<sr.top+40||r.bottom>sr.bottom-10){
+        sidebar.scrollTop+=r.top-sr.top-sr.height/3;
+      }
+    }
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){window.requestAnimationFrame(spy);ticking=true;}
+  },{passive:true});
+  spy();
+
+  // 平滑滚动
+  links.forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.getElementById(a.getAttribute('href').slice(1));
+      if(t){
+        e.preventDefault();
+        window.scrollTo({top:t.offsetTop-100,behavior:'smooth'});
+        history.replaceState(null,'','#'+t.id);
+        var drawer=document.querySelector('.toc-drawer');
+        if(drawer) drawer.classList.remove('open');
+      }
+    });
+  });
+
+  // 窄屏抽屉
+  var fab=document.querySelector('.toc-fab');
+  var drawer=document.querySelector('.toc-drawer');
+  if(fab&&drawer){
+    fab.addEventListener('click',function(){drawer.classList.add('open');});
+    drawer.addEventListener('click',function(e){
+      if(e.target===drawer) drawer.classList.remove('open');
+    });
+  }
+})();
+</script>
 </body>
 </html>

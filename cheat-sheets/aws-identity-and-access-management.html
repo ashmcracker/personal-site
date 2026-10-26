@@ -29,11 +29,47 @@ code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF
 pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
 pre code{background:none;padding:0;color:inherit}
 blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+
+/* === TOC sidebar === */
+.layout{display:flex;gap:24px;max-width:1240px;margin:30px auto;padding:0 20px;align-items:flex-start}
+.layout .content{flex:1;min-width:0;margin:0;padding:0;max-width:none}
+.toc-sidebar{flex:0 0 260px;width:260px;position:sticky;top:110px;max-height:calc(100vh - 140px);
+  overflow-y:auto;background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:13px}
+.toc-sidebar .toc-title{padding:0 16px 10px;font-weight:600;color:var(--primary);
+  border-bottom:1px solid var(--border);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.toc-sidebar .toc-toggle{background:none;border:none;color:var(--secondary);cursor:pointer;
+  font-size:12px;padding:2px 6px;border-radius:4px}
+.toc-sidebar .toc-toggle:hover{background:#e8f0f7}
+.toc-sidebar ul{list-style:none;margin:0;padding:0}
+.toc-sidebar li{margin:0}
+.toc-sidebar a{display:block;padding:5px 16px;color:var(--text);text-decoration:none;
+  border-left:3px solid transparent;line-height:1.4;word-break:break-word}
+.toc-sidebar a:hover{background:#e8f0f7;color:var(--primary)}
+.toc-sidebar a.active{border-left-color:var(--secondary);background:#e8f0f7;color:var(--primary);font-weight:600}
+.toc-sidebar .toc-h3 a{padding-left:32px;font-size:12.5px;color:#555}
+.toc-sidebar .toc-h3 a.active{color:var(--primary)}
+.toc-sidebar.collapsed ul{display:none}
+.toc-fab{display:none}
+@media(max-width:1100px){
+  .toc-sidebar{display:none}
+  .toc-fab{display:block;position:fixed;right:16px;bottom:16px;z-index:200;
+    background:var(--primary);color:#fff;border:none;border-radius:99px;
+    padding:10px 18px;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  .toc-fab:hover{background:var(--secondary)}
+  .toc-drawer{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.4);display:none}
+  .toc-drawer.open{display:block}
+  .toc-drawer .toc-sidebar{display:block;position:absolute;right:0;top:0;bottom:0;
+    width:280px;max-height:none;border-radius:0;overflow-y:auto}
+}
+
 </style>
 </head>
 <body>
 <div class="header"><h1>AWS Identity and Access Management</h1><div class="subtitle">AWS Cheat Sheet</div></div>
-<div class="content"><div class="card">
+<div class="layout">
+<div class="content">
+<div class="card">
 <div class="wp-block-image">
 <figure class="alignright size-large is-resized"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-02-AWS-Identity-and-Access-Management-1-1024x652.png" alt="AWS IAM" class="wp-image-486077" style="width:400px" /></figure>
 </div>
@@ -55,7 +91,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading">什么是 AWS IAM？</h2>
+<h2 class="wp-block-heading" id="section-1">什么是 AWS IAM？</h2>
 
 
 
@@ -647,7 +683,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading">AWS IAM 角色 vs 策略 vs 组对比</h2>
+<h2 class="wp-block-heading" id="section-2">AWS IAM 角色 vs 策略 vs 组对比</h2>
 
 
 
@@ -852,7 +888,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><strong>云计算工作中与 IAM 的交互</strong></h2>
+<h2 class="wp-block-heading" id="section-3"><strong>云计算工作中与 IAM 的交互</strong></h2>
 
 
 
@@ -882,7 +918,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><strong>AWS 认证与 IAM</strong></h2>
+<h2 class="wp-block-heading" id="section-4"><strong>AWS 认证与 IAM</strong></h2>
 
 
 
@@ -890,11 +926,82 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading"><strong>了解更多</strong></h2>
+<h2 class="wp-block-heading" id="section-5"><strong>了解更多</strong></h2>
 
 
 
 <p class="wp-block-paragraph">如果你想深入理解 AWS IAM，可以查看 Digital Cloud Training 的热门课程 <strong><a href="https://digitalcloud.training/courses/aws-identity-management-aws-iam-aws-sso-and-federation/" target="_blank" rel="noreferrer noopener">AWS Identity Management Masterclass</a></strong>，其中包含理论课程和实践动手实验。</p>
-</div></div>
+</div>
+</div>
+<aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">什么是 AWS IAM？</a></li><li class="toc-h2"><a href="#h-iam-users">IAM 用户</a></li><li class="toc-h2"><a href="#h-groups">组（Groups）</a></li><li class="toc-h2"><a href="#h-roles">角色（Roles）</a></li><li class="toc-h2"><a href="#h-policies">策略（Policies）</a></li><li class="toc-h2"><a href="#section-2">AWS IAM 角色 vs 策略 vs 组对比</a></li><li class="toc-h2"><a href="#h-aws-security-token-service-aws-sts">AWS Security Token Service (AWS STS)</a></li><li class="toc-h2"><a href="#h-iam-best-practices">IAM 最佳实践</a></li><li class="toc-h2"><a href="#section-3">云计算工作中与 IAM 的交互</a></li><li class="toc-h2"><a href="#section-4">AWS 认证与 IAM</a></li><li class="toc-h2"><a href="#section-5">了解更多</a></li></ul></aside>
+</div>
+<button class="toc-fab" type="button">目录</button>
+<div class="toc-drawer"><aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">什么是 AWS IAM？</a></li><li class="toc-h2"><a href="#h-iam-users">IAM 用户</a></li><li class="toc-h2"><a href="#h-groups">组（Groups）</a></li><li class="toc-h2"><a href="#h-roles">角色（Roles）</a></li><li class="toc-h2"><a href="#h-policies">策略（Policies）</a></li><li class="toc-h2"><a href="#section-2">AWS IAM 角色 vs 策略 vs 组对比</a></li><li class="toc-h2"><a href="#h-aws-security-token-service-aws-sts">AWS Security Token Service (AWS STS)</a></li><li class="toc-h2"><a href="#h-iam-best-practices">IAM 最佳实践</a></li><li class="toc-h2"><a href="#section-3">云计算工作中与 IAM 的交互</a></li><li class="toc-h2"><a href="#section-4">AWS 认证与 IAM</a></li><li class="toc-h2"><a href="#section-5">了解更多</a></li></ul></aside></div>
+<script>
+(function(){
+  var sidebar=document.querySelector('.toc-sidebar');
+  if(!sidebar) return;
+  var links=Array.prototype.slice.call(sidebar.querySelectorAll('a[href^="#"]'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+
+  // 折叠/展开
+  var toggle=sidebar.querySelector('.toc-toggle');
+  if(toggle){
+    toggle.addEventListener('click',function(){
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent=sidebar.classList.contains('collapsed')?'展开':'收起';
+    });
+  }
+
+  // scrollspy
+  var ticking=false;
+  function spy(){
+    ticking=false;
+    var pos=window.scrollY+120;
+    var current=-1;
+    for(var i=0;i<heads.length;i++){
+      if(heads[i]&&heads[i].offsetTop<=pos) current=i;
+    }
+    if(current===-1&&heads.length) current=0;
+    links.forEach(function(a,i){a.classList.toggle('active',i===current);});
+    // 让高亮项保持在目录可视区内
+    if(current>=0&&links[current]&&!sidebar.classList.contains('collapsed')){
+      var el=links[current];
+      var r=el.getBoundingClientRect(),sr=sidebar.getBoundingClientRect();
+      if(r.top<sr.top+40||r.bottom>sr.bottom-10){
+        sidebar.scrollTop+=r.top-sr.top-sr.height/3;
+      }
+    }
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){window.requestAnimationFrame(spy);ticking=true;}
+  },{passive:true});
+  spy();
+
+  // 平滑滚动
+  links.forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.getElementById(a.getAttribute('href').slice(1));
+      if(t){
+        e.preventDefault();
+        window.scrollTo({top:t.offsetTop-100,behavior:'smooth'});
+        history.replaceState(null,'','#'+t.id);
+        var drawer=document.querySelector('.toc-drawer');
+        if(drawer) drawer.classList.remove('open');
+      }
+    });
+  });
+
+  // 窄屏抽屉
+  var fab=document.querySelector('.toc-fab');
+  var drawer=document.querySelector('.toc-drawer');
+  if(fab&&drawer){
+    fab.addEventListener('click',function(){drawer.classList.add('open');});
+    drawer.addEventListener('click',function(e){
+      if(e.target===drawer) drawer.classList.remove('open');
+    });
+  }
+})();
+</script>
 </body>
 </html>

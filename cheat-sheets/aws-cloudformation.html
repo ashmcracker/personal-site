@@ -29,11 +29,47 @@ code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF
 pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
 pre code{background:none;padding:0;color:inherit}
 blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+
+/* === TOC sidebar === */
+.layout{display:flex;gap:24px;max-width:1240px;margin:30px auto;padding:0 20px;align-items:flex-start}
+.layout .content{flex:1;min-width:0;margin:0;padding:0;max-width:none}
+.toc-sidebar{flex:0 0 260px;width:260px;position:sticky;top:110px;max-height:calc(100vh - 140px);
+  overflow-y:auto;background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:13px}
+.toc-sidebar .toc-title{padding:0 16px 10px;font-weight:600;color:var(--primary);
+  border-bottom:1px solid var(--border);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.toc-sidebar .toc-toggle{background:none;border:none;color:var(--secondary);cursor:pointer;
+  font-size:12px;padding:2px 6px;border-radius:4px}
+.toc-sidebar .toc-toggle:hover{background:#e8f0f7}
+.toc-sidebar ul{list-style:none;margin:0;padding:0}
+.toc-sidebar li{margin:0}
+.toc-sidebar a{display:block;padding:5px 16px;color:var(--text);text-decoration:none;
+  border-left:3px solid transparent;line-height:1.4;word-break:break-word}
+.toc-sidebar a:hover{background:#e8f0f7;color:var(--primary)}
+.toc-sidebar a.active{border-left-color:var(--secondary);background:#e8f0f7;color:var(--primary);font-weight:600}
+.toc-sidebar .toc-h3 a{padding-left:32px;font-size:12.5px;color:#555}
+.toc-sidebar .toc-h3 a.active{color:var(--primary)}
+.toc-sidebar.collapsed ul{display:none}
+.toc-fab{display:none}
+@media(max-width:1100px){
+  .toc-sidebar{display:none}
+  .toc-fab{display:block;position:fixed;right:16px;bottom:16px;z-index:200;
+    background:var(--primary);color:#fff;border:none;border-radius:99px;
+    padding:10px 18px;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  .toc-fab:hover{background:var(--secondary)}
+  .toc-drawer{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.4);display:none}
+  .toc-drawer.open{display:block}
+  .toc-drawer .toc-sidebar{display:block;position:absolute;right:0;top:0;bottom:0;
+    width:280px;max-height:none;border-radius:0;overflow-y:auto}
+}
+
 </style>
 </head>
 <body>
 <div class="header"><h1>AWS CloudFormation</h1><div class="subtitle">AWS Cheat Sheet</div></div>
-<div class="content"><div class="card">
+<div class="layout">
+<div class="content">
+<div class="card">
 <div class="wp-block-image is-resized">
 <figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-01-AWS-Cloud-Formation-1-1024x652.png" alt="Amazon AWS CloudFormation Services" class="wp-image-486290" style="width:400px" /></figure>
 </div>
@@ -75,7 +111,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading">主要优势</h2>
+<h2 class="wp-block-heading" id="section-1">主要优势</h2>
 
 
 
@@ -103,7 +139,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading">核心概念</h2>
+<h2 class="wp-block-heading" id="section-2">核心概念</h2>
 
 
 
@@ -115,7 +151,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h2 class="wp-block-heading">模板（Templates）</h2>
+<h2 class="wp-block-heading" id="section-3">模板（Templates）</h2>
 
 
 
@@ -143,7 +179,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading">模板元素</h3>
+<h3 class="wp-block-heading" id="section-4">模板元素</h3>
 
 
 
@@ -175,7 +211,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading">模板组成部分</h3>
+<h3 class="wp-block-heading" id="section-5">模板组成部分</h3>
 
 
 
@@ -209,7 +245,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading">参数（Parameters）</h3>
+<h3 class="wp-block-heading" id="section-6">参数（Parameters）</h3>
 
 
 
@@ -247,7 +283,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading">伪参数（Pseudo Parameters）</h3>
+<h3 class="wp-block-heading" id="section-7">伪参数（Pseudo Parameters）</h3>
 
 
 
@@ -277,7 +313,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading">映射（Mappings）</h3>
+<h3 class="wp-block-heading" id="section-8">映射（Mappings）</h3>
 
 
 
@@ -331,7 +367,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading">输出（Outputs）</h3>
+<h3 class="wp-block-heading" id="section-9">输出（Outputs）</h3>
 
 
 
@@ -371,7 +407,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading">条件（Conditions）</h3>
+<h3 class="wp-block-heading" id="section-10">条件（Conditions）</h3>
 
 
 
@@ -399,7 +435,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 
 
-<h3 class="wp-block-heading">转换（Transform）</h3>
+<h3 class="wp-block-heading" id="section-11">转换（Transform）</h3>
 
 
 
@@ -437,7 +473,7 @@ Resources:
 
 
 
-<h3 class="wp-block-heading">内置函数（Intrinsic Functions）</h3>
+<h3 class="wp-block-heading" id="section-12">内置函数（Intrinsic Functions）</h3>
 
 
 
@@ -687,11 +723,11 @@ Resources:
 
 
 
-<h2 class="wp-block-heading">Stack 与 Stack Set</h2>
+<h2 class="wp-block-heading" id="section-13">Stack 与 Stack Set</h2>
 
 
 
-<h3 class="wp-block-heading">Stack</h3>
+<h3 class="wp-block-heading" id="section-14">Stack</h3>
 
 
 
@@ -743,7 +779,7 @@ Resources:
 
 
 
-<h3 class="wp-block-heading">Stack Set</h3>
+<h3 class="wp-block-heading" id="section-15">Stack Set</h3>
 
 
 
@@ -771,7 +807,7 @@ Resources:
 
 
 
-<h3 class="wp-block-heading">嵌套 Stack（Nested Stacks）</h3>
+<h3 class="wp-block-heading" id="section-16">嵌套 Stack（Nested Stacks）</h3>
 
 
 
@@ -787,7 +823,7 @@ Resources:
 
 
 
-<h2 class="wp-block-heading">最佳实践</h2>
+<h2 class="wp-block-heading" id="section-17">最佳实践</h2>
 
 
 
@@ -813,7 +849,7 @@ Resources:
 
 
 
-<h2 class="wp-block-heading">Serverless Application Model（SAM）</h2>
+<h2 class="wp-block-heading" id="section-18">Serverless Application Model（SAM）</h2>
 
 
 
@@ -833,7 +869,7 @@ Resources:
 
 
 
-<h2 class="wp-block-heading">EC2 的 User Data</h2>
+<h2 class="wp-block-heading" id="section-19">EC2 的 User Data</h2>
 
 
 
@@ -853,7 +889,7 @@ Resources:
 
 
 
-<h2 class="wp-block-heading">CloudFormation 辅助脚本</h2>
+<h2 class="wp-block-heading" id="section-20">CloudFormation 辅助脚本</h2>
 
 
 
@@ -935,7 +971,7 @@ Resources:
 
 
 
-<h2 class="wp-block-heading">创建策略与等待条件（Creation Policies and Wait Conditions）</h2>
+<h2 class="wp-block-heading" id="section-21">创建策略与等待条件（Creation Policies and Wait Conditions）</h2>
 
 
 
@@ -1069,7 +1105,7 @@ Resources:
 
 
 
-<h2 class="wp-block-heading">回滚与创建失败</h2>
+<h2 class="wp-block-heading" id="section-22">回滚与创建失败</h2>
 
 
 
@@ -1101,7 +1137,7 @@ Resources:
 
 
 
-<h2 class="wp-block-heading">监控与报告</h2>
+<h2 class="wp-block-heading" id="section-23">监控与报告</h2>
 
 
 
@@ -1113,7 +1149,7 @@ Resources:
 
 
 
-<h2 class="wp-block-heading">授权与访问控制</h2>
+<h2 class="wp-block-heading" id="section-24">授权与访问控制</h2>
 
 
 
@@ -1138,7 +1174,7 @@ Resources:
 
 
 
-<h2 class="wp-block-heading">计费</h2>
+<h2 class="wp-block-heading" id="section-25">计费</h2>
 
 
 
@@ -1154,12 +1190,83 @@ Resources:
 
 
 
-<h2 class="wp-block-heading">代码片段</h2>
+<h2 class="wp-block-heading" id="section-26">代码片段</h2>
 
 
 
 <p class="wp-block-paragraph"><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/CHAP_TemplateQuickRef.html">https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/CHAP_TemplateQuickRef.html</a></p>
 
-</div></div>
+</div>
+</div>
+<aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">主要优势</a></li><li class="toc-h2"><a href="#section-2">核心概念</a></li><li class="toc-h2"><a href="#section-3">模板（Templates）</a></li><li class="toc-h3"><a href="#section-4">模板元素</a></li><li class="toc-h3"><a href="#section-5">模板组成部分</a></li><li class="toc-h3"><a href="#section-6">参数（Parameters）</a></li><li class="toc-h3"><a href="#section-7">伪参数（Pseudo Parameters）</a></li><li class="toc-h3"><a href="#section-8">映射（Mappings）</a></li><li class="toc-h3"><a href="#section-9">输出（Outputs）</a></li><li class="toc-h3"><a href="#section-10">条件（Conditions）</a></li><li class="toc-h3"><a href="#section-11">转换（Transform）</a></li><li class="toc-h3"><a href="#section-12">内置函数（Intrinsic Functions）</a></li><li class="toc-h2"><a href="#section-13">Stack 与 Stack Set</a></li><li class="toc-h3"><a href="#section-14">Stack</a></li><li class="toc-h3"><a href="#section-15">Stack Set</a></li><li class="toc-h3"><a href="#section-16">嵌套 Stack（Nested Stacks）</a></li><li class="toc-h2"><a href="#section-17">最佳实践</a></li><li class="toc-h2"><a href="#section-18">Serverless Application Model（SAM）</a></li><li class="toc-h2"><a href="#section-19">EC2 的 User Data</a></li><li class="toc-h2"><a href="#section-20">CloudFormation 辅助脚本</a></li><li class="toc-h2"><a href="#section-21">创建策略与等待条件（Creation Policies and Wait Conditions）</a></li><li class="toc-h2"><a href="#section-22">回滚与创建失败</a></li><li class="toc-h2"><a href="#section-23">监控与报告</a></li><li class="toc-h2"><a href="#section-24">授权与访问控制</a></li><li class="toc-h2"><a href="#section-25">计费</a></li><li class="toc-h2"><a href="#section-26">代码片段</a></li></ul></aside>
+</div>
+<button class="toc-fab" type="button">目录</button>
+<div class="toc-drawer"><aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">主要优势</a></li><li class="toc-h2"><a href="#section-2">核心概念</a></li><li class="toc-h2"><a href="#section-3">模板（Templates）</a></li><li class="toc-h3"><a href="#section-4">模板元素</a></li><li class="toc-h3"><a href="#section-5">模板组成部分</a></li><li class="toc-h3"><a href="#section-6">参数（Parameters）</a></li><li class="toc-h3"><a href="#section-7">伪参数（Pseudo Parameters）</a></li><li class="toc-h3"><a href="#section-8">映射（Mappings）</a></li><li class="toc-h3"><a href="#section-9">输出（Outputs）</a></li><li class="toc-h3"><a href="#section-10">条件（Conditions）</a></li><li class="toc-h3"><a href="#section-11">转换（Transform）</a></li><li class="toc-h3"><a href="#section-12">内置函数（Intrinsic Functions）</a></li><li class="toc-h2"><a href="#section-13">Stack 与 Stack Set</a></li><li class="toc-h3"><a href="#section-14">Stack</a></li><li class="toc-h3"><a href="#section-15">Stack Set</a></li><li class="toc-h3"><a href="#section-16">嵌套 Stack（Nested Stacks）</a></li><li class="toc-h2"><a href="#section-17">最佳实践</a></li><li class="toc-h2"><a href="#section-18">Serverless Application Model（SAM）</a></li><li class="toc-h2"><a href="#section-19">EC2 的 User Data</a></li><li class="toc-h2"><a href="#section-20">CloudFormation 辅助脚本</a></li><li class="toc-h2"><a href="#section-21">创建策略与等待条件（Creation Policies and Wait Conditions）</a></li><li class="toc-h2"><a href="#section-22">回滚与创建失败</a></li><li class="toc-h2"><a href="#section-23">监控与报告</a></li><li class="toc-h2"><a href="#section-24">授权与访问控制</a></li><li class="toc-h2"><a href="#section-25">计费</a></li><li class="toc-h2"><a href="#section-26">代码片段</a></li></ul></aside></div>
+<script>
+(function(){
+  var sidebar=document.querySelector('.toc-sidebar');
+  if(!sidebar) return;
+  var links=Array.prototype.slice.call(sidebar.querySelectorAll('a[href^="#"]'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+
+  // 折叠/展开
+  var toggle=sidebar.querySelector('.toc-toggle');
+  if(toggle){
+    toggle.addEventListener('click',function(){
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent=sidebar.classList.contains('collapsed')?'展开':'收起';
+    });
+  }
+
+  // scrollspy
+  var ticking=false;
+  function spy(){
+    ticking=false;
+    var pos=window.scrollY+120;
+    var current=-1;
+    for(var i=0;i<heads.length;i++){
+      if(heads[i]&&heads[i].offsetTop<=pos) current=i;
+    }
+    if(current===-1&&heads.length) current=0;
+    links.forEach(function(a,i){a.classList.toggle('active',i===current);});
+    // 让高亮项保持在目录可视区内
+    if(current>=0&&links[current]&&!sidebar.classList.contains('collapsed')){
+      var el=links[current];
+      var r=el.getBoundingClientRect(),sr=sidebar.getBoundingClientRect();
+      if(r.top<sr.top+40||r.bottom>sr.bottom-10){
+        sidebar.scrollTop+=r.top-sr.top-sr.height/3;
+      }
+    }
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){window.requestAnimationFrame(spy);ticking=true;}
+  },{passive:true});
+  spy();
+
+  // 平滑滚动
+  links.forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.getElementById(a.getAttribute('href').slice(1));
+      if(t){
+        e.preventDefault();
+        window.scrollTo({top:t.offsetTop-100,behavior:'smooth'});
+        history.replaceState(null,'','#'+t.id);
+        var drawer=document.querySelector('.toc-drawer');
+        if(drawer) drawer.classList.remove('open');
+      }
+    });
+  });
+
+  // 窄屏抽屉
+  var fab=document.querySelector('.toc-fab');
+  var drawer=document.querySelector('.toc-drawer');
+  if(fab&&drawer){
+    fab.addEventListener('click',function(){drawer.classList.add('open');});
+    drawer.addEventListener('click',function(e){
+      if(e.target===drawer) drawer.classList.remove('open');
+    });
+  }
+})();
+</script>
 </body>
 </html>

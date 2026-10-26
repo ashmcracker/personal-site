@@ -29,11 +29,47 @@ code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF
 pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
 pre code{background:none;padding:0;color:inherit}
 blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+
+/* === TOC sidebar === */
+.layout{display:flex;gap:24px;max-width:1240px;margin:30px auto;padding:0 20px;align-items:flex-start}
+.layout .content{flex:1;min-width:0;margin:0;padding:0;max-width:none}
+.toc-sidebar{flex:0 0 260px;width:260px;position:sticky;top:110px;max-height:calc(100vh - 140px);
+  overflow-y:auto;background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:13px}
+.toc-sidebar .toc-title{padding:0 16px 10px;font-weight:600;color:var(--primary);
+  border-bottom:1px solid var(--border);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.toc-sidebar .toc-toggle{background:none;border:none;color:var(--secondary);cursor:pointer;
+  font-size:12px;padding:2px 6px;border-radius:4px}
+.toc-sidebar .toc-toggle:hover{background:#e8f0f7}
+.toc-sidebar ul{list-style:none;margin:0;padding:0}
+.toc-sidebar li{margin:0}
+.toc-sidebar a{display:block;padding:5px 16px;color:var(--text);text-decoration:none;
+  border-left:3px solid transparent;line-height:1.4;word-break:break-word}
+.toc-sidebar a:hover{background:#e8f0f7;color:var(--primary)}
+.toc-sidebar a.active{border-left-color:var(--secondary);background:#e8f0f7;color:var(--primary);font-weight:600}
+.toc-sidebar .toc-h3 a{padding-left:32px;font-size:12.5px;color:#555}
+.toc-sidebar .toc-h3 a.active{color:var(--primary)}
+.toc-sidebar.collapsed ul{display:none}
+.toc-fab{display:none}
+@media(max-width:1100px){
+  .toc-sidebar{display:none}
+  .toc-fab{display:block;position:fixed;right:16px;bottom:16px;z-index:200;
+    background:var(--primary);color:#fff;border:none;border-radius:99px;
+    padding:10px 18px;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  .toc-fab:hover{background:var(--secondary)}
+  .toc-drawer{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.4);display:none}
+  .toc-drawer.open{display:block}
+  .toc-drawer .toc-sidebar{display:block;position:absolute;right:0;top:0;bottom:0;
+    width:280px;max-height:none;border-radius:0;overflow-y:auto}
+}
+
 </style>
 </head>
 <body>
 <div class="header"><h1>Amazon EC2 Auto Scaling</h1><div class="subtitle">AWS Cheat Sheet</div></div>
-<div class="content"><div class="card">
+<div class="layout">
+<div class="content">
+<div class="card">
 <div class="wp-block-image is-resized">
 <figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-01-Amazon-EC2-Auto-Scaling-1024x652.png" alt="Amazon EC2 Auto Scaling Services" class="wp-image-486372" style="width:400px" /></figure>
 </div>
@@ -56,7 +92,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">本页专门介绍 Amazon EC2 Auto Scaling——其他服务的 Auto Scaling 会在各自页面中讨论。</p>
 
-<h2 class="wp-block-heading"><a id="post-295930-_da3h7flmxuhp"></a>Amazon EC2 Auto Scaling 功能</h2>
+<h2 class="wp-block-heading" id="section-1"><a id="post-295930-_da3h7flmxuhp"></a>Amazon EC2 Auto Scaling 功能</h2>
 
 <p class="wp-block-paragraph">Amazon EC2 Auto Scaling 帮助你确保拥有正确数量的 Amazon EC2 实例来处理应用的负载。</p>
 
@@ -136,7 +172,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_body_"></div>
 
-<h2 class="wp-block-heading"><a id="post-295930-_3puzep2lwpkc"></a>扩展选项</h2>
+<h2 class="wp-block-heading" id="section-2"><a id="post-295930-_3puzep2lwpkc"></a>扩展选项</h2>
 
 <p class="wp-block-paragraph">扩展选项定义触发条件以及何时预置/释放实例。</p>
 
@@ -158,13 +194,13 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-table"><table><tbody><tr><td><strong>扩展方式</strong></td><td><strong>描述</strong></td><td><strong>何时使用</strong></td></tr><tr><td>Maintain</td><td>确保所需数量的实例在运行</td><td>当你始终需要已知数量的实例运行时使用</td></tr><tr><td>Manual</td><td>手动更改期望容量</td><td>当需求变化频率低到可以接受手动调整时使用</td></tr><tr><td>Scheduled</td><td>在特定日期/时间或周期性时间段调整最小/最大值</td><td>当你知道业务的高峰和低谷时间时使用。可确保在高峰到来之前有足够实例</td></tr><tr><td>Dynamic</td><td>使用指标响应系统负载或其他触发条件进行扩展</td><td>适合根据系统利用率调整容量，例如 CPU 达到 80%</td></tr><tr><td>Predictive</td><td>使用机器学习提前预测所需容量</td><td>适合容量和实例数量未知的场景</td></tr></tbody></table></figure>
 
-<h3 class="wp-block-heading">计划扩展（Scheduled Scaling）</h3>
+<h3 class="wp-block-heading" id="section-3">计划扩展（Scheduled Scaling）</h3>
 
 <p class="wp-block-paragraph">基于计划的扩展让你能在可预测的负载变化之前提前扩展应用。</p>
 
 <p class="wp-block-paragraph">例如，你可能知道应用在周一至周五上午 9 点到中午 12 点之间流量最高。</p>
 
-<h3 class="wp-block-heading"><a id="post-295930-_5or9qco2hl94"></a>动态扩展（Dynamic Scaling）</h3>
+<h3 class="wp-block-heading" id="section-4"><a id="post-295930-_5or9qco2hl94"></a>动态扩展（Dynamic Scaling）</h3>
 
 <p class="wp-block-paragraph">Amazon EC2 Auto Scaling 让你能紧密跟随应用的需求曲线，减少手动提前预置 Amazon EC2 容量的需要。</p>
 
@@ -172,7 +208,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">Amazon EC2 Auto Scaling 随后会自动调整 EC2 实例数量，以维持你的目标值。</p>
 
-<h3 class="wp-block-heading"><a id="post-295930-_c3h1915an63c"></a>预测扩展（Predictive Scaling）</h3>
+<h3 class="wp-block-heading" id="section-5"><a id="post-295930-_c3h1915an63c"></a>预测扩展（Predictive Scaling）</h3>
 
 <p class="wp-block-paragraph">Predictive Scaling 使用机器学习，在即将到来的流量变化之前调度最优数量的 EC2 实例。</p>
 
@@ -190,7 +226,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-image"><img decoding="async" src="images/2022-01-auto-scaling-group-policy.jpeg" alt="Auto Scaling Group Policy" class="wp-image-295933"/></figure>
 
-<h3 class="wp-block-heading"><a id="post-295930-_dc8hlcimft5b"></a>基于 Amazon SQS 的扩展</h3>
+<h3 class="wp-block-heading" id="section-6"><a id="post-295930-_dc8hlcimft5b"></a>基于 Amazon SQS 的扩展</h3>
 
 <p class="wp-block-paragraph">也可以基于 Amazon Simple Queue Service (SQS) 队列进行扩展。</p>
 
@@ -204,7 +240,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">可以基于 SQS 指标 "ApproximateNumberOfMessages" 进行调整。</p>
 
-<h2 class="wp-block-heading"><a id="post-295930-_7xjaz6yr8pd2"></a>Launch Template 与 Launch Configuration 对比</h2>
+<h2 class="wp-block-heading" id="section-7"><a id="post-295930-_7xjaz6yr8pd2"></a>Launch Template 与 Launch Configuration 对比</h2>
 
 <p class="wp-block-paragraph">Launch template 与 <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/LaunchConfiguration.html">launch configuration</a> 类似，都用于指定实例配置信息。</p>
 
@@ -214,7 +250,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">借助版本管理，你可以创建完整参数集的子集，然后复用它来创建其他模板或模板版本。</p>
 
-<h2 class="wp-block-heading"><a id="post-295930-_9ld51iocabdz"></a>EC2 Auto Scaling 生命周期钩子（Lifecycle Hook）</h2>
+<h2 class="wp-block-heading" id="section-8"><a id="post-295930-_9ld51iocabdz"></a>EC2 Auto Scaling 生命周期钩子（Lifecycle Hook）</h2>
 
 <p class="wp-block-paragraph">当 Auto Scaling 组启动或终止 EC2 实例时，lifecycle hook 会暂停实例，让你可以执行自定义操作。</p>
 
@@ -224,7 +260,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">当实例进入等待状态时，你可以使用 Amazon EventBridge、Amazon SNS 或 Amazon SQS 接收通知。</p>
 
-<h2 class="wp-block-heading"><a id="post-295930-_hbxuko78zi3q"></a>高可用性</h2>
+<h2 class="wp-block-heading" id="section-9"><a id="post-295930-_hbxuko78zi3q"></a>高可用性</h2>
 
 <p class="wp-block-paragraph">当实例启动到至少两个可用区时，Amazon EC2 Auto Scaling 提供高可用性（HA）。</p>
 
@@ -232,7 +268,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">EC2 Auto Scaling 是区域级服务，无法跨多个 AWS 区域提供高可用。</p>
 
-<h2 class="wp-block-heading"><a id="post-295930-_f9zmqihueof5"></a>监控与报告</h2>
+<h2 class="wp-block-heading" id="section-10"><a id="post-295930-_f9zmqihueof5"></a>监控与报告</h2>
 
 <p class="wp-block-paragraph">启用 Auto Scaling 组指标后，Auto Scaling 组每分钟向 <a href="https://digitalcloud.training/amazon-cloudwatch/">CloudWatch</a> 发送采样数据（免费）。</p>
 
@@ -292,7 +328,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph"><strong><em>注意：</em></strong><em>使用 Elastic Load Balancer 时，AWS 最佳实践是启用 ELB 健康检查。如果不启用，可能出现 EC2 状态检查显示实例健康、但 ELB 判定其不健康的情况。此时实例会被 ELB 移出服务，但不会被 Auto Scaling 终止。</em></p>
 
-<h2 class="wp-block-heading"><a id="post-295930-_3qbe3gmltjnt"></a>日志与审计</h2>
+<h2 class="wp-block-heading" id="section-11"><a id="post-295930-_3qbe3gmltjnt"></a>日志与审计</h2>
 
 <p class="wp-block-paragraph"><a href="https://docs.aws.amazon.com/autoscaling/plans/APIReference/logging-using-cloudtrail.html">AWS CloudTrail</a> 将 AWS Auto Scaling 的所有 API 调用捕获为事件。</p>
 
@@ -304,7 +340,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">CloudTrail 事件包括对 AWS Auto Scaling 的调用、请求来源的 IP 地址、请求发起者、请求时间以及其他详细信息。</p>
 
-<h2 class="wp-block-heading"><a id="post-295930-_gf81reytmoqs"></a>授权与访问控制</h2>
+<h2 class="wp-block-heading" id="section-12"><a id="post-295930-_gf81reytmoqs"></a>授权与访问控制</h2>
 
 <p class="wp-block-paragraph">EC2 Auto Scaling 支持<a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/control-access-using-iam.html">基于身份的 IAM policy</a>。</p>
 
@@ -324,7 +360,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph">这能更好地控制用户可以创建、修改、使用或删除哪些资源。</p>
 
-<h2 class="wp-block-heading"><a id="post-295930-_qjfyqlwy4rgz"></a>ASG 行为与配置</h2>
+<h2 class="wp-block-heading" id="section-13"><a id="post-295930-_qjfyqlwy4rgz"></a>ASG 行为与配置</h2>
 
 <p class="wp-block-paragraph">EC2 Auto Scaling——终止策略（Termination Policy）：</p>
 
@@ -440,6 +476,77 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 </ul>
 
 <p class="wp-block-paragraph">预热期（warm-up period）是指在使用步进扩展的 ASG 中，新启动的 EC2 实例不计入 ASG 指标的时间段。</p>
-</div></div>
+</div>
+</div>
+<aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">Amazon EC2 Auto Scaling 功能</a></li><li class="toc-h2"><a href="#section-2">扩展选项</a></li><li class="toc-h3"><a href="#section-3">计划扩展（Scheduled Scaling）</a></li><li class="toc-h3"><a href="#section-4">动态扩展（Dynamic Scaling）</a></li><li class="toc-h3"><a href="#section-5">预测扩展（Predictive Scaling）</a></li><li class="toc-h3"><a href="#section-6">基于 Amazon SQS 的扩展</a></li><li class="toc-h2"><a href="#section-7">Launch Template 与 Launch Configuration 对比</a></li><li class="toc-h2"><a href="#section-8">EC2 Auto Scaling 生命周期钩子（Lifecycle Hook）</a></li><li class="toc-h2"><a href="#section-9">高可用性</a></li><li class="toc-h2"><a href="#section-10">监控与报告</a></li><li class="toc-h2"><a href="#section-11">日志与审计</a></li><li class="toc-h2"><a href="#section-12">授权与访问控制</a></li><li class="toc-h2"><a href="#section-13">ASG 行为与配置</a></li></ul></aside>
+</div>
+<button class="toc-fab" type="button">目录</button>
+<div class="toc-drawer"><aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">Amazon EC2 Auto Scaling 功能</a></li><li class="toc-h2"><a href="#section-2">扩展选项</a></li><li class="toc-h3"><a href="#section-3">计划扩展（Scheduled Scaling）</a></li><li class="toc-h3"><a href="#section-4">动态扩展（Dynamic Scaling）</a></li><li class="toc-h3"><a href="#section-5">预测扩展（Predictive Scaling）</a></li><li class="toc-h3"><a href="#section-6">基于 Amazon SQS 的扩展</a></li><li class="toc-h2"><a href="#section-7">Launch Template 与 Launch Configuration 对比</a></li><li class="toc-h2"><a href="#section-8">EC2 Auto Scaling 生命周期钩子（Lifecycle Hook）</a></li><li class="toc-h2"><a href="#section-9">高可用性</a></li><li class="toc-h2"><a href="#section-10">监控与报告</a></li><li class="toc-h2"><a href="#section-11">日志与审计</a></li><li class="toc-h2"><a href="#section-12">授权与访问控制</a></li><li class="toc-h2"><a href="#section-13">ASG 行为与配置</a></li></ul></aside></div>
+<script>
+(function(){
+  var sidebar=document.querySelector('.toc-sidebar');
+  if(!sidebar) return;
+  var links=Array.prototype.slice.call(sidebar.querySelectorAll('a[href^="#"]'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+
+  // 折叠/展开
+  var toggle=sidebar.querySelector('.toc-toggle');
+  if(toggle){
+    toggle.addEventListener('click',function(){
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent=sidebar.classList.contains('collapsed')?'展开':'收起';
+    });
+  }
+
+  // scrollspy
+  var ticking=false;
+  function spy(){
+    ticking=false;
+    var pos=window.scrollY+120;
+    var current=-1;
+    for(var i=0;i<heads.length;i++){
+      if(heads[i]&&heads[i].offsetTop<=pos) current=i;
+    }
+    if(current===-1&&heads.length) current=0;
+    links.forEach(function(a,i){a.classList.toggle('active',i===current);});
+    // 让高亮项保持在目录可视区内
+    if(current>=0&&links[current]&&!sidebar.classList.contains('collapsed')){
+      var el=links[current];
+      var r=el.getBoundingClientRect(),sr=sidebar.getBoundingClientRect();
+      if(r.top<sr.top+40||r.bottom>sr.bottom-10){
+        sidebar.scrollTop+=r.top-sr.top-sr.height/3;
+      }
+    }
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){window.requestAnimationFrame(spy);ticking=true;}
+  },{passive:true});
+  spy();
+
+  // 平滑滚动
+  links.forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.getElementById(a.getAttribute('href').slice(1));
+      if(t){
+        e.preventDefault();
+        window.scrollTo({top:t.offsetTop-100,behavior:'smooth'});
+        history.replaceState(null,'','#'+t.id);
+        var drawer=document.querySelector('.toc-drawer');
+        if(drawer) drawer.classList.remove('open');
+      }
+    });
+  });
+
+  // 窄屏抽屉
+  var fab=document.querySelector('.toc-fab');
+  var drawer=document.querySelector('.toc-drawer');
+  if(fab&&drawer){
+    fab.addEventListener('click',function(){drawer.classList.add('open');});
+    drawer.addEventListener('click',function(e){
+      if(e.target===drawer) drawer.classList.remove('open');
+    });
+  }
+})();
+</script>
 </body>
 </html>

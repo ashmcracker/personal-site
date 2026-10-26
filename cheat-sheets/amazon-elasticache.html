@@ -29,11 +29,47 @@ code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF
 pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
 pre code{background:none;padding:0;color:inherit}
 blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+
+/* === TOC sidebar === */
+.layout{display:flex;gap:24px;max-width:1240px;margin:30px auto;padding:0 20px;align-items:flex-start}
+.layout .content{flex:1;min-width:0;margin:0;padding:0;max-width:none}
+.toc-sidebar{flex:0 0 260px;width:260px;position:sticky;top:110px;max-height:calc(100vh - 140px);
+  overflow-y:auto;background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:13px}
+.toc-sidebar .toc-title{padding:0 16px 10px;font-weight:600;color:var(--primary);
+  border-bottom:1px solid var(--border);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.toc-sidebar .toc-toggle{background:none;border:none;color:var(--secondary);cursor:pointer;
+  font-size:12px;padding:2px 6px;border-radius:4px}
+.toc-sidebar .toc-toggle:hover{background:#e8f0f7}
+.toc-sidebar ul{list-style:none;margin:0;padding:0}
+.toc-sidebar li{margin:0}
+.toc-sidebar a{display:block;padding:5px 16px;color:var(--text);text-decoration:none;
+  border-left:3px solid transparent;line-height:1.4;word-break:break-word}
+.toc-sidebar a:hover{background:#e8f0f7;color:var(--primary)}
+.toc-sidebar a.active{border-left-color:var(--secondary);background:#e8f0f7;color:var(--primary);font-weight:600}
+.toc-sidebar .toc-h3 a{padding-left:32px;font-size:12.5px;color:#555}
+.toc-sidebar .toc-h3 a.active{color:var(--primary)}
+.toc-sidebar.collapsed ul{display:none}
+.toc-fab{display:none}
+@media(max-width:1100px){
+  .toc-sidebar{display:none}
+  .toc-fab{display:block;position:fixed;right:16px;bottom:16px;z-index:200;
+    background:var(--primary);color:#fff;border:none;border-radius:99px;
+    padding:10px 18px;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  .toc-fab:hover{background:var(--secondary)}
+  .toc-drawer{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.4);display:none}
+  .toc-drawer.open{display:block}
+  .toc-drawer .toc-sidebar{display:block;position:absolute;right:0;top:0;bottom:0;
+    width:280px;max-height:none;border-radius:0;overflow-y:auto}
+}
+
 </style>
 </head>
 <body>
 <div class="header"><h1>Amazon ElastiCache</h1><div class="subtitle">AWS Cheat Sheet</div></div>
-<div class="content"><div class="card">
+<div class="layout">
+<div class="content">
+<div class="card">
 <div class="wp-block-image is-resized">
 <figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-01-Amazon-ElastiCache-1024x652.png" alt="Amazon ElastiCache Services" class="wp-image-486314" style="width:400px" /></figure>
 </div>
@@ -94,7 +130,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <li>Redis——较复杂的模型，支持加密、主/从复制、跨 AZ（高可用）、自动故障转移和备份/恢复。</li>
 </ul>
 
-<h2 class="wp-block-heading">使用场景</h2>
+<h2 class="wp-block-heading" id="section-1">使用场景</h2>
 
 <p class="wp-block-paragraph">下表描述了 ElastiCache 的几个典型使用场景：</p>
 
@@ -106,7 +142,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-table"><table><tbody><tr><td><strong>Memcached</strong></td><td><strong>Redis</strong></td></tr><tr><td>简单、无花哨功能</td><td>你需要加密</td></tr><tr><td>你需要弹性（横向扩展和缩减）</td><td>你需要 HIPAA 合规</td></tr><tr><td>你需要运行多个 CPU 核心和线程</td><td>支持集群（clustering）</td></tr><tr><td>你需要缓存对象（例如数据库查询）</td><td>你需要复杂数据类型</td></tr><tr><td>&nbsp;</td><td>你需要高可用（复制）</td></tr><tr><td>&nbsp;</td><td>Pub/Sub 能力</td></tr></tbody></table></figure>
 
-<h2 class="wp-block-heading">Memcached</h2>
+<h2 class="wp-block-heading" id="section-2">Memcached</h2>
 
 <p class="wp-block-paragraph">最简单的模型，可运行大节点。</p>
 
@@ -152,7 +188,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-image"><img decoding="async" src="images/2022-01-elasticache-memcached.jpeg" alt="ElastiCache Memcached" class="wp-image-296350"/></figure>
 
-<h2 class="wp-block-heading">Redis</h2>
+<h2 class="wp-block-heading" id="section-3">Redis</h2>
 
 <p class="wp-block-paragraph">开源的内存键值存储。</p>
 
@@ -184,7 +220,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_body_"></div>
 
-<h3 class="wp-block-heading">集群模式禁用（Clustering mode disabled）</h3>
+<h3 class="wp-block-heading" id="section-4">集群模式禁用（Clustering mode disabled）</h3>
 
 <p class="wp-block-paragraph">只能有一个分片。</p>
 
@@ -198,7 +234,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-image"><img decoding="async" src="images/2022-01-elasticache-redis-cluster-mode-disabled.jpeg" alt="ElastiCache Redis Cluster Mode Disabled" class="wp-image-296353"/></figure>
 
-<h3 class="wp-block-heading">集群模式启用（Clustering mode enabled）</h3>
+<h3 class="wp-block-heading" id="section-5">集群模式启用（Clustering mode enabled）</h3>
 
 <p class="wp-block-paragraph">最多可以有 15 个分片。</p>
 
@@ -210,7 +246,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-image"><img decoding="async" src="images/2022-01-elasticache-redis-cluster-mode-enabled.jpeg" alt="ElastiCache Redis Cluster Mode Enabled" class="wp-image-296356"/></figure>
 
-<h2 class="wp-block-heading">多 AZ 故障转移</h2>
+<h2 class="wp-block-heading" id="section-6">多 AZ 故障转移</h2>
 
 <p class="wp-block-paragraph">故障由 ElastiCache 检测。</p>
 
@@ -226,11 +262,11 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-table"><table><tbody><tr><td><strong>特性</strong></td><td><strong>Memcached</strong></td><td><strong>Redis（集群模式禁用）</strong></td><td><strong>Redis（集群模式启用）</strong></td></tr><tr><td>数据持久化</td><td>否</td><td>是</td><td>是</td></tr><tr><td>数据类型</td><td>简单</td><td>复杂</td><td>复杂</td></tr><tr><td>数据分区</td><td>是</td><td>否</td><td>是</td></tr><tr><td>加密</td><td>否</td><td>是</td><td>是</td></tr><tr><td>高可用（复制）</td><td>否</td><td>是</td><td>是</td></tr><tr><td>多 AZ</td><td>是，可将节点放在多个 AZ。无故障转移或复制</td><td>是，支持自动故障转移。使用只读副本（每分片 0-5 个）</td><td>是，支持自动故障转移。使用只读副本（每分片 0-5 个）</td></tr><tr><td>扩展</td><td>纵向（节点类型）；横向（添加节点）</td><td>单分片（可添加副本）</td><td>添加分片</td></tr><tr><td>多线程</td><td>是</td><td>否</td><td>否</td></tr><tr><td>备份与恢复</td><td>否（也无快照）</td><td>是，自动和手动快照</td><td>是，自动和手动快照</td></tr></tbody></table></figure>
 
-<h2 class="wp-block-heading">缓存策略</h2>
+<h2 class="wp-block-heading" id="section-7">缓存策略</h2>
 
 <p class="wp-block-paragraph">有两种可用的缓存策略：Lazy Loading（惰性加载）和 Write-Through（直写）：</p>
 
-<h3 class="wp-block-heading">Lazy Loading（惰性加载）</h3>
+<h3 class="wp-block-heading" id="section-8">Lazy Loading（惰性加载）</h3>
 
 <ul class="wp-block-list">
 <li>仅在需要时才将数据加载到缓存中（发生缓存未命中时）。</li>
@@ -248,7 +284,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-elasticache-lazy-loading.jpeg" alt="Amazon ElastiCache Lazy Loading" class="wp-image-296359"/></figure>
 
-<h3 class="wp-block-heading">Write Through（直写）</h3>
+<h3 class="wp-block-heading" id="section-9">Write Through（直写）</h3>
 
 <ul class="wp-block-list">
 <li>使用直写策略时，每当底层数据库有新的写入或更新，缓存就会被更新。</li>
@@ -262,7 +298,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-elasticache-write-through-caching.jpeg" alt="Amazon ElastiCache Write-Through Caching" class="wp-image-296362"/></figure>
 
-<h2 class="wp-block-heading">处理过时数据——Time to Live (TTL)</h2>
+<h2 class="wp-block-heading" id="section-10">处理过时数据——Time to Live (TTL)</h2>
 
 <ul class="wp-block-list">
 <li>惰性加载和直写技术的缺点可以通过 TTL 缓解。</li>
@@ -278,9 +314,9 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph"><strong><em>考试提示：</em></strong><em>与 DynamoDB Accelerator (DAX) 对比时记住，DAX 专门针对 DynamoDB 优化，且只支持直写缓存策略（不使用惰性加载）。</em></p>
 
-<h2 class="wp-block-heading">监控与报告</h2>
+<h2 class="wp-block-heading" id="section-11">监控与报告</h2>
 
-<h3 class="wp-block-heading">Memcached 指标</h3>
+<h3 class="wp-block-heading" id="section-12">Memcached 指标</h3>
 
 <p class="wp-block-paragraph">以下 <a href="https://digitalcloud.training/amazon-cloudwatch/"><strong>CloudWatch</strong></a> 指标能很好地反映 ElastiCache Memcached 的性能：</p>
 
@@ -292,7 +328,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph"><strong>CurrConnections——</strong>这是缓存引擎指标。CurrConnections 数量不断增加可能表明应用存在问题；你需要排查应用行为来解决该问题。</p>
 
-<h3 class="wp-block-heading">Redis 指标</h3>
+<h3 class="wp-block-heading" id="section-13">Redis 指标</h3>
 
 <p class="wp-block-paragraph">以下 CloudWatch 指标能很好地反映 ElastiCache Redis 的性能：</p>
 
@@ -308,7 +344,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 
 <p class="wp-block-paragraph"><strong>CurrConnections——</strong>客户端连接数，不包括来自只读副本的连接。ElastiCache 在每种情况下会使用其中两到四个连接来监控集群。</p>
 
-<h2 class="wp-block-heading">日志与审计</h2>
+<h2 class="wp-block-heading" id="section-14">日志与审计</h2>
 
 <p class="wp-block-paragraph">所有 Amazon ElastiCache 操作都会被 AWS CloudTrail 记录。</p>
 
@@ -322,7 +358,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <li>请求是否由其他 AWS 服务发起。</li>
 </ul>
 
-<h2 class="wp-block-heading">授权与访问控制</h2>
+<h2 class="wp-block-heading" id="section-15">授权与访问控制</h2>
 
 <p class="wp-block-paragraph">访问 Amazon ElastiCache 需要 AWS 可用于验证请求的凭证。这些凭证必须拥有访问 AWS 资源（例如 ElastiCache 缓存集群或 Amazon Elastic Compute Cloud (Amazon EC2) 实例）的权限。</p>
 
@@ -335,7 +371,7 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 <div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_desktop_"></div>
 <div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_mobile_"></div>
 
-<h2 class="wp-block-heading">费用</h2>
+<h2 class="wp-block-heading" id="section-16">费用</h2>
 
 <p class="wp-block-paragraph">按每种节点类型消耗的节点小时数定价。</p>
 
@@ -366,6 +402,77 @@ blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;b
 </ul>
 
 <p class="wp-block-paragraph"></p>
-</div></div>
+</div>
+</div>
+<aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">使用场景</a></li><li class="toc-h2"><a href="#section-2">Memcached</a></li><li class="toc-h2"><a href="#section-3">Redis</a></li><li class="toc-h3"><a href="#section-4">集群模式禁用（Clustering mode disabled）</a></li><li class="toc-h3"><a href="#section-5">集群模式启用（Clustering mode enabled）</a></li><li class="toc-h2"><a href="#section-6">多 AZ 故障转移</a></li><li class="toc-h2"><a href="#section-7">缓存策略</a></li><li class="toc-h3"><a href="#section-8">Lazy Loading（惰性加载）</a></li><li class="toc-h3"><a href="#section-9">Write Through（直写）</a></li><li class="toc-h2"><a href="#section-10">处理过时数据——Time to Live (TTL)</a></li><li class="toc-h2"><a href="#section-11">监控与报告</a></li><li class="toc-h3"><a href="#section-12">Memcached 指标</a></li><li class="toc-h3"><a href="#section-13">Redis 指标</a></li><li class="toc-h2"><a href="#section-14">日志与审计</a></li><li class="toc-h2"><a href="#section-15">授权与访问控制</a></li><li class="toc-h2"><a href="#section-16">费用</a></li></ul></aside>
+</div>
+<button class="toc-fab" type="button">目录</button>
+<div class="toc-drawer"><aside class="toc-sidebar"><div class="toc-title"><span>本文目录</span><button class="toc-toggle" type="button">收起</button></div><ul><li class="toc-h2"><a href="#section-1">使用场景</a></li><li class="toc-h2"><a href="#section-2">Memcached</a></li><li class="toc-h2"><a href="#section-3">Redis</a></li><li class="toc-h3"><a href="#section-4">集群模式禁用（Clustering mode disabled）</a></li><li class="toc-h3"><a href="#section-5">集群模式启用（Clustering mode enabled）</a></li><li class="toc-h2"><a href="#section-6">多 AZ 故障转移</a></li><li class="toc-h2"><a href="#section-7">缓存策略</a></li><li class="toc-h3"><a href="#section-8">Lazy Loading（惰性加载）</a></li><li class="toc-h3"><a href="#section-9">Write Through（直写）</a></li><li class="toc-h2"><a href="#section-10">处理过时数据——Time to Live (TTL)</a></li><li class="toc-h2"><a href="#section-11">监控与报告</a></li><li class="toc-h3"><a href="#section-12">Memcached 指标</a></li><li class="toc-h3"><a href="#section-13">Redis 指标</a></li><li class="toc-h2"><a href="#section-14">日志与审计</a></li><li class="toc-h2"><a href="#section-15">授权与访问控制</a></li><li class="toc-h2"><a href="#section-16">费用</a></li></ul></aside></div>
+<script>
+(function(){
+  var sidebar=document.querySelector('.toc-sidebar');
+  if(!sidebar) return;
+  var links=Array.prototype.slice.call(sidebar.querySelectorAll('a[href^="#"]'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+
+  // 折叠/展开
+  var toggle=sidebar.querySelector('.toc-toggle');
+  if(toggle){
+    toggle.addEventListener('click',function(){
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent=sidebar.classList.contains('collapsed')?'展开':'收起';
+    });
+  }
+
+  // scrollspy
+  var ticking=false;
+  function spy(){
+    ticking=false;
+    var pos=window.scrollY+120;
+    var current=-1;
+    for(var i=0;i<heads.length;i++){
+      if(heads[i]&&heads[i].offsetTop<=pos) current=i;
+    }
+    if(current===-1&&heads.length) current=0;
+    links.forEach(function(a,i){a.classList.toggle('active',i===current);});
+    // 让高亮项保持在目录可视区内
+    if(current>=0&&links[current]&&!sidebar.classList.contains('collapsed')){
+      var el=links[current];
+      var r=el.getBoundingClientRect(),sr=sidebar.getBoundingClientRect();
+      if(r.top<sr.top+40||r.bottom>sr.bottom-10){
+        sidebar.scrollTop+=r.top-sr.top-sr.height/3;
+      }
+    }
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){window.requestAnimationFrame(spy);ticking=true;}
+  },{passive:true});
+  spy();
+
+  // 平滑滚动
+  links.forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.getElementById(a.getAttribute('href').slice(1));
+      if(t){
+        e.preventDefault();
+        window.scrollTo({top:t.offsetTop-100,behavior:'smooth'});
+        history.replaceState(null,'','#'+t.id);
+        var drawer=document.querySelector('.toc-drawer');
+        if(drawer) drawer.classList.remove('open');
+      }
+    });
+  });
+
+  // 窄屏抽屉
+  var fab=document.querySelector('.toc-fab');
+  var drawer=document.querySelector('.toc-drawer');
+  if(fab&&drawer){
+    fab.addEventListener('click',function(){drawer.classList.add('open');});
+    drawer.addEventListener('click',function(e){
+      if(e.target===drawer) drawer.classList.remove('open');
+    });
+  }
+})();
+</script>
 </body>
 </html>

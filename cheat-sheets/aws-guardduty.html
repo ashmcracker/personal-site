@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS GuardDuty - AWS Cheat Sheet</title>
+<style>
+:root{--primary:#1a5276;--secondary:#2980b9;--bg:#f8f9fa;--text:#2c3e50;--border:#dee2e6;--card:#fff;--accent:#e74c3c;--code-bg:#f1f3f4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:30px 40px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.header h1{font-size:1.6em;font-weight:700}
+.header .subtitle{opacity:.85;font-size:.85em;margin-top:4px}
+.content{max-width:960px;margin:30px auto;padding:0 20px}
+.card{background:var(--card);border-radius:8px;padding:30px 40px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:20px}
+h2{color:var(--primary);margin-top:30px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border);font-size:1.3em}
+h3{color:var(--secondary);margin-top:24px;margin-bottom:8px;font-size:1.1em}
+h4{color:var(--secondary);margin-top:16px;margin-bottom:6px;font-size:1em}
+p{margin-bottom:12px}
+ul,ol{margin:8px 0 12px 24px}
+li{margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92em}
+th{background:var(--primary);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:8px 14px;border:1px solid var(--border);vertical-align:top}
+tr:nth-child(even){background:#f8f9fa}
+tr:hover{background:#e8f0f7}
+img{max-width:100%;height:auto}
+code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF Mono",Monaco,Menlo,monospace;font-size:.9em}
+pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+</style>
+</head>
+<body>
+<div class="header"><h1>AWS GuardDuty</h1><div class="subtitle">AWS Cheat Sheet</div></div>
+<div class="content"><div class="card">
+<div class="wp-block-image is-resized">
+<figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-01-AWS-GuardDuty-1-1024x652.png" alt="Amazon AWS GuardDuty Services" class="wp-image-486194" style="width:400px" /></figure>
+</div>
+
+
+<p class="wp-block-paragraph">智能威胁检测服务。</p>
+
+
+
+<p class="wp-block-paragraph">持续监控恶意活动，并提供详细的安全发现结果，便于查看和修复。</p>
+
+
+
+<p class="wp-block-paragraph">监控 AWS 账户、工作负载以及 Amazon S3 中的数据。</p>
+
+
+
+<p class="wp-block-paragraph">可检测账户失陷、实例失陷、恶意侦察和存储桶失陷。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon GuardDuty 让你能够使用专为云端开发和优化的内置检测技术。</p>
+
+
+
+<p class="wp-block-paragraph">AWS 安全团队会持续维护和改进这些检测算法。</p>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_desk_"></div>
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_mob_"></div>
+
+
+
+<p class="wp-block-paragraph">主要的检测类别包括：</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>侦察（Reconnaissance）：</strong>&nbsp;表明攻击者正在进行侦察的活动，例如：
+<ul class="wp-block-list">
+<li>异常的 API 活动。</li>
+
+
+
+<li>VPC 内部端口扫描。</li>
+
+
+
+<li>异常的登录失败请求模式。</li>
+
+
+
+<li>来自已知恶意 IP 的未拦截端口探测。</li>
+</ul>
+</li>
+
+
+
+<li><strong>实例失陷（Instance compromise）：</strong>&nbsp;表明实例已失陷的活动，例如：
+<ul class="wp-block-list">
+<li>加密货币挖矿</li>
+
+
+
+<li>后门命令与控制（C&amp;C）活动。</li>
+
+
+
+<li>使用域名生成算法（DGA）的恶意软件。</li>
+
+
+
+<li>出站拒绝服务活动。</li>
+
+
+
+<li>异常高的网络流量。</li>
+
+
+
+<li>异常的网络协议。</li>
+
+
+
+<li>实例与已知恶意 IP 的出站通信。</li>
+
+
+
+<li>临时 Amazon EC2 凭证被外部 IP 地址使用。</li>
+
+
+
+<li>利用 DNS 进行数据外泄。</li>
+</ul>
+</li>
+
+
+
+<li><strong>账户失陷（Account compromise）：</strong>&nbsp;表明账户失陷的常见模式包括：
+<ul class="wp-block-list">
+<li>来自异常地理位置或匿名代理的 API 调用。</li>
+
+
+
+<li>尝试禁用 AWS CloudTrail 日志记录。</li>
+
+
+
+<li>削弱账户密码策略的变更。</li>
+
+
+
+<li>异常的实例或基础设施启动。</li>
+
+
+
+<li>在异常区域部署基础设施。</li>
+
+
+
+<li>来自已知恶意 IP 地址的 API 调用。</li>
+</ul>
+</li>
+
+
+
+<li><strong>存储桶失陷（Bucket compromise）：</strong>&nbsp;表明存储桶失陷的活动，例如：
+<ul class="wp-block-list">
+<li>表明凭证被滥用的可疑数据访问模式。</li>
+
+
+
+<li>来自远程主机的异常 Amazon S3 API 活动。</li>
+
+
+
+<li>来自已知恶意 IP 地址的未授权 S3 访问。</li>
+
+
+
+<li>由此前从未访问过该存储桶的用户发起的、或从异常位置发起的检索 S3 存储桶数据的 API 调用。</li>
+</ul>
+</li>
+</ul>
+</div></div>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS Backup - AWS Cheat Sheet</title>
+<style>
+:root{--primary:#1a5276;--secondary:#2980b9;--bg:#f8f9fa;--text:#2c3e50;--border:#dee2e6;--card:#fff;--accent:#e74c3c;--code-bg:#f1f3f4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:30px 40px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.header h1{font-size:1.6em;font-weight:700}
+.header .subtitle{opacity:.85;font-size:.85em;margin-top:4px}
+.content{max-width:960px;margin:30px auto;padding:0 20px}
+.card{background:var(--card);border-radius:8px;padding:30px 40px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:20px}
+h2{color:var(--primary);margin-top:30px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border);font-size:1.3em}
+h3{color:var(--secondary);margin-top:24px;margin-bottom:8px;font-size:1.1em}
+h4{color:var(--secondary);margin-top:16px;margin-bottom:6px;font-size:1em}
+p{margin-bottom:12px}
+ul,ol{margin:8px 0 12px 24px}
+li{margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92em}
+th{background:var(--primary);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:8px 14px;border:1px solid var(--border);vertical-align:top}
+tr:nth-child(even){background:#f8f9fa}
+tr:hover{background:#e8f0f7}
+img{max-width:100%;height:auto}
+code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF Mono",Monaco,Menlo,monospace;font-size:.9em}
+pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+</style>
+</head>
+<body>
+<div class="header"><h1>AWS Backup</h1><div class="subtitle">AWS Cheat Sheet</div></div>
+<div class="content"><div class="card">
+<div class="wp-block-image is-resized">
+<figure class="alignright size-large"><img decoding="async" src="images/2025-06-AWS-Backup.png" alt="Amazon AWS Backup Services" class="wp-image-486270" style="width:400px"/></figure>
+</div>
+
+
+<p class="wp-block-paragraph">AWS Backup 提供集中式、自动化的数据保护。</p>
+
+
+
+<p class="wp-block-paragraph">可跨 AWS 服务和混合工作负载使用。</p>
+
+
+
+<p class="wp-block-paragraph">有助于满足数据保护方面的监管合规要求和业务策略。</p>
+
+
+
+<p class="wp-block-paragraph">与 AWS Organizations 集成，可集中部署数据保护策略。</p>
+
+
+
+<p class="wp-block-paragraph">跨 AWS 账户和资源，配置、管理和治理备份活动。</p>
+
+
+
+<p class="wp-block-paragraph">AWS Backup 可以保护多种 AWS 资源，包括：</p>
+
+
+
+<ul class="wp-block-list">
+<li>Amazon EC2 实例。</li>
+
+
+
+<li>Amazon <a href="https://digitalcloud.training/amazon-s3-vs-ebs-vs-efs-comparing-aws-storage-services/">EBS</a> 卷。</li>
+
+
+
+<li>Amazon <a href="https://digitalcloud.training/amazon-rds-vs-dynamodb/">RDS</a> 数据库。</li>
+
+
+
+<li>Amazon <a href="https://digitalcloud.training/amazon-kinesis-vs-dynamodb-streams/">DynamoDB</a> 表。</li>
+
+
+
+<li>Amazon Neptune 数据库。</li>
+
+
+
+<li>Amazon DocumentDB 数据库。</li>
+
+
+
+<li>Amazon EFS 文件系统。</li>
+
+
+
+<li>Amazon FSx for Lustre 和 Windows File Server 文件系统。</li>
+
+
+
+<li>AWS Storage Gateway 卷。</li>
+
+
+
+<li>本地 VMware 工作负载以及 VMware Cloud on AWS。</li>
+
+
+
+<li>Amazon S3 bucket。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">AWS Backup 可以将备份跨多个 AWS 服务复制到不同的 Region。</p>
+
+
+
+<p class="wp-block-paragraph">跨 Region 的备份副本可以通过调度手动或自动部署。</p>
+
+
+
+<p class="wp-block-paragraph">还可以为 AWS Organization 内的账户配置跨账户备份。</p>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_body"></div>
+
+
+
+<h2 class="wp-block-heading">基于策略的备份</h2>
+
+
+
+<p class="wp-block-paragraph">使用 AWS Backup，你可以创建称为备份计划（backup plan）的备份策略。</p>
+
+
+
+<p class="wp-block-paragraph">备份计划用于定义备份需求。</p>
+
+
+
+<p class="wp-block-paragraph">然后将备份计划应用到你要备份的 AWS 资源上。</p>
+
+
+
+<p class="wp-block-paragraph">你可以创建多个独立的备份计划，以满足特定的业务和监管合规要求。</p>
+
+
+
+<p class="wp-block-paragraph">备份计划让你可以轻松地在整个组织和各个应用中实施备份策略。</p>
+
+
+
+<h2 class="wp-block-heading">基于标签的备份策略</h2>
+
+
+
+<p class="wp-block-paragraph">AWS Backup 允许你只需为 AWS 资源打上标签，即可将备份计划应用到这些资源。</p>
+
+
+
+<p class="wp-block-paragraph">确保所有 AWS 资源都按照你的策略得到备份和保护。</p>
+
+
+
+<p class="wp-block-paragraph">AWS 标签是组织和分类 AWS 资源的好方法。</p>
+
+
+
+<p class="wp-block-paragraph">与 AWS 标签的集成让你可以快速将备份计划应用到一组 AWS 资源，使其以一致且合规的方式进行备份。</p>
+
+
+
+<h2 class="wp-block-heading">自动化备份调度</h2>
+
+
+
+<p class="wp-block-paragraph">AWS Backup 允许你创建可自定义的备份计划（schedule），以满足业务和监管方面的备份要求。</p>
+
+
+
+<p class="wp-block-paragraph">你也可以从基于常见最佳实践的预定义备份计划中进行选择。</p>
+
+
+
+<p class="wp-block-paragraph">AWS Backup 会按照你定义的策略和计划自动备份 AWS 资源。</p>
+
+
+
+<p class="wp-block-paragraph">备份计划包括备份开始时间、备份频率和备份窗口。</p>
+
+
+
+<h2 class="wp-block-heading">自动化保留管理</h2>
+
+
+
+<p class="wp-block-paragraph">你可以配置备份保留策略，根据业务和监管合规要求自动保留和过期备份。</p>
+
+
+
+<p class="wp-block-paragraph">自动化备份保留管理只在需要时保留备份，从而将备份存储成本降到最低。</p>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_desk_"></div>
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_mob_"></div>
+
+
+
+<h2 class="wp-block-heading">AWS Backup Vault Lock</h2>
+
+
+
+<p class="wp-block-paragraph">AWS Backup Vault Lock 可以保护你的备份，防止因意外或恶意操作导致备份被删除或其生命周期被更改。</p>
+
+
+
+<p class="wp-block-paragraph">你可以使用 AWS CLI、AWS Backup API 或 AWS Backup SDK，为现有 vault 或新 vault 应用 AWS Backup Vault Lock 保护。</p>
+</div></div>
+</body>
+</html>

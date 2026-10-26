@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exam Scenarios for AWS CloudOps Engineer Associate - AWS Cheat Sheet</title>
+<style>
+:root{--primary:#1a5276;--secondary:#2980b9;--bg:#f8f9fa;--text:#2c3e50;--border:#dee2e6;--card:#fff;--accent:#e74c3c;--code-bg:#f1f3f4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:30px 40px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.header h1{font-size:1.6em;font-weight:700}
+.header .subtitle{opacity:.85;font-size:.85em;margin-top:4px}
+.content{max-width:960px;margin:30px auto;padding:0 20px}
+.card{background:var(--card);border-radius:8px;padding:30px 40px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:20px}
+h2{color:var(--primary);margin-top:30px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border);font-size:1.3em}
+h3{color:var(--secondary);margin-top:24px;margin-bottom:8px;font-size:1.1em}
+h4{color:var(--secondary);margin-top:16px;margin-bottom:6px;font-size:1em}
+p{margin-bottom:12px}
+ul,ol{margin:8px 0 12px 24px}
+li{margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92em}
+th{background:var(--primary);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:8px 14px;border:1px solid var(--border);vertical-align:top}
+tr:nth-child(even){background:#f8f9fa}
+tr:hover{background:#e8f0f7}
+img{max-width:100%;height:auto}
+code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF Mono",Monaco,Menlo,monospace;font-size:.9em}
+pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+</style>
+</head>
+<body>
+<div class="header"><h1>Exam Scenarios for AWS CloudOps Engineer Associate</h1><div class="subtitle">AWS Cheat Sheet</div></div>
+<div class="content"><div class="card">
+<p>下表中的场景和解决方案将帮助你备考 <a href="https://digitalcloud.training/aws-certified-cloudops-engineer-associate/">AWS Certified CloudOps Engineer Associate</a> 认证考试。通过这些考试场景，你可以更深入地了解通过这门颇具挑战性的考试所需的知识类型。你可以在 Digital Cloud Training 物超所值的<a href="https://learn.digitalcloud.training/course/aws-certified-cloudops-engineer-associate-video-course">视频课程</a>中学到所有这些知识以及更多内容，并获得数百个额外的考试场景。这些场景以及更多内容也涵盖在我们针对 SOA-C03 考试的<a href="https://learn.digitalcloud.training/course/aws-certified-cloudops-engineer-associate-practice-exams">模拟测试课程</a>中。</p>
+<h2>Amazon EC2 和 AWS Lambda</h2>
+<figure>
+<table>
+<tbody>
+<tr>
+<td><strong>考试场景</strong></td>
+<td><strong>解决方案</strong></td>
+</tr>
+<tr>
+<td>管理员需要检查是否有 <a href="https://digitalcloud.training/amazon-ec2/">Amazon EC2</a> 实例会受到计划中的硬件维护影响</td>
+<td>查看 AWS Personal Health Dashboard</td>
+</tr>
+<tr>
+<td>计划中的硬件维护将影响一个关键 EC2 实例</td>
+<td>停止并启动实例，将其迁移到不同的底层硬件</td>
+</tr>
+<tr>
+<td>启动 EC2 实例时遇到 InsufficientInstanceCapacity 错误</td>
+<td>这意味着 AWS 目前没有足够的容量来满足该实例类型的请求。尝试换一个 AZ 或实例类型</td>
+</tr>
+<tr>
+<td>启动 EC2 实例时遇到 InstanceLimitExceeded 错误</td>
+<td>已达到 EC2 实例数量上限，需要联系 support 申请提升限额</td>
+</tr>
+<tr>
+<td>某个 EC2 实例的系统状态检查（system status check）失败</td>
+<td>停止并重新启动，以迁移到新主机</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<h2>Elastic Load Balancing 和 Auto Scaling</h2>
+<figure>
+<table>
+<tbody>
+<tr>
+<td><strong>考试场景</strong></td>
+<td><strong>解决方案</strong></td>
+</tr>
+<tr>
+<td>需要设计一个高可用且安全的网站：EC2 上部署 Web 层并使用 <a href="https://digitalcloud.training/aws-elastic-load-balancing-aws-elb/">ALB</a>，数据库部署在 EC2 上</td>
+<td>ALB 部署在公有 subnet，Web 服务器部署在私有 subnet，数据库层部署在私有 subnet——所有层都跨 AZ</td>
+</tr>
+<tr>
+<td>某个 ALB 的 HealthyHostCount 指标从 6 降到 2，需要确定原因</td>
+<td>目标 EC2 实例的健康检查失败</td>
+</tr>
+<tr>
+<td>挂载在 ALB 下的某个实例连续健康检查失败次数超过 UnhealthyThresholdCount，会发生什么？</td>
+<td>健康检查会继续进行，ALB 会将该实例移出服务</td>
+</tr>
+<tr>
+<td>需要追踪客户端的源 IP 以及处理请求的实例</td>
+<td>查看 ALB 访问日志获取这些信息</td>
+</tr>
+<tr>
+<td>出现 503 和 504 错误，且实例 CPU 利用率很高</td>
+<td>使用 <a href="https://digitalcloud.training/amazon-ec2-auto-scaling/">EC2 Auto Scaling</a> 动态扩展</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<h2>Amazon EBS、EFS 和 AWS Storage Gateway</h2>
+<figure>
+<table>
+<tbody>
+<tr>
+<td><strong>考试场景</strong></td>
+<td><strong>解决方案</strong></td>
+</tr>
+<tr>
+<td>用户删除了 <a href="https://digitalcloud.training/amazon-ebs/">Amazon EBS</a> 卷中的一些数据，且有一个最近的快照</td>
+<td>可以从快照创建一个新的 EBS 卷，挂载到实例上，然后把被删除的文件拷贝回来</td>
+</tr>
+<tr>
+<td>EBS 卷空间耗尽，需要防止再次发生</td>
+<td>在 EC2 上使用 CloudWatch agent，并通过 CloudWatch alarm 监控磁盘指标</td>
+</tr>
+<tr>
+<td>办公室需要对镜像文件的低延迟访问，并同步备份到异地。需要本地访问能力和灾难恢复</td>
+<td>使用配置为 stored volume 的 <a href="https://digitalcloud.training/aws-storage-gateway/">AWS Storage Gateway</a> volume gateway</td>
+</tr>
+<tr>
+<td>EBS 卷扩容后看不到新增空间</td>
+<td>需要扩展卷的文件系统才能使用额外空间</td>
+</tr>
+<tr>
+<td>需要替换用户共享驱动器。必须支持 POSIX 权限和 NFS 协议，并且可以从本地服务器和 EC2 访问</td>
+<td>使用 <a href="https://digitalcloud.training/amazon-efs/">Amazon EFS</a></td>
+</tr>
+</tbody>
+</table>
+</figure>
+<h2>AWS Systems Manager</h2>
+<figure>
+<table>
+<tbody>
+<tr>
+<td><strong>考试场景</strong></td>
+<td><strong>解决方案</strong></td>
+</tr>
+<tr>
+<td>运行在 EC2 上的应用需要数据库登录凭证，凭证以 secure string 形式存储在 SSM Parameter Store 中</td>
+<td>为实例创建一个 IAM role，并授予读取参数的权限</td>
+</tr>
+<tr>
+<td>Linux 实例通过 <a href="https://digitalcloud.training/aws-systems-manager/">Systems Manager Patch Manager</a> 打补丁。打补丁期间应用变慢</td>
+<td>调整维护窗口，每次只给 patch group 中 10% 的实例打补丁</td>
+</tr>
+<tr>
+<td>自定义 Linux AMI 配合 AWS Systems Manager 使用，但在 Session Manager 控制台中找不到实例</td>
+<td>需要为 instance profile 添加权限，并在实例上安装 SSM agent</td>
+</tr>
+<tr>
+<td>多个环境需要外部服务的身份验证凭证，使用 CloudFormation 部署</td>
+<td>将凭证存储在 SSM Parameter Store 中，并在 CloudFormation 模板中通过参数传入环境标签</td>
+<td> </td>
+</tr>
+<tr>
+<td>使用 IAM access key 通过 CLI 管理 EC2 实例。公司策略要求 access key 在 60 天后自动禁用</td>
+<td>使用 AWS Config rule 识别不合规的密钥，创建自定义的 AWS Systems Manager Automation document 进行修复</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<h2>AWS CloudFormation</h2>
+<figure>
+<table>
+<tbody>
+<tr>
+<td><strong>考试场景</strong></td>
+<td><strong>解决方案</strong></td>
+</tr>
+<tr>
+<td>需要在生产环境部署之前审查 <a href="https://digitalcloud.training/aws-cloudformation/">AWS CloudFormation</a> stack 的更新</td>
+<td>使用 change set</td>
+</tr>
+<tr>
+<td>stack 部署后被手动修改过，需要捕获这些更改并更新模板</td>
+<td>使用 drift detection，并利用其输出更新模板后重新部署 stack</td>
+</tr>
+<tr>
+<td>需要更新 EC2 和 ALB 上的应用新版本。必须避免 DNS 变更，且能够回滚</td>
+<td>在模板中使用 AutoScalingReplacingUpdate 策略并执行更新</td>
+</tr>
+<tr>
+<td>需要编写一个可跨多个环境/区域部署的单一模板</td>
+<td>使用 parameter 输入自定义值，并使用 Ref 内部函数引用参数</td>
+</tr>
+<tr>
+<td>用一个正常工作的模板在另一个区域启动实例却失败了</td>
+<td>很可能是 AMI ID 不正确</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<h2>Amazon Virtual Private Cloud (VPC)</h2>
+<figure>
+<table>
+<tbody>
+<tr>
+<td><strong>考试场景</strong></td>
+<td><strong>解决方案</strong></td>
+</tr>
+<tr>
+<td>需要找出通过 NAT gateway 产生流量最多的实例</td>
+<td>在 NAT gateway 的 ENI 上使用 <a href="https://digitalcloud.training/amazon-vpc/">VPC flow log</a>，并用 CloudWatch Insights 按源 IP 地址过滤</td>
+</tr>
+<tr>
+<td>NAT 实例的延迟上升，需要一个能随需求扩展且具有成本效益的解决方案</td>
+<td>换成 NAT gateway</td>
+</tr>
+<tr>
+<td>NAT gateway 不能跨 AZ 高可用，只能在单个 AZ 内高可用</td>
+<td>使用多个 NAT gateway 实现跨 AZ 的高可用</td>
+</tr>
+<tr>
+<td>部署了 NAT 实例但不工作</td>
+<td>确保禁用 source/destination check</td>
+</tr>
+<tr>
+<td>需要让实例不使用公有 IP 地址访问 S3</td>
+<td>使用 NAT gateway 或 VPC endpoint</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<h2>Amazon Route 53</h2>
+<figure>
+<table>
+<tbody>
+<tr>
+<td><strong>考试场景</strong></td>
+<td><strong>解决方案</strong></td>
+</tr>
+<tr>
+<td>使用 <a href="https://digitalcloud.training/amazon-route-53/">Route 53</a> 基于健康检查进行分流：返回 (2xx) 的流量到主站点，其他响应到备用站点</td>
+<td>需要为每台服务器创建一条 A 记录，以及一个 HTTP（而非 TCP）健康检查</td>
+</tr>
+<tr>
+<td>Route 53 健康检查对“/html”使用字符串匹配，告警显示健康检查失败</td>
+<td>搜索字符串必须完整出现在响应体的前 5,120 字节内</td>
+</tr>
+<tr>
+<td>需要让网站促销内容只对特定国家的用户可见</td>
+<td>使用 Route 53 geolocation 路由策略</td>
+</tr>
+<tr>
+<td>新网站运行在 ALB 后面的 EC2 上。需要在 Route 53 中创建记录指向域名 apex（例如 example.com）</td>
+<td>使用 alias 记录</td>
+</tr>
+<tr>
+<td>hosted zone 在账户 A，ALB 在账户 B。需要最具成本效益且高效的方案指向该 ALB</td>
+<td>在账户 A 中创建一条指向账户 B 中 ALB 的 Alias 记录</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<h2>Amazon S3 和 CloudFront</h2>
+<figure>
+<table>
+<tbody>
+<tr>
+<td><strong>考试场景</strong></td>
+<td><strong>解决方案</strong></td>
+</tr>
+<tr>
+<td><a href="https://digitalcloud.training/amazon-s3-and-glacier/">Amazon S3</a> 上的静态网站使用自定义域名</td>
+<td>要求 bucket 名称与 Route 53 中的 DNS 名称/记录集名称一致</td>
+</tr>
+<tr>
+<td>新网站在数千用户访问时出现 503 错误</td>
+<td>请求速率过高</td>
+</tr>
+<tr>
+<td>bucket 控制台与 CloudWatch 中的对象数量不一致</td>
+<td>使用 Amazon S3 Inventory 来准确确定 bucket 中的对象数量</td>
+</tr>
+<tr>
+<td>需要强制对上传到 bucket 的所有对象加密</td>
+<td>使用 bucket policy，针对 PutObject 添加 "Condition": { "Bool": { "aws:SecureTransport": "false" 语句，并将 resource 设置为该 bucket</td>
+</tr>
+<tr>
+<td>有未授权用户尝试连接 S3 bucket。需要知道哪些 bucket 被盯上以及是谁在尝试访问</td>
+<td>使用 S3 server access log 和 Athena 查询 HTTP 403 错误，并查找发起请求的 IAM 用户或角色</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<h2>Amazon RDS 和 ElastiCache</h2>
+<figure>
+<table>
+<tbody>
+<tr>
+<td><strong>考试场景</strong></td>
+<td><strong>解决方案</strong></td>
+</tr>
+<tr>
+<td>multi-AZ 数据库发生了自动故障转移</td>
+<td>可能是主数据库的存储故障，或者实例类型被更改过</td>
+</tr>
+<tr>
+<td>需要加密一个未加密的 RDS 数据库</td>
+<td>拍摄快照，加密快照，然后从快照恢复出一个新的加密实例</td>
+</tr>
+<tr>
+<td><a href="https://digitalcloud.training/amazon-rds/">RDS 数据库</a>查询延迟高，CPU 利用率达 100%</td>
+<td>使用更大的实例类型向上扩展</td>
+</tr>
+<tr>
+<td>需要跨账户共享 RDS 数据库快照，数据必须加密</td>
+<td>使用 AWS KMS key 加密，更新 key policy 授予其他账户访问权限，然后共享快照</td>
+</tr>
+<tr>
+<td>数据库需要实现高可用以防止故障，且更新不能在营业时间影响用户</td>
+<td>在营业时间之外切换为 Multi-AZ</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<h2>管理、治理与计费</h2>
+<figure>
+<table>
+<tbody>
+<tr>
+<td><strong>考试场景</strong></td>
+<td><strong>解决方案</strong></td>
+</tr>
+<tr>
+<td>审计联合身份用户向 <a href="https://digitalcloud.training/aws-organizations/">AWS Organizations</a> 发起的创建新账户请求</td>
+<td>使用 CloudTrail，查找联合身份用户名</td>
+</tr>
+<tr>
+<td>员工创建了不受管控的个人 AWS 账户。安全团队需要将它们纳入 AWS Organizations</td>
+<td>从中心组织向每个账户发送邀请</td>
+</tr>
+<tr>
+<td>需要限制特定团队/账户启动特定实例类型的能力</td>
+<td>使用 Organizations SCP 拒绝启动非 T2 的实例类型，并在账户中创建 IAM group，向相关用户授予 T2 实例的访问权限</td>
+</tr>
+<tr>
+<td>需要测试 <a href="https://digitalcloud.training/amazon-cloudwatch/">CloudWatch</a> alarm 与 SNS 的通知设置</td>
+<td>使用 set-alarm-state CLI 命令进行测试</td>
+</tr>
+<tr>
+<td>需要自动禁用超过 90 天的 access key</td>
+<td>使用 <a href="https://digitalcloud.training/aws-config/">AWS Config</a> rule 识别不合规的密钥，并使用 Systems Manager Automation 进行修复</td>
+</tr>
+</tbody>
+</table>
+</figure>
+
+<div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_desktop_"></div>
+<div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_mobile_"></div>
+
+
+<h2>安全与合规</h2>
+<figure></figure>
+<figure>
+<table>
+<tbody>
+<tr>
+<td><strong>考试场景</strong></td>
+<td><strong>解决方案</strong></td>
+</tr>
+<tr>
+<td>公司希望强制用户定期更改密码</td>
+<td>创建 <a href="https://digitalcloud.training/aws-iam/">IAM password policy</a> 并启用密码过期</td>
+</tr>
+<tr>
+<td>需要基于源 IP 范围限制对某个 bucket 的访问</td>
+<td>使用带有 "Condition": "NotIpAddress": 语句的 bucket policy</td>
+</tr>
+<tr>
+<td>需要控制对具有特定标签的一组 EC2 实例的访问</td>
+<td>使用带 condition 元素的 IAM policy，基于标签授予访问权限，并将该 IAM policy 附加到需要访问权限的用户或组</td>
+</tr>
+<tr>
+<td>SQS 队列的 IAM policy 权限过大。谁负责纠正该问题？</td>
+<td>根据 AWS 责任共担模型，这是客户的责任</td>
+</tr>
+<tr>
+<td>数据使用 <a href="https://digitalcloud.training/aws-cloudhsm/">AWS KMS</a> 客户托管 CMK 加密。需要启用轮换，同时确保数据仍然可读</td>
+<td>直接在 AWS KMS 中为该 CMK 启用密钥轮换即可（轮换的是 backing key，data key 不变）</td>
+</tr>
+</tbody>
+</table>
+<p>你可以通过我们针对 <a href="https://digitalcloud.training/aws-certified-cloudops-engineer-associate/" target="_blank" rel="noopener noreferrer">AWS CloudOps Engineer Associate</a> 考试的热门培训课程，掌握通过这门高难度考试所需的全部知识。课程包含更多 AWS CloudOps 考试场景、260 道练习题以及超过 14 小时的点播视频。立即报名！</p>
+</figure>
+</div></div>
+</body>
+</html>

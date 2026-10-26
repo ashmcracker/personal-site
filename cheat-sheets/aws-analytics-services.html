@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS Analytics Services - AWS Cheat Sheet</title>
+<style>
+:root{--primary:#1a5276;--secondary:#2980b9;--bg:#f8f9fa;--text:#2c3e50;--border:#dee2e6;--card:#fff;--accent:#e74c3c;--code-bg:#f1f3f4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:30px 40px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.header h1{font-size:1.6em;font-weight:700}
+.header .subtitle{opacity:.85;font-size:.85em;margin-top:4px}
+.content{max-width:960px;margin:30px auto;padding:0 20px}
+.card{background:var(--card);border-radius:8px;padding:30px 40px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:20px}
+h2{color:var(--primary);margin-top:30px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border);font-size:1.3em}
+h3{color:var(--secondary);margin-top:24px;margin-bottom:8px;font-size:1.1em}
+h4{color:var(--secondary);margin-top:16px;margin-bottom:6px;font-size:1em}
+p{margin-bottom:12px}
+ul,ol{margin:8px 0 12px 24px}
+li{margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92em}
+th{background:var(--primary);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:8px 14px;border:1px solid var(--border);vertical-align:top}
+tr:nth-child(even){background:#f8f9fa}
+tr:hover{background:#e8f0f7}
+img{max-width:100%;height:auto}
+code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF Mono",Monaco,Menlo,monospace;font-size:.9em}
+pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+</style>
+</head>
+<body>
+<div class="header"><h1>AWS Analytics Services</h1><div class="subtitle">AWS Cheat Sheet</div></div>
+<div class="content"><div class="card">
+<div class="wp-block-image is-resized">
+<figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-02-AWS-Analytics-1-1024x652.png" alt="Amazon Analytics Cheat Sheets" class="wp-image-486060" style="width:400px" /></figure>
+</div>
+
+
+<p class="wp-block-paragraph">AWS 提供了多种分析（Analytics）服务，包括：</p>
+
+
+
+<ul class="wp-block-list">
+<li>Amazon Athena</li>
+
+
+
+<li>Amazon EMR</li>
+
+
+
+<li>Amazon CloudSearch</li>
+
+
+
+<li>Amazon Opensearch Service</li>
+
+
+
+<li>Amazon Kinesis</li>
+
+
+
+<li>Amazon QuickSight</li>
+
+
+
+<li>Amazon Data Pipeline</li>
+
+
+
+<li>AWS Glue</li>
+
+
+
+<li>AWS Lake Formation</li>
+
+
+
+<li>Amazon MSK</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">本文重点介绍 Athena、EMR、Glue 和 Kinesis，因为它们是 AWS Certified Cloud Practitioner 考试中最常出现的服务。你也可以点击其他服务的链接，了解它们在高层面的用途。</p>
+
+
+
+<h2 class="wp-block-heading">Amazon Elastic Map Reduce</h2>
+
+
+
+<p class="wp-block-paragraph">Amazon EMR 是一项 Web 服务，让企业、研究人员、数据分析师和开发者能够轻松且低成本地处理海量数据。</p>
+
+
+
+<p class="wp-block-paragraph">EMR 使用托管的 Hadoop 框架，运行在 Amazon EC2 和 Amazon S3 之上。</p>
+
+
+
+<p class="wp-block-paragraph">用于处理海量数据的托管 Hadoop 框架。</p>
+
+
+
+<p class="wp-block-paragraph">同时支持 Apache Spark、HBase、Presto 和 Flink。</p>
+
+
+
+<p class="wp-block-paragraph">最常用于日志分析、金融分析，或提取、转换和加载（ETL）类工作。</p>
+
+
+
+<p class="wp-block-paragraph">Step 是一个编程任务，用于对数据执行某种处理（例如统计单词数）。</p>
+
+
+
+<p class="wp-block-paragraph">Cluster 是由 EMR 预配置的一组 EC2 实例，用来运行你的 Step。</p>
+
+
+
+<p class="wp-block-paragraph">EMR 使用 Apache Hadoop 作为其分布式数据处理引擎。Hadoop 是一个开源的 Java 软件框架，支持在由普通硬件组成的大型集群上运行数据密集型分布式应用。</p>
+
+
+
+<p class="wp-block-paragraph">EMR 也是部署 Apache Spark 的好地方。Spark 是一个开源的分布式处理框架，面向大数据工作负载，利用内存缓存和优化的查询执行。</p>
+
+
+
+<p class="wp-block-paragraph">你还可以启动 Presto 集群。Presto 是一个开源的分布式 SQL 查询引擎，专为对大型数据集进行快速分析查询而设计。</p>
+
+
+
+<p class="wp-block-paragraph">EMR 会在同一个 Amazon EC2 可用区（Availability Zone）中启动给定集群的所有节点。</p>
+
+
+
+<p class="wp-block-paragraph">你可以通过 AWS Management Console、命令行工具、SDK 或 EMR API 来访问 Amazon EMR。</p>
+
+
+
+<p class="wp-block-paragraph">使用 EMR 时，你可以访问底层操作系统（可以 SSH 登录进去）。</p>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_body"></div>
+
+
+
+<h2 class="wp-block-heading">Amazon Athena</h2>
+
+
+
+<p class="wp-block-paragraph">Amazon Athena 是一项交互式查询服务，让你可以使用标准 SQL 轻松分析 Amazon S3 中的数据。</p>
+
+
+
+<p class="wp-block-paragraph">Athena 是 serverless 的，因此无需管理任何基础设施，你只需为运行的查询付费。</p>
+
+
+
+<p class="wp-block-paragraph">Athena 使用简单——只需指向 Amazon S3 中的数据，定义 schema，然后就可以用标准 SQL 开始查询。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon Athena 使用 Presto，完整支持标准 SQL，并兼容多种标准数据格式，包括 CSV、JSON、ORC、Apache Parquet 和 Avro。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon Athena 非常适合快速的 ad-hoc 查询，并可与 Amazon QuickSight 集成实现便捷的可视化；同时它也能处理复杂分析，包括大型 join、窗口函数和数组。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon Athena 使用托管的 Data Catalog 来存储你为 Amazon S3 中数据创建的数据库和表的信息及 schema。</p>
+
+
+
+<h2 class="wp-block-heading">AWS Glue</h2>
+
+
+
+<p class="wp-block-paragraph">AWS Glue 是一项全托管、按使用量付费的提取、转换和加载（ETL）服务，可以自动完成为分析做数据准备时那些耗时的步骤。</p>
+
+
+
+<p class="wp-block-paragraph">AWS Glue 通过 Glue Data Catalog 自动发现并剖析数据，推荐并生成 ETL 代码，将源数据转换为目标 schema。</p>
+
+
+
+<p class="wp-block-paragraph">AWS Glue 在全托管、可横向扩展的 Apache Spark 环境中运行 ETL 作业，将数据加载到目的地。</p>
+
+
+
+<p class="wp-block-paragraph">AWS Glue 还允许你搭建、编排和监控复杂的数据流。</p>
+
+
+
+<p class="wp-block-paragraph">在 AWS Management Console 中点击几下即可创建并运行 ETL 作业。</p>
+
+
+
+<p class="wp-block-paragraph">使用 AWS Glue 来发现数据的属性、转换数据，并为分析做好准备。</p>
+
+
+
+<p class="wp-block-paragraph">Glue 可以自动发现存储在 <a href="https://aws.amazon.com/s3/" target="_blank" rel="noopener"><strong>Amazon S3</strong></a> 数据湖中的结构化和半结构化数据、<a href="https://aws.amazon.com/redshift/" target="_blank" rel="noopener"><strong>Amazon Redshift</strong></a> 数据仓库中的数据，以及运行在 AWS 上的各种数据库。</p>
+
+
+
+<p class="wp-block-paragraph">它通过 Glue Data Catalog 提供数据的统一视图，可供 <a href="https://aws.amazon.com/athena/" target="_blank" rel="noopener"><strong>Amazon Athena</strong></a>、<a href="https://aws.amazon.com/emr/" target="_blank" rel="noopener"><strong>Amazon EMR</strong></a> 和 <a href="https://aws.amazon.com/redshift/" target="_blank" rel="noopener"><strong>Amazon Redshift Spectrum</strong></a> 等服务进行 ETL、查询和报表。</p>
+
+
+
+<p class="wp-block-paragraph">Glue 会自动为 ETL 作业生成 Scala 或 Python 代码，你可以用熟悉的工具进一步定制。</p>
+
+
+
+<p class="wp-block-paragraph">AWS Glue 是 serverless 的，因此无需配置和管理任何计算资源。</p>
+
+
+
+<h2 class="wp-block-heading">数据分析与查询的使用场景</h2>
+
+
+
+<p class="wp-block-paragraph">Amazon Athena 这类查询服务、Amazon Redshift 这类数据仓库，以及 Amazon EMR 这类高级数据处理框架，分别满足不同的需求和使用场景。</p>
+
+
+
+<p class="wp-block-paragraph">对于企业报表和商业智能工作负载，尤其是涉及包含多个 join 和子查询的极复杂 SQL 的场景，Amazon Redshift 提供最快的查询性能。</p>
+
+
+
+<p class="wp-block-paragraph">与本地部署相比，Amazon EMR 让运行 Hadoop、Spark、Presto 等高度分布式处理框架变得简单且经济高效。Amazon EMR 非常灵活——你可以运行自定义应用和代码，并定义具体的计算、内存、存储和应用参数来优化分析需求。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon Athena 提供了对 S3 中数据运行 ad-hoc 查询最简单的方式，无需搭建或管理任何服务器。</p>
+
+
+
+<p class="wp-block-paragraph">下表展示了几个 AWS 查询和分析服务的主要使用场景及适用情况：</p>
+
+
+
+<figure class="wp-block-table"><table><tbody><tr><td><strong>AWS 服务</strong></td><td><strong>主要使用场景</strong></td><td><strong>何时使用</strong></td></tr><tr><td>Amazon Athena</td><td>查询</td><td>直接对 Amazon S3 中的数据运行交互式查询，无需担心数据格式或基础设施管理。可与 Amazon RedShift 等其他服务配合使用</td></tr><tr><td>Amazon RedShift</td><td>数据仓库</td><td>从多个来源拉取数据，进行格式化和组织后存储，并支持生成业务报表的复杂高速查询。</td></tr><tr><td>Amazon EMR</td><td>数据处理</td><td>Hadoop、Spark、Presto 等高度分布式处理框架。为机器学习、图分析、数据转换、流数据等应用运行各种横向扩展的数据处理任务。</td></tr><tr><td>AWS Glue</td><td>ETL 服务</td><td>将数据转换并移动到各种目的地。用于为分析准备和加载数据。数据源可以是 S3、RedShift 或其他数据库。Glue Data Catalog 可被 Athena、EMR 和 RedShift Spectrum 查询</td></tr></tbody></table></figure>
+
+
+
+<h2 class="wp-block-heading">Amazon Kinesis</h2>
+
+
+
+<p class="wp-block-paragraph">Amazon Kinesis 让你可以轻松收集、处理和分析实时流数据，从而及时获得洞察并快速响应新信息。</p>
+
+
+
+<p class="wp-block-paragraph">一组用于处理各类数据流的服务。</p>
+
+
+
+<p class="wp-block-paragraph">数据以 “shard” 为单位进行处理。</p>
+
+
+
+<p class="wp-block-paragraph">Kinesis 服务共有四种类型，下面详细介绍。</p>
+
+
+
+<h2 class="wp-block-heading">Kinesis Video Streams</h2>
+
+
+
+<p class="wp-block-paragraph">Kinesis Video Streams 让你可以轻松地将视频从联网设备安全地流式传输到 AWS，用于分析、机器学习（ML）和其他处理。</p>
+
+
+
+<p class="wp-block-paragraph">持久化存储、加密并索引视频数据流，并通过易用的 API 访问数据。</p>
+
+
+
+<p class="wp-block-paragraph">Producer 提供数据流。</p>
+
+
+
+<p class="wp-block-paragraph">默认存储数据 24 小时，最长 7 天。</p>
+
+
+
+<p class="wp-block-paragraph">Consumer 接收并处理数据。</p>
+
+
+
+<p class="wp-block-paragraph">一个流中可以有多个 shard。</p>
+
+
+
+<p class="wp-block-paragraph">支持使用 customer master key 通过服务器端加密（KMS）实现静态加密。</p>
+
+
+
+<h2 class="wp-block-heading">Kinesis Data Streams</h2>
+
+
+
+<p class="wp-block-paragraph">Kinesis Data Streams 让你可以构建自定义应用，针对特定需求处理或分析流数据。</p>
+
+
+
+<p class="wp-block-paragraph">Kinesis Data Streams 支持对流式大数据进行实时处理。</p>
+
+
+
+<p class="wp-block-paragraph">Kinesis Data Streams 适用于快速从数据 producer 移出数据，然后持续处理这些数据的场景。</p>
+
+
+
+<p class="wp-block-paragraph">Kinesis Data Streams 会<strong>存储数据</strong>，供应用稍后处理（这是与 Firehose 的关键区别，Firehose 直接将数据投递到 AWS 服务）。</p>
+
+
+
+<p class="wp-block-paragraph">常见使用场景包括：</p>
+
+
+
+<ul class="wp-block-list">
+<li>加速日志和数据馈送的摄取。</li>
+
+
+
+<li>实时指标和报表。</li>
+
+
+
+<li>实时数据分析。</li>
+
+
+
+<li>复杂流处理。</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading">Kinesis Data Firehose</h2>
+
+
+
+<p class="wp-block-paragraph">Kinesis Data Firehose 是将流数据加载到数据存储和分析工具最简单的方式。</p>
+
+
+
+<p class="wp-block-paragraph">捕获、转换并加载流数据。</p>
+
+
+
+<p class="wp-block-paragraph">可借助现有商业智能工具和仪表板实现近实时分析。</p>
+
+
+
+<p class="wp-block-paragraph">Kinesis Data Streams 可以作为 Kinesis Data Firehose 的数据源。</p>
+
+
+
+<p class="wp-block-paragraph">你可以配置 Kinesis Data Firehose 在投递数据之前先进行转换。</p>
+
+
+
+<p class="wp-block-paragraph">使用 Kinesis Data Firehose 无需编写应用或管理资源。</p>
+
+
+
+<p class="wp-block-paragraph">Firehose 可以在加载数据前对其进行批处理、压缩和加密。</p>
+
+
+
+<p class="wp-block-paragraph">Firehose 在将数据传输到目的地时，会跨三个 AZ 同步复制数据。</p>
+
+
+
+<p class="wp-block-paragraph">每个 delivery stream 最多存储数据记录 24 小时。</p>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_desk_"></div>
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_mob_"></div>
+
+
+
+<h2 class="wp-block-heading">Kinesis Data Analytics</h2>
+
+
+
+<p class="wp-block-paragraph">Amazon Kinesis Data Analytics 是处理和分析实时流数据最简单的方式。</p>
+
+
+
+<p class="wp-block-paragraph">可以使用标准 SQL 查询处理 Kinesis 数据流。</p>
+
+
+
+<p class="wp-block-paragraph">提供实时分析。</p>
+
+
+
+<p class="wp-block-paragraph">使用场景：</p>
+
+
+
+<ul class="wp-block-list">
+<li>生成时间序列分析。</li>
+
+
+
+<li>为实时仪表板提供数据。</li>
+
+
+
+<li>创建实时告警和通知。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">可快速编写并针对流数据源运行强大的 SQL 代码。</p>
+
+
+
+<p class="wp-block-paragraph">可以从 Kinesis Streams 和 Kinesis Firehose 摄取数据。</p>
+
+
+
+<p class="wp-block-paragraph">输出到 S3、RedShift、Elasticsearch 和 Kinesis Data Streams。</p>
+
+
+
+<p class="wp-block-paragraph">位于 Kinesis Data Streams 和 Kinesis Data Firehose 之上。</p>
+</div></div>
+</body>
+</html>

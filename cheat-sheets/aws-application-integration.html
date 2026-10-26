@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS Application Integration Service - AWS Cheat Sheet</title>
+<style>
+:root{--primary:#1a5276;--secondary:#2980b9;--bg:#f8f9fa;--text:#2c3e50;--border:#dee2e6;--card:#fff;--accent:#e74c3c;--code-bg:#f1f3f4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:30px 40px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.header h1{font-size:1.6em;font-weight:700}
+.header .subtitle{opacity:.85;font-size:.85em;margin-top:4px}
+.content{max-width:960px;margin:30px auto;padding:0 20px}
+.card{background:var(--card);border-radius:8px;padding:30px 40px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:20px}
+h2{color:var(--primary);margin-top:30px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border);font-size:1.3em}
+h3{color:var(--secondary);margin-top:24px;margin-bottom:8px;font-size:1.1em}
+h4{color:var(--secondary);margin-top:16px;margin-bottom:6px;font-size:1em}
+p{margin-bottom:12px}
+ul,ol{margin:8px 0 12px 24px}
+li{margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92em}
+th{background:var(--primary);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:8px 14px;border:1px solid var(--border);vertical-align:top}
+tr:nth-child(even){background:#f8f9fa}
+tr:hover{background:#e8f0f7}
+img{max-width:100%;height:auto}
+code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF Mono",Monaco,Menlo,monospace;font-size:.9em}
+pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+</style>
+</head>
+<body>
+<div class="header"><h1>AWS Application Integration Service</h1><div class="subtitle">AWS Cheat Sheet</div></div>
+<div class="content"><div class="card">
+<div class="wp-block-image">
+<figure class="alignright is-resized"><img decoding="async" src="images/2023-02-AWS-Application-Integration.png" alt="Amazon AWS Application Integration" class="wp-image-309559" style="width:400px"/></figure>
+</div>
+
+
+<p class="wp-block-paragraph">AWS 应用集成服务是一组服务，用于实现应用之间的解耦通信。</p>
+
+
+
+<p class="wp-block-paragraph">这些服务为微服务、分布式系统和 serverless 应用提供解耦能力。</p>
+
+
+
+<p class="wp-block-paragraph">借助 AWS 应用集成服务，你可以连接各个应用，而无需编写自定义代码来实现互操作。</p>
+
+
+
+<p class="wp-block-paragraph">解耦的应用可以互相协作，同时又能容忍任何单个组件的故障或过载。</p>
+
+
+
+<p class="wp-block-paragraph">与应用集成相关的服务如下：</p>
+
+
+
+<figure><table><tbody><tr><td><strong>服务</strong></td><td><strong>作用</strong></td><td><strong>典型使用场景</strong></td></tr><tr><td>Simple Queue Service (SQS)</td><td>消息队列；存储转发模式</td><td>构建分布式 / 解耦应用</td></tr><tr><td>Simple Notification Service (SNS)</td><td>在云端搭建、运营并发送通知</td><td>CloudWatch 告警触发时发送邮件通知</td></tr><tr><td>Step Functions</td><td>开箱即用地通过可视化工作流协调 AWS 服务组件</td><td>订单处理工作流</td></tr><tr><td>Simple Workflow Service (SWF)</td><td>需要支持外部流程或专门的执行逻辑</td><td>有人工参与的工作流，如订单履约系统或流程化审批请求</td></tr><tr><td>Amazon MQ</td><td>面向 Apache Active MQ 和 RabbitMQ 的消息代理服务</td><td>需要支持行业标准 API 和协议的消息队列；将队列迁移到 AWS</td></tr></tbody></table></figure>
+
+
+
+<h2 class="wp-block-heading">Amazon Simple Notification Service</h2>
+
+
+
+<p class="wp-block-paragraph">Amazon Simple Notification Service（Amazon SNS）是一项 Web 服务，让你可以轻松地在云端搭建、运营并发送通知。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon SNS 用于构建和集成松耦合的分布式应用。</p>
+
+
+
+<p class="wp-block-paragraph">SNS 提供即时的推送式投递（无需轮询）。</p>
+
+
+
+<p class="wp-block-paragraph">SNS 的核心概念：</p>
+
+
+
+<ul class="wp-block-list">
+<li>Topic —— 用来标记和分组你要发送消息的不同 endpoint。</li>
+
+
+
+<li>Subscription —— topic 发送消息的目标 endpoint。</li>
+
+
+
+<li>Publisher —— 向 SNS 提供待发送消息的人 / 告警 / 事件。</li>
+</ul>
+
+
+
+<figure><img decoding="async" src="images/2022-02-amazon-sns-publishers-subscribers.png" alt="amazon-sns-publishers-subscribers"/></figure>
+
+
+
+<p class="wp-block-paragraph">SNS 的用法：</p>
+
+
+
+<ul class="wp-block-list">
+<li>发送自动或手动通知。</li>
+
+
+
+<li>向 email、手机（SMS）、SQS 和 HTTP endpoint 发送通知。</li>
+
+
+
+<li>与 CloudWatch 等其他 AWS 服务紧密集成，让你 AWS 账户中的告警、事件和操作都可以触发通知。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">API 简单，易于与应用集成。</p>
+
+
+
+<p class="wp-block-paragraph">通过多种传输协议提供灵活的消息投递。</p>
+
+
+
+<p class="wp-block-paragraph">采用低廉的按使用量付费模式，无前期费用。</p>
+
+
+
+<p class="wp-block-paragraph">基于 Web 的 AWS Management Console 提供简单的点击式界面。</p>
+
+
+
+<p class="wp-block-paragraph">数据类型为 JSON。</p>
+
+
+
+<p class="wp-block-paragraph">SNS 支持广泛的需求，包括事件通知、应用监控、工作流系统、时效性强的信息更新、移动应用，以及任何产生或消费通知的应用。</p>
+
+
+
+<p class="wp-block-paragraph">SNS Subscriber 类型：</p>
+
+
+
+<ul class="wp-block-list">
+<li>HTTP。</li>
+
+
+
+<li>HTTPS。</li>
+
+
+
+<li>Email。</li>
+
+
+
+<li>Email-JSON。</li>
+
+
+
+<li>SQS。</li>
+
+
+
+<li>Application。</li>
+
+
+
+<li>Lambda。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">SNS 支持通过多种传输协议发送通知：</p>
+
+
+
+<ul class="wp-block-list">
+<li>HTTP/HTTPS —— subscriber 在注册订阅时指定一个 URL。</li>
+
+
+
+<li>Email/Email-JSON —— 消息以邮件形式发送到注册的地址（纯文本或 JSON 对象）。</li>
+
+
+
+<li>SQS —— 用户可以指定一个 SQS 标准队列作为 endpoint。</li>
+
+
+
+<li>SMS —— 消息以短信形式发送到注册的手机号。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Topic 名称最长 256 个字符。</p>
+
+
+
+<p class="wp-block-paragraph">SNS 支持对经过身份验证的调用进行 CloudTrail 审计。</p>
+
+
+
+<p class="wp-block-paragraph">SNS 为接收到的所有消息提供持久化存储（跨多个 AZ）。</p>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_body_"></div>
+
+
+
+<h2 class="wp-block-heading">Amazon Simple Queue Service（Amazon SQS）</h2>
+
+
+
+<p class="wp-block-paragraph">Amazon Simple Queue Service（SQS）是一个分布式队列系统。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon SQS 让你可以在软件组件之间发送、存储和接收消息。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon SQS 队列是等待处理的消息的临时存储库。</p>
+
+
+
+<p class="wp-block-paragraph">SQS 队列在生产并保存数据的组件与接收数据进行处理的组件之间充当缓冲区。</p>
+
+
+
+<figure><img decoding="async" src="images/2022-02-amazon-sqs-queue.jpeg" alt="Amazon SQS Queue"/></figure>
+
+
+
+<p class="wp-block-paragraph">这就是所谓的解耦 / 松耦合，有助于为应用实现弹性。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon SQS 是拉取（pull）模式的，而不是推送（push）模式（Amazon SNS 是推送模式）。</p>
+
+
+
+<h2 class="wp-block-heading">Amazon Simple Workflow Service（Amazon SWF）</h2>
+
+
+
+<p class="wp-block-paragraph">Amazon Simple Workflow Service（SWF）是一项 Web 服务，让你可以轻松协调跨分布式应用组件的工作。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon SWF 用于处理包含并行或串行步骤的后台任务。</p>
+
+
+
+<p class="wp-block-paragraph">你可以把 Amazon SWF 看作一个全托管的状态跟踪器和任务协调器。</p>
+
+
+
+<p class="wp-block-paragraph">如果应用的步骤需要超过 500 毫秒才能完成、需要跟踪处理状态，或者任务失败时需要恢复或重试，就适合使用 Amazon SWF。</p>
+
+
+
+<p class="wp-block-paragraph">使用 SWF，你可以以工作流的形式构建分布式异步系统。</p>
+
+
+
+<p class="wp-block-paragraph">它会跟踪工作流状态，你可以通过 API 进行交互和更新。</p>
+
+
+
+<p class="wp-block-paragraph">最适合有人工参与的工作流，如订单履约系统或流程化审批请求。</p>
+
+
+
+<p class="wp-block-paragraph">AWS 建议新应用优先考虑使用 AWS Step Functions 而不是 SWF。</p>
+
+
+
+<h2 class="wp-block-heading">Amazon MQ</h2>
+
+
+
+<p class="wp-block-paragraph">Amazon MQ 是面向 ActiveMQ 的托管消息代理服务。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon MQ 支持行业标准 API 和协议，因此你可以在不重写代码的情况下迁移消息系统和应用。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon MQ 提供经济高效且灵活的消息处理能力。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon MQ 负责 ActiveMQ broker 的管理和维护，并自动预配置高可用基础设施。</p>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_desktop_"></div>
+<div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_mobile_"></div>
+
+
+
+<h2 class="wp-block-heading">AWS Step Functions</h2>
+
+
+
+<p class="wp-block-paragraph">AWS Step Functions 可以将分布式应用的各个组件协调为可视化工作流中的一系列步骤。</p>
+
+
+
+<p class="wp-block-paragraph">你可以快速构建并运行状态机，以可靠、可扩展的方式执行应用的各个步骤。</p>
+
+
+
+<p class="wp-block-paragraph">工作方式：</p>
+
+
+
+<ol class="wp-block-list">
+<li>用基于 JSON 的 Amazon States Language 定义工作流的各个步骤。可视化控制台会自动按执行顺序绘制每个步骤。</li>
+
+
+
+<li>启动一次执行，可视化并验证应用的各个步骤是否按预期运行。控制台会高亮显示每个步骤的实时状态，并提供每次执行的详细历史记录。</li>
+
+
+
+<li>AWS Step Functions 为你运行并扩展应用的各个步骤及底层计算资源，确保应用在需求增长时仍能可靠执行。</li>
+</ol>
+
+
+
+<p class="wp-block-paragraph">它是一个托管的工作流和编排平台。</p>
+</div></div>
+</body>
+</html>

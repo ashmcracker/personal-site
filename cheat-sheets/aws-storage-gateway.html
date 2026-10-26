@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS Storage Gateway - AWS Cheat Sheet</title>
+<style>
+:root{--primary:#1a5276;--secondary:#2980b9;--bg:#f8f9fa;--text:#2c3e50;--border:#dee2e6;--card:#fff;--accent:#e74c3c;--code-bg:#f1f3f4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:30px 40px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.header h1{font-size:1.6em;font-weight:700}
+.header .subtitle{opacity:.85;font-size:.85em;margin-top:4px}
+.content{max-width:960px;margin:30px auto;padding:0 20px}
+.card{background:var(--card);border-radius:8px;padding:30px 40px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:20px}
+h2{color:var(--primary);margin-top:30px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border);font-size:1.3em}
+h3{color:var(--secondary);margin-top:24px;margin-bottom:8px;font-size:1.1em}
+h4{color:var(--secondary);margin-top:16px;margin-bottom:6px;font-size:1em}
+p{margin-bottom:12px}
+ul,ol{margin:8px 0 12px 24px}
+li{margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92em}
+th{background:var(--primary);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:8px 14px;border:1px solid var(--border);vertical-align:top}
+tr:nth-child(even){background:#f8f9fa}
+tr:hover{background:#e8f0f7}
+img{max-width:100%;height:auto}
+code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF Mono",Monaco,Menlo,monospace;font-size:.9em}
+pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+</style>
+</head>
+<body>
+<div class="header"><h1>AWS Storage Gateway</h1><div class="subtitle">AWS Cheat Sheet</div></div>
+<div class="content"><div class="card">
+<div class="wp-block-image is-resized">
+<figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-01-AWS-Storage-Gateway-1024x652.png" alt="Amazon AWS Storage Gateway Services" class="wp-image-486353" style="width:400px" /></figure>
+</div>
+
+
+<p class="wp-block-paragraph">AWS Storage Gateway 服务实现了本地环境与 AWS 云之间的混合存储。</p>
+
+
+
+<p class="wp-block-paragraph">它通过在本地缓存频繁访问的数据来提供低延迟性能，同时将数据安全、持久地存储在 Amazon 云存储服务中。</p>
+
+
+
+<p class="wp-block-paragraph">通过一台在本地运行的虚拟机实现（VMware 或 Hyper-V 虚拟设备）。</p>
+
+
+
+<p class="wp-block-paragraph">提供由 <a href="https://digitalcloud.training/amazon-s3-and-glacier/"><strong>Amazon S3</strong></a> 和 <a href="https://digitalcloud.training/amazon-s3-and-glacier/"><strong>Glacier</strong></a> 支撑的本地存储资源。</p>
+
+
+
+<p class="wp-block-paragraph">常用于灾难恢复准备，将数据同步到 AWS。</p>
+
+
+
+<p class="wp-block-paragraph">AWS Storage Gateway 支持三种存储接口：文件（file）、卷（volume）和磁带（tape）。</p>
+
+
+
+<p class="wp-block-paragraph">下表列出了各类网关及其接口和使用场景：</p>
+
+
+
+<figure class="wp-block-table"><table><tbody><tr><td><strong>新名称</strong></td><td><strong>旧名称</strong></td><td><strong>接口</strong></td><td><strong>使用场景</strong></td></tr><tr><td><strong>File Gateway</strong></td><td>无</td><td>NFS、SMB</td><td>允许本地或 EC2 实例通过 NFS 或 SMB 挂载点将对象存储到 S3</td></tr><tr><td><strong>Volume Gateway Stored 模式</strong></td><td>Gateway-Stored Volumes</td><td>iSCSI</td><td>将本地数据异步复制到 S3</td></tr><tr><td><strong>Volume Gateway Cached 模式</strong></td><td>Gateway-Cached Volumes</td><td>iSCSI</td><td>主数据存储在 S3，频繁访问的数据在本地缓存</td></tr><tr><td><strong>Tape Gateway</strong></td><td>Gateway-Virtual Tape Library</td><td>iSCSI</td><td>与现有备份软件配合使用的虚拟介质转换器和磁带库</td></tr></tbody></table></figure>
+
+
+
+<p class="wp-block-paragraph">每个网关只能提供一种类型的接口。</p>
+
+
+
+<p class="wp-block-paragraph">任何类型的网关设备与 AWS 存储之间传输的所有数据都使用 SSL 加密。</p>
+
+
+
+<p class="wp-block-paragraph">默认情况下，AWS Storage Gateway 存储在 S3 中的所有数据都使用 Amazon S3 托管加密密钥（SSE-S3）进行服务器端加密。</p>
+
+
+
+<p class="wp-block-paragraph">使用 file gateway 时，你可以选择为每个文件共享配置使用 AWS KMS 托管密钥（SSE-KMS）来加密对象。</p>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_body"></div>
+
+
+
+<h2 class="wp-block-heading">File Gateway</h2>
+
+
+
+<p class="wp-block-paragraph">File gateway 提供一个虚拟的本地文件服务器，让你能够以对象形式在 Amazon S3 中存储和检索文件。</p>
+
+
+
+<p class="wp-block-paragraph">可用于本地应用，也可用于需要在 S3 中使用文件存储来处理对象类工作负载的 Amazon EC2 应用。</p>
+
+
+
+<p class="wp-block-paragraph">仅用于扁平文件（flat file），直接存储在 S3 上。</p>
+
+
+
+<p class="wp-block-paragraph">File gateway 通过 SMB 或 NFS 访问 Amazon S3 中的数据，并带有本地缓存。</p>
+
+
+
+<p class="wp-block-paragraph">File gateway 支持 Amazon S3 Standard、S3 Standard – Infrequent Access (S3 Standard – IA) 和 S3 One Zone – IA。</p>
+
+
+
+<p class="wp-block-paragraph">File gateway 支持客户端使用 NFS v3 和 v4.1 连接网关。</p>
+
+
+
+<p class="wp-block-paragraph">支持 SMB 的 Microsoft Windows 客户端可以连接 file gateway。</p>
+
+
+
+<p class="wp-block-paragraph">单个文件的最大大小为 5 TB。</p>
+
+
+
+<h2 class="wp-block-heading">Volume Gateway</h2>
+
+
+
+<p class="wp-block-paragraph">Volume gateway 是支持块存储卷（block-based volume）的网关系列，之前称为 gateway-cached 和 gateway-stored 模式。</p>
+
+
+
+<p class="wp-block-paragraph">块存储 —— 基于 iSCSI。</p>
+
+
+
+<p class="wp-block-paragraph">Cached Volume 模式 —— 整个数据集存储在 S3 上，最常访问的数据缓存在本地。</p>
+
+
+
+<p class="wp-block-paragraph">Stored Volume 模式 —— 整个数据集存储在本地，并异步备份到 S3（EBS 时间点快照）。快照是增量式的并经过压缩。</p>
+
+
+
+<p class="wp-block-paragraph">每个 volume gateway 最多支持 32 个卷。</p>
+
+
+
+<p class="wp-block-paragraph">在 cached 模式下，每个卷最大 32 TB，每个网关最大 1 PB 数据（32 个卷，每个 32 TB）。</p>
+
+
+
+<p class="wp-block-paragraph">在 stored 模式下，每个卷最大 16 TB，每个网关最大 512 TB 数据（32 个卷，每个 16 TB）。</p>
+
+
+
+<h2 class="wp-block-heading">Gateway Virtual Tape Library</h2>
+
+
+
+<p class="wp-block-paragraph">用于配合主流备份软件进行备份。</p>
+
+
+
+<p class="wp-block-paragraph">每个网关预配置了介质转换器（media changer）和磁带驱动器。支持 NetBackup、Backup Exec、Veeam 等。</p>
+
+
+
+<p class="wp-block-paragraph">创建虚拟磁带时，你可以选择以下容量之一：100 GB、200 GB、400 GB、800 GB、1.5 TB 和 2.5 TB。</p>
+
+
+
+<p class="wp-block-paragraph">一个 tape gateway 最多可有 1,500 盘虚拟磁带，最大总容量为 1 PB。</p>
+
+
+
+<p class="wp-block-paragraph">管理 AWS Storage Gateway</p>
+
+
+
+<p class="wp-block-paragraph">你可能需要关闭或重启虚拟机进行维护，例如为 hypervisor 打补丁。在关闭虚拟机之前，必须先停止网关。</p>
+
+
+
+<ul class="wp-block-list">
+<li>对于 file gateway，直接关闭虚拟机即可。</li>
+
+
+
+<li>对于 volume 和 tape gateway，先停止网关，重启虚拟机，然后启动网关。</li>
+</ul>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_desk_"></div>
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_mob_"></div>
+
+
+
+<h2 class="wp-block-heading">监控 AWS Storage Gateway</h2>
+
+
+
+<p class="wp-block-paragraph">在<a href="https://docs.aws.amazon.com/storagegateway/latest/userguide/Main_monitoring-gateways-common.html"><strong>监控</strong></a> file、cached-volume 和 tape gateway 的缓存使用情况时，以下指标非常有用。</p>
+
+
+
+<figure class="wp-block-table"><table><tbody><tr><td><strong>指标</strong></td><td><strong>描述</strong></td><td><strong>适用于</strong></td></tr><tr><td>CacheHitPercent</td><td>从缓存中响应的应用读取所占的百分比。样本在报告周期结束时采集。<br>单位：百分比</td><td>File、cached-volume 和 tape gateway。</td></tr><tr><td>CacheUsed</td><td>网关缓存存储中正在使用的总字节数。样本在报告周期结束时采集。<br>单位：字节</td><td>File、cached-volume 和 tape gateway。</td></tr></tbody></table></figure>
+</div></div>
+</body>
+</html>

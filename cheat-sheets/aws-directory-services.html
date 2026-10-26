@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS Directory Services - AWS Cheat Sheet</title>
+<style>
+:root{--primary:#1a5276;--secondary:#2980b9;--bg:#f8f9fa;--text:#2c3e50;--border:#dee2e6;--card:#fff;--accent:#e74c3c;--code-bg:#f1f3f4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:30px 40px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.header h1{font-size:1.6em;font-weight:700}
+.header .subtitle{opacity:.85;font-size:.85em;margin-top:4px}
+.content{max-width:960px;margin:30px auto;padding:0 20px}
+.card{background:var(--card);border-radius:8px;padding:30px 40px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:20px}
+h2{color:var(--primary);margin-top:30px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border);font-size:1.3em}
+h3{color:var(--secondary);margin-top:24px;margin-bottom:8px;font-size:1.1em}
+h4{color:var(--secondary);margin-top:16px;margin-bottom:6px;font-size:1em}
+p{margin-bottom:12px}
+ul,ol{margin:8px 0 12px 24px}
+li{margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92em}
+th{background:var(--primary);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:8px 14px;border:1px solid var(--border);vertical-align:top}
+tr:nth-child(even){background:#f8f9fa}
+tr:hover{background:#e8f0f7}
+img{max-width:100%;height:auto}
+code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF Mono",Monaco,Menlo,monospace;font-size:.9em}
+pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+</style>
+</head>
+<body>
+<div class="header"><h1>AWS Directory Services</h1><div class="subtitle">AWS Cheat Sheet</div></div>
+<div class="content"><div class="card">
+<div class="wp-block-image is-resized">
+<figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-01-AWS-Directory-Services-1-1024x652.png" alt="Amazon AWS Directory Services" class="wp-image-486211" style="width:400px" /></figure>
+</div>
+
+
+<p class="wp-block-paragraph">AWS 提供多种目录类型。</p>
+
+
+
+<p class="wp-block-paragraph">目前考试中涉及以下三种类型，本页将进行介绍：</p>
+
+
+
+<ul class="wp-block-list">
+<li>Active Directory Service for Microsoft Active Directory。</li>
+
+
+
+<li>Simple AD。</li>
+
+
+
+<li>AD Connector。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">除了 AWS Directory 服务之外，你也可以在 AWS 云中（EC2 上）自建 Microsoft AD DC。</p>
+
+
+
+<ul class="wp-block-list">
+<li>自建时可以加入现有的本地 Active Directory 域（复制模式）。</li>
+
+
+
+<li>必须建立 VPN（如果有 Direct Connect，则在其之上）。</li>
+
+
+
+<li>复制模式的安全性低于建立信任关系。</li>
+</ul>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_desktop_"></div>
+<div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_mobile_"></div>
+
+
+
+<p class="wp-block-paragraph">下表总结了本页介绍的目录服务以及其他几种服务，并给出了典型使用场景：</p>
+
+
+
+<figure class="wp-block-table"><table><tbody><tr><td><strong>目录服务选项</strong></td><td><strong>描述</strong></td><td><strong>使用场景</strong></td></tr><tr><td>AWS Cloud Directory</td><td>云原生目录，用于在应用之间共享和控制对分层数据的访问</td><td>需要具有复杂关系的分层数据的云应用</td></tr><tr><td>Amazon Cognito</td><td>可扩展至数百万用户的注册和登录功能，可与公共社交媒体服务联合</td><td>开发消费类应用或 SaaS</td></tr><tr><td>AWS Directory Service for Microsoft Active Directory</td><td>运行在 Windows Server 2012 R2 上的 AWS 托管完整 Microsoft AD</td><td>需要托管 Microsoft AD 的企业，或 Linux 应用需要 LDAP</td></tr><tr><td>AD Connector</td><td>允许本地用户使用现有 AD 凭证登录 AWS 服务。也允许 EC2 实例加入 AD 域</td><td>本地员工的单点登录，以及将 EC2 实例加入域</td></tr><tr><td>Simple AD</td><td>基于 Samba 的小规模、低成本 AD 实现</td><td>简单的用户目录，或需要 LDAP 兼容性</td></tr></tbody></table></figure>
+
+
+
+<h2 class="wp-block-heading">Active Directory Service for Microsoft Active Directory</h2>
+
+
+
+<p class="wp-block-paragraph">运行在 AWS 基础设施上的全托管 AWS 服务。</p>
+
+
+
+<p class="wp-block-paragraph">如果用户超过 5000 名和/或需要建立信任关系，这是最佳选择。</p>
+
+
+
+<p class="wp-block-paragraph">包含软件补丁、复制、自动备份、更换故障 DC 和监控。</p>
+
+
+
+<p class="wp-block-paragraph">运行在 Windows Server 上。</p>
+
+
+
+<p class="wp-block-paragraph">支持 schema 扩展。</p>
+
+
+
+<p class="wp-block-paragraph">可与 SharePoint、Microsoft SQL Server 和 .Net 应用配合使用。</p>
+
+
+
+<p class="wp-block-paragraph">你可以建立信任关系，将本地 Active Directory 的认证扩展到 AWS 云。</p>
+
+
+
+<p class="wp-block-paragraph">本地用户和组可以通过 SSO 访问任一域中的资源。</p>
+
+
+
+<p class="wp-block-paragraph">需要 VPN 或 Direct Connect 连接。</p>
+
+
+
+<p class="wp-block-paragraph">可作为 AWS 云中独立的 AD 使用。</p>
+
+
+
+<p class="wp-block-paragraph">独立使用时，用户可以通过 federation 访问 Microsoft O365 等第三方应用。</p>
+
+
+
+<p class="wp-block-paragraph">你还可以使用 Active Directory 凭证登录 AWS 管理控制台，而无需配置 SAML 认证。</p>
+
+
+
+<p class="wp-block-paragraph">AWS Microsoft AD 支持的 AWS 应用包括 WorkSpaces、WorkDocs、QuickSight、Chime、Amazon Connect 和 RDS for Microsoft SQL Server。</p>
+
+
+
+<p class="wp-block-paragraph">下图展示了 AWS Microsoft AD 目录的一些使用场景，包括允许用户访问外部云应用，以及允许本地 AD 用户管理和访问 AWS 云中的资源。</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-01-aws-microsoft-ad-use-cases.jpeg" alt="AWS Microsoft AD Use Cases" class="wp-image-297064"/></figure>
+
+
+
+<p class="wp-block-paragraph">包含的安全特性：</p>
+
+
+
+<ul class="wp-block-list">
+<li>细粒度密码策略管理。</li>
+
+
+
+<li>通过 SSL/TLS 进行 LDAP 加密。</li>
+
+
+
+<li>通过 HIPAA 和 PCI DSS 认证。</li>
+
+
+
+<li>通过与现有基于 RADIUS 的 MFA 基础设施集成实现多因素认证。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">通过 CloudTrail 提供监控，通过 SNS 发送通知，每日自动快照。</p>
+
+
+
+<p class="wp-block-paragraph">可通过添加 Domain Controller 进行扩展的可伸缩服务。</p>
+
+
+
+<p class="wp-block-paragraph">以 HA 配置部署在同一区域的两个 AZ 中。</p>
+
+
+
+<p class="wp-block-paragraph">AWS Microsoft AD 不支持复制模式（即向本地 AD 复制）。</p>
+
+
+
+<p class="wp-block-paragraph">两个版本：</p>
+
+
+
+<ul class="wp-block-list">
+<li>Standard Edition 针对员工不超过 5,000 人的中小企业进行了优化，可用作主目录。它提供足够的存储容量，支持最多 30,000 个目录对象（如用户、组和计算机）。</li>
+
+
+
+<li>Enterprise Edition 专为支持最多 500,000 个目录对象的企业组织设计。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">目录共享：</p>
+
+
+
+<ul class="wp-block-list">
+<li>AWS Directory Service for Microsoft Active Directory 允许你在一个账户中使用目录，并与多个账户和 VPC 共享。</li>
+
+
+
+<li>每共享一个额外账户，按小时收取共享费用。</li>
+
+
+
+<li>共享目录到的额外 VPC 以及安装目录的账户不收取共享费用。</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading">Simple AD</h2>
+
+
+
+<p class="wp-block-paragraph">一种低成本的 Active Directory 兼容服务，具备常见的目录功能。</p>
+
+
+
+<p class="wp-block-paragraph">AWS 云上的独立、全托管目录。</p>
+
+
+
+<p class="wp-block-paragraph">Simple AD 通常是最便宜的选项。</p>
+
+
+
+<p class="wp-block-paragraph">用户少于 5000 且不需要高级 AD 功能时的最佳选择。</p>
+
+
+
+<p class="wp-block-paragraph">由 SAMBA 4 Active Directory 兼容服务器提供支持。</p>
+
+
+
+<p class="wp-block-paragraph">可以创建用户并控制对 AWS 上应用的访问。</p>
+
+
+
+<p class="wp-block-paragraph">提供 AWS MS AD 功能的子集。</p>
+
+
+
+<p class="wp-block-paragraph">功能包括：</p>
+
+
+
+<ul class="wp-block-list">
+<li>管理用户账户。</li>
+
+
+
+<li>管理组。</li>
+
+
+
+<li>应用组策略。</li>
+
+
+
+<li>安全连接 EC2 实例。</li>
+
+
+
+<li>基于 Kerberos 的 SSO。</li>
+
+
+
+<li>支持加入 Linux 或 Windows 的 EC2 实例。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">AWS 提供监控、每日快照和恢复服务。</p>
+
+
+
+<p class="wp-block-paragraph">支持手动快照。</p>
+
+
+
+<p class="wp-block-paragraph">Simple AD 兼容 WorkSpaces、WorkDocs、WorkMail 和 QuickSight。</p>
+
+
+
+<p class="wp-block-paragraph">你还可以使用 Simple AD 用户账户登录 AWS 管理控制台来管理 AWS 资源。</p>
+
+
+
+<p class="wp-block-paragraph">提供两个版本：</p>
+
+
+
+<ul class="wp-block-list">
+<li>Small —— 支持最多 500 个用户（约 2000 个对象）。</li>
+
+
+
+<li>Large —— 支持最多 5000 个用户（约 20,000 个对象）。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">AWS 在一个 AZ 内的两个不同子网上创建两台目录服务器和 DNS 服务器。</p>
+
+
+
+<p class="wp-block-paragraph">Simple AD 不支持：</p>
+
+
+
+<ul class="wp-block-list">
+<li>DNS 动态更新。</li>
+
+
+
+<li>Schema 扩展。</li>
+
+
+
+<li>多因素认证。</li>
+
+
+
+<li>LDAPS 通信。</li>
+
+
+
+<li>PowerShell AD cmdlet。</li>
+
+
+
+<li>FSMO 角色转移。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">不兼容 RDS SQL Server。</p>
+
+
+
+<p class="wp-block-paragraph">不支持与其他域的信任关系（请使用 AWS MS AD）。</p>
+
+
+
+<h2 class="wp-block-heading">AD Connector</h2>
+
+
+
+<p class="wp-block-paragraph">AD Connector 是一个目录网关，用于将目录请求重定向到你本地的 Active Directory。</p>
+
+
+
+<p class="wp-block-paragraph">AD Connector 消除了目录同步的需求，以及托管 federation 基础设施的成本和复杂性。</p>
+
+
+
+<p class="wp-block-paragraph">将你现有的本地 AD 连接到 AWS。</p>
+
+
+
+<p class="wp-block-paragraph">当你想将现有 Active Directory 与 AWS 服务结合使用时，这是最佳选择。</p>
+
+
+
+<p class="wp-block-paragraph">AD Connector 有两种规格：</p>
+
+
+
+<ul class="wp-block-list">
+<li>Small —— 适用于最多 500 个用户的组织。</li>
+
+
+
+<li>Large —— 适用于最多 5000 个用户的组织。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">VPC 必须通过 VPN 或 Direct Connect 连接到你的本地网络。</p>
+
+
+
+<p class="wp-block-paragraph">当用户登录 AWS 应用时，AD Connector 会将登录请求转发到你本地的 AD DC。</p>
+
+
+
+<p class="wp-block-paragraph">你还可以通过 AD Connector 将 EC2 实例加入本地 AD。</p>
+
+
+
+<p class="wp-block-paragraph">你也可以使用本地 AD DC 认证登录 AWS 管理控制台。</p>
+
+
+
+<p class="wp-block-paragraph">不兼容 RDS SQL。</p>
+
+
+
+<p class="wp-block-paragraph">可以使用 AD Connector 通过基于 RADIUS 的 MFA 基础设施实现多因素认证。</p>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_desktop_"></div>
+<div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_mobile_"></div>
+
+
+
+<h2 class="wp-block-heading">AD Connector 与 Simple AD 对比</h2>
+
+
+
+<p class="wp-block-paragraph">下表描述了选择 AD Connector 或 Simple AD 时需要考虑的一些关键差异：</p>
+
+
+
+<figure class="wp-block-table"><table><tbody><tr><td><strong>AD Connector</strong></td><td><strong>Simple AD</strong></td></tr><tr><td>必须有现有 AD</td><td>基于 Samba 的独立 AD</td></tr><tr><td>现有 AD 用户可通过 IAM role 访问 AWS 资源</td><td>支持用户账户、组、组策略和域</td></tr><tr><td>通过现有基于 RADIUS 的 MFA 基础设施支持 MFA</td><td>基于 Kerberos 的 SSO</td></tr><tr><td>&nbsp;</td><td>不支持 MFA</td></tr><tr><td>&nbsp;</td><td>不支持信任关系</td></tr></tbody></table></figure>
+</div></div>
+</body>
+</html>

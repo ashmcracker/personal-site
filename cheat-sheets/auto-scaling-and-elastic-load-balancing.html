@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auto Scaling and Elastic Load Balancing - AWS Cheat Sheet</title>
+<style>
+:root{--primary:#1a5276;--secondary:#2980b9;--bg:#f8f9fa;--text:#2c3e50;--border:#dee2e6;--card:#fff;--accent:#e74c3c;--code-bg:#f1f3f4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:30px 40px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.header h1{font-size:1.6em;font-weight:700}
+.header .subtitle{opacity:.85;font-size:.85em;margin-top:4px}
+.content{max-width:960px;margin:30px auto;padding:0 20px}
+.card{background:var(--card);border-radius:8px;padding:30px 40px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:20px}
+h2{color:var(--primary);margin-top:30px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border);font-size:1.3em}
+h3{color:var(--secondary);margin-top:24px;margin-bottom:8px;font-size:1.1em}
+h4{color:var(--secondary);margin-top:16px;margin-bottom:6px;font-size:1em}
+p{margin-bottom:12px}
+ul,ol{margin:8px 0 12px 24px}
+li{margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92em}
+th{background:var(--primary);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:8px 14px;border:1px solid var(--border);vertical-align:top}
+tr:nth-child(even){background:#f8f9fa}
+tr:hover{background:#e8f0f7}
+img{max-width:100%;height:auto}
+code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF Mono",Monaco,Menlo,monospace;font-size:.9em}
+pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+</style>
+</head>
+<body>
+<div class="header"><h1>Auto Scaling and Elastic Load Balancing</h1><div class="subtitle">AWS Cheat Sheet</div></div>
+<div class="content"><div class="card">
+<div class="wp-block-image is-resized">
+<figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-02-AWS-Elastic-Load-Balancing-AWS-ELB-2-1024x652.png" alt="Amazon AWS Elastic Load Balancing (AWS ELB) Services" class="wp-image-486096" style="width:400px" /></figure>
+</div>
+
+
+<p class="wp-block-paragraph">Auto Scaling 和 Elastic Load Balancing 是 AWS 的两项功能，可以单独使用，也可以结合使用，以实现弹性（elasticity）和高可用性。</p>
+
+
+
+<h2 class="wp-block-heading">Amazon EC2 Auto Scaling</h2>
+
+
+
+<p class="wp-block-paragraph">Amazon EC2 Auto Scaling 根据应用的流量需求，自动完成 Amazon EC2 实例的启动（横向扩展 scale out）和终止（横向收缩 scale in）。</p>
+
+
+
+<p class="wp-block-paragraph">Auto Scaling 帮助你确保始终有正确数量的 EC2 实例来处理应用负载。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon EC2 Auto Scaling 提供了弹性和可扩展性。</p>
+
+
+
+<p class="wp-block-paragraph">你可以将一组 EC2 实例创建为一个集合，称为 Auto Scaling group (ASG)。</p>
+
+
+
+<p class="wp-block-paragraph">你可以为每个 ASG 指定最小实例数，AWS Auto Scaling 会确保组内实例数量永远不会低于该值。</p>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_body"></div>
+
+
+
+<p class="wp-block-paragraph">你也可以为每个 ASG 指定最大实例数，组内实例数量永远不会超过该值。</p>
+
+
+
+<p class="wp-block-paragraph">可以配置期望容量（desired capacity），AWS Auto Scaling 会确保组内保持这个数量的实例。</p>
+
+
+
+<p class="wp-block-paragraph">你还可以指定 scaling policy，控制 Auto Scaling 何时启动或终止实例。</p>
+
+
+
+<p class="wp-block-paragraph">Scaling policy 决定了 ASG 何时、是否以及如何扩展和收缩（按需/动态扩展、周期性/计划扩展）。</p>
+
+
+
+<p class="wp-block-paragraph">Scaling Plan 定义了触发条件，以及何时应该预置/释放实例。</p>
+
+
+
+<p class="wp-block-paragraph">launch configuration 是用于创建新 EC2 实例的模板，包含实例系列、实例类型、AMI、key pair 和 security group 等参数。</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-02-amazon-ec2-auto-scaling.png" alt="amazon-ec2-auto-scaling" class="wp-image-320539"/></figure>
+
+
+
+<h2 class="wp-block-heading">Amazon Elastic Load Balancing (ELB)</h2>
+
+
+
+<p class="wp-block-paragraph">ELB 自动将传入的应用流量分发到多个目标，例如 Amazon EC2 实例、容器和 IP 地址。</p>
+
+
+
+<p class="wp-block-paragraph">ELB 可以在单个 Availability Zone 内或跨多个 Availability Zone 应对应用流量的变化。</p>
+
+
+
+<p class="wp-block-paragraph">ELB 具备高可用性、自动扩展和强大的安全性，是让你的应用具备容错能力所必需的。</p>
+
+
+
+<p class="wp-block-paragraph">AWS 上有四种类型的 Elastic Load Balancer (ELB)：</p>
+
+
+
+<ul class="wp-block-list">
+<li>Application Load Balancer (ALB)——第 7 层负载均衡器，根据请求内容进行连接路由。</li>
+
+
+
+<li>Network Load Balancer (NLB)——第 4 层负载均衡器，根据 IP 协议数据进行连接路由。</li>
+
+
+
+<li>Classic Load Balancer (CLB)——三者中最老的一种，在第 4 层和第 7 层都提供基本的负载均衡（考试已不再涉及）。</li>
+
+
+
+<li>Gateway Load Balancer (GLB)——将连接分发到虚拟设备并对其进行横向扩缩（考试不涉及）。</li>
+</ul>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_desk_"></div>
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_mob_"></div>
+
+
+
+<h3 class="wp-block-heading">Application Load Balancer (ALB)</h3>
+
+
+
+<p class="wp-block-paragraph">ALB 最适合对 HTTP 和 HTTPS 流量进行负载均衡，提供面向现代应用架构（包括微服务和容器）的高级请求路由。</p>
+
+
+
+<p class="wp-block-paragraph">Application Load Balancer 工作在单个请求级别（第 7 层），根据请求内容将流量路由到 Amazon Virtual Private Cloud (Amazon VPC) 内的目标。</p>
+
+
+
+<h3 class="wp-block-heading">Network Load Balancer (NLB)</h3>
+
+
+
+<p class="wp-block-paragraph">NLB 最适合对需要极致性能的 TCP 流量进行负载均衡。</p>
+
+
+
+<p class="wp-block-paragraph">Network Load Balancer 工作在连接级别（第 4 层），将流量路由到 Amazon Virtual Private Cloud (Amazon VPC) 内的目标，能够每秒处理数百万个请求，同时保持超低延迟。</p>
+
+
+
+<p class="wp-block-paragraph">Network Load Balancer 还针对突发和剧烈波动的流量模式进行了优化。</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-02-elastic-load-balancing-ec2-auto-scaling.png" alt="elastic-load-balancing-ec2-auto-scaling" class="wp-image-320542"/></figure>
+</div></div>
+</body>
+</html>

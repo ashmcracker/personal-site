@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS Config - AWS Cheat Sheet</title>
+<style>
+:root{--primary:#1a5276;--secondary:#2980b9;--bg:#f8f9fa;--text:#2c3e50;--border:#dee2e6;--card:#fff;--accent:#e74c3c;--code-bg:#f1f3f4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:30px 40px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.header h1{font-size:1.6em;font-weight:700}
+.header .subtitle{opacity:.85;font-size:.85em;margin-top:4px}
+.content{max-width:960px;margin:30px auto;padding:0 20px}
+.card{background:var(--card);border-radius:8px;padding:30px 40px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:20px}
+h2{color:var(--primary);margin-top:30px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border);font-size:1.3em}
+h3{color:var(--secondary);margin-top:24px;margin-bottom:8px;font-size:1.1em}
+h4{color:var(--secondary);margin-top:16px;margin-bottom:6px;font-size:1em}
+p{margin-bottom:12px}
+ul,ol{margin:8px 0 12px 24px}
+li{margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92em}
+th{background:var(--primary);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:8px 14px;border:1px solid var(--border);vertical-align:top}
+tr:nth-child(even){background:#f8f9fa}
+tr:hover{background:#e8f0f7}
+img{max-width:100%;height:auto}
+code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF Mono",Monaco,Menlo,monospace;font-size:.9em}
+pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+</style>
+</head>
+<body>
+<div class="header"><h1>AWS Config</h1><div class="subtitle">AWS Cheat Sheet</div></div>
+<div class="content"><div class="card">
+<div class="wp-block-image is-resized">
+<figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-01-AWS-Config-1-1024x652.png" alt="Amazon AWS Config Services" class="wp-image-486288" style="width:400px" /></figure>
+</div>
+
+
+<p class="wp-block-paragraph">AWS Config 是一项完全托管的服务，为你提供 AWS 资源清单、配置历史以及配置变更通知，帮助你实现安全与治理。</p>
+
+
+
+<p class="wp-block-paragraph">借助 AWS Config，你可以发现现有的 AWS 资源、导出包含全部配置细节的完整资源清单，并查看某个资源在任意时间点的配置状态。</p>
+
+
+
+<p class="wp-block-paragraph">这些能力可用于合规审计、安全分析、资源变更跟踪和故障排查。</p>
+
+
+
+<p class="wp-block-paragraph">让你能够评估、审计和检查 AWS 资源的配置。</p>
+
+
+
+<p class="wp-block-paragraph">作为 ITIL 体系的一部分，它对配置管理非常有用。</p>
+
+
+
+<p class="wp-block-paragraph">可以为各种配置项和文件建立基线（baseline），然后跟踪相对该基线的变化。</p>
+
+
+
+<h2 class="wp-block-heading">AWS Config 与 CloudTrail 的对比</h2>
+
+
+
+<p class="wp-block-paragraph"><a href="https://digitalcloud.training/aws-cloudtrail/"><strong>AWS CloudTrail</strong></a> 记录你账户上的用户 API 活动，并允许你查询这些活动的信息。</p>
+
+
+
+<p class="wp-block-paragraph">AWS Config 则以配置项（Configuration Item，CI）的形式记录 AWS 资源在某个时间点的配置详情。</p>
+
+
+
+<p class="wp-block-paragraph">你可以用 AWS Config 的 CI 回答“我的 AWS 资源在某个时间点长什么样？”</p>
+
+
+
+<p class="wp-block-paragraph">你可以用 AWS CloudTrail 回答“谁发起了修改这个资源的 API 调用？”</p>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_body"></div>
+
+
+
+<h2 class="wp-block-heading">AWS Config Rules</h2>
+
+
+
+<p class="wp-block-paragraph">Config Rule 表示资源应满足的期望配置，并会根据 AWS Config 记录的相关资源变更进行评估。</p>
+
+
+
+<p class="wp-block-paragraph"><a href="https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html"><strong>AWS Config Rules</strong></a> 可以检查资源是否满足某些期望条件，如果发现违规，该资源会被标记为“不合规（noncompliant）”。</p>
+
+
+
+<p class="wp-block-paragraph">Config Rules 示例：</p>
+
+
+
+<ul class="wp-block-list">
+<li><a href="https://digitalcloud.training/amazon-rds/"><strong>Amazon RDS</strong></a> 是否启用了备份？</li>
+
+
+
+<li>AWS 账户是否启用了 CloudTrail？</li>
+
+
+
+<li><a href="https://digitalcloud.training/amazon-ebs/"><strong>Amazon EBS</strong></a> 卷是否已加密。</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading">配置项（Configuration Items）</h2>
+
+
+
+<p class="wp-block-paragraph"><a href="https://docs.aws.amazon.com/config/latest/developerguide/config-item-table.html"><strong>配置项（Configuration Item，CI）</strong></a>是资源在某个给定时间点的配置。一个 CI 由 5 个部分组成：</p>
+
+
+
+<ol class="wp-block-list">
+<li>不同资源类型通用的基本信息（例如 Amazon Resource Name、标签）。</li>
+
+
+
+<li>特定于该资源的配置数据（例如 <a href="https://digitalcloud.training/amazon-ec2/"><strong>Amazon EC2</strong></a> 实例类型）。</li>
+
+
+
+<li>与其他资源的关系映射（例如 EC2::Volume vol-3434df43 “已挂载到实例” EC2 Instance i-3432ee3a）。</li>
+
+
+
+<li>与该状态相关的 AWS CloudTrail 事件 ID。</li>
+
+
+
+<li>帮助你识别 CI 信息的元数据，例如该 CI 的版本以及捕获时间。</li>
+</ol>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_desk_"></div>
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_mob_"></div>
+
+
+
+<h2 class="wp-block-heading">计费</h2>
+
+
+
+<p class="wp-block-paragraph">AWS Config 根据你账户中受支持资源所记录的配置项（CI）数量收费。</p>
+
+
+
+<p class="wp-block-paragraph">每当 AWS Config 检测到其正在记录的资源类型发生变更时，就会创建一个新的配置项。</p>
+
+</div></div>
+</body>
+</html>

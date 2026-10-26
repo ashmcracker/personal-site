@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS Organizations - AWS Cheat Sheet</title>
+<style>
+:root{--primary:#1a5276;--secondary:#2980b9;--bg:#f8f9fa;--text:#2c3e50;--border:#dee2e6;--card:#fff;--accent:#e74c3c;--code-bg:#f1f3f4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:30px 40px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.header h1{font-size:1.6em;font-weight:700}
+.header .subtitle{opacity:.85;font-size:.85em;margin-top:4px}
+.content{max-width:960px;margin:30px auto;padding:0 20px}
+.card{background:var(--card);border-radius:8px;padding:30px 40px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:20px}
+h2{color:var(--primary);margin-top:30px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border);font-size:1.3em}
+h3{color:var(--secondary);margin-top:24px;margin-bottom:8px;font-size:1.1em}
+h4{color:var(--secondary);margin-top:16px;margin-bottom:6px;font-size:1em}
+p{margin-bottom:12px}
+ul,ol{margin:8px 0 12px 24px}
+li{margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92em}
+th{background:var(--primary);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:8px 14px;border:1px solid var(--border);vertical-align:top}
+tr:nth-child(even){background:#f8f9fa}
+tr:hover{background:#e8f0f7}
+img{max-width:100%;height:auto}
+code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF Mono",Monaco,Menlo,monospace;font-size:.9em}
+pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+</style>
+</head>
+<body>
+<div class="header"><h1>AWS Organizations</h1><div class="subtitle">AWS Cheat Sheet</div></div>
+<div class="content"><div class="card">
+<div class="wp-block-image is-resized">
+<figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-01-AWS-Organizations-1-1024x652.png" alt="Amazon AWS Organizations Services" class="wp-image-486310" style="width:400px" /></figure>
+</div>
+
+
+<p class="wp-block-paragraph">随着你的 AWS 资源不断增长和扩展，AWS Organizations 可以帮助你集中管理和治理整个环境。</p>
+
+
+
+<p class="wp-block-paragraph">AWS 账户天然就是权限、安全、成本和工作负载的边界。</p>
+
+
+
+<p class="wp-block-paragraph">在扩展云环境时，使用多账户架构是推荐的最佳实践。</p>
+
+
+
+<p class="wp-block-paragraph">AWS Organizations 为管理多账户环境提供了许多功能，包括：</p>
+
+
+
+<ul class="wp-block-list">
+<li>通过 AWS Command Line Interface (CLI)、SDK 或 API 以编程方式创建新账户，简化账户创建流程。</li>
+
+
+
+<li>将账户分组到 organizational unit (OU) 中，即服务于单个应用或服务的账户分组。</li>
+
+
+
+<li>应用 tag policy 对组织中的资源进行分类或跟踪，并为用户或应用提供基于属性的访问控制（attribute-based access control）。</li>
+
+
+
+<li>将支持的 AWS 服务的管理职责委派给各账户，让用户可以代表组织管理这些服务。</li>
+
+
+
+<li>集中为你的安全团队提供工具和访问权限，代表组织管理安全需求。</li>
+
+
+
+<li>设置 Amazon Single Sign-On (SSO)，使用你的 Active Directory 提供对 AWS 账户和资源的访问，并根据不同的工作职责自定义权限。</li>
+
+
+
+<li>对用户、账户或 OU 应用 service control policy (SCP)，控制组织内对 AWS 资源、服务和区域的访问。</li>
+
+
+
+<li>使用 AWS Resource Access Manager (RAM) 在组织内共享 AWS 资源。</li>
+
+
+
+<li>跨账户启用 AWS CloudTrail，生成云环境中所有活动的日志，成员账户无法关闭或修改该日志。</li>
+
+
+
+<li>Organizations 为你提供单一的合并账单。</li>
+
+
+
+<li>此外，你还可以查看跨账户的资源使用情况，使用 AWS Cost Explorer 跟踪成本，并使用 AWS Compute Optimizer 优化计算资源的使用。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">AWS Organizations 对所有 AWS 客户免费开放，不收取额外费用。</p>
+
+
+
+<p class="wp-block-paragraph"><a href="https://docs.aws.amazon.com/organizations/latest/APIReference/Welcome.html"><strong>AWS Organizations API</strong></a> 支持账户创建和管理的自动化。</p>
+
+
+
+<p class="wp-block-paragraph">AWS Organizations 提供两种功能集：</p>
+
+
+
+<ul class="wp-block-list">
+<li>合并账单（Consolidated billing）。</li>
+
+
+
+<li>全部功能（All features）。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">默认情况下，组织支持合并账单功能。</p>
+
+
+
+<p class="wp-block-paragraph">合并账单将付费账户（paying account）和关联账户（linked account）分开。</p>
+
+
+
+<p class="wp-block-paragraph">你可以通过合并账单，使用 AWS Organizations 为组织中的所有 AWS 账户设置单一的支付方式。</p>
+
+
+
+<p class="wp-block-paragraph">通过合并账单，你可以看到所有账户产生费用的合并视图。</p>
+
+
+
+<p class="wp-block-paragraph">还可以利用聚合用量带来的定价优惠，例如 Amazon EC2 和 Amazon S3 的阶梯折扣。</p>
+
+
+
+<p class="wp-block-paragraph">合并账单的关联账户上限为 20 个（默认）。</p>
+
+
+
+<p class="wp-block-paragraph">策略可以在层级结构的不同层级上分配。</p>
+
+
+
+<p class="wp-block-paragraph">可以通过阶梯折扣帮助控制成本。</p>
+
+
+
+<p class="wp-block-paragraph">未使用的 Reserved EC2 实例会在整个组内共享抵扣。</p>
+
+
+
+<p class="wp-block-paragraph">付费账户应仅用于账单管理用途。</p>
+
+
+
+<p class="wp-block-paragraph">可以在付费账户上设置账单告警，展示所有关联账户的账单情况。</p>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_body"></div>
+
+
+
+<h2 class="wp-block-heading">关键概念</h2>
+
+
+
+<p class="wp-block-paragraph">你需要理解的一些关键概念如下：</p>
+
+
+
+<p class="wp-block-paragraph"><strong>AWS Organization –&nbsp;</strong>组织是一组 AWS 账户的集合，你可以将它们组织成层级结构并集中管理。</p>
+
+
+
+<p class="wp-block-paragraph"><strong>AWS Account –&nbsp;</strong>AWS 账户是你的 AWS 资源的容器。</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Management Account（管理账户）–&nbsp;</strong>管理账户是你用来创建组织的 AWS 账户。</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Member Account（成员账户）–&nbsp;</strong>成员账户是组织中除管理账户之外的 AWS 账户。</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Administrative Root（管理根）–&nbsp;</strong>管理根是组织 AWS 账户的起点，是组织层级结构中最顶层的容器。</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Organizational Unit (OU) –&nbsp;</strong>OU 是组织内一组 AWS 账户的分组。OU 还可以包含其他 OU，从而构建层级结构。</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Policy（策略）–&nbsp;</strong>策略是包含一条或多条语句的"文档"，用于定义你想要应用到一组 AWS 账户的控制规则。AWS Organizations 支持一种特定的策略类型，称为 Service Control Policy (SCP)。SCP 定义了组织内不同账户可用的 AWS 服务操作，例如 Amazon EC2 的 RunInstances。</p>
+
+
+
+<p class="wp-block-paragraph">管理账户的最佳实践：</p>
+
+
+
+<ul class="wp-block-list">
+<li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_best-practices_mgmt-acct.html#best-practices_mgmt-use"><strong>仅在必须使用管理账户的任务中使用管理账户。</strong></a></li>
+
+
+
+<li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_best-practices_mgmt-acct.html#best-practices_mgmt-acct_email-address"><strong>为管理账户的 root 用户使用群组邮箱地址。</strong></a></li>
+
+
+
+<li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_best-practices_mgmt-acct.html#best-practices_mgmt-acct_complex-password"><strong>为管理账户的 root 用户使用复杂密码。</strong></a></li>
+
+
+
+<li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_best-practices_mgmt-acct.html#best-practices_mgmt-acct_mfa"><strong>为 root 用户凭证启用 MFA。</strong></a></li>
+
+
+
+<li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_best-practices_mgmt-acct.html#best-practices_mgmt-acct_phone-number"><strong>在账户联系信息中添加电话号码。</strong></a></li>
+
+
+
+<li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_best-practices_mgmt-acct.html#best-practices_mgmt-acct_review-access"><strong>定期检查并记录谁拥有访问权限。</strong></a></li>
+
+
+
+<li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_best-practices_mgmt-acct.html#best-practices_mgmt-acct_document-processes"><strong>将 root 用户凭证的使用流程形成文档。</strong></a></li>
+
+
+
+<li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_best-practices_mgmt-acct.html#best-practices_mgmt-acct_monitor-access"><strong>实施控制措施以监控对 root 用户凭证的访问。</strong></a></li>
+</ul>
+
+
+
+<h2 class="wp-block-heading">在组织之间迁移账户</h2>
+
+
+
+<p class="wp-block-paragraph">账户可以在组织之间迁移。</p>
+
+
+
+<p class="wp-block-paragraph">你必须同时拥有成员账户和管理账户的 root 或 IAM 访问权限。</p>
+
+
+
+<p class="wp-block-paragraph">账户数量较少时，可以使用 AWS Organizations 控制台。</p>
+
+
+
+<p class="wp-block-paragraph">如果需要迁移的账户很多，使用 AWS Organizations API 或 AWS Command Line Interface (AWS CLI)。</p>
+
+
+
+<p class="wp-block-paragraph">所有账户的账单历史和账单报告都保留在组织的管理账户中。</p>
+
+
+
+<p class="wp-block-paragraph">迁移之前，请先下载你想保留的成员账户的账单或报告历史。</p>
+
+
+
+<p class="wp-block-paragraph">当成员账户离开组织后，该账户产生的所有费用将直接向这个独立账户收取。</p>
+
+
+
+<p class="wp-block-paragraph">即使账户迁移只需要一分钟就能完成，成员账户也很可能会产生一些费用。</p>
+
+
+
+<h2 class="wp-block-heading">Service Control Policy (SCP)</h2>
+
+
+
+<p class="wp-block-paragraph">Service control policy (SCP) 是一种组织策略，可用于管理组织中的权限。</p>
+
+
+
+<p class="wp-block-paragraph">SCP 提供了对组织中所有账户的最大可用权限的集中控制。SCP 帮助你确保账户不超出组织的访问控制准则。</p>
+
+
+
+<p class="wp-block-paragraph">SCP 仅在启用了全部功能的组织中可用。</p>
+
+
+
+<p class="wp-block-paragraph">如果组织只启用了合并账单功能，则 SCP 不可用。</p>
+
+
+
+<p class="wp-block-paragraph">仅靠 SCP 不足以为组织中的账户授予权限。</p>
+
+
+
+<p class="wp-block-paragraph">SCP 本身不授予任何权限。SCP 定义的是护栏（guardrail），即对账户管理员可以委派给受影响账户中 IAM 用户和角色的操作设置上限。</p>
+
+
+
+<p class="wp-block-paragraph">管理员仍需向 IAM 用户或角色、或账户中的资源附加 identity-based policy 或 resource-based policy 来授予权限。</p>
+
+
+
+<p class="wp-block-paragraph">有效权限是 SCP 允许的权限与 IAM 及 resource-based policy 允许的权限之间的逻辑交集。</p>
+
+
+
+<p class="wp-block-paragraph">SCP 继承规则：</p>
+
+
+
+<ul class="wp-block-list">
+<li>SCP <strong><em>仅影响 IAM 用户和角色</em></strong>，即由组织内账户管理的用户和角色。SCP 不直接影响 resource-based policy，也不影响组织外部账户的用户或角色。</li>
+
+
+
+<li>SCP 限制成员账户中 IAM 用户和角色的权限，包括成员账户的 root 用户。</li>
+
+
+
+<li>任何账户只拥有其<strong><em>所有</em></strong>上级层级都允许的权限。</li>
+
+
+
+<li>如果某项权限在账户上方的任何层级被阻止——无论是隐式阻止（未包含在 Allow 策略语句中）还是显式阻止（包含在 Deny 策略语句中）——受影响账户中的用户或角色都无法使用该权限，即使账户管理员为该用户附加了具有 */* 权限的 AdministratorAccess IAM 策略。</li>
+
+
+
+<li>SCP 仅影响组织中的<strong><em>成员</em></strong>账户，对管理账户中的用户或角色没有任何影响。</li>
+
+
+
+<li>用户和角色仍必须通过适当的 IAM 权限策略被授予权限。没有附加任何 IAM 权限策略的用户没有任何访问权限，即使适用的 SCP 允许所有服务和所有操作。</li>
+
+
+
+<li>如果用户或角色的 IAM 权限策略授予了某个操作的访问权限，且该操作也被适用的 SCP 允许，则该用户或角色可以执行该操作。</li>
+
+
+
+<li>如果用户或角色的 IAM 权限策略授予了某个操作的访问权限，但该操作未被适用的 SCP 允许或被其显式拒绝，则该用户或角色无法执行该操作。</li>
+
+
+
+<li>SCP 影响所附加账户中的所有用户和角色，<strong><em>包括 root 用户</em></strong>。唯一的例外见 <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html#not-restricted-by-scp"><strong>不受 SCP 限制的任务和实体</strong></a>。</li>
+
+
+
+<li>SCP <strong><em>不</em></strong>影响任何 service-linked role。service-linked role 使其他 AWS 服务能够与 AWS Organizations 集成，无法被 SCP 限制。</li>
+
+
+
+<li>当你在根（root）中禁用 SCP 策略类型时，所有 SCP 会自动从该根下的所有 AWS Organizations 实体上分离。AWS Organizations 实体包括 OU、组织和账户。</li>
+
+
+
+<li>如果你在根中重新启用 SCP，该根会自动恢复为仅向根下所有实体附加默认的 FullAWSAccess 策略。</li>
+
+
+
+<li>禁用 SCP 之前对 AWS Organizations 实体所做的 SCP 附加关系会丢失，且不会自动恢复，不过你可以手动重新附加。</li>
+
+
+
+<li>如果同时存在 permissions boundary（IAM 的高级功能）和 SCP，则 boundary、SCP 和 identity-based policy 三者都必须允许该操作。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">你<strong><em>不能</em></strong>使用 SCP 限制以下任务：</p>
+
+
+
+<ul class="wp-block-list">
+<li>管理账户执行的任何操作。</li>
+
+
+
+<li>使用附加到 service-linked role 的权限执行的任何操作。</li>
+
+
+
+<li>以 root 用户身份注册 Enterprise 支持计划。</li>
+
+
+
+<li>以 root 用户身份更改 AWS 支持级别。</li>
+
+
+
+<li>为 CloudFront 私有内容提供 trusted signer 功能。</li>
+
+
+
+<li>以 root 用户身份为 Amazon Lightsail 邮件服务器配置反向 DNS。</li>
+
+
+
+<li>某些 AWS 相关服务上的任务：
+<ul class="wp-block-list">
+<li>Alexa Top Sites。</li>
+
+
+
+<li>Alexa Web Information Service。</li>
+
+
+
+<li>Amazon Mechanical Turk。</li>
+
+
+
+<li>Amazon Product Marketing API。</li>
+</ul>
+</li>
+</ul>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_desk_"></div>
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_mob_"></div>
+
+
+
+<h2 class="wp-block-heading">Resource Groups</h2>
+
+
+
+<p class="wp-block-paragraph">你可以使用 resource group 来组织你的 AWS 资源。</p>
+
+
+
+<p class="wp-block-paragraph">在 AWS 中，resource（资源）是你可以操作的实体。</p>
+
+
+
+<p class="wp-block-paragraph">Resource group 让你可以一次性对大量资源执行管理和自动化任务，更加轻松。</p>
+
+
+
+<p class="wp-block-paragraph">Resource group 允许你将资源分组，然后为它们打标签。</p>
+
+
+
+<p class="wp-block-paragraph">Tag Editor 可以辅助查找资源并添加标签。</p>
+
+
+
+<p class="wp-block-paragraph"><strong>你可以通过以下任一入口访问 Resource Groups：</strong></p>
+
+
+
+<ul class="wp-block-list">
+<li>AWS Management Console 的导航栏。</li>
+
+
+
+<li>在 AWS Systems Manager 控制台中，通过左侧导航窗格中的 Resource Groups 入口。</li>
+
+
+
+<li>使用 Resource Groups API，通过 AWS CLI 命令或 AWS SDK 编程语言。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Resource group 是位于同一 AWS 区域、且符合查询条件的一组 AWS 资源集合。</p>
+
+
+
+<p class="wp-block-paragraph">在 Resource Groups 中，可以基于两种查询类型来构建分组。</p>
+
+
+
+<p class="wp-block-paragraph">两种查询类型都包含以 AWS::service::resource 格式指定的资源。</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>基于标签（Tag-based）–&nbsp;</strong>基于标签的查询包含资源列表和标签。标签是帮助你在组织内识别和分类资源的键。标签可以选择性地为键设置值。</li>
+
+
+
+<li><strong>基于 AWS CloudFormation 堆栈（Stack-based）–&nbsp;</strong>在基于 AWS CloudFormation 堆栈的查询中，你选择当前区域中账户里的一个 AWS CloudFormation 堆栈，然后选择堆栈中希望加入分组的资源类型。查询只能基于一个 AWS CloudFormation 堆栈。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Resource group 可以嵌套；一个 resource group 可以包含同一区域中已有的 resource group。</p>
+</div></div>
+</body>
+</html>

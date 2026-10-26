@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS Global Infrastructure - AWS Cheat Sheet</title>
+<style>
+:root{--primary:#1a5276;--secondary:#2980b9;--bg:#f8f9fa;--text:#2c3e50;--border:#dee2e6;--card:#fff;--accent:#e74c3c;--code-bg:#f1f3f4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:30px 40px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.header h1{font-size:1.6em;font-weight:700}
+.header .subtitle{opacity:.85;font-size:.85em;margin-top:4px}
+.content{max-width:960px;margin:30px auto;padding:0 20px}
+.card{background:var(--card);border-radius:8px;padding:30px 40px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:20px}
+h2{color:var(--primary);margin-top:30px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border);font-size:1.3em}
+h3{color:var(--secondary);margin-top:24px;margin-bottom:8px;font-size:1.1em}
+h4{color:var(--secondary);margin-top:16px;margin-bottom:6px;font-size:1em}
+p{margin-bottom:12px}
+ul,ol{margin:8px 0 12px 24px}
+li{margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92em}
+th{background:var(--primary);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:8px 14px;border:1px solid var(--border);vertical-align:top}
+tr:nth-child(even){background:#f8f9fa}
+tr:hover{background:#e8f0f7}
+img{max-width:100%;height:auto}
+code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF Mono",Monaco,Menlo,monospace;font-size:.9em}
+pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+</style>
+</head>
+<body>
+<div class="header"><h1>AWS Global Infrastructure</h1><div class="subtitle">AWS Cheat Sheet</div></div>
+<div class="content"><div class="card">
+<div class="wp-block-image">
+<figure class="alignright size-large is-resized"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-02-AWS-Global-Infrastructure-1-1024x652.png" alt="AWS Cloud Infrastructure" class="wp-image-486082" style="width:400px" /></figure>
+</div>
+
+
+<p class="wp-block-paragraph">本文介绍 AWS 全球基础设施，这是 Cloud Practitioner 考试大纲中的关键技术领域。AWS 基础设施围绕 Region 和 Availability Zone（AZ）构建。</p>
+
+
+
+<p class="wp-block-paragraph">AWS Region 是 AWS 在全球的物理位置，每个 Region 包含多个 AZ。</p>
+
+
+
+<p class="wp-block-paragraph">AZ 由一个或多个独立的数据中心组成，每个数据中心都有冗余的电力、网络和连接，位于不同的设施中。</p>
+
+
+
+<p class="wp-block-paragraph">每个 region 完全独立。每个 Availability Zone 相互隔离，但同一 region 内的 Availability Zone 之间通过低延迟链路连接。</p>
+
+
+
+<p class="wp-block-paragraph">AWS 不断在全球扩展，目前包括：</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-02-text-description-automatically-generated-with-low.png" alt="Text Description automatically generated with low confidence" class="wp-image-320638"/></figure>
+
+
+
+<h2 class="wp-block-heading" id="h-regions">Region（区域）</h2>
+
+
+
+<p class="wp-block-paragraph">region 是一个地理区域。</p>
+
+
+
+<p class="wp-block-paragraph">每个 region 由 3 个或更多 availability zone 组成。</p>
+
+
+
+<p class="wp-block-paragraph">每个 Amazon Region 都设计为与其他 Amazon Region 完全隔离。</p>
+
+
+
+<p class="wp-block-paragraph">每个 AWS Region 有多个 Availability Zone 和数据中心。</p>
+
+
+
+<p class="wp-block-paragraph">你可以通过私有或公共 Internet 连接在 region 内部以及 region 之间复制数据。</p>
+
+
+
+<p class="wp-block-paragraph">你对数据物理所在的 region 保留完全的控制权和所有权，从而轻松满足区域合规和数据驻留要求。</p>
+
+
+
+<p class="wp-block-paragraph">注意，region 之间的数据传输是收费的。</p>
+
+
+
+<p class="wp-block-paragraph">启动 EC2 实例时，必须选择同一 region 中的 AMI。如果 AMI 在其他 region，可以将 AMI 复制到你使用的 region。</p>
+
+
+
+<p class="wp-block-paragraph">Region 与 Endpoint：</p>
+
+
+
+<ul class="wp-block-list">
+<li>使用命令行界面或 API 操作实例时，必须指定其区域 endpoint。</li>
+
+
+
+<li>为了降低应用的数据延迟，大多数 AWS 服务都提供区域 endpoint 来接收你的请求。</li>
+
+
+
+<li>endpoint 是作为 Web 服务入口的 URL。</li>
+
+
+
+<li>例如，https://dynamodb.us-west-2.amazonaws.com 是 Amazon DynamoDB 服务的入口。</li>
+</ul>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_body_"></div>
+
+
+
+<h2 class="wp-block-heading" id="h-availability-zones">Availability Zone（可用区）</h2>
+
+
+
+<p class="wp-block-paragraph">Availability Zone 之间在物理上相互分离和隔离。</p>
+
+
+
+<p class="wp-block-paragraph">AZ 跨一个或多个数据中心，彼此之间具有直接、低延迟、高吞吐量和冗余的网络连接。</p>
+
+
+
+<p class="wp-block-paragraph">每个 AZ 都设计为独立的故障域。</p>
+
+
+
+<p class="wp-block-paragraph">启动实例时，你可以选择一个 Availability Zone，或让 AWS 为你选择。</p>
+
+
+
+<p class="wp-block-paragraph">如果将 EC2 实例分布在多个 Availability Zone 中，当某个实例发生故障时，你可以设计应用让另一个 Availability Zone 中的实例处理请求。</p>
+
+
+
+<p class="wp-block-paragraph">你还可以使用 Elastic IP 地址掩盖某个 Availability Zone 中实例的故障，方法是将地址快速重新映射到另一个 Availability Zone 中的实例。</p>
+
+
+
+<p class="wp-block-paragraph">Availability Zone 由 region 代码后跟一个字母标识符表示，例如 <strong><em>us-east-1a</em></strong>。</p>
+
+
+
+<p class="wp-block-paragraph">为确保资源分布在一个 region 的各个 Availability Zone 中，AWS 会针对每个 AWS 账户独立地将 Availability Zone 映射到名称。</p>
+
+
+
+<p class="wp-block-paragraph">例如，你的 AWS 账户中的 Availability Zone <strong><em>us-east-1a</em></strong> 可能与另一个 AWS 账户的 us-east-1a 不是同一位置。</p>
+
+
+
+<p class="wp-block-paragraph">要跨账户协调 Availability Zone，必须使用 <em>AZ ID</em>——它是 Availability Zone 的唯一且一致的标识符。</p>
+
+
+
+<p class="wp-block-paragraph">AZ 在典型的都会区域内物理分离，并位于低风险洪泛平原。</p>
+
+
+
+<p class="wp-block-paragraph">AZ 使用独立的 UPS 和现场备用发电设施，并由来自独立设施的不同电网供电。</p>
+
+
+
+<p class="wp-block-paragraph">所有 AZ 都冗余连接到多个一级（tier-1）传输提供商。</p>
+
+
+
+<p class="wp-block-paragraph">下图展示了三个 AWS Region，每个 Region 都有三个 Availability Zone：</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-02-aws-regions-availability-zones.png" alt="aws-regions-availability-zones" class="wp-image-320641"/></figure>
+
+
+
+<h2 class="wp-block-heading" id="h-local-zones">Local Zone</h2>
+
+
+
+<p class="wp-block-paragraph">AWS Local Zone 将计算、存储、数据库和其他选定的 AWS 服务部署在离最终用户更近的位置。</p>
+
+
+
+<p class="wp-block-paragraph">借助 AWS Local Zone，你可以轻松运行需要个位数毫秒级延迟的高要求应用，服务最终用户。</p>
+
+
+
+<p class="wp-block-paragraph">每个 AWS Local Zone 位置都是某个 AWS Region 的扩展，你可以在其中使用 Amazon Elastic Compute Cloud、Amazon Virtual Private Cloud、Amazon Elastic Block Store、Amazon File Storage 和 Amazon Elastic Load Balancing 等 AWS 服务，在地理位置上靠近最终用户运行对延迟敏感的应用。</p>
+
+
+
+<p class="wp-block-paragraph">AWS Local Zone 在本地工作负载与 AWS Region 中运行的工作负载之间提供高带宽、安全的连接，使你能够通过相同的 API 和工具集无缝连接区域内的全部服务。</p>
+
+
+
+<h2 class="wp-block-heading" id="h-aws-wavelength">AWS Wavelength</h2>
+
+
+
+<p class="wp-block-paragraph">AWS Wavelength 使开发者能够构建为移动设备和最终用户提供个位数毫秒级延迟的应用。</p>
+
+
+
+<p class="wp-block-paragraph">AWS 开发者可以将应用部署到 Wavelength Zone——这是将 AWS 计算和存储服务嵌入电信运营商数据中心内、位于 5G 网络边缘的 AWS 基础设施部署——并无缝访问该区域中丰富的 AWS 服务。</p>
+
+
+
+<p class="wp-block-paragraph">AWS Wavelength 将 AWS 服务带到 5G 网络边缘，最大限度地降低移动设备连接应用的延迟。</p>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_desktop_"></div>
+<div class="adplugg-tag" data-adplugg-zone="aws_bootcamp_mobile_"></div>
+
+
+
+<h2 class="wp-block-heading" id="h-aws-outposts">AWS Outposts</h2>
+
+
+
+<p class="wp-block-paragraph">AWS Outposts 将原生 AWS 服务、基础设施和运营模式带到几乎任何数据中心、托管机房或本地设施。</p>
+
+
+
+<p class="wp-block-paragraph">你可以在本地和 AWS 云中使用相同的 AWS API、工具和基础设施，提供真正一致的混合体验。</p>
+
+
+
+<p class="wp-block-paragraph">AWS Outposts 专为联网环境设计，可用于支持因低延迟或本地数据处理需求而必须保留在本地的工作负载。</p>
+
+
+
+<h2 class="wp-block-heading" id="h-edge-locations-and-regional-edge-caches">Edge Location 与 Regional Edge Cache</h2>
+
+
+
+<p class="wp-block-paragraph">Edge location 是 CloudFront 的 Content Delivery Network（CDN）端点。</p>
+
+
+
+<p class="wp-block-paragraph">edge location 的数量远多于 region。</p>
+
+
+
+<p class="wp-block-paragraph">目前有超过 200 个 edge location。</p>
+
+
+
+<p class="wp-block-paragraph">Regional Edge Cache 位于你的 CloudFront 源服务器与 Edge Location 之间。</p>
+
+
+
+<p class="wp-block-paragraph">Regional Edge Cache 的缓存容量比每个单独的 Edge Location 更大。</p>
+
+
+
+<p class="wp-block-paragraph">下图展示了 CloudFront 的 Edge location：</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-02-aws-cloudfront-edge-cache.png" alt="aws-cloudfront-edge-cache" class="wp-image-320644"/></figure>
+</div></div>
+</body>
+</html>

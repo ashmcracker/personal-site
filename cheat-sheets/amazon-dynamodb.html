@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amazon DynamoDB - AWS Cheat Sheet</title>
+<style>
+:root{--primary:#1a5276;--secondary:#2980b9;--bg:#f8f9fa;--text:#2c3e50;--border:#dee2e6;--card:#fff;--accent:#e74c3c;--code-bg:#f1f3f4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:30px 40px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.header h1{font-size:1.6em;font-weight:700}
+.header .subtitle{opacity:.85;font-size:.85em;margin-top:4px}
+.content{max-width:960px;margin:30px auto;padding:0 20px}
+.card{background:var(--card);border-radius:8px;padding:30px 40px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:20px}
+h2{color:var(--primary);margin-top:30px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border);font-size:1.3em}
+h3{color:var(--secondary);margin-top:24px;margin-bottom:8px;font-size:1.1em}
+h4{color:var(--secondary);margin-top:16px;margin-bottom:6px;font-size:1em}
+p{margin-bottom:12px}
+ul,ol{margin:8px 0 12px 24px}
+li{margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92em}
+th{background:var(--primary);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:8px 14px;border:1px solid var(--border);vertical-align:top}
+tr:nth-child(even){background:#f8f9fa}
+tr:hover{background:#e8f0f7}
+img{max-width:100%;height:auto}
+code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF Mono",Monaco,Menlo,monospace;font-size:.9em}
+pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+</style>
+</head>
+<body>
+<div class="header"><h1>Amazon DynamoDB</h1><div class="subtitle">AWS Cheat Sheet</div></div>
+<div class="content"><div class="card">
+<div class="wp-block-image is-resized">
+<figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-01-Amazon-DynamoDB-1024x652.png" alt="Amazon DynamoDB Services" class="wp-image-486317" style="width:400px" /></figure>
+</div>
+
+
+<p class="wp-block-paragraph">Amazon DynamoDB 是一项完全托管的 NoSQL 数据库服务，提供快速且可预测的性能以及无缝的可扩展性。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon DynamoDB 为每个表存储三个地理分布的副本，以实现高可用性和数据持久性。</p>
+
+
+
+<p class="wp-block-paragraph">数据在一个区域内的 3 个设施（AZ）之间同步复制。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 是无 schema 的。</p>
+
+
+
+<p class="wp-block-paragraph">它是一种非关系型的键值（key-value）数据库。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 是无服务器服务——无需预置或管理任何实例。</p>
+
+
+
+<p class="wp-block-paragraph">一键扩展意味着你可以随时扩展数据库而不会产生停机时间。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 可用于存储会话状态（session state）数据。</p>
+
+
+
+<p class="wp-block-paragraph">提供极低的延迟。</p>
+
+
+
+<p class="wp-block-paragraph">数据存储在 SSD 存储上。</p>
+
+
+
+<p class="wp-block-paragraph">支持多 AZ 冗余和跨区域复制选项。</p>
+
+
+
+<p class="wp-block-paragraph">存储数据的底层硬件分布在 3 个地理位置不同的数据中心。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 由以下部分组成：</p>
+
+
+
+<ul class="wp-block-list">
+<li>表（Table）。</li>
+
+
+
+<li>项目（Item）。</li>
+
+
+
+<li>属性（Attribute）。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">表是项目的集合，项目由属性（列）组成。</p>
+
+
+
+<p class="wp-block-paragraph">属性由名称和一个值或一组值构成。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 中的属性类似于其他数据库系统中的字段或列。</p>
+
+
+
+<p class="wp-block-paragraph">一个项目的总大小不能超过 400KB，包括键和所有属性。</p>
+
+
+
+<p class="wp-block-paragraph">可以存储指向 S3 中对象的指针，包括超过 400KB 的项目。</p>
+
+
+
+<p class="wp-block-paragraph">支持键值和文档（document）结构。</p>
+
+
+
+<p class="wp-block-paragraph">键值数据库将数据存储为键值对的集合，其中键充当唯一标识符。</p>
+
+
+
+<p class="wp-block-paragraph">键（Key）= 数据的名称；值（Value）= 数据本身。</p>
+
+
+
+<p class="wp-block-paragraph">文档可以用 JSON、HTML 或 XML 编写。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon DynamoDB 的一些功能和优势总结在下表中：</p>
+
+
+
+<figure class="wp-block-table"><table><tbody><tr><td><strong>DynamoDB 功能</strong></td><td><strong>优势</strong></td></tr><tr><td>无服务器（Serverless）</td><td>完全托管、容错的服务</td></tr><tr><td>高可用</td><td>99.99% 可用性 SLA——全局表（Global Table）为 99.999%</td></tr><tr><td>采用名称/值结构的 NoSQL 数据库</td><td>灵活的 Schema，适合数据结构不清晰或不可预测的场景</td></tr><tr><td>水平扩展</td><td>通过一键扩展或 Auto Scaling 无缝扩展到任意规模</td></tr><tr><td>DynamoDB Streams</td><td>捕获 DynamoDB 表中项目级修改的按时间排序的序列，并将信息持久存储 24 小时。常与 Lambda 和 Kinesis Client Library (KCL) 配合使用。</td></tr><tr><td>DynamoDB Accelerator (DAX)</td><td>为 DynamoDB 提供完全托管的内存缓存，提升性能（微秒级延迟）</td></tr><tr><td>事务选项</td><td>强一致性或最终一致性读取，支持 ACID 事务</td></tr><tr><td>备份</td><td>时间点恢复可精确到最近 35 天内的任意一秒；按需备份和恢复</td></tr><tr><td>全局表（Global Tables）</td><td>完全托管的多区域、多主解决方案</td></tr></tbody></table></figure>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_efsl0qkcp16w"></a>反模式（Anti-Patterns）</h2>
+
+
+
+<p class="wp-block-paragraph">Amazon DynamoDB 不适合以下情况：</p>
+
+
+
+<ul class="wp-block-list">
+<li>传统的 RDS 应用。</li>
+
+
+
+<li>Join 和/或复杂事务。</li>
+
+
+
+<li>BLOB 数据。</li>
+
+
+
+<li>低 I/O 速率的大数据量场景。</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading">访问控制</h2>
+
+
+
+<p class="wp-block-paragraph">所有身份验证和访问控制都使用 IAM 管理。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 支持 identity-based policy：</p>
+
+
+
+<ul class="wp-block-list">
+<li>将权限策略附加到账户中的用户或组。</li>
+
+
+
+<li>将权限策略附加到角色（授予跨账户权限）。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 不支持 resource-based policy。</p>
+
+
+
+<p class="wp-block-paragraph">你可以使用特殊的 IAM 条件来限制用户只能访问他们自己的记录。</p>
+
+
+
+<p class="wp-block-paragraph">在 DynamoDB 中，主要资源是表。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 还支持其他资源类型：索引和流。</p>
+
+
+
+<p class="wp-block-paragraph">你只能在现有 DynamoDB 表的上下文中创建索引和流（子资源）。</p>
+
+
+
+<p class="wp-block-paragraph">这些资源和子资源都有与之关联的唯一 Amazon Resource Name（ARN），如下表所示。</p>
+
+
+
+<figure class="wp-block-table"><table><tbody><tr><td><strong>资源类型 </strong></td><td><strong>ARN 格式</strong></td></tr><tr><td>表（Table）</td><td>arn:aws:dynamodb:region:account-id:table:table/name-name</td></tr><tr><td>索引（Index）</td><td>arn:aws:dynamodb:region:account-id:table:table/name-name/index/index-name</td></tr><tr><td>流（Stream）</td><td>arn:aws:dynamodb:region:account-id:table:table/name-name/stream/stream-label</td></tr></tbody></table></figure>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_qo19a4wbx1rr"></a>分区（Partitions）</h2>
+
+
+
+<p class="wp-block-paragraph">Amazon DynamoDB 将数据存储在分区中。</p>
+
+
+
+<p class="wp-block-paragraph">分区是为表分配的存储空间，会在 AWS 区域内的多个 AZ 之间自动复制。</p>
+
+
+
+<p class="wp-block-paragraph">分区管理完全由 DynamoDB 处理——你永远不需要自己管理分区。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 为你的表分配足够的分区，使其能够处理你预置的吞吐量需求。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 会在以下情况下为表分配额外的分区：</p>
+
+
+
+<ul class="wp-block-list">
+<li>如果你将表的预置吞吐量设置提高到超出现有分区所能支持的水平。</li>
+
+
+
+<li>如果现有分区已满，需要更多存储空间。</li>
+</ul>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-dynamodb-partitions-and-primary-keys.jpeg" alt="Amazon DynamoDB Partitions and Primary Keys" class="wp-image-296305"/></figure>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_bstwdfbh3wfd"></a>主键（Primary Keys）</h2>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 基于主键存储和检索数据。</p>
+
+
+
+<p class="wp-block-paragraph">主键有两种类型：</p>
+
+
+
+<p class="wp-block-paragraph">分区键（Partition key）—— 唯一属性（例如用户 ID）。</p>
+
+
+
+<ul class="wp-block-list">
+<li>分区键的值会输入到内部哈希函数中，该函数决定数据存储的分区或物理位置。</li>
+
+
+
+<li>如果使用分区键作为主键，则任意两个项目不能有相同的分区键。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">下图展示了一张使用分区键的表：</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-dynamodb-table-with-partition-key.jpeg" alt="Amazon DynamoDB Table with Partition Key" class="wp-image-296308"/></figure>
+
+
+
+<p class="wp-block-paragraph">复合键（Composite key）—— 分区键 + 排序键（Sort key）的组合。</p>
+
+
+
+<ul class="wp-block-list">
+<li>例如用户在论坛发帖。分区键是用户 ID，排序键是帖子的时间戳。</li>
+
+
+
+<li>两个项目可以有相同的分区键，但它们必须有不同的排序键。</li>
+
+
+
+<li>具有相同分区键的所有项目存储在一起，然后按排序键的值排序。</li>
+
+
+
+<li>允许你使用相同的分区键存储多个项目。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">下图展示了一张使用复合键的表：</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-dynamodb-table-with-composite-key.jpeg" alt="Amazon DynamoDB Table with Composite Key" class="wp-image-296311"/></figure>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_dgg26cpsnqtt"></a>分区与性能</h2>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 将预置吞吐量——读容量单位（RCU）和写容量单位（WCU）——均匀分配到各个分区。</p>
+
+
+
+<p class="wp-block-paragraph">如果你的访问模式对单个分区键值超过 3000 RCU 或 1000 WCU，你的请求可能会被限流。</p>
+
+
+
+<p class="wp-block-paragraph">超出限制的读写可能由以下问题导致：</p>
+
+
+
+<ul class="wp-block-list">
+<li>由于选择了错误的分区键导致数据分布不均。</li>
+
+
+
+<li>频繁访问分区中的同一个键（最热门的项目，也称为热键 hot key）。</li>
+
+
+
+<li>请求速率超过预置吞吐量。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">分区键的最佳实践：</p>
+
+
+
+<ul class="wp-block-list">
+<li>使用高基数（high-cardinality）属性——例如 e-mailid、employee_no、customerid、sessionid、orderid 等。</li>
+
+
+
+<li>使用复合属性——例如以 customerid+productid+countrycode 作为分区键，以 order_date 作为排序键。</li>
+
+
+
+<li>缓存热门项目——使用 DynamoDB Accelerator (DAX) 缓存读取。</li>
+
+
+
+<li>对于写密集型用例，添加预定范围内的随机数字——例如为发票号添加随机后缀，如 INV00023-04593。</li>
+</ul>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_body"></div>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_95f4ba46l588"></a>一致性模型（Consistency Models）</h2>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 支持最终一致性读取和强一致性读取。</p>
+
+
+
+<p class="wp-block-paragraph">最终一致性读取（Eventually consistent reads）：</p>
+
+
+
+<ul class="wp-block-list">
+<li>从 DynamoDB 表读取数据时，响应可能不反映最近完成的写入操作的结果。</li>
+
+
+
+<li>响应可能包含一些过期数据。</li>
+
+
+
+<li>如果你在短时间后重复读取请求，响应应返回最新数据。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">强一致性读取（Strongly consistent reads）：</p>
+
+
+
+<ul class="wp-block-list">
+<li>当你请求强一致性读取时，DynamoDB 返回包含最新数据的响应，反映之前所有成功写入操作的更新。</li>
+
+
+
+<li>如果存在网络延迟或中断，强一致性读取可能不可用。在这种情况下，DynamoDB 可能返回服务器错误（HTTP 500）。</li>
+
+
+
+<li>强一致性读取的延迟可能高于最终一致性读取。</li>
+
+
+
+<li>全局二级索引不支持强一致性读取。</li>
+
+
+
+<li>强一致性读取比最终一致性读取消耗更多吞吐量容量。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 默认使用最终一致性读取。</p>
+
+
+
+<p class="wp-block-paragraph">你可以在 GetItem、Query 和 Scan API 中通过将 --consistent-read（或 ConsistentRead）参数设置为 "true" 来配置强一致性读取。</p>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_v7sepaj6nhxs"></a>DynamoDB 事务（Transactions）</h2>
+
+
+
+<p class="wp-block-paragraph">Amazon DynamoDB 事务简化了开发者对表内和跨表多个项目进行协调的、全有或全无（all-or-nothing）更改的体验。</p>
+
+
+
+<p class="wp-block-paragraph">事务在 DynamoDB 中提供原子性、一致性、隔离性和持久性（ACID）。</p>
+
+
+
+<p class="wp-block-paragraph">支持将跨多个表的多个项目的读写作为一个全有或全无的操作。</p>
+
+
+
+<p class="wp-block-paragraph">在写入表之前检查前提条件。</p>
+
+
+
+<p class="wp-block-paragraph">使用事务写入 API，你可以将多个 Put、Update、Delete 和 ConditionCheck 操作分组。</p>
+
+
+
+<p class="wp-block-paragraph">然后你可以将这些操作作为单个 TransactWriteItems 操作提交，该操作作为一个整体成功或失败。</p>
+
+
+
+<p class="wp-block-paragraph">多个 Get 操作也是如此，你可以将它们分组并作为单个 TransactGetItems 操作提交。</p>
+
+
+
+<p class="wp-block-paragraph">为 DynamoDB 表启用事务不收取额外费用。</p>
+
+
+
+<p class="wp-block-paragraph">你只需为事务中包含的读取或写入付费。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 对事务中的每个项目执行两次底层读取或写入：一次用于准备事务，一次用于提交事务。</p>
+
+
+
+<p class="wp-block-paragraph">这两次底层读/写操作在你的 Amazon CloudWatch 指标中可见。</p>
+
+
+
+<p class="wp-block-paragraph">下图展示了使用 DynamoDB 事务的失败写入：</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-01-dynamodb-transactions-failure.jpeg" alt="DynamoDB Transactions Failure" class="wp-image-296314"/></figure>
+
+
+
+<p class="wp-block-paragraph">下图展示了使用 DynamoDB 事务的成功写入：</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-dynamodb-transactions-success.jpeg" alt="Amazon DynamoDB Transactions Success" class="wp-image-296317"/></figure>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_1rr18niabuba"></a>Scan 和 Query API 调用</h2>
+
+
+
+<h3 class="wp-block-heading"><a id="post-296302-_9l0jgaardrcw"></a>Scan</h3>
+
+
+
+<p class="wp-block-paragraph">Scan 操作通过访问表或二级索引中的每个项目来返回一个或多个项目及其属性。</p>
+
+
+
+<p class="wp-block-paragraph">单次 Scan 操作最多读取设定数量的项目（如果使用 Limit 参数），或最多 1 MB 数据。</p>
+
+
+
+<p class="wp-block-paragraph">Scan API 调用可能消耗大量 RCU，因为它们访问表中的每个项目。</p>
+
+
+
+<p class="wp-block-paragraph">你可以使用 ProjectionExpression 参数，让 Scan 只返回部分属性，而不是全部属性。</p>
+
+
+
+<p class="wp-block-paragraph">如果需要进一步筛选 Scan 结果，你可以选择性地提供筛选表达式（filter expression）。</p>
+
+
+
+<p class="wp-block-paragraph">筛选表达式在 Scan 完成后、结果返回之前应用。</p>
+
+
+
+<p class="wp-block-paragraph">Scan 操作按顺序进行。</p>
+
+
+
+<p class="wp-block-paragraph">为了在大型表或二级索引上获得更快的性能，应用可以通过提供 Segment 和 TotalSegments 参数来请求并行 Scan 操作。</p>
+
+
+
+<p class="wp-block-paragraph">Scan 访问表中数据时使用最终一致性读取。</p>
+
+
+
+<p class="wp-block-paragraph">如果需要 Scan 开始时数据的一致性副本，可以将 ConsistentRead 参数设置为 true。</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-dynamodb-scan-api.jpeg" alt="Amazon DynamoDB Scan API" class="wp-image-296320"/></figure>
+
+
+
+<h3 class="wp-block-heading"><a id="post-296302-_q4rel8rhuymh"></a>Query</h3>
+
+
+
+<p class="wp-block-paragraph">Query 操作基于主键属性和要搜索的具体值在表中查找项目。</p>
+
+
+
+<p class="wp-block-paragraph">例如，你可以搜索某个用户 ID 值，与该项目相关的所有属性都会被返回。</p>
+
+
+
+<p class="wp-block-paragraph">你可以使用可选的排序键名称和值来细化结果。</p>
+
+
+
+<p class="wp-block-paragraph">例如，如果你的排序键是时间戳，你可以细化查询以仅选择最近 7 天的项目。</p>
+
+
+
+<p class="wp-block-paragraph">默认情况下，查询返回项目的所有属性，但如果你只想返回想看的属性，可以使用 ProjectionExpression 参数。</p>
+
+
+
+<p class="wp-block-paragraph">结果始终按排序键排序。</p>
+
+
+
+<p class="wp-block-paragraph">使用数字顺序——默认升序（例如 1,2,3,4）。</p>
+
+
+
+<p class="wp-block-paragraph">使用 ASCII 字符码值。</p>
+
+
+
+<p class="wp-block-paragraph">你可以通过将 ScanIndexForward 参数（没错，它用于 query 而非 scan）设置为 false 来反转顺序。</p>
+
+
+
+<p class="wp-block-paragraph">默认情况下，查询是最终一致性的。</p>
+
+
+
+<p class="wp-block-paragraph">要使用强一致性，需要在查询中显式设置。</p>
+
+
+
+<p class="wp-block-paragraph">下图展示了使用投影表达式限制返回属性的 query API 调用：</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-dynamodb-query-api-with-projectionexpressio.jpeg" alt="Amazon DynamoDB Query API with ProjectionExpression" class="wp-image-296323"/></figure>
+
+
+
+<h3 class="wp-block-heading"><a id="post-296302-_wilz0gm4qzb9"></a>Scan 与 Query 对比</h3>
+
+
+
+<p class="wp-block-paragraph">Query 比 Scan 更高效。</p>
+
+
+
+<p class="wp-block-paragraph">Scan 会读取整个表，然后过滤出提供所需结果的值（移除不需要的数据）。</p>
+
+
+
+<p class="wp-block-paragraph">这增加了一个移除不需要数据的额外步骤。</p>
+
+
+
+<p class="wp-block-paragraph">随着表的增长，scan 操作耗时更长。</p>
+
+
+
+<p class="wp-block-paragraph">对大型表执行一次 Scan 操作可能在单个操作中耗尽该表的预置吞吐量。</p>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_vlbugenkc3mb"></a>性能优化</h2>
+
+
+
+<p class="wp-block-paragraph">你可以通过设置较小的页面大小来减少 query 或 scan 的影响，这会使用更少的读取操作。</p>
+
+
+
+<p class="wp-block-paragraph">大量较小的操作将允许其他请求成功执行而不被限流。</p>
+
+
+
+<p class="wp-block-paragraph">尽可能避免使用 scan 操作：以可以使用 Query、Get 或 BatchGetItem API 的方式设计表。</p>
+
+
+
+<p class="wp-block-paragraph">Scan 性能优化：</p>
+
+
+
+<ul class="wp-block-list">
+<li>默认情况下，scan 操作按顺序处理数据，每次返回 1MB 数据后再继续检索下一个 1MB。它一次只能扫描一个分区。</li>
+
+
+
+<li>你可以配置 DynamoDB 改用并行扫描，将表或索引在逻辑上划分为多个段（segment）并并行扫描每个段。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph"><strong>注意：</strong>如果你的表或索引已经在承受来自其他应用的大量读/写活动，最好避免并行扫描。</p>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_d66zhdjldz62"></a>索引（Indexes）</h2>
+
+
+
+<p class="wp-block-paragraph">索引是一种数据结构，允许你对表中的特定列执行快速查询。</p>
+
+
+
+<p class="wp-block-paragraph">你选择要包含在索引中的列，然后在索引上运行搜索，而不是在整个数据集上搜索。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 支持两种用于加速查询的索引类型：</p>
+
+
+
+<ul class="wp-block-list">
+<li>本地二级索引（Local Secondary Index）。</li>
+
+
+
+<li>全局二级索引（Global Secondary Index）。</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading"><a id="post-296302-_dtzcxo8a325y"></a>本地二级索引（LSI）</h3>
+
+
+
+<p class="wp-block-paragraph">LSI 提供备用的排序键，用于 scan 和 query。</p>
+
+
+
+<p class="wp-block-paragraph">它为表提供一个备用的范围键，与哈希键位于本地。</p>
+
+
+
+<p class="wp-block-paragraph">每张表最多可以有五个 LSI。</p>
+
+
+
+<p class="wp-block-paragraph">排序键由恰好一个标量属性组成。</p>
+
+
+
+<p class="wp-block-paragraph">你选择的属性必须是标量的 String、Number 或 Binary 类型。</p>
+
+
+
+<p class="wp-block-paragraph">LSI 必须在创建表时创建。</p>
+
+
+
+<p class="wp-block-paragraph">它只能在创建表时创建。</p>
+
+
+
+<p class="wp-block-paragraph">之后无法添加、删除或修改它。</p>
+
+
+
+<p class="wp-block-paragraph">它与原表具有相同的分区键（但排序键不同）。</p>
+
+
+
+<p class="wp-block-paragraph">它让你以备用排序键组织的不同视角查看数据。</p>
+
+
+
+<p class="wp-block-paragraph">使用索引基于该排序键的任何查询都比在主表上快得多。</p>
+
+
+
+<p class="wp-block-paragraph">一个例子是以用户 ID 作为分区键，以账户创建日期作为排序键。</p>
+
+
+
+<p class="wp-block-paragraph">LSI 的主要好处是你可以查询表中除分区键/排序键之外的其他值。</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-dynamodb-local-secondary-index-lsi.jpeg" alt="Amazon DynamoDB Local Secondary Index (LSI)" class="wp-image-296326"/></figure>
+
+
+
+<h3 class="wp-block-heading"><a id="post-296302-_dg64drkvavgz"></a>全局二级索引（GSI）</h3>
+
+
+
+<p class="wp-block-paragraph">GSI 用于加速对非键属性的查询。</p>
+
+
+
+<p class="wp-block-paragraph">你可以在创建表时或之后的任何时间创建。</p>
+
+
+
+<p class="wp-block-paragraph">GSI 具有不同的分区键和不同的排序键。</p>
+
+
+
+<p class="wp-block-paragraph">它提供完全不同的数据视角。</p>
+
+
+
+<p class="wp-block-paragraph">它加速与这个备用分区键和排序键相关的任何查询。</p>
+
+
+
+<p class="wp-block-paragraph">一个例子是以电子邮件地址作为分区键，以最后登录日期作为排序键。</p>
+
+
+
+<p class="wp-block-paragraph">使用 GSI 时，索引是一张新的"表"，你可以将属性投影（project）到它上面。</p>
+
+
+
+<ul class="wp-block-list">
+<li>原表的分区键和排序键始终被投影（KEYS_ONLY）。</li>
+
+
+
+<li>可以指定要投影的额外属性（INCLUDE）。</li>
+
+
+
+<li>可以使用主表的所有属性（ALL）。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">你必须为索引定义 RCU / WCU。</p>
+
+
+
+<p class="wp-block-paragraph">可以随时添加/修改 GSI。</p>
+
+
+
+<p class="wp-block-paragraph">如果 GSI 上的写入被限流，主表也会被限流（即使主表有足够的 WCU）。LSI 不会引起任何特殊的限流问题。</p>
+
+
+
+<p class="wp-block-paragraph"><strong><em>考试提示：</em></strong><em>通常需要确保 GSI 上指定的 RCU/WCU 至少与主表相同或更多，以避免主表被限流。</em></p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-dynamodb-global-secondary-index-gsi.jpeg" alt="Amazon DynamoDB Global Secondary Index (GSI)" class="wp-image-296329"/></figure>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_8nbj4fhugfj"></a>性能与优化</h2>
+
+
+
+<h3 class="wp-block-heading">DynamoDB 预置容量（Provisioned Capacity）</h3>
+
+
+
+<p class="wp-block-paragraph">使用预置容量模式时，你指定应用所需的每秒数据读取和写入次数。</p>
+
+
+
+<p class="wp-block-paragraph">你可以使用 Auto Scaling 根据指定的利用率自动调整表的容量，在保证应用性能的同时降低成本。</p>
+
+
+
+<p class="wp-block-paragraph">创建表时，你使用读容量单位（RCU）和写容量单位（WCU）指定需求。</p>
+
+
+
+<p class="wp-block-paragraph"><strong>注意：</strong>WCU 和 RCU 在各分区之间均匀分配。</p>
+
+
+
+<p class="wp-block-paragraph">你还可以在预置容量模式下使用 Auto Scaling。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB Auto Scaling 使用 AWS Application Auto Scaling 服务，代表你根据流量模式动态调整预置吞吐量容量。</p>
+
+
+
+<p class="wp-block-paragraph">这使表或全局二级索引能够增加其预置读写容量以应对流量的突然增长，而不会被限流。</p>
+
+
+
+<p class="wp-block-paragraph">读容量单位（RCU）：</p>
+
+
+
+<ul class="wp-block-list">
+<li>每次从表读取数据的 API 调用都是一个读取请求。</li>
+
+
+
+<li>读取请求可以是强一致的、最终一致的或事务性的。</li>
+
+
+
+<li>对于最大 4 KB 的项目，一个 RCU 每秒可执行一次<em>强一致性</em>读取请求。</li>
+
+
+
+<li>大于 4 KB 的项目需要额外的 RCU。</li>
+
+
+
+<li>对于最大 4 KB 的项目，一个 RCU 每秒可执行两次<em>最终一致性</em>读取请求。</li>
+
+
+
+<li><em>事务性</em>读取请求对于最大 4 KB 的项目，每秒执行一次读取需要两个 RCU。</li>
+
+
+
+<li>例如，对 8 KB 项目的强一致性读取需要两个 RCU，对 8 KB 项目的最终一致性读取需要一个 RCU，对 8 KB 项目的事务性读取需要四个 RCU。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">写容量单位（WCU）：</p>
+
+
+
+<ul class="wp-block-list">
+<li>每次向表写入数据的 API 调用都是一个写入请求。</li>
+
+
+
+<li>对于最大 1 KB 的项目，一个 WCU 每秒可执行一次<em>标准</em>写入请求。</li>
+
+
+
+<li>大于 1 KB 的项目需要额外的 WCU。</li>
+
+
+
+<li><em>事务性</em>写入请求对于最大 1 KB 的项目，每秒执行一次写入需要两个 WCU。</li>
+
+
+
+<li>例如，对 1 KB 项目的标准写入请求需要一个 WCU，对 3 KB 项目的标准写入请求需要三个 WCU，对 3 KB 项目的事务性写入请求需要六个 WCU。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">复制写容量单位（rWCU）：</p>
+
+
+
+<ul class="wp-block-list">
+<li>使用 DynamoDB 全局表时，你的数据会自动写入你选择的多个 AWS 区域。</li>
+
+
+
+<li>每次写入都发生在本地区域以及复制区域中。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">流读取请求单位（Streams read request unit）：</p>
+
+
+
+<ul class="wp-block-list">
+<li>对 DynamoDB Streams 的每次 GetRecords API 调用都是一个流读取请求单位。</li>
+
+
+
+<li>每个流读取请求单位最多可返回 1 MB 数据。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">事务性读/写请求：</p>
+
+
+
+<ul class="wp-block-list">
+<li>在 DynamoDB 中，事务性读取或写入与标准读取或写入的不同之处在于，它保证单个事务集中包含的所有操作作为一个整体成功或失败。</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading"><a id="post-296302-_v7o8rqbw65me"></a>DynamoDB 按需容量（On-Demand Capacity）</h3>
+
+
+
+<p class="wp-block-paragraph">使用按需模式时，你无需指定需求。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 根据应用的活动即时扩缩容。</p>
+
+
+
+<p class="wp-block-paragraph">非常适合不可预测/突发的工作负载，或尚未充分了解的新工作负载。</p>
+
+
+
+<p class="wp-block-paragraph">按实际使用量付费（按请求付费）。</p>
+
+
+
+<p class="wp-block-paragraph">你可以在预置容量和按需定价模式之间切换，每天一次。</p>
+
+
+
+<h3 class="wp-block-heading"><a id="post-296302-_bn56qnlhjj6b"></a>性能与限流（Throttling）</h3>
+
+
+
+<p class="wp-block-paragraph">当超过配置的 RCU 或 WCU 时会发生限流。</p>
+
+
+
+<p class="wp-block-paragraph">可能会收到 ProvisionedThroughputExceededException 错误。</p>
+
+
+
+<p class="wp-block-paragraph">此错误表明你的请求速率对于为该表预置的读/写容量来说过高。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 的 AWS SDK 会自动重试收到此异常的请求。</p>
+
+
+
+<p class="wp-block-paragraph">你的请求最终会成功，除非重试队列太大而无法完成。</p>
+
+
+
+<p class="wp-block-paragraph">性能问题的可能原因：</p>
+
+
+
+<ul class="wp-block-list">
+<li>热键（Hot key）—— 某个分区键被读取过于频繁。</li>
+
+
+
+<li>热分区（Hot partition）—— 当数据访问不均衡时，某个"热"分区相比其他分区会收到更高的读写流量。</li>
+
+
+
+<li>大项目 —— 大项目消耗更多 RCU 和 WCU。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">解决方法：</p>
+
+
+
+<ul class="wp-block-list">
+<li>降低请求频率并使用指数退避（exponential backoff）。</li>
+
+
+
+<li>尽量将应用设计为在表及其二级索引的所有逻辑分区键上活动均匀分布。</li>
+
+
+
+<li>有效利用突发容量（burst capacity）—— DynamoDB 目前保留最多 5 分钟（300 秒）的未使用读写容量，可以快速使用。</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading"><a id="post-296302-_5ige8lqqhoh8"></a>DynamoDB Accelerator (DAX)</h3>
+
+
+
+<p class="wp-block-paragraph">Amazon DynamoDB Accelerator (DAX) 是为 DynamoDB 提供的完全托管、高可用的内存缓存，可提供高达 10 倍的性能提升。</p>
+
+
+
+<p class="wp-block-paragraph">将性能从毫秒级提升到微秒级，即使每秒数百万个请求也是如此。</p>
+
+
+
+<p class="wp-block-paragraph">DAX 是一项托管服务，为 DynamoDB 表提供内存加速。</p>
+
+
+
+<p class="wp-block-paragraph">提供托管的缓存失效、数据填充和集群管理。</p>
+
+
+
+<p class="wp-block-paragraph">DAX 用于提升读取性能（而非写入）。</p>
+
+
+
+<p class="wp-block-paragraph">你无需修改应用逻辑，因为 DAX 与现有的 DynamoDB API 调用兼容。</p>
+
+
+
+<p class="wp-block-paragraph">非常适合读密集型和突发型工作负载，例如拍卖应用、游戏，以及进行特价销售/促销活动的零售网站。</p>
+
+
+
+<p class="wp-block-paragraph">你只需在 AWS 管理控制台中点击几下或使用 AWS SDK 即可启用 DAX。</p>
+
+
+
+<p class="wp-block-paragraph">与 DynamoDB 一样，你只需为预置的容量付费。</p>
+
+
+
+<p class="wp-block-paragraph">通过集群预置，按节点收费（运行在 EC2 实例上）。</p>
+
+
+
+<p class="wp-block-paragraph">定价按消耗的节点小时计算，取决于你选择的实例类型。</p>
+
+
+
+<p class="wp-block-paragraph">工作原理：</p>
+
+
+
+<ul class="wp-block-list">
+<li>DAX 是写穿（write-through）缓存服务——这意味着数据会同时写入缓存和后端存储。</li>
+
+
+
+<li>允许你将 DynamoDB API 调用指向 DAX 集群，如果项目在缓存中（缓存命中），DAX 会将结果返回给应用。</li>
+
+
+
+<li>如果请求的项目不在缓存中（缓存未命中），DAX 会对 DynamoDB 执行最终一致性 GetItem 操作。</li>
+
+
+
+<li>从 DAX 检索数据可减少 DynamoDB 表的读取负载。</li>
+
+
+
+<li>这可能使你可以减少表的预置读取容量。</li>
+</ul>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-dynamodb-accelerator-dax.jpeg" alt="Amazon DynamoDB Accelerator (DAX)" class="wp-image-296332"/></figure>
+
+
+
+<h3 class="wp-block-heading"><a id="post-296302-_6yrqnbz3m8zh"></a>DAX 与 ElastiCache 对比</h3>
+
+
+
+<p class="wp-block-paragraph">DAX 针对 DynamoDB 进行了优化。</p>
+
+
+
+<p class="wp-block-paragraph">DAX 不支持惰性加载（lazy loading），使用写穿缓存。</p>
+
+
+
+<p class="wp-block-paragraph">使用 ElastiCache 你有更多管理开销（例如缓存失效）。</p>
+
+
+
+<p class="wp-block-paragraph">使用 ElastiCache 你需要修改应用代码以指向缓存。</p>
+
+
+
+<p class="wp-block-paragraph">ElastiCache 支持更多数据存储。</p>
+
+
+
+<h3 class="wp-block-heading"><a id="post-296302-_lm1h0r8tgq79"></a><a id="post-296302-_948mln4dqwuf"></a>DynamoDB 生存时间（TTL）</h3>
+
+
+
+<p class="wp-block-paragraph">在过期日期/时间之后自动删除项目。</p>
+
+
+
+<p class="wp-block-paragraph">过期项目会被标记为待删除。</p>
+
+
+
+<p class="wp-block-paragraph">非常适合移除不相关或过期的数据，例如：</p>
+
+
+
+<ul class="wp-block-list">
+<li>会话数据。</li>
+
+
+
+<li>事件日志。</li>
+
+
+
+<li>临时数据。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">无额外费用，不消耗 WCU / RCU。</p>
+
+
+
+<p class="wp-block-paragraph">TTL 是由 DynamoDB 操作的后台任务。</p>
+
+
+
+<p class="wp-block-paragraph">TTL 有助于减少存储并随时间管理表大小。</p>
+
+
+
+<p class="wp-block-paragraph">TTL 按行启用（你定义一个 TTL 列并在其中添加过期日期/时间）。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 通常在过期后 48 小时内删除过期项目。</p>
+
+
+
+<p class="wp-block-paragraph">被删除的项目也会从 LSI / GSI 中删除。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB Streams 可以帮助恢复过期的项目。</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-dynamodb-ttl.jpeg" alt="Amazon DynamoDB TTL" class="wp-image-296335"/></figure>
+
+
+
+<h3 class="wp-block-heading"><a id="post-296302-_xsiwp731lq4d"></a><a id="post-296302-_ge5bt2agfd9m"></a>指数退避（Exponential backoff）</h3>
+
+
+
+<p class="wp-block-paragraph">网络中的许多组件在过载时会产生错误。</p>
+
+
+
+<p class="wp-block-paragraph">除了简单重试外，所有 AWS SDK 都使用指数退避。</p>
+
+
+
+<p class="wp-block-paragraph">重试之间的等待时间会逐渐变长，以改善流量控制。</p>
+
+
+
+<p class="wp-block-paragraph">如果 1 分钟后仍然不成功，你的请求大小可能超过了读/写容量的吞吐量。</p>
+
+
+
+<p class="wp-block-paragraph">如果你的工作负载以读取为主，考虑使用 DAX 或 ElastiCache 进行卸载。</p>
+
+
+
+<p class="wp-block-paragraph">如果你的工作负载以写入为主，考虑增加表的 WCU。</p>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_lxx47u645p0"></a>DynamoDB Streams</h2>
+
+
+
+<p class="wp-block-paragraph">DynamoDB Streams 捕获任何 DynamoDB 表中项目级修改的按时间排序的序列，并将此信息在日志中存储最多 24 小时。</p>
+
+
+
+<p class="wp-block-paragraph">应用可以访问此日志，近乎实时地查看数据项目在修改前后的样子。</p>
+
+
+
+<p class="wp-block-paragraph">你也可以使用 CreateTable 或 UpdateTable API 操作来启用或修改流。</p>
+
+
+
+<p class="wp-block-paragraph">日志静态加密，存储 24 小时。</p>
+
+
+
+<p class="wp-block-paragraph">通过专用端点访问。</p>
+
+
+
+<p class="wp-block-paragraph">默认情况下，仅记录主键。</p>
+
+
+
+<p class="wp-block-paragraph">可以捕获修改前后的镜像（image）。</p>
+
+
+
+<p class="wp-block-paragraph">事件近乎实时地记录。</p>
+
+
+
+<p class="wp-block-paragraph">应用可以根据内容采取行动。</p>
+
+
+
+<p class="wp-block-paragraph">流可以作为 Lambda 的事件源。</p>
+
+
+
+<p class="wp-block-paragraph">Lambda 轮询 DynamoDB 流，并基于 DynamoDB Streams 事件执行代码。</p>
+
+
+
+<p class="wp-block-paragraph">数据在流中仅存储 24 小时。</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-dynamodb-streams.jpeg" alt="Amazon DynamoDB Streams" class="wp-image-296338"/></figure>
+
+
+
+<p class="wp-block-paragraph">StreamSpecification 参数决定流的配置方式：</p>
+
+
+
+<p class="wp-block-paragraph">StreamEnabled —— 指定是否为表启用流（true）或禁用（false）。</p>
+
+
+
+<p class="wp-block-paragraph">StreamViewType —— 指定每当表中数据被修改时将写入流的信息：</p>
+
+
+
+<ul class="wp-block-list">
+<li>KEYS_ONLY —— 仅被修改项目的键属性。</li>
+
+
+
+<li>NEW_IMAGE —— 修改后的整个项目。</li>
+
+
+
+<li>OLD_IMAGE —— 修改前的整个项目。</li>
+
+
+
+<li>NEW_AND_OLD_IMAGES —— 项目的新旧镜像都包含。</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading">API 调用</h2>
+
+
+
+<h3 class="wp-block-heading"><a id="post-296302-_y5wayaq4mbw0"></a>写入数据</h3>
+
+
+
+<ul class="wp-block-list">
+<li>PutItem —— 创建数据或完全替换（消耗 WCU）。</li>
+
+
+
+<li>UpdateItem —— 更新数据，部分更新属性（可使用原子计数器 atomic counter）。</li>
+
+
+
+<li>条件写入（Conditional writes）—— 仅在满足条件时才接受写入/更新。</li>
+
+
+
+<li>DeleteItem —— 删除单个行（可执行条件删除）。</li>
+
+
+
+<li>DeleteTable —— 删除整个表（比对所有项目使用 DeleteItem 更快）。</li>
+
+
+
+<li>BatchWriteItem —— 一次调用最多可 put 或 delete 25 个项目（最大 16MB 写入 / 每个项目 400KB）。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">批处理通过减少 API 调用次数来降低延迟。</p>
+
+
+
+<p class="wp-block-paragraph">操作并行执行以提高效率。</p>
+
+
+
+<h3 class="wp-block-heading"><a id="post-296302-_1fe0nwhkne41"></a>读取数据</h3>
+
+
+
+<ul class="wp-block-list">
+<li>GetItem —— 基于主键读取（默认最终一致性，可请求强一致性读取）。可指定投影表达式以仅包含特定属性。</li>
+
+
+
+<li>BatchGetItem —— 最多 100 个项目，每个项目最大 16MB。项目并行检索以最大限度减少延迟。</li>
+
+
+
+<li>Query —— 基于 PartitionKey 值以及可选的排序键返回项目。可使用 FilterExpression 进行过滤。最多返回 1MB 数据或 Limit 中指定的项目数。可对结果分页。可查询表、本地二级索引或全局二级索引。</li>
+
+
+
+<li>Scan —— 扫描整个表（低效）。最多返回 1MB 数据——使用分页查看更多结果。消耗大量 RCU。可使用 ProjectionExpression + FilterExpression。</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_qw9bk277b65c"></a>乐观锁（Optimistic Locking）</h2>
+
+
+
+<p class="wp-block-paragraph">乐观锁是一种策略，确保你正在更新（或删除）的客户端项目与 Amazon DynamoDB 中的项目一致。</p>
+
+
+
+<p class="wp-block-paragraph">保护数据库写入不被他人的写入覆盖，反之亦然。</p>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_gjzzl4t7mtmf"></a>条件更新（Conditional Updates）</h2>
+
+
+
+<p class="wp-block-paragraph">要操作 Amazon DynamoDB 表中的数据，你使用 PutItem、UpdateItem 和 DeleteItem 操作。</p>
+
+
+
+<p class="wp-block-paragraph">你可以选择性地指定条件表达式来确定应修改哪些项目。</p>
+
+
+
+<p class="wp-block-paragraph">如果条件表达式的计算结果为 true，则操作成功；否则操作失败。</p>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_ezm9e0k89uc2"></a>安全性</h2>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 支持 VPC 端点（VPC endpoint）。</p>
+
+
+
+<p class="wp-block-paragraph">可以使用 AWS KMS 启用静态加密。</p>
+
+
+
+<p class="wp-block-paragraph">传输中加密使用 SSL / TLS。</p>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_tnqy29r2vpt6"></a><a id="post-296302-_fn2z973pghn7"></a>最佳实践</h2>
+
+
+
+<p class="wp-block-paragraph">保持项目大小较小。</p>
+
+
+
+<p class="wp-block-paragraph">如果你在 DynamoDB 中存储需要基于日期/时间执行操作的序列化数据，请按天、周、月使用不同的表。</p>
+
+
+
+<p class="wp-block-paragraph">将访问频率较高和较低的数据存储在不同的表中。</p>
+
+
+
+<p class="wp-block-paragraph">如果可能，压缩较大的属性值。</p>
+
+
+
+<p class="wp-block-paragraph">将大于 400KB 的对象存储在 S3 中，并在 DynamoDB 中使用指针（S3 Object ID）。</p>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_diu6km5bsvlf"></a>集成</h2>
+
+
+
+<p class="wp-block-paragraph">ElastiCache 可用于 DynamoDB 前端，以提升对不经常变化数据的读取性能。</p>
+
+
+
+<p class="wp-block-paragraph">触发器与 AWS Lambda 集成以响应触发。</p>
+
+
+
+<p class="wp-block-paragraph">与 RedShift 的集成：</p>
+
+
+
+<ul class="wp-block-list">
+<li>RedShift 以高级商业智能能力补充 DynamoDB。</li>
+
+
+
+<li>将数据从 DynamoDB 表复制到 RedShift 后，你可以执行复杂的数据分析查询，包括与其他表的 join。</li>
+
+
+
+<li>从 DynamoDB 表复制数据的操作会占用该表的读取容量。</li>
+
+
+
+<li>数据复制完成后，SQL 查询不会影响 DynamoDB 中的数据。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 与 EMR 上的 Apache Hive 集成。Hive 让你能够：</p>
+
+
+
+<ul class="wp-block-list">
+<li>读写 DynamoDB 表中的数据，允许你使用类 SQL 语言（HiveQL）查询 DynamoDB 数据。</li>
+
+
+
+<li>将数据从 DynamoDB 表复制到 S3 bucket，反之亦然。</li>
+
+
+
+<li>将数据从 DynamoDB 表复制到 HDFS，反之亦然。</li>
+
+
+
+<li>对 DynamoDB 表执行 join 操作。</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_wxbkuce8lgnw"></a>可扩展性</h2>
+
+
+
+<p class="wp-block-paragraph">一键扩展，无停机时间。</p>
+
+
+
+<p class="wp-block-paragraph">每个自然日只能缩减 4 次。</p>
+
+
+
+<p class="wp-block-paragraph">AWS 对你可以预置的吞吐量设置了默认限制。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 会对超过表预置吞吐量的请求进行限流。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 还会对索引的读取请求进行限流，以防止应用消耗过多容量单位。</p>
+
+
+
+<p class="wp-block-paragraph">当请求被限流时，会失败并返回 HTTP 400 状态码（Bad Request）和 ProvisionedThroughputExceeded 异常。</p>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_bo1h1qw5eayh"></a>使用全局表（Global Tables）进行跨区域复制</h2>
+
+
+
+<p class="wp-block-paragraph">Amazon DynamoDB 全局表为部署多区域、多主数据库提供完全托管的解决方案。</p>
+
+
+
+<p class="wp-block-paragraph">创建全局表时，你指定希望表可用的 AWS 区域。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 执行所有必要的任务，在这些区域创建相同的表，并将持续的数据更改传播到所有区域。</p>
+
+
+
+<p class="wp-block-paragraph">DynamoDB 全局表非常适合拥有全球分散用户的大规模应用。</p>
+
+
+
+<p class="wp-block-paragraph">全局表提供到全球 AWS 区域的自动多主复制，因此无论用户位于何处，你都可以为他们提供低延迟的数据访问。</p>
+
+
+
+<p class="wp-block-paragraph">定义：</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong><em>全局表（global table）</em></strong>是一个或多个副本表的集合，全部由单个 AWS 账户拥有。</li>
+
+
+
+<li><strong><em>副本表（replica table</em></strong>，简称<em>副本</em>）是作为全局表一部分的单个 DynamoDB 表。每个副本存储相同的数据项集合。任何给定的全局表每个区域只能有一个副本表。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">下图展示了 Amazon DynamoDB 全局表的拓扑结构：</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="images/2022-01-amazon-dynamodb-global-tables.jpeg" alt="Amazon DynamoDB Global Tables" class="wp-image-296341"/></figure>
+
+
+
+<p class="wp-block-paragraph">你可以向全局表添加副本表，使其在更多 AWS 区域可用。</p>
+
+
+
+<p class="wp-block-paragraph">使用全局表时，每个副本表存储相同的数据项集合。DynamoDB 不支持仅复制部分项目的部分复制。</p>
+
+
+
+<p class="wp-block-paragraph">应用可以对任何副本表读写数据。如果你的应用只使用最终一致性读取，并且只对一个 AWS 区域发起读取，那么它无需任何修改即可工作。</p>
+
+
+
+<p class="wp-block-paragraph">但是，如果你的应用需要强一致性读取，那么它必须在同一区域执行所有强一致性读取和写入。DynamoDB 不支持跨 AWS 区域的强一致性读取。</p>
+
+
+
+<p class="wp-block-paragraph">重要的是，全局表中的每个副本表和二级索引具有相同的写入容量设置，以确保数据正确复制。</p>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_2zmkbvng6203"></a>DynamoDB Auto Scaling</h2>
+
+
+
+<p class="wp-block-paragraph">DynamoDB Auto Scaling 使用 AWS Application Auto Scaling 服务，代表你根据实际流量模式动态调整预置吞吐量容量。</p>
+
+
+
+<p class="wp-block-paragraph">这使表或全局二级索引能够增加其预置读写容量以应对流量的突然增长，而不会被限流。</p>
+
+
+
+<p class="wp-block-paragraph">当工作负载减少时，Application Auto Scaling 会降低吞吐量，这样你就不必为未使用的预置容量付费。</p>
+
+
+
+<p class="wp-block-paragraph">Application Auto Scaling 的工作方式：</p>
+
+
+
+<ul class="wp-block-list">
+<li>你为表或全局二级索引创建<em>扩展策略（scaling policy）</em>。</li>
+
+
+
+<li>扩展策略指定你要扩展读取容量还是写入容量（或两者），以及表或索引的最小和最大预置容量单位设置。</li>
+
+
+
+<li>扩展策略还包含<em>目标利用率（target utilization）</em>——某一时间点消耗的预置吞吐量百分比。</li>
+
+
+
+<li>使用<em>目标跟踪（target tracking）</em>算法，根据实际工作负载向上或向下调整表（或索引）的预置吞吐量，使实际容量利用率保持在目标利用率附近。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">目前，如果表的消耗容量变为零，Auto Scaling 不会缩减你的预置容量。</p>
+
+
+
+<p class="wp-block-paragraph">如果使用 AWS 管理控制台创建表或全局二级索引，DynamoDB Auto Scaling 默认启用。</p>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_desk_"></div>
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_mob_"></div>
+
+
+
+<h2 class="wp-block-heading"><a id="post-296302-_m0jf08iwsdvd"></a><a id="post-296302-_xt7eh7kh2emf"></a><a id="post-296302-_efox0fod98n5"></a><a id="post-296302-_3i7v908ckuxn"></a>数据库的高可用方案</h2>
+
+
+
+<p class="wp-block-paragraph">如果可能，优先选择 DynamoDB 而非 RDS，因为它具有内在的容错能力。</p>
+
+
+
+<p class="wp-block-paragraph">如果不能使用 DynamoDB，选择 Aurora，因为它具备冗余和自动恢复功能。</p>
+
+
+
+<p class="wp-block-paragraph">如果不能使用 Aurora，选择多 AZ RDS。</p>
+
+
+
+<p class="wp-block-paragraph">频繁的 RDS 快照可以防止数据损坏或故障，且不会影响多 AZ 部署的性能。</p>
+
+
+
+<p class="wp-block-paragraph">区域复制也是一种选择，但不是强一致性的。</p>
+
+
+
+<p class="wp-block-paragraph">如果数据库运行在 EC2 上，你必须自己设计高可用方案。</p>
+</div></div>
+</body>
+</html>

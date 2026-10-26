@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS Monitoring and Logging Services - AWS Cheat Sheet</title>
+<style>
+:root{--primary:#1a5276;--secondary:#2980b9;--bg:#f8f9fa;--text:#2c3e50;--border:#dee2e6;--card:#fff;--accent:#e74c3c;--code-bg:#f1f3f4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:30px 40px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.header h1{font-size:1.6em;font-weight:700}
+.header .subtitle{opacity:.85;font-size:.85em;margin-top:4px}
+.content{max-width:960px;margin:30px auto;padding:0 20px}
+.card{background:var(--card);border-radius:8px;padding:30px 40px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:20px}
+h2{color:var(--primary);margin-top:30px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border);font-size:1.3em}
+h3{color:var(--secondary);margin-top:24px;margin-bottom:8px;font-size:1.1em}
+h4{color:var(--secondary);margin-top:16px;margin-bottom:6px;font-size:1em}
+p{margin-bottom:12px}
+ul,ol{margin:8px 0 12px 24px}
+li{margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92em}
+th{background:var(--primary);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:8px 14px;border:1px solid var(--border);vertical-align:top}
+tr:nth-child(even){background:#f8f9fa}
+tr:hover{background:#e8f0f7}
+img{max-width:100%;height:auto}
+code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-family:"SF Mono",Monaco,Menlo,monospace;font-size:.9em}
+pre{background:#2d2d2d;color:#f8f8f2;padding:16px;border-radius:6px;overflow-x:auto;margin:12px 0;font-size:.85em;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:16px 0;background:#fef9f9;border-radius:0 6px 6px 0}
+</style>
+</head>
+<body>
+<div class="header"><h1>AWS Monitoring and Logging Services</h1><div class="subtitle">AWS Cheat Sheet</div></div>
+<div class="content"><div class="card">
+<div class="wp-block-image is-resized">
+<figure class="alignright size-large"><img loading="lazy" decoding="async" width="1024" height="652" src="images/2022-02-AWS-Monitoring-and-Logging-Services-1-1024x652.png" alt="AWS Cheat Sheets Monitoring" class="wp-image-486063" style="width:400px" /></figure>
+</div>
+
+
+<p class="wp-block-paragraph">这一类 AWS 服务包括为运行在 AWS 上的应用程序提供日志记录、监控和审计的服务。</p>
+
+
+
+<h2 class="wp-block-heading">Amazon CloudWatch</h2>
+
+
+
+<p class="wp-block-paragraph">Amazon CloudWatch 是针对 AWS 云资源及你在 AWS 上运行的应用程序的监控服务。</p>
+
+
+
+<p class="wp-block-paragraph">CloudWatch 用于性能监控（CloudTrail 用于审计）。</p>
+
+
+
+<p class="wp-block-paragraph">用于收集和跟踪指标、收集和监控日志文件，以及设置告警。</p>
+
+
+
+<p class="wp-block-paragraph">自动响应 AWS 资源的变化。</p>
+
+
+
+<p class="wp-block-paragraph">可监控的资源包括：</p>
+
+
+
+<ul class="wp-block-list">
+<li>EC2 实例。</li>
+
+
+
+<li>DynamoDB 表。</li>
+
+
+
+<li>RDS 数据库实例。</li>
+
+
+
+<li>应用程序和服务生成的自定义指标。</li>
+
+
+
+<li>应用程序生成的任何日志文件。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">获得资源利用率的系统级全局视图。</p>
+
+
+
+<p class="wp-block-paragraph">CloudWatch 监控涵盖应用程序性能。</p>
+
+
+
+<p class="wp-block-paragraph">监控运行健康状况。</p>
+
+
+
+<p class="wp-block-paragraph">CloudWatch 可通过 API、命令行界面、AWS SDK 和 AWS Management Console 访问。</p>
+
+
+
+<p class="wp-block-paragraph">CloudWatch 与 IAM 集成。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon CloudWatch Logs 让你能够使用现有的系统、应用程序和自定义日志文件来监控和排查系统及应用程序问题。</p>
+
+
+
+<p class="wp-block-paragraph">CloudWatch Logs 可用于实时应用程序和系统监控，也可用于长期日志保留。</p>
+
+
+
+<p class="wp-block-paragraph">CloudWatch Logs 默认无限期保留日志。</p>
+
+
+
+<p class="wp-block-paragraph">CloudTrail 日志可以发送到 CloudWatch Logs 进行实时监控。</p>
+
+
+
+<p class="wp-block-paragraph">CloudWatch Logs 指标筛选器可以针对特定术语、短语或值评估 CloudTrail 日志。</p>
+
+
+
+<p class="wp-block-paragraph">CloudWatch 按如下方式保留指标数据：</p>
+
+
+
+<ul class="wp-block-list">
+<li>周期小于 60 秒的数据点保留 3 小时。这些数据点是高分辨率自定义指标。</li>
+
+
+
+<li>周期为 60 秒（1 分钟）的数据点保留 15 天。</li>
+
+
+
+<li>周期为 300 秒（5 分钟）的数据点保留 63 天。</li>
+
+
+
+<li>周期为 3600 秒（1 小时）的数据点保留 455 天（15 个月）。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">控制面板（Dashboards）允许你创建、自定义、交互并保存 AWS 资源和自定义指标的图表。</p>
+
+
+
+<p class="wp-block-paragraph">告警（Alarms）可用于监控账户中的任何 Amazon CloudWatch 指标。</p>
+
+
+
+<p class="wp-block-paragraph">事件（Events）是描述 AWS 资源变化的系统事件流。</p>
+
+
+
+<p class="wp-block-paragraph">日志（Logs）帮助你聚合、监控和存储日志。</p>
+
+
+
+<p class="wp-block-paragraph">基本监控 = 5 分钟粒度（EC2 实例、EBS 卷、ELB 和 RDS 数据库免费）。</p>
+
+
+
+<p class="wp-block-paragraph">详细监控 = 1 分钟粒度（收费）。</p>
+
+
+
+<p class="wp-block-paragraph">多个 AWS 产品和服务会自动提供指标。</p>
+
+
+
+<p class="wp-block-paragraph">EC2 实例没有内存使用率的标准指标。</p>
+
+
+
+<p class="wp-block-paragraph">自定义指标是你提供给 Amazon CloudWatch 的任何指标（例如网页加载时间或应用程序性能）。</p>
+
+
+
+<p class="wp-block-paragraph">存储日志的选项：</p>
+
+
+
+<ul class="wp-block-list">
+<li>CloudWatch Logs。</li>
+
+
+
+<li>集中式日志系统（如 Splunk）。</li>
+
+
+
+<li>自定义脚本并存储在 S3 上。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">不要将日志存储在非持久性磁盘上：</p>
+
+
+
+<p class="wp-block-paragraph">最佳实践是将日志存储在 CloudWatch Logs 或 S3 中。</p>
+
+
+
+<p class="wp-block-paragraph">CloudWatch Logs 订阅可跨多个 AWS 账户使用（使用跨账户访问）。</p>
+
+
+
+<p class="wp-block-paragraph">Amazon CloudWatch 使用 Amazon SNS 发送电子邮件。</p>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_body"></div>
+
+
+
+<h2 class="wp-block-heading">AWS CloudTrail</h2>
+
+
+
+<p class="wp-block-paragraph">AWS CloudTrail 是一项 Web 服务，记录账户上的活动并将日志文件传送到 Amazon S3 存储桶。</p>
+
+
+
+<p class="wp-block-paragraph">CloudTrail 用于审计（CloudWatch 用于性能监控）。</p>
+
+
+
+<p class="wp-block-paragraph">CloudTrail 的核心是日志记录，保存 AWS 账户的 API 调用历史。</p>
+
+
+
+<p class="wp-block-paragraph">通过记录账户上执行的操作，提供对用户活动的可见性。</p>
+
+
+
+<p class="wp-block-paragraph">API 历史记录支持安全分析、资源变更跟踪和合规审计。</p>
+
+
+
+<p class="wp-block-paragraph">记录通过以下方式发起的 API 调用：</p>
+
+
+
+<ul class="wp-block-list">
+<li>AWS Management Console。</li>
+
+
+
+<li>AWS SDK。</li>
+
+
+
+<li>命令行工具。</li>
+
+
+
+<li>高级别 AWS 服务（如 CloudFormation）。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">CloudTrail 记录来自大多数 AWS 服务的账户活动和服务事件，并记录以下内容：</p>
+
+
+
+<ul class="wp-block-list">
+<li>API 调用者的身份。</li>
+
+
+
+<li>API 调用的时间。</li>
+
+
+
+<li>API 调用者的源 IP 地址。</li>
+
+
+
+<li>请求参数。</li>
+
+
+
+<li>AWS 服务返回的响应元素。</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">CloudTrail 默认启用。</p>
+
+
+
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_desk_"></div>
+<div class="adplugg-tag" data-adplugg-zone="all_access_membership_end_of_the_article_mob_"></div>
+
+
+
+<p class="wp-block-paragraph">CloudTrail 按 AWS 账户划分。</p>
+
+
+
+<p class="wp-block-paragraph">你可以使用 S3 存储桶整合多个账户的日志：</p>
+
+
+
+<ol class="wp-block-list">
+<li>在付款账户中开启 CloudTrail。</li>
+
+
+
+<li>创建允许跨账户访问的存储桶策略。</li>
+
+
+
+<li>在其他账户中开启 CloudTrail，并使用付款账户中的存储桶。</li>
+</ol>
+
+
+
+<p class="wp-block-paragraph">你可以将 CloudTrail 与 CloudWatch Logs 集成，将 CloudTrail 捕获的数据事件传送到 CloudWatch Logs 日志流。</p>
+
+
+
+<p class="wp-block-paragraph">CloudTrail 日志文件完整性验证功能让你能够确定 CloudTrail 日志文件在传送到指定 Amazon S3 存储桶后是否被更改、删除或修改。</p>
+</div></div>
+</body>
+</html>

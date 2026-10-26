@@ -30,6 +30,8 @@ SKIP_DIRS = {".git", ".github", "scripts", "node_modules", "vendor", "dist", "bu
 SKIP_FILES = {"index.html", "404.html"}
 # 非内容目录：模板/样式/附件，不纳入文档列表
 ASSET_DIRS = {"assets", "static", "public", "images", "img", "files"}
+# 子站点目录：只把它们的 index.html 索引进首页（作为入口卡片），其余页面不上索引
+SUBSITE_DIRS = {"cheat-sheets"}
 
 # 分组展示顺序，未列出的按字母序排在后面
 GROUP_ORDER = ["notes", "resume", "cv", "docs", "blog", "projects", "labs", "demos"]
@@ -113,6 +115,8 @@ def collect():
         if parts[0] in SKIP_DIRS:
             continue
         if parts[0] in ASSET_DIRS and len(parts) > 1:
+            continue
+        if parts[0] in SUBSITE_DIRS and path.name != "index.html":
             continue
         if path.name in SKIP_FILES and len(parts) == 1:
             continue

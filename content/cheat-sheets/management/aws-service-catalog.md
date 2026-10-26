@@ -2,17 +2,13 @@
 title: "AWS Service Catalog"
 ---
 
-![Amazon AWS Lambda Services](../images/2022-01-AWS-Service-Catalog-1.png)
+![Amazon AWS Lambda Services](/cheat-sheets/images/2022-01-AWS-Service-Catalog-1.png)
 
-AWS Service Catalog 让组织能够创建和管理经批准可在 AWS 上使用的 IT 服务目录。
-
-这些 IT 服务可以涵盖从虚拟机镜像、服务器、软件、数据库到完整的多层应用架构的一切内容。
-
-AWS Service Catalog 允许组织集中管理常用部署的 IT 服务，帮助组织实现一致的治理并满足合规要求。
-
-最终用户只需遵循组织设置的约束，即可快速部署他们所需的、经过批准的 IT 服务。
-
-AWS Service Catalog 支持以下类型的用户：
+- AWS Service Catalog 让组织能够创建和管理经批准可在 AWS 上使用的 IT 服务目录。
+- 这些 IT 服务可以涵盖从虚拟机镜像、服务器、软件、数据库到完整的多层应用架构的一切内容。
+- AWS Service Catalog 允许组织集中管理常用部署的 IT 服务，帮助组织实现一致的治理并满足合规要求。
+- 最终用户只需遵循组织设置的约束，即可快速部署他们所需的、经过批准的 IT 服务。
+- AWS Service Catalog 支持以下类型的用户：
 
 - **目录管理员（administrator）** – 管理产品（应用和服务）目录，将它们组织到 portfolio 中并向最终用户授予访问权限。目录管理员负责准备 AWS CloudFormation 模板、配置约束，以及管理分配给产品的 IAM role，以实现高级资源管理。
 - **最终用户** – 从 IT 部门或经理处获得 AWS 凭证，使用 AWS Management Console 启动他们已被授予访问权限的产品。
@@ -56,23 +52,15 @@ Portfolio：
 
 ## 共享和导入 Portfolio
 
-要让不在你 AWS 账户中的用户（例如属于其他组织的用户，或你组织内其他 AWS 账户的用户）可以使用你的 AWS Service Catalog 产品，你需要与他们共享你的 portfolio。
-
-共享方式有多种，包括账户间共享、组织内共享，以及使用 stack set 部署目录。
-
-在向其他账户共享产品和 portfolio 之前，你必须决定是共享目录的引用，还是将目录副本部署到每个接收账户中。
-
-注意，如果选择部署副本，那么当有更新需要同步到接收账户时，你必须重新部署。
-
-你可以使用 stack set 将目录同时部署到多个账户。如果你希望共享引用（即导入的 portfolio 版本会与原始版本保持同步），可以使用账户间共享，或者通过 AWS Organizations 共享。
-
-当你使用账户间共享或 AWS Organizations 共享 portfolio 时，你允许另一个 AWS 账户的 AWS Service Catalog 管理员将你的 portfolio 导入其账户，并将产品分发给该账户中的最终用户。
-
-这个*导入的 portfolio* 并不是独立的副本。导入 portfolio 中的产品和约束会与你对*共享 portfolio*（你共享出去的原始 portfolio）所做的更改保持同步。
-
-*接收方管理员*（即你与其共享 portfolio 的管理员）无法更改产品或约束，但可以为最终用户添加 AWS Identity and Access Management (IAM) 访问权限。
-
-接收方管理员可以通过以下方式将产品分发给他/她的 AWS 账户中的最终用户：
+- 要让不在你 AWS 账户中的用户（例如属于其他组织的用户，或你组织内其他 AWS 账户的用户）可以使用你的 AWS Service Catalog 产品，你需要与他们共享你的 portfolio。
+- 共享方式有多种，包括账户间共享、组织内共享，以及使用 stack set 部署目录。
+- 在向其他账户共享产品和 portfolio 之前，你必须决定是共享目录的引用，还是将目录副本部署到每个接收账户中。
+- 注意，如果选择部署副本，那么当有更新需要同步到接收账户时，你必须重新部署。
+- 你可以使用 stack set 将目录同时部署到多个账户。如果你希望共享引用（即导入的 portfolio 版本会与原始版本保持同步），可以使用账户间共享，或者通过 AWS Organizations 共享。
+- 当你使用账户间共享或 AWS Organizations 共享 portfolio 时，你允许另一个 AWS 账户的 AWS Service Catalog 管理员将你的 portfolio 导入其账户，并将产品分发给该账户中的最终用户。
+- 这个*导入的 portfolio* 并不是独立的副本。导入 portfolio 中的产品和约束会与你对*共享 portfolio*（你共享出去的原始 portfolio）所做的更改保持同步。
+- *接收方管理员*（即你与其共享 portfolio 的管理员）无法更改产品或约束，但可以为最终用户添加 AWS Identity and Access Management (IAM) 访问权限。
+- 接收方管理员可以通过以下方式将产品分发给他/她的 AWS 账户中的最终用户：
 
 - 将 IAM 用户、用户组和角色添加到导入的 portfolio。
 - 将导入 portfolio 中的产品添加到*本地 portfolio*——即接收方管理员创建的、属于其 AWS 账户的独立 portfolio。接收方管理员随后将 IAM 用户、用户组和角色添加到该本地 portfolio。你在共享 portfolio 中对产品应用的约束同样会存在于本地 portfolio 中。接收方管理员可以向本地 portfolio 添加额外的约束，但无法移除导入的约束。

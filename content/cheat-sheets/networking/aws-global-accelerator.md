@@ -2,41 +2,27 @@
 title: "AWS Global Accelerator"
 ---
 
-![Amazon AWS Global Accelerator Services](../images/2022-01-AWS-Global-Accelerator-1-1024x652.png)
+![Amazon AWS Global Accelerator Services](/cheat-sheets/images/2022-01-AWS-Global-Accelerator-1-1024x652.png)
 
-AWS Global Accelerator 是一项提升面向本地或全球用户的应用的可用性和性能的服务。
-
-它提供静态 IP 地址，作为单个或多个 AWS 区域中应用 endpoint（如 Application Load Balancer、Network Load Balancer 或 EC2 实例）的固定入口。
-
-利用 AWS 全球网络优化用户到应用的路径，提升 TCP 和 UDP 流量的性能。
-
-AWS Global Accelerator 持续监控应用 endpoint 的健康状况，能检测出不健康的 endpoint，并在 1 分钟内将流量重定向到健康的 endpoint。
+- AWS Global Accelerator 是一项提升面向本地或全球用户的应用的可用性和性能的服务。
+- 它提供静态 IP 地址，作为单个或多个 AWS 区域中应用 endpoint（如 Application Load Balancer、Network Load Balancer 或 EC2 实例）的固定入口。
+- 利用 AWS 全球网络优化用户到应用的路径，提升 TCP 和 UDP 流量的性能。
+- AWS Global Accelerator 持续监控应用 endpoint 的健康状况，能检测出不健康的 endpoint，并在 1 分钟内将流量重定向到健康的 endpoint。
 
 ## 细节与优势
 
-使用位于不同网络区域（A 和 B）的两个冗余静态 anycast IP 地址。
-
-这对冗余地址在全球范围内广播。
-
-使用 AWS Edge Location——地址同时从多个边缘站点宣告。
-
-地址关联到区域级 AWS 资源或 endpoint。
-
-AWS Global Accelerator 的 IP 地址作为应用的前端接口。
-
-智能流量分发：将连接路由到离应用最近的接入点。
-
-目标可以是 Amazon EC2 实例或 Elastic Load Balancer（ALB 和 NLB）。
-
-使用静态 IP 地址后，当你修改或替换 endpoint 时，无需做任何面向客户端的更改或更新 DNS 记录。
-
-只要 accelerator 存在，地址就会一直分配给它，即使你禁用 accelerator、它不再接受或路由流量。
-
-仅对 TCP 进行健康检查——不支持 UDP。
-
-可以在区域内分配目标权重来控制路由，向上或向下“调节”流向某个区域的流量。
-
-容错：
+- 使用位于不同网络区域（A 和 B）的两个冗余静态 anycast IP 地址。
+- 这对冗余地址在全球范围内广播。
+- 使用 AWS Edge Location——地址同时从多个边缘站点宣告。
+- 地址关联到区域级 AWS 资源或 endpoint。
+- AWS Global Accelerator 的 IP 地址作为应用的前端接口。
+- 智能流量分发：将连接路由到离应用最近的接入点。
+- 目标可以是 Amazon EC2 实例或 Elastic Load Balancer（ALB 和 NLB）。
+- 使用静态 IP 地址后，当你修改或替换 endpoint 时，无需做任何面向客户端的更改或更新 DNS 记录。
+- 只要 accelerator 存在，地址就会一直分配给它，即使你禁用 accelerator、它不再接受或路由流量。
+- 仅对 TCP 进行健康检查——不支持 UDP。
+- 可以在区域内分配目标权重来控制路由，向上或向下“调节”流向某个区域的流量。
+- 容错：
 
 - 采用故障隔离设计，提高应用的可用性。
 - AWS Global Accelerator 分配两个由独立网络区域提供服务的 IPv4 静态地址。

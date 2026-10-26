@@ -2,17 +2,13 @@
 title: "AWS Elastic Beanstalk"
 ---
 
-![Amazon AWS Elastic Beanstalk Services](../images/2022-01-AWS-Elastic-Beanstalk-1-1024x652.png)
+![Amazon AWS Elastic Beanstalk Services](/cheat-sheets/images/2022-01-AWS-Elastic-Beanstalk-1-1024x652.png)
 
-AWS Elastic Beanstalk 可用于在 AWS 云中快速部署和管理应用。
-
-开发者上传应用，Elastic Beanstalk 负责处理容量预置、负载均衡、auto-scaling 和应用健康监控等部署细节。
-
-可以使用多个可用区来提升应用的可靠性和可用性。
-
-被视为一种 Platform as a Service（PaaS）解决方案。
-
-支持以下平台：
+- AWS Elastic Beanstalk 可用于在 AWS 云中快速部署和管理应用。
+- 开发者上传应用，Elastic Beanstalk 负责处理容量预置、负载均衡、auto-scaling 和应用健康监控等部署细节。
+- 可以使用多个可用区来提升应用的可靠性和可用性。
+- 被视为一种 Platform as a Service（PaaS）解决方案。
+- 支持以下平台：
 
 - [Docker](https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html#platforms-supported.docker)
 - [Multicontainer Docker](https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html#platforms-supported.mcdocker)
@@ -27,55 +23,33 @@ AWS Elastic Beanstalk 可用于在 AWS 云中快速部署和管理应用。
 - [Python](https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html#platforms-supported.python)
 - [Ruby](https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html#platforms-supported.ruby)
 
-开发者可以专注于编写代码，无需担心基础设施部署。
-
-你只需为预置的资源付费，Elastic Beanstalk 本身不收费。
-
-Elastic Beanstalk 会自动扩缩你的应用。
-
-可以选择最适合你应用的 EC2 实例类型。
-
-可以保留完全的管理控制权，也可以交给 Elastic Beanstalk 处理。
-
-Managed Platform Updates 功能会自动应用操作系统和平台的更新。
-
-Elastic Beanstalk 监控和管理应用健康状况，信息可通过 dashboard 查看。
-
-与 CloudWatch 和 X-Ray 集成，提供性能数据和指标。
-
-与 Amazon VPC 和 AWS IAM 集成。
-
-可以预置大多数数据库实例。
-
-将你的应用文件以及（可选的）服务器日志文件存储在 Amazon S3 中。
-
-应用数据也可以存储在 S3 上。
-
-支持多环境以实现版本管理。
-
-来自 Git 仓库的变更会被复制。
-
-支持 Linux 和 Windows AMI。
-
-代码通过 WAR 文件或 Git 仓库部署。
-
-可以使用 AWS toolkit for Visual Studio 和 AWS toolkit for Eclipse 来部署 Elastic Beanstalk。
-
-在单个区域内实现容错。
-
-默认情况下应用是公开可访问的。
-
-无需登录应用服务器即可访问日志。
-
-提供 ISO、PCI、SOC 1、SOC 2 和 SOC 3 合规性，并满足 HIPAA 适用条件。
-
-支持基于 arm64 的 AWS Graviton 处理器。
+- 开发者可以专注于编写代码，无需担心基础设施部署。
+- 你只需为预置的资源付费，Elastic Beanstalk 本身不收费。
+- Elastic Beanstalk 会自动扩缩你的应用。
+- 可以选择最适合你应用的 EC2 实例类型。
+- 可以保留完全的管理控制权，也可以交给 Elastic Beanstalk 处理。
+- Managed Platform Updates 功能会自动应用操作系统和平台的更新。
+- Elastic Beanstalk 监控和管理应用健康状况，信息可通过 dashboard 查看。
+- 与 CloudWatch 和 X-Ray 集成，提供性能数据和指标。
+- 与 Amazon VPC 和 AWS IAM 集成。
+- 可以预置大多数数据库实例。
+- 将你的应用文件以及（可选的）服务器日志文件存储在 Amazon S3 中。
+- 应用数据也可以存储在 S3 上。
+- 支持多环境以实现版本管理。
+- 来自 Git 仓库的变更会被复制。
+- 支持 Linux 和 Windows AMI。
+- 代码通过 WAR 文件或 Git 仓库部署。
+- 可以使用 AWS toolkit for Visual Studio 和 AWS toolkit for Eclipse 来部署 Elastic Beanstalk。
+- 在单个区域内实现容错。
+- 默认情况下应用是公开可访问的。
+- 无需登录应用服务器即可访问日志。
+- 提供 ISO、PCI、SOC 1、SOC 2 和 SOC 3 合规性，并满足 HIPAA 适用条件。
+- 支持基于 arm64 的 AWS Graviton 处理器。
 
 ## Elastic Beanstalk 的层次结构
 
-Elastic Beanstalk 由多个层次组成，各层说明如下：
-
-**Application（应用）**：
+- Elastic Beanstalk 由多个层次组成，各层说明如下：
+- **Application（应用）**：
 
 - 在 Elastic Beanstalk 中，application 是不同元素的集合，例如 environment、environment configuration 和 application version。
 - 一个 application 中可以包含多个 application version。
@@ -91,7 +65,7 @@ Elastic Beanstalk 由多个层次组成，各层说明如下：
 - 这些资源由 AWS Elastic Beanstalk 配置和预置。
 - environment 由 Elastic Beanstalk 创建的所有资源组成，而不仅仅是运行你上传代码的 EC2 实例。
 
-![Elastic Beanstalk Applications Environments and Versions](../images/2022-01-elastic-beanstalk-applications-environments-and-ve.jpeg)
+![Elastic Beanstalk Applications Environments and Versions](/cheat-sheets/images/2022-01-elastic-beanstalk-applications-environments-and-ve.jpeg)
 
 **Environment tier（环境层）**：
 
@@ -113,15 +87,13 @@ AWS Elastic Beanstalk 提供了多种处理[**部署**](https://docs.aws.amazon.
 
 ### 部署选项
 
-单实例：适合开发环境。
-
-带负载均衡器的高可用：适合生产环境。
+- 单实例：适合开发环境。
+- 带负载均衡器的高可用：适合生产环境。
 
 ### 部署策略
 
-部署策略包括：All at once、Rolling、Rolling with additional batch 和 Immutable。
-
-All at once：
+- 部署策略包括：All at once、Rolling、Rolling with additional batch 和 Immutable。
+- All at once：
 
 - 同时将新版本部署到所有实例。
 - 部署期间所有实例都会停止服务。
@@ -163,9 +135,8 @@ Immutable：
 - 失败时可快速回滚。
 - 非常适合生产环境。
 
-此外，Elastic Beanstalk 支持 blue/green 部署。
-
-Blue / Green 部署：
+- 此外，Elastic Beanstalk 支持 blue/green 部署。
+- Blue / Green 部署：
 
 - 这不是 Elastic Beanstalk 的内置功能。
 - 你创建一个新的“staging”环境并在其中部署更新。
@@ -176,9 +147,8 @@ Blue / Green 部署：
 
 下表总结了不同的部署策略：
 
-|  |  |  |  |  |  |
-| --- | --- | --- | --- | --- | --- |
 | **部署策略** | **部署时间** | **零停机** | **回滚方式** | **额外成本** | **容量减少** |
+| --- | --- | --- | --- | --- | --- |
 | All at once | Clock | 否 | 手动重新部署 | 无 | 是（全部） |
 | Rolling | Clock Clock | 是 | 手动重新部署 | 无 | 是（批次大小） |
 | Rolling with additional batch | Clock Clock Clock | 是 | 手动重新部署 | 是（批次大小） | 否 |
@@ -187,54 +157,42 @@ Blue / Green 部署：
 
 ## Golden AMI
 
-使用 Beanstalk 向 Amazon EC2 部署代码时，Elastic Beanstalk 必须解析应用依赖，这可能耗时较长。
-
-golden AMI 通过在部署前将所有依赖、配置和软件打包进 AMI 来缩短这一时间。
+- 使用 Beanstalk 向 Amazon EC2 部署代码时，Elastic Beanstalk 必须解析应用依赖，这可能耗时较长。
+- golden AMI 通过在部署前将所有依赖、配置和软件打包进 AMI 来缩短这一时间。
 
 ## Elastic Beanstalk CLI
 
-有一个额外的 CLI 叫做 “eb cli”。
-
-EB CLI 是 AWS Elastic Beanstalk 的命令行界面，提供交互式命令，简化从本地仓库创建、更新和监控环境的操作。
-
-你可以在日常开发和测试周期中使用 EB CLI，作为 Elastic Beanstalk 控制台的替代。
+- 有一个额外的 CLI 叫做 “eb cli”。
+- EB CLI 是 AWS Elastic Beanstalk 的命令行界面，提供交互式命令，简化从本地仓库创建、更新和监控环境的操作。
+- 你可以在日常开发和测试周期中使用 EB CLI，作为 Elastic Beanstalk 控制台的替代。
 
 ## 生命周期策略
 
-Elastic Beanstalk 最多可以存储 1000 个应用版本。
-
-要淘汰旧版本，可以使用生命周期策略：
+- Elastic Beanstalk 最多可以存储 1000 个应用版本。
+- 要淘汰旧版本，可以使用生命周期策略：
 
 - 基于时间 —— 指定最大保留时长。
 - 基于数量 —— 指定最大保留数量。
 
-正在使用中的版本不会被删除。
-
-可以选择不删除 S3 中的源包，以防止数据丢失。
+- 正在使用中的版本不会被删除。
+- 可以选择不删除 S3 中的源包，以防止数据丢失。
 
 ## Worker 环境
 
-如果应用执行的任务耗时较长（长时间运行的任务），可以将其卸载到 worker 环境。
+- 如果应用执行的任务耗时较长（长时间运行的任务），可以将其卸载到 worker 环境。
+- 它允许你解耦应用的各个层。
+- 可以在 cron.yaml 文件中定义周期性任务。
 
-它允许你解耦应用的各个层。
-
-可以在 cron.yaml 文件中定义周期性任务。
-
-![Elastic Beanstalk Worker Environment](../images/2022-01-elastic-beanstalk-worker-environment.jpeg)
+![Elastic Beanstalk Worker Environment](/cheat-sheets/images/2022-01-elastic-beanstalk-worker-environment.jpeg)
 
 ## Elastic Beanstalk 扩展
 
-你可以将 AWS Elastic Beanstalk 配置文件（.ebextensions）添加到 Web 应用的源代码中，以配置环境并自定义其中包含的 AWS 资源。
-
-自定义内容包括定义要安装的软件包、创建 Linux 用户和组、运行 shell 命令、指定要启用的服务、配置负载均衡器等。
-
-配置文件是 YAML 或 JSON 格式的文档，扩展名为 .config，放置在名为 .ebextensions 的文件夹中，并随应用源包一起部署。
-
-.ebextensions 文件夹必须包含在应用源代码包的顶层目录中。
-
-UI 中设置的所有参数都可以在代码中配置。
-
-要求：
+- 你可以将 AWS Elastic Beanstalk 配置文件（.ebextensions）添加到 Web 应用的源代码中，以配置环境并自定义其中包含的 AWS 资源。
+- 自定义内容包括定义要安装的软件包、创建 Linux 用户和组、运行 shell 命令、指定要启用的服务、配置负载均衡器等。
+- 配置文件是 YAML 或 JSON 格式的文档，扩展名为 .config，放置在名为 .ebextensions 的文件夹中，并随应用源包一起部署。
+- .ebextensions 文件夹必须包含在应用源代码包的顶层目录中。
+- UI 中设置的所有参数都可以在代码中配置。
+- 要求：
 
 - 必须位于源代码的 .ebextensions/ 目录中。
 - YAML 或 JSON 格式。
@@ -248,15 +206,13 @@ UI 中设置的所有参数都可以在代码中配置。
 
 你可以在 Elastic Beanstalk 环境内部署 Amazon RDS，如下图所示：
 
-![Elastic Beanstalk Environment with RDS](../images/2022-01-elastic-beanstalk-environment-with-rds.jpeg)
+![Elastic Beanstalk Environment with RDS](/cheat-sheets/images/2022-01-elastic-beanstalk-environment-with-rds.jpeg)
 
-但是，如果终止 Elastic Beanstalk 环境，数据库也会一并丢失。
+- 但是，如果终止 Elastic Beanstalk 环境，数据库也会一并丢失。
+- 这种方式只适用于开发环境，通常不适合生产环境。
+- 对于生产环境，最好在 Elastic Beanstalk 之外创建 Amazon RDS 数据库，如下图所示：
 
-这种方式只适用于开发环境，通常不适合生产环境。
-
-对于生产环境，最好在 Elastic Beanstalk 之外创建 Amazon RDS 数据库，如下图所示：
-
-![Elastic Beanstalk and Amazon RDS](../images/2022-01-elastic-beanstalk-and-amazon-rds.jpeg)
+![Elastic Beanstalk and Amazon RDS](/cheat-sheets/images/2022-01-elastic-beanstalk-and-amazon-rds.jpeg)
 
 从 Beanstalk 环境内的 RDS 迁移到独立 RDS 的步骤：
 
@@ -279,13 +235,10 @@ UI 中设置的所有参数都可以在代码中配置。
 
 ## 自定义域名
 
-如果你使用 AWS Elastic Beanstalk 在 AWS 云中部署和管理应用，可以使用 Amazon Route 53 将你域名（如 example.com）的 DNS 流量路由到新的或现有的 Elastic Beanstalk 环境。
-
-你需要创建 *CNAME 记录*或*alias 记录*，具体取决于环境的域名是否包含部署区域的名称（如 **us-east-2**）。新环境的域名包含区域名称；2016 年初之前创建的环境则不包含。
-
-如果域名不包含区域：创建 CNAME 记录。
-
-如果域名包含区域：创建 alias 记录。
+- 如果你使用 AWS Elastic Beanstalk 在 AWS 云中部署和管理应用，可以使用 Amazon Route 53 将你域名（如 example.com）的 DNS 流量路由到新的或现有的 Elastic Beanstalk 环境。
+- 你需要创建 *CNAME 记录*或*alias 记录*，具体取决于环境的域名是否包含部署区域的名称（如 **us-east-2**）。新环境的域名包含区域名称；2016 年初之前创建的环境则不包含。
+- 如果域名不包含区域：创建 CNAME 记录。
+- 如果域名包含区域：创建 alias 记录。
 
 ## 安全
 
@@ -303,46 +256,31 @@ Elastic Beanstalk 支持 HTTPS：
 
 ## 监控与报告
 
-Elastic Beanstalk 自动使用 [**Amazon CloudWatch**](https://digitalcloud.training/amazon-cloudwatch/) 帮助你监控应用和环境状态。
-
-你可以进入 Amazon CloudWatch 控制台查看 dashboard，总览所有资源以及告警。
-
-你还可以选择查看更多指标或添加自定义指标。
+- Elastic Beanstalk 自动使用 [**Amazon CloudWatch**](https://digitalcloud.training/amazon-cloudwatch/) 帮助你监控应用和环境状态。
+- 你可以进入 Amazon CloudWatch 控制台查看 dashboard，总览所有资源以及告警。
+- 你还可以选择查看更多指标或添加自定义指标。
 
 ## 日志与审计
 
-借助 CloudWatch Logs，你可以监控和归档来自环境中 Amazon EC2 实例的 Elastic Beanstalk 应用日志、系统日志和自定义日志文件。
-
-你还可以配置告警，以便对 metric filter 提取的特定日志流事件做出响应。
-
-环境中每个 Amazon EC2 实例上安装的 CloudWatch Logs agent，会针对你配置的每个 log group 向 CloudWatch 服务发布指标数据点。
-
-每个 log group 应用自己的 filter pattern，以决定将哪些日志流事件作为数据点发送到 CloudWatch。
-
-属于同一 log group 的日志流共享相同的保留、监控和访问控制设置。
-
-除了实例日志之外，如果你为环境启用了[**增强型健康监控**](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced.html)，还可以配置环境将健康信息流传输到 CloudWatch Logs。
+- 借助 CloudWatch Logs，你可以监控和归档来自环境中 Amazon EC2 实例的 Elastic Beanstalk 应用日志、系统日志和自定义日志文件。
+- 你还可以配置告警，以便对 metric filter 提取的特定日志流事件做出响应。
+- 环境中每个 Amazon EC2 实例上安装的 CloudWatch Logs agent，会针对你配置的每个 log group 向 CloudWatch 服务发布指标数据点。
+- 每个 log group 应用自己的 filter pattern，以决定将哪些日志流事件作为数据点发送到 CloudWatch。
+- 属于同一 log group 的日志流共享相同的保留、监控和访问控制设置。
+- 除了实例日志之外，如果你为环境启用了[**增强型健康监控**](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced.html)，还可以配置环境将健康信息流传输到 CloudWatch Logs。
 
 ## 授权与访问控制
 
-AWS Elastic Beanstalk 支持[**identity-based**](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/AWSHowTo.iam.html) policy。
-
-AWS Elastic Beanstalk 不支持 [**resource-based**](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html) policy。
-
-AWS Elastic Beanstalk 对[**resource-level**](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html)权限提供部分支持。
-
-创建环境时，AWS Elastic Beanstalk 会提示你提供两个 AWS Identity and Access Management（IAM）role：service role 和 instance profile。
-
-[**service role**](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-roles-service.html) 由 Elastic Beanstalk 扮演，用于代表你使用其他 AWS 服务。
-
-[**instance profile**](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-roles-instance.html) 应用于环境中的实例，允许它们从 Amazon Simple Storage Service（Amazon S3）检索[**application version**](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.html#concepts-version)、向 Amazon S3 上传日志，以及执行其他因环境类型和平台而异的任务。
-
-你还可以创建[**user policy**](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-roles-user.html)，并将其应用到账户中的 IAM 用户和组，以允许用户创建和管理 Elastic Beanstalk 应用与环境。Elastic Beanstalk 提供完全访问和只读访问的托管策略。
+- AWS Elastic Beanstalk 支持[**identity-based**](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/AWSHowTo.iam.html) policy。
+- AWS Elastic Beanstalk 不支持 [**resource-based**](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html) policy。
+- AWS Elastic Beanstalk 对[**resource-level**](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html)权限提供部分支持。
+- 创建环境时，AWS Elastic Beanstalk 会提示你提供两个 AWS Identity and Access Management（IAM）role：service role 和 instance profile。
+- [**service role**](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-roles-service.html) 由 Elastic Beanstalk 扮演，用于代表你使用其他 AWS 服务。
+- [**instance profile**](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-roles-instance.html) 应用于环境中的实例，允许它们从 Amazon Simple Storage Service（Amazon S3）检索[**application version**](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.html#concepts-version)、向 Amazon S3 上传日志，以及执行其他因环境类型和平台而异的任务。
+- 你还可以创建[**user policy**](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-roles-user.html)，并将其应用到账户中的 IAM 用户和组，以允许用户创建和管理 Elastic Beanstalk 应用与环境。Elastic Beanstalk 提供完全访问和只读访问的托管策略。
 
 ## 让你的技术职业生涯更上一层楼
 
-[**按需培训**](https://digitalcloud.training/plans/) —— 通过我们的点播视频课程和模拟考试轻松拿下云认证。按自己的节奏学习，通过月度或年度订阅访问我们庞大的云培训资源库！
-
-[**Cloud Mastery Bootcamp**](https://digitalcloud.training/cloud-mastery-bootcamp/) —— 通过我们的直播培训项目构建面向职场的云技能，解锁云职业机会。在经验丰富的讲师带领下，你将在 AWS、Linux、Python、Kubernetes 和 IaC 的真实项目中积累动手经验！
-
-[**Challenge Labs**](https://digitalcloud.training/hands-on-challenge-labs/) —— 在安全沙箱环境中进行基于场景的动手练习，学习、构建、测试并在失败中前进——彻底消除意外云账单的风险。探索涵盖 AWS、Azure、Linux、VMware、容器和网络安全的 1000+ 实验！
+- [**按需培训**](https://digitalcloud.training/plans/) —— 通过我们的点播视频课程和模拟考试轻松拿下云认证。按自己的节奏学习，通过月度或年度订阅访问我们庞大的云培训资源库！
+- [**Cloud Mastery Bootcamp**](https://digitalcloud.training/cloud-mastery-bootcamp/) —— 通过我们的直播培训项目构建面向职场的云技能，解锁云职业机会。在经验丰富的讲师带领下，你将在 AWS、Linux、Python、Kubernetes 和 IaC 的真实项目中积累动手经验！
+- [**Challenge Labs**](https://digitalcloud.training/hands-on-challenge-labs/) —— 在安全沙箱环境中进行基于场景的动手练习，学习、构建、测试并在失败中前进——彻底消除意外云账单的风险。探索涵盖 AWS、Azure、Linux、VMware、容器和网络安全的 1000+ 实验！

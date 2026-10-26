@@ -2,21 +2,15 @@
 title: "AWS GuardDuty"
 ---
 
-![Amazon AWS GuardDuty Services](../images/2022-01-AWS-GuardDuty-1-1024x652.png)
+![Amazon AWS GuardDuty Services](/cheat-sheets/images/2022-01-AWS-GuardDuty-1-1024x652.png)
 
-智能威胁检测服务。
-
-持续监控恶意活动，并提供详细的安全发现结果，便于查看和修复。
-
-监控 AWS 账户、工作负载以及 Amazon S3 中的数据。
-
-可检测账户失陷、实例失陷、恶意侦察和存储桶失陷。
-
-Amazon GuardDuty 让你能够使用专为云端开发和优化的内置检测技术。
-
-AWS 安全团队会持续维护和改进这些检测算法。
-
-主要的检测类别包括：
+- 智能威胁检测服务。
+- 持续监控恶意活动，并提供详细的安全发现结果，便于查看和修复。
+- 监控 AWS 账户、工作负载以及 Amazon S3 中的数据。
+- 可检测账户失陷、实例失陷、恶意侦察和存储桶失陷。
+- Amazon GuardDuty 让你能够使用专为云端开发和优化的内置检测技术。
+- AWS 安全团队会持续维护和改进这些检测算法。
+- 主要的检测类别包括：
 
 - **侦察（Reconnaissance）：** 表明攻击者正在进行侦察的活动，例如：
   - 异常的 API 活动。

@@ -2,27 +2,19 @@
 title: "AWS CloudFormation"
 ---
 
-![Amazon AWS CloudFormation Services](../images/2022-01-AWS-Cloud-Formation-1-1024x652.png)
+![Amazon AWS CloudFormation Services](/cheat-sheets/images/2022-01-AWS-Cloud-Formation-1-1024x652.png)
 
-AWS CloudFormation 是一项让你以代码形式（Infrastructure as Code）管理、配置和预置 AWS 基础设施的服务。
+- AWS CloudFormation 是一项让你以代码形式（Infrastructure as Code）管理、配置和预置 AWS 基础设施的服务。
+- AWS CloudFormation 提供了一种通用语言，用于描述和预置云环境中的所有基础设施资源。
+- 资源通过 CloudFormation 模板（template）来定义。
+- CloudFormation 解析模板，并发起相应的 API 调用来创建你定义的资源。
+- 支持 YAML 或 JSON 格式。
+- CloudFormation 可用于预置范围广泛的 AWS 资源。
+- 可以把 CloudFormation 理解为以代码方式部署基础设施。
+- CloudFormation 与 AWS Elastic Beanstalk 有一些相似之处，但两者也有明显区别，详见下表：
 
-AWS CloudFormation 提供了一种通用语言，用于描述和预置云环境中的所有基础设施资源。
-
-资源通过 CloudFormation 模板（template）来定义。
-
-CloudFormation 解析模板，并发起相应的 API 调用来创建你定义的资源。
-
-支持 YAML 或 JSON 格式。
-
-CloudFormation 可用于预置范围广泛的 AWS 资源。
-
-可以把 CloudFormation 理解为以代码方式部署基础设施。
-
-CloudFormation 与 AWS Elastic Beanstalk 有一些相似之处，但两者也有明显区别，详见下表：
-
-|  |  |
-| --- | --- |
 | **CloudFormation** | **Elastic Beanstalk** |
+| --- | --- |
 | “模板驱动的资源预置” | “让 Web 应用部署变简单” |
 | 使用代码部署基础设施 | 在 EC2 上部署应用（PaaS） |
 | 几乎可部署任何 AWS 服务 | 部署基于 Java、.NET、PHP、Node.js、Python、Ruby、Go 和 Docker 的 Web 应用 |
@@ -31,25 +23,19 @@ CloudFormation 与 AWS Elastic Beanstalk 有一些相似之处，但两者也有
 
 ## 主要优势
 
-基础设施以一致的方式预置，减少（人为）错误。
-
-相比手动配置资源，节省时间和精力。
-
-CloudFormation 模板可以使用版本控制和同行评审（peer review）。
-
-免费使用（只对预置的资源收费）。
-
-可用于管理更新和依赖关系。
-
-也可以用于回滚和删除整个 stack。
+- 基础设施以一致的方式预置，减少（人为）错误。
+- 相比手动配置资源，节省时间和精力。
+- CloudFormation 模板可以使用版本控制和同行评审（peer review）。
+- 免费使用（只对预置的资源收费）。
+- 可用于管理更新和依赖关系。
+- 也可以用于回滚和删除整个 stack。
 
 ## 核心概念
 
 下表介绍与 AWS CloudFormation 相关的核心概念：
 
-|  |  |
-| --- | --- |
 | **组件** | **说明** |
+| --- | --- |
 | Templates（模板） | 包含构建 AWS 环境指令的 JSON 或 YAML 文本文件 |
 | Stacks（堆栈） | 由模板描述的整个环境，作为单个单元进行创建、更新和删除 |
 | StackSets | AWS CloudFormation StackSets 扩展了 stack 的功能，让你能够通过单次操作跨多个账户和区域创建、更新或删除 stack |
@@ -58,17 +44,12 @@ CloudFormation 模板可以使用版本控制和同行评审（peer review）。
 
 ## 模板（Templates）
 
-模板是用于描述你要预置或变更的基础设施最终状态的 YAML 或 JSON 文件。
-
-创建模板后，可以直接上传到 CloudFormation，或通过 Amazon S3 上传。
-
-CloudFormation 读取模板并代替你发起 API 调用。
-
-最终创建出来的资源集合称为一个“Stack”。
-
-逻辑 ID（Logical ID）用于在模板内部引用资源。
-
-物理 ID（Physical ID）用于在 AWS CloudFormation 模板之外标识资源，但只有在资源创建之后才存在。
+- 模板是用于描述你要预置或变更的基础设施最终状态的 YAML 或 JSON 文件。
+- 创建模板后，可以直接上传到 CloudFormation，或通过 Amazon S3 上传。
+- CloudFormation 读取模板并代替你发起 API 调用。
+- 最终创建出来的资源集合称为一个“Stack”。
+- 逻辑 ID（Logical ID）用于在模板内部引用资源。
+- 物理 ID（Physical ID）用于在 AWS CloudFormation 模板之外标识资源，但只有在资源创建之后才存在。
 
 ### 模板元素
 
@@ -107,9 +88,8 @@ CloudFormation 读取模板并代替你发起 API 调用。
 - 为 CloudFormation 模板提供输入。
 - 有利于模板复用。
 
-下面的示例声明了一个名为 InstanceTypeParameter 的参数。该参数让你在创建或更新 stack 时指定要使用的 Amazon EC2 实例类型。
-
-***注意：****InstanceTypeParameter 的默认值是 t2.micro。除非提供其他值，否则 AWS CloudFormation 会使用该值来预置 stack。*
+- 下面的示例声明了一个名为 InstanceTypeParameter 的参数。该参数让你在创建或更新 stack 时指定要使用的 Amazon EC2 实例类型。
+- ***注意：****InstanceTypeParameter 的默认值是 t2.micro。除非提供其他值，否则 AWS CloudFormation 会使用该值来预置 stack。*
 
 ```
 Parameters: 
@@ -125,9 +105,8 @@ Parameters:
 
 ### 伪参数（Pseudo Parameters）
 
-伪参数是由 AWS CloudFormation 预定义的参数，无需在模板中声明。用法与普通参数相同，可作为 Ref 函数的参数。
-
-例如：
+- 伪参数是由 AWS CloudFormation 预定义的参数，无需在模板中声明。用法与普通参数相同，可作为 Ref 函数的参数。
+- 例如：
 
 - AWS::AccountId —— 返回正在创建 stack 的 AWS 账户 ID。
 - AWS::NotificationARNs —— 返回当前 stack 的通知 Amazon Resource Name（ARN）列表。
@@ -204,13 +183,10 @@ Conditions:
 
 ### 转换（Transform）
 
-可选的 Transform 段指定一个或多个宏（macro），AWS CloudFormation 用它们来处理你的模板。
-
-Transform 段可用于引用存储在 S3 中的额外代码，例如 Lambda 代码或可复用的 CloudFormation 代码片段。
-
-AWS::Serverless 转换是由 AWS CloudFormation 托管的宏，它接收用 AWS Serverless Application Model（AWS SAM）语法编写的整个模板，并将其转换、展开为合规的 AWS CloudFormation 模板。
-
-在下面的示例中，模板使用 AWS SAM 语法简化了 Lambda 函数及其执行角色的声明：
+- 可选的 Transform 段指定一个或多个宏（macro），AWS CloudFormation 用它们来处理你的模板。
+- Transform 段可用于引用存储在 S3 中的额外代码，例如 Lambda 代码或可复用的 CloudFormation 代码片段。
+- AWS::Serverless 转换是由 AWS CloudFormation 托管的宏，它接收用 AWS Serverless Application Model（AWS SAM）语法编写的整个模板，并将其转换、展开为合规的 AWS CloudFormation 模板。
+- 在下面的示例中，模板使用 AWS SAM 语法简化了 Lambda 函数及其执行角色的声明：
 
 ```
 Transform: AWS::Serverless-2016-10-31
@@ -232,11 +208,9 @@ Resources:
 
 ### 内置函数（Intrinsic Functions）
 
-AWS CloudFormation 提供了若干内置函数，帮助你管理 stack。在模板中使用内置函数，可以为那些直到运行时才可知的属性赋值。
-
-***考试提示：****至少要掌握下面列出的内置函数。完整列表见：https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html*
-
-**Ref**
+- AWS CloudFormation 提供了若干内置函数，帮助你管理 stack。在模板中使用内置函数，可以为那些直到运行时才可知的属性赋值。
+- ***考试提示：****至少要掌握下面列出的内置函数。完整列表见：https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html*
+- **Ref**
 
 - Fn::Ref（YAML 中写作 !Ref）。
 - 内置函数 Ref 返回指定参数或资源的值。
@@ -402,13 +376,10 @@ Name: !Sub
 
 ### Stack
 
-基于模板部署的资源集合。
-
-使用模板创建、更新和删除 stack。
-
-可通过 Management Console、CLI 或 API 部署。
-
-Stack 创建出错时：
+- 基于模板部署的资源集合。
+- 使用模板创建、更新和删除 stack。
+- 可通过 Management Console、CLI 或 API 部署。
+- Stack 创建出错时：
 
 - 出错自动回滚默认开启。
 - 即使出错，已预置的资源仍会收费。
@@ -422,25 +393,18 @@ Stack 创建出错时：
 
 ### Stack Set
 
-AWS CloudFormation StackSets 扩展了 stack 的功能，让你能够通过单次操作跨多个账户和区域创建、更新或删除 stack。
-
-使用管理员账户定义和管理一个 AWS CloudFormation 模板，并以该模板为基础，在指定区域的选定目标账户中预置 stack。
-
-管理员账户（administrator account）是你创建 stack set 的 AWS 账户。
-
-stack set 通过登录创建它的 AWS 管理员账户来管理。
-
-目标账户（target account）是你在其中创建、更新或删除 stack set 中一个或多个 stack 的账户。
-
-在使用 stack set 向目标账户创建 stack 之前，必须在管理员账户和目标账户之间建立信任关系（trust relationship）。
+- AWS CloudFormation StackSets 扩展了 stack 的功能，让你能够通过单次操作跨多个账户和区域创建、更新或删除 stack。
+- 使用管理员账户定义和管理一个 AWS CloudFormation 模板，并以该模板为基础，在指定区域的选定目标账户中预置 stack。
+- 管理员账户（administrator account）是你创建 stack set 的 AWS 账户。
+- stack set 通过登录创建它的 AWS 管理员账户来管理。
+- 目标账户（target account）是你在其中创建、更新或删除 stack set 中一个或多个 stack 的账户。
+- 在使用 stack set 向目标账户创建 stack 之前，必须在管理员账户和目标账户之间建立信任关系（trust relationship）。
 
 ### 嵌套 Stack（Nested Stacks）
 
-嵌套 stack 允许对常见场景的 CloudFormation 代码进行复用。
-
-例如负载均衡器、Web 服务器、应用服务器等的标准配置。
-
-不必每次复制代码，而是为每个常见场景创建一个标准模板，然后在你的 CloudFormation 模板中引用它。
+- 嵌套 stack 允许对常见场景的 CloudFormation 代码进行复用。
+- 例如负载均衡器、Web 服务器、应用服务器等的标准配置。
+- 不必每次复制代码，而是为每个常见场景创建一个标准模板，然后在你的 CloudFormation 模板中引用它。
 
 ## 最佳实践
 
@@ -453,23 +417,17 @@ AWS 提供了 Python“辅助脚本（helper scripts）”，可帮助你在 EC2
 
 ## Serverless Application Model（SAM）
 
-使用 SAM 通过 CloudFormation 部署无服务器（serverless）应用。
-
-SAM 是 CloudFormation 的扩展，用于定义无服务器应用。
-
-用简化的语法定义无服务器资源：API、Lambda 函数、DynamoDB 表等。
-
-使用 SAM CLI 打包部署代码、上传到 S3 并部署你的无服务器应用。
+- 使用 SAM 通过 CloudFormation 部署无服务器（serverless）应用。
+- SAM 是 CloudFormation 的扩展，用于定义无服务器应用。
+- 用简化的语法定义无服务器资源：API、Lambda 函数、DynamoDB 表等。
+- 使用 SAM CLI 打包部署代码、上传到 S3 并部署你的无服务器应用。
 
 ## EC2 的 User Data
 
-User data 可以包含在 CloudFormation 中。
-
-脚本通过 Fn::Base64 传入。
-
-user data 脚本日志存储在 /var/log/cloud-init-output.log。
-
-在 Amazon EC2 上，二进制文件位于 /opt/aws/bin/cfn-init。
+- User data 可以包含在 CloudFormation 中。
+- 脚本通过 Fn::Base64 传入。
+- user data 脚本日志存储在 /var/log/cloud-init-output.log。
+- 在 Amazon EC2 上，二进制文件位于 /opt/aws/bin/cfn-init。
 
 ## CloudFormation 辅助脚本
 
@@ -529,9 +487,8 @@ WaitCondition：
 - 将 stack 资源创建与 stack 创建之外的配置操作进行协调。
 - 跟踪配置过程的状态。
 
-UpdatePolicy 属性（WaitOnResourceSignals）
-
-使用 UpdatePolicy 属性指定 AWS CloudFormation 如何处理以下资源的更新：
+- UpdatePolicy 属性（WaitOnResourceSignals）
+- 使用 UpdatePolicy 属性指定 AWS CloudFormation 如何处理以下资源的更新：
 
 - [**AWS::AutoScaling::AutoScalingGroup**](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html)，
 - [**AWS::ElastiCache::ReplicationGroup**](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup)
@@ -556,27 +513,21 @@ Stack 更新失败：
 
 ## 监控与报告
 
-你可以通过查看 stack 事件来监控 stack 更新的进度。控制台的 **Events** 标签页按事件时间排序显示 stack 创建和更新过程中的每个主要步骤，最新的事件排在最上面。
-
-对于由 CloudFormation 创建的资源，使用适用于对应服务的 AWS 监控和报告工具。
+- 你可以通过查看 stack 事件来监控 stack 更新的进度。控制台的 **Events** 标签页按事件时间排序显示 stack 创建和更新过程中的每个主要步骤，最新的事件排在最上面。
+- 对于由 CloudFormation 创建的资源，使用适用于对应服务的 AWS 监控和报告工具。
 
 ## 授权与访问控制
 
-你可以将 IAM 与 AWS CloudFormation 结合使用，控制用户对 AWS CloudFormation 可以执行的操作，例如是否可以查看 stack 模板、创建 stack 或删除 stack。
-
-除了 AWS CloudFormation 的操作外，你还可以管理每个用户可以使用哪些 AWS 服务和资源。
-
-这样，你就可以控制用户在使用 AWS CloudFormation 时能访问哪些资源。
-
-例如，你可以指定哪些用户可以创建 Amazon EC2 实例、终止数据库实例或更新 VPC。当他们通过 AWS CloudFormation 执行这些操作时，会应用相同的权限。
+- 你可以将 IAM 与 AWS CloudFormation 结合使用，控制用户对 AWS CloudFormation 可以执行的操作，例如是否可以查看 stack 模板、创建 stack 或删除 stack。
+- 除了 AWS CloudFormation 的操作外，你还可以管理每个用户可以使用哪些 AWS 服务和资源。
+- 这样，你就可以控制用户在使用 AWS CloudFormation 时能访问哪些资源。
+- 例如，你可以指定哪些用户可以创建 Amazon EC2 实例、终止数据库实例或更新 VPC。当他们通过 AWS CloudFormation 执行这些操作时，会应用相同的权限。
 
 ## 计费
 
-AWS CloudFormation 本身不额外收费。
-
-通过 AWS CloudFormation 创建的 AWS 资源（如 Amazon EC2 实例、Elastic Load Balancing 负载均衡器等）按你手动创建时相同的方式计费。
-
-你只需按实际用量付费；没有最低费用，也不需要预付款承诺。
+- AWS CloudFormation 本身不额外收费。
+- 通过 AWS CloudFormation 创建的 AWS 资源（如 Amazon EC2 实例、Elastic Load Balancing 负载均衡器等）按你手动创建时相同的方式计费。
+- 你只需按实际用量付费；没有最低费用，也不需要预付款承诺。
 
 ## 代码片段
 

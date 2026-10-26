@@ -6,9 +6,8 @@ title: "Exam Scenarios for AWS CloudOps Engineer Associate"
 
 ## Amazon EC2 和 AWS Lambda
 
-|  |  |
-| --- | --- |
 | **考试场景** | **解决方案** |
+| --- | --- |
 | 管理员需要检查是否有 [Amazon EC2](https://digitalcloud.training/amazon-ec2/) 实例会受到计划中的硬件维护影响 | 查看 AWS Personal Health Dashboard |
 | 计划中的硬件维护将影响一个关键 EC2 实例 | 停止并启动实例，将其迁移到不同的底层硬件 |
 | 启动 EC2 实例时遇到 InsufficientInstanceCapacity 错误 | 这意味着 AWS 目前没有足够的容量来满足该实例类型的请求。尝试换一个 AZ 或实例类型 |
@@ -17,9 +16,8 @@ title: "Exam Scenarios for AWS CloudOps Engineer Associate"
 
 ## Elastic Load Balancing 和 Auto Scaling
 
-|  |  |
-| --- | --- |
 | **考试场景** | **解决方案** |
+| --- | --- |
 | 需要设计一个高可用且安全的网站：EC2 上部署 Web 层并使用 [ALB](https://digitalcloud.training/aws-elastic-load-balancing-aws-elb/)，数据库部署在 EC2 上 | ALB 部署在公有 subnet，Web 服务器部署在私有 subnet，数据库层部署在私有 subnet——所有层都跨 AZ |
 | 某个 ALB 的 HealthyHostCount 指标从 6 降到 2，需要确定原因 | 目标 EC2 实例的健康检查失败 |
 | 挂载在 ALB 下的某个实例连续健康检查失败次数超过 UnhealthyThresholdCount，会发生什么？ | 健康检查会继续进行，ALB 会将该实例移出服务 |
@@ -28,9 +26,8 @@ title: "Exam Scenarios for AWS CloudOps Engineer Associate"
 
 ## Amazon EBS、EFS 和 AWS Storage Gateway
 
-|  |  |
-| --- | --- |
 | **考试场景** | **解决方案** |
+| --- | --- |
 | 用户删除了 [Amazon EBS](https://digitalcloud.training/amazon-ebs/) 卷中的一些数据，且有一个最近的快照 | 可以从快照创建一个新的 EBS 卷，挂载到实例上，然后把被删除的文件拷贝回来 |
 | EBS 卷空间耗尽，需要防止再次发生 | 在 EC2 上使用 CloudWatch agent，并通过 CloudWatch alarm 监控磁盘指标 |
 | 办公室需要对镜像文件的低延迟访问，并同步备份到异地。需要本地访问能力和灾难恢复 | 使用配置为 stored volume 的 [AWS Storage Gateway](https://digitalcloud.training/aws-storage-gateway/) volume gateway |
@@ -39,9 +36,8 @@ title: "Exam Scenarios for AWS CloudOps Engineer Associate"
 
 ## AWS Systems Manager
 
-|  |  |
-| --- | --- |
 | **考试场景** | **解决方案** |
+| --- | --- |
 | 运行在 EC2 上的应用需要数据库登录凭证，凭证以 secure string 形式存储在 SSM Parameter Store 中 | 为实例创建一个 IAM role，并授予读取参数的权限 |
 | Linux 实例通过 [Systems Manager Patch Manager](https://digitalcloud.training/aws-systems-manager/) 打补丁。打补丁期间应用变慢 | 调整维护窗口，每次只给 patch group 中 10% 的实例打补丁 |
 | 自定义 Linux AMI 配合 AWS Systems Manager 使用，但在 Session Manager 控制台中找不到实例 | 需要为 instance profile 添加权限，并在实例上安装 SSM agent |
@@ -50,9 +46,8 @@ title: "Exam Scenarios for AWS CloudOps Engineer Associate"
 
 ## AWS CloudFormation
 
-|  |  |
-| --- | --- |
 | **考试场景** | **解决方案** |
+| --- | --- |
 | 需要在生产环境部署之前审查 [AWS CloudFormation](https://digitalcloud.training/aws-cloudformation/) stack 的更新 | 使用 change set |
 | stack 部署后被手动修改过，需要捕获这些更改并更新模板 | 使用 drift detection，并利用其输出更新模板后重新部署 stack |
 | 需要更新 EC2 和 ALB 上的应用新版本。必须避免 DNS 变更，且能够回滚 | 在模板中使用 AutoScalingReplacingUpdate 策略并执行更新 |
@@ -61,9 +56,8 @@ title: "Exam Scenarios for AWS CloudOps Engineer Associate"
 
 ## Amazon Virtual Private Cloud (VPC)
 
-|  |  |
-| --- | --- |
 | **考试场景** | **解决方案** |
+| --- | --- |
 | 需要找出通过 NAT gateway 产生流量最多的实例 | 在 NAT gateway 的 ENI 上使用 [VPC flow log](https://digitalcloud.training/amazon-vpc/)，并用 CloudWatch Insights 按源 IP 地址过滤 |
 | NAT 实例的延迟上升，需要一个能随需求扩展且具有成本效益的解决方案 | 换成 NAT gateway |
 | NAT gateway 不能跨 AZ 高可用，只能在单个 AZ 内高可用 | 使用多个 NAT gateway 实现跨 AZ 的高可用 |
@@ -72,9 +66,8 @@ title: "Exam Scenarios for AWS CloudOps Engineer Associate"
 
 ## Amazon Route 53
 
-|  |  |
-| --- | --- |
 | **考试场景** | **解决方案** |
+| --- | --- |
 | 使用 [Route 53](https://digitalcloud.training/amazon-route-53/) 基于健康检查进行分流：返回 (2xx) 的流量到主站点，其他响应到备用站点 | 需要为每台服务器创建一条 A 记录，以及一个 HTTP（而非 TCP）健康检查 |
 | Route 53 健康检查对“/html”使用字符串匹配，告警显示健康检查失败 | 搜索字符串必须完整出现在响应体的前 5,120 字节内 |
 | 需要让网站促销内容只对特定国家的用户可见 | 使用 Route 53 geolocation 路由策略 |
@@ -83,9 +76,8 @@ title: "Exam Scenarios for AWS CloudOps Engineer Associate"
 
 ## Amazon S3 和 CloudFront
 
-|  |  |
-| --- | --- |
 | **考试场景** | **解决方案** |
+| --- | --- |
 | [Amazon S3](https://digitalcloud.training/amazon-s3-and-glacier/) 上的静态网站使用自定义域名 | 要求 bucket 名称与 Route 53 中的 DNS 名称/记录集名称一致 |
 | 新网站在数千用户访问时出现 503 错误 | 请求速率过高 |
 | bucket 控制台与 CloudWatch 中的对象数量不一致 | 使用 Amazon S3 Inventory 来准确确定 bucket 中的对象数量 |
@@ -94,9 +86,8 @@ title: "Exam Scenarios for AWS CloudOps Engineer Associate"
 
 ## Amazon RDS 和 ElastiCache
 
-|  |  |
-| --- | --- |
 | **考试场景** | **解决方案** |
+| --- | --- |
 | multi-AZ 数据库发生了自动故障转移 | 可能是主数据库的存储故障，或者实例类型被更改过 |
 | 需要加密一个未加密的 RDS 数据库 | 拍摄快照，加密快照，然后从快照恢复出一个新的加密实例 |
 | [RDS 数据库](https://digitalcloud.training/amazon-rds/)查询延迟高，CPU 利用率达 100% | 使用更大的实例类型向上扩展 |
@@ -105,9 +96,8 @@ title: "Exam Scenarios for AWS CloudOps Engineer Associate"
 
 ## 管理、治理与计费
 
-|  |  |
-| --- | --- |
 | **考试场景** | **解决方案** |
+| --- | --- |
 | 审计联合身份用户向 [AWS Organizations](https://digitalcloud.training/aws-organizations/) 发起的创建新账户请求 | 使用 CloudTrail，查找联合身份用户名 |
 | 员工创建了不受管控的个人 AWS 账户。安全团队需要将它们纳入 AWS Organizations | 从中心组织向每个账户发送邀请 |
 | 需要限制特定团队/账户启动特定实例类型的能力 | 使用 Organizations SCP 拒绝启动非 T2 的实例类型，并在账户中创建 IAM group，向相关用户授予 T2 实例的访问权限 |
@@ -116,13 +106,10 @@ title: "Exam Scenarios for AWS CloudOps Engineer Associate"
 
 ## 安全与合规
 
-|  |  |
-| --- | --- |
 | **考试场景** | **解决方案** |
+| --- | --- |
 | 公司希望强制用户定期更改密码 | 创建 [IAM password policy](https://digitalcloud.training/aws-iam/) 并启用密码过期 |
 | 需要基于源 IP 范围限制对某个 bucket 的访问 | 使用带有 "Condition": "NotIpAddress": 语句的 bucket policy |
 | 需要控制对具有特定标签的一组 EC2 实例的访问 | 使用带 condition 元素的 IAM policy，基于标签授予访问权限，并将该 IAM policy 附加到需要访问权限的用户或组 |
 | SQS 队列的 IAM policy 权限过大。谁负责纠正该问题？ | 根据 AWS 责任共担模型，这是客户的责任 |
 | 数据使用 [AWS KMS](https://digitalcloud.training/aws-cloudhsm/) 客户托管 CMK 加密。需要启用轮换，同时确保数据仍然可读 | 直接在 AWS KMS 中为该 CMK 启用密钥轮换即可（轮换的是 backing key，data key 不变） |
-
-你可以通过我们针对 [AWS CloudOps Engineer Associate](https://digitalcloud.training/aws-certified-cloudops-engineer-associate/) 考试的热门培训课程，掌握通过这门高难度考试所需的全部知识。课程包含更多 AWS CloudOps 考试场景、260 道练习题以及超过 14 小时的点播视频。立即报名！

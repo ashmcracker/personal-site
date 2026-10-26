@@ -2,7 +2,7 @@
 title: "AWS CloudHSM"
 ---
 
-![AWS CloudHSM](../images/2022-01-AWS-CloudHSM.png)
+![AWS CloudHSM](/cheat-sheets/images/2022-01-AWS-CloudHSM.png)
 
 ## 一、什么是 AWS CloudHSM？
 
@@ -36,7 +36,7 @@ AWS CloudHSM 可与 [AWS CloudTrail](https://aws.amazon.com/cloudtrail/) 和 [Am
 
 ## 四、AWS CloudHSM 定价
 
-![AWS CloudHSM Pricing Table](../images/2023-05-AWS-CloudHSM-Pricing-Table-1024x219.png)
+![AWS CloudHSM Pricing Table](/cheat-sheets/images/2023-05-AWS-CloudHSM-Pricing-Table-1024x219.png)
 
 请注意，实际费用会因不同区域和具体使用模式而有所差异。最准确、最新的信息请始终以 [AWS 官方定价页面](https://aws.amazon.com/pricing/?nc2=h_ql_pr_ln&aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all)为准。
 
@@ -58,7 +58,7 @@ AWS CloudHSM 支持对静态数据（data at rest）进行加密，为敏感数�
 
 ### A. AWS KMS 和 AWS CloudHSM 有什么区别？
 
-![AWS KMS and AWS CloudHSM Comparison Table](../images/2023-05-AWS-KMS-and-AWS-CloudHSM-Comparison-Table-1024x403.png)
+![AWS KMS and AWS CloudHSM Comparison Table](/cheat-sheets/images/2023-05-AWS-KMS-and-AWS-CloudHSM-Comparison-Table-1024x403.png)
 
 ### B. 什么时候应该用 AWS CloudHSM 而不是 AWS KMS？
 
